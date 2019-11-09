@@ -18,17 +18,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		UserBuilder users = User.withDefaultPasswordEncoder();
 		
 		auth.inMemoryAuthentication()
-			.withUser(users.username("test").password("abc123").roles("EMPLOYEE"))
-			.withUser(users.username("admin").password("abc123").roles("EMPLOYEE", "ADMIN"));
+			.withUser(users.username("test").password("abc123").roles("EMPLOYEE"));
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-			.antMatchers("/**").hasRole("EMPLOYEE")
-			.antMatchers("/resources/**").permitAll()
+			.antMatchers("/api/users/**").permitAll()
 			.and()
-			.httpBasic();
+			.httpBasic()
+			//TODO usunąć finalnie
+			.and()
+			.csrf().disable();
 	}
 	
 	
