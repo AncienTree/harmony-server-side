@@ -8,6 +8,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 
+/**
+ * @author Mateusz Dąbek
+ * Created on Nov 11, 2019
+ * m.dabek@entpoint.pl
+ */
+
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {

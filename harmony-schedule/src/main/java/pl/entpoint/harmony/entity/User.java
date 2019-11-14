@@ -1,11 +1,26 @@
 package pl.entpoint.harmony.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+/**
+ * @author Mateusz Dąbek
+ * Created on Nov 11, 2019
+ * m.dabek@entpoint.pl
+ */
 
 @Entity
 @Table(name = "user")
@@ -13,36 +28,33 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false, unique = true)
+	@Column(nullable = false, unique = true)
 	private int id;
 
-	@Column(name = "login", nullable = false, unique = true)
+	@Column(nullable = false, unique = true)
 	private String login;
 
-	@Column(name = "password", nullable = false)
+	@Column(nullable = false)
 	private String password;
 
-	@Column(name = "status", nullable = false)
+	@Column(nullable = false)
 	private boolean status;
 
-	// TODO OneToMany z klasą Roles
-	@Column(name = "role", nullable = false)
-	private int role;
+	@Column(nullable = false)
+	@ManyToMany(cascade = CascadeType.MERGE)
+	@JoinTable(
+			name = "user_role",
+			joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+			inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+	private List<Roles> role;
 
-	// TODO OneToOne z klasą Employee
-	@Column(name = "employee_id", nullable = false, unique = true)
-	private int employeeId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id")
+	private Employee employeeId;
 	
 	public User() {
 	}
 
-	public User(String login, String password, boolean status, int role, int employeeId) {
-		this.login = login;
-		this.password = password;
-		this.status = status;
-		this.role = role;
-		this.employeeId = employeeId;
-	}
 
 	public int getId() {
 		return id;
@@ -76,19 +88,20 @@ public class User {
 		this.status = status;
 	}
 
-	public int getRole() {
+		public List<Roles> getRole() {
 		return role;
 	}
 
-	public void setRole(int role) {
+
+	public void setRole(List<Roles> role) {
 		this.role = role;
 	}
 
-	public int getEmployeeId() {
+	public Employee getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(int employeeId) {
+	public void setEmployeeId(Employee employeeId) {
 		this.employeeId = employeeId;
 	}
 
@@ -102,11 +115,11 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + employeeId;
+		result = prime * result + ((employeeId == null) ? 0 : employeeId.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + role;
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + (status ? 1231 : 1237);
 		return result;
 	}
@@ -120,7 +133,10 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (employeeId != other.employeeId)
+		if (employeeId == null) {
+			if (other.employeeId != null)
+				return false;
+		} else if (!employeeId.equals(other.employeeId))
 			return false;
 		if (id != other.id)
 			return false;
@@ -131,5 +147,7 @@ public class User {
 			return false;
 		return true;
 	}
+
+	
 
 }
