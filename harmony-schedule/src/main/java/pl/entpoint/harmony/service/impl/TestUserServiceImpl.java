@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.entpoint.harmony.entity.Employee;
 import pl.entpoint.harmony.entity.User;
 import pl.entpoint.harmony.repository.TestUserRepository;
 import pl.entpoint.harmony.service.TestUserService;
@@ -45,5 +46,15 @@ public class TestUserServiceImpl implements TestUserService{
 		testUserRepository.deleteById(theId);
 		
 	}
+
+	@Override
+	public String getUserPesel(int id) {
+		User temp2 = getCustomer(id);
+		
+		Employee temp = temp2.getEmployeeId();
+		
+		return temp.getFirstName() + " " + temp.getLastName() + " Pesel: " + temp.getPesel();
+	}
+	
 	
 }

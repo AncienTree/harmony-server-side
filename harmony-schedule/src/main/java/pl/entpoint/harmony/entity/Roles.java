@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Mateusz Dąbek
  * Created on Nov 14, 2019
@@ -29,6 +31,7 @@ public class Roles {
 	@NotEmpty
 	private String name; 
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "role")
 	private List<User> users;
 

@@ -13,4 +13,6 @@ public interface TestUserService {
 	public User getCustomer(int theId);
 
 	public void deleteCustomer(int theId);
+	
+	public String getUserPesel(int id);
 }

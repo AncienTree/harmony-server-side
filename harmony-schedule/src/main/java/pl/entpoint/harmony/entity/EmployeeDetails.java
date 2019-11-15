@@ -9,12 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author Mateusz Dąbek
  * Created on Nov 14, 2019
  * m.dabek@entpoint.pl
  */
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "employee_details")
 public class EmployeeDetails {
@@ -43,6 +45,7 @@ public class EmployeeDetails {
 	@Column(name = "fte_start")
 	private float fteStart;
 	
+	@Column(name = "update_date")
 	private Date update;
 	
 	private int goal1;

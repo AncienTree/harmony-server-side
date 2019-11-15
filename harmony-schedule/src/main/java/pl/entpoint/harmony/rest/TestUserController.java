@@ -39,4 +39,10 @@ public class TestUserController {
 		return theUser;
 	}
 	
+	@GetMapping("/usersP/{id}")
+	public String getUserPesel(@PathVariable int id) {
+		
+		return testUserService.getUserPesel(id);
+	}
+	
 }
