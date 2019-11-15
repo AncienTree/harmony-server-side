@@ -137,42 +137,4 @@ public class EmployeeInfo {
 		this.info4 = info4;
 	}
 
-	@Override
-	public String toString() {
-		return "EmployeeInfo [id=" + id + ", agreement=" + agreement + ", ppk=" + ppk + ", headphones=" + headphones
-				+ ", locker=" + locker + ", idCard=" + idCard + ", parkingCard=" + parkingCard + ", info1=" + info1
-				+ ", info2=" + info2 + ", info3=" + info3 + ", info4=" + info4 + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (agreement ? 1231 : 1237);
-		result = prime * result + (headphones ? 1231 : 1237);
-		result = prime * result + id;
-		result = prime * result + ((idCard == null) ? 0 : idCard.hashCode());
-		result = prime * result + ((info1 == null) ? 0 : info1.hashCode());
-		result = prime * result + ((info2 == null) ? 0 : info2.hashCode());
-		result = prime * result + ((info3 == null) ? 0 : info3.hashCode());
-		result = prime * result + ((info4 == null) ? 0 : info4.hashCode());
-		result = prime * result + ((locker == null) ? 0 : locker.hashCode());
-		result = prime * result + ((parkingCard == null) ? 0 : parkingCard.hashCode());
-		result = prime * result + (ppk ? 1231 : 1237);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EmployeeInfo other = (EmployeeInfo) obj;
-		if (id != other.id)
-			return false;		
-		return true;
-	}
 }

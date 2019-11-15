@@ -98,42 +98,5 @@ public class EmployeeContactDetails {
 	public void setContactName(String contactName) {
 		this.contactName = contactName;
 	}
-
-	@Override
-	public String toString() {
-		return "EmployeeContactDetails [id=" + id + ", address=" + address + ", city=" + city + ", zipCode=" + zipCode
-				+ ", phoneNumber=" + phoneNumber + ", contactPhoneNumber=" + contactPhoneNumber + ", contactName="
-				+ contactName + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((contactName == null) ? 0 : contactName.hashCode());
-		result = prime * result + contactPhoneNumber;
-		result = prime * result + id;
-		result = prime * result + phoneNumber;
-		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EmployeeContactDetails other = (EmployeeContactDetails) obj;
-		if (id != other.id)
-			return false;
-		if (phoneNumber != other.phoneNumber)
-			return false;
-		return true;
-	}
-		
+	
 }

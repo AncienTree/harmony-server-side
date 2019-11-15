@@ -1,7 +1,5 @@
 package pl.entpoint.harmony.entity;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,12 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import pl.entpoint.harmony.entity.enums.Roles;
 
 /**
  * @author Mateusz Dąbek
@@ -44,12 +40,8 @@ public class User {
 	private boolean status;
 	
 	@Column(nullable = false)
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "user_role",
-			joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-			inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-	private List<Roles> role;
+	@Enumerated(EnumType.STRING)
+	private Roles role;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "employee_id")
@@ -90,13 +82,13 @@ public class User {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-
-		public List<Roles> getRole() {
+	
+	public Roles getRole() {
 		return role;
 	}
 
 
-	public void setRole(List<Roles> role) {
+	public void setRole(Roles role) {
 		this.role = role;
 	}
 
@@ -107,50 +99,11 @@ public class User {
 	public void setEmployeeId(Employee employeeId) {
 		this.employeeId = employeeId;
 	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", status=" + status + ", role="
-				+ role + ", employeeId=" + employeeId + "]";
+			
+	public void newUser(User user) {
+		user.setEmployeeId( new Employee() );
+		user.setRole(Roles.ROLE_USER);		
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((employeeId == null) ? 0 : employeeId.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + (status ? 1231 : 1237);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (employeeId == null) {
-			if (other.employeeId != null)
-				return false;
-		} else if (!employeeId.equals(other.employeeId))
-			return false;
-		if (id != other.id)
-			return false;
-		if (login == null) {
-			if (other.login != null)
-				return false;
-		} else if (!login.equals(other.login))
-			return false;
-		return true;
-	}
-
-	
 
 }

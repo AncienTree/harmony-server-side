@@ -20,6 +20,7 @@ public class TestUserController {
 	@Autowired
 	private TestUserService testUserService;
 
+
 	@GetMapping("/users")
 	public List<User> getListOfUsers() {
 		
@@ -34,6 +35,9 @@ public class TestUserController {
 
 	@PostMapping("/users")
 	public User addUser(@RequestBody User theUser) {
+		theUser.setId(0);
+		theUser.newUser(theUser);
+		theUser.getEmployeeId().newEmployee();
 		testUserService.saveCustomer(theUser);
 		
 		return theUser;

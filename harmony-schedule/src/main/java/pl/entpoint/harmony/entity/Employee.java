@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * @author Mateusz Dąbek
  * Created on Nov 11, 2019
@@ -30,13 +28,13 @@ public class Employee {
 	@Column(name = "id", nullable = false, unique = true)
 	private int id;
 	
-	@Column(name = "first_name", nullable = false)
+	@Column(name = "first_name")
 	private String firstName;
 	
-	@Column(name = "last_name", nullable = false)
+	@Column(name = "last_name")
 	private String lastName;
 	
-	@Column(length = 11, nullable = false)
+	@Column(length = 11)
 	private int pesel;
 
 	private String email;
@@ -84,7 +82,7 @@ public class Employee {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_leave_id")
 	private EmployeeLeave emplLeave;
-
+		
 	public Employee() {
 	}
 	
@@ -240,88 +238,13 @@ public class Employee {
 		this.emplLeave = emplLeave;
 	}
 
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", pesel=" + pesel
-				+ ", email=" + email + ", position=" + position + ", contractPosition=" + contractPosition
-				+ ", workStatus=" + workStatus + ", contractType=" + contractType + ", basicUnit=" + basicUnit
-				+ ", unit=" + unit + ", startWorkDate=" + startWorkDate + ", endWorkDate=" + endWorkDate
-				+ ", startContractDate=" + startContractDate + ", endContractDate=" + endContractDate + ", emplDetails="
-				+ emplDetails + ", emplContactDetails=" + emplContactDetails + ", emplInfo=" + emplInfo + ", emplLeave="
-				+ emplLeave + "]";
+	public void newEmployee() {
+		this.emplDetails = new EmployeeDetails();
+		this.emplContactDetails = new EmployeeContactDetails();
+		this.emplInfo = new EmployeeInfo();
+		this.emplLeave = new EmployeeLeave();
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((basicUnit == null) ? 0 : basicUnit.hashCode());
-		result = prime * result + ((contractPosition == null) ? 0 : contractPosition.hashCode());
-		result = prime * result + ((contractType == null) ? 0 : contractType.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((emplContactDetails == null) ? 0 : emplContactDetails.hashCode());
-		result = prime * result + ((emplDetails == null) ? 0 : emplDetails.hashCode());
-		result = prime * result + ((emplInfo == null) ? 0 : emplInfo.hashCode());
-		result = prime * result + ((emplLeave == null) ? 0 : emplLeave.hashCode());
-		result = prime * result + ((endContractDate == null) ? 0 : endContractDate.hashCode());
-		result = prime * result + ((endWorkDate == null) ? 0 : endWorkDate.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + pesel;
-		result = prime * result + ((position == null) ? 0 : position.hashCode());
-		result = prime * result + ((startContractDate == null) ? 0 : startContractDate.hashCode());
-		result = prime * result + ((startWorkDate == null) ? 0 : startWorkDate.hashCode());
-		result = prime * result + Float.floatToIntBits(unit);
-		result = prime * result + ((workStatus == null) ? 0 : workStatus.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Employee other = (Employee) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (emplContactDetails == null) {
-			if (other.emplContactDetails != null)
-				return false;
-		} else if (!emplContactDetails.equals(other.emplContactDetails))
-			return false;
-		if (emplDetails == null) {
-			if (other.emplDetails != null)
-				return false;
-		} else if (!emplDetails.equals(other.emplDetails))
-			return false;
-		if (emplInfo == null) {
-			if (other.emplInfo != null)
-				return false;
-		} else if (!emplInfo.equals(other.emplInfo))
-			return false;
-		if (emplLeave == null) {
-			if (other.emplLeave != null)
-				return false;
-		} else if (!emplLeave.equals(other.emplLeave))
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (pesel != other.pesel)
-			return false;
-		return true;
-	}
+	
 }
 	
 	
