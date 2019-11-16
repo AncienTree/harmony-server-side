@@ -48,8 +48,15 @@ public class User {
 	private Employee employeeId;
 	
 	public User() {
-	}
+		
+	}	
 
+	public User(String login, String password) {
+		this.login = login;
+		this.password = password;
+		this.status = true;
+		this.role = Roles.ROLE_USER;		
+	}
 
 	public int getId() {
 		return id;

@@ -34,8 +34,8 @@ public class Employee {
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@Column(length = 11)
-	private int pesel;
+	@Column(length = 11, unique = true)
+	private String pesel;
 
 	private String email;
 	
@@ -84,6 +84,17 @@ public class Employee {
 	private EmployeeLeave emplLeave;
 		
 	public Employee() {
+		this.emplDetails = new EmployeeDetails();
+		this.emplContactDetails = new EmployeeContactDetails();
+		this.emplInfo = new EmployeeInfo();
+		this.emplLeave = new EmployeeLeave();
+	}
+				
+	public Employee(String firstName, String lastName, String pesel) {	
+		this();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pesel = pesel;
 	}
 	
 	public int getId() {
@@ -110,11 +121,11 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public int getPesel() {
+	public String getPesel() {
 		return pesel;
 	}
 
-	public void setPesel(int pesel) {
+	public void setPesel(String pesel) {
 		this.pesel = pesel;
 	}
 
@@ -239,10 +250,7 @@ public class Employee {
 	}
 
 	public void newEmployee() {
-		this.emplDetails = new EmployeeDetails();
-		this.emplContactDetails = new EmployeeContactDetails();
-		this.emplInfo = new EmployeeInfo();
-		this.emplLeave = new EmployeeLeave();
+		
 	}
 	
 }

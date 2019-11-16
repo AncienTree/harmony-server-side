@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.config;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.User.UserBuilder;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = "pl.entpoint.harmony")
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
