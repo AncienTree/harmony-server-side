@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import pl.entpoint.harmony.service.TestUserService;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class TestUserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TestUserController.class);
@@ -60,7 +62,7 @@ public class TestUserController {
 		Employee theEmp = new Employee(
 				body.get("name"),
 				body.get("lastName"), 
-				body.get("pesel"));
+				Long.parseLong(body.get("pesel")));
 		theUser.setEmployeeId(theEmp);
 		testUserService.saveCustomer(theUser);
 		

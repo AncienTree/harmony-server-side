@@ -35,7 +35,7 @@ public class Employee {
 	private String lastName;
 	
 	@Column(length = 11, unique = true)
-	private String pesel;
+	private long pesel;
 
 	private String email;
 	
@@ -90,7 +90,7 @@ public class Employee {
 		this.emplLeave = new EmployeeLeave();
 	}
 				
-	public Employee(String firstName, String lastName, String pesel) {	
+	public Employee(String firstName, String lastName, long pesel) {	
 		this();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -121,11 +121,11 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public String getPesel() {
+	public long getPesel() {
 		return pesel;
 	}
 
-	public void setPesel(String pesel) {
+	public void setPesel(long pesel) {
 		this.pesel = pesel;
 	}
 
