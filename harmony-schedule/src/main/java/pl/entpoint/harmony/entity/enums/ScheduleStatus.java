@@ -6,5 +6,29 @@ package pl.entpoint.harmony.entity.enums;
  * m.dabek@entpoint.pl
  */
 public enum ScheduleStatus {
-
+	CN,
+	CH,
+	UB,
+	UK,
+	UW,
+	UZ,
+	WP,
+	OP,
+	NN
 }
+
+
+/*
+ Przykładowe statusy 
+ 
+CN	->	L4 nie potwierdzone
+CH	->	Choroba
+UB	->	Urlop bezpłatny 
+UO	->	Urlop okolicznościowy
+UW	->	Urlop wypoczynkowy
+WP	->	Dzień ustawowo wolny
+OP	->	Opieka nad dzieckiem
+UZ	->	Urlop na żądanie
+NN	->	Nieobecność nieusprawiedliwiona
+
+*/

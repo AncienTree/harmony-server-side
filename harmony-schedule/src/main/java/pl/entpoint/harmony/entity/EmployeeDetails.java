@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,11 +37,13 @@ public class EmployeeDetails {
 	@Column(name = "crm_login")
 	private String crmLogin;
 	
-	@Column(name = "user_section")
-	private String userSection;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_section")
+	private UserSection userSection;
 	
-	@Column(name = "user_line")
-	private String UserLine;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_line")
+	private UserLine UserLine;
 	
 	private float fte;
 	
@@ -93,20 +98,20 @@ public class EmployeeDetails {
 	public void setCrmLogin(String crmLogin) {
 		this.crmLogin = crmLogin;
 	}
-
-	public String getUserSection() {
+	
+	public UserSection getUserSection() {
 		return userSection;
 	}
 
-	public void setUserSection(String userSection) {
+	public void setUserSection(UserSection userSection) {
 		this.userSection = userSection;
 	}
-
-	public String getUserLine() {
+	
+	public UserLine getUserLine() {
 		return UserLine;
 	}
 
-	public void setUserLine(String userLine) {
+	public void setUserLine(UserLine userLine) {
 		UserLine = userLine;
 	}
 
