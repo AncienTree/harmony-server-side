@@ -36,7 +36,7 @@ public class TestUserController {
 		
 		return users;
 	}
-	
+		
 	@GetMapping("/users/{id}")
 	public User getUser(@PathVariable int id) {
 		

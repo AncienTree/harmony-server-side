@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Mateusz Dąbek
  * Created on Nov 11, 2019
@@ -69,18 +71,22 @@ public class Employee {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_details_id")
+	@JsonIgnore
 	private EmployeeDetails emplDetails;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "contact_details_id")
+	@JsonIgnore
 	private EmployeeContactDetails emplContactDetails;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_info_id")
+	@JsonIgnore
 	private EmployeeInfo emplInfo;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_leave_id")
+	@JsonIgnore
 	private EmployeeLeave emplLeave;
 		
 	public Employee() {

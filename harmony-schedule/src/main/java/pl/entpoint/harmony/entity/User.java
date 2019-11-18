@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import pl.entpoint.harmony.entity.enums.Roles;
 
 /**
@@ -43,8 +45,9 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private Roles role;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
+	@JsonIgnore
 	private Employee employeeId;
 	
 	public User() {
