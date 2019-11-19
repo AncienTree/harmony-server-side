@@ -1,9 +1,8 @@
 package pl.entpoint.harmony.entity;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,16 +33,18 @@ public class Schedule {
 	@Column(nullable = false, unique = true)
 	private long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id", nullable = false)
 	private Employee empl;
 	
-	@Column(nullable = false)
-	private Date date;
+	@Column(name = "work_date",nullable = false)
+	private LocalDate workDate;
 	
-	private Time in;
+	@Column(name = "start_work",nullable = false)
+	private LocalTime startWork;
 	
-	private Time out;
+	@Column(name = "end_work",nullable = false)
+	private LocalTime endWork;
 	
 	@Enumerated(EnumType.STRING)
 	private ScheduleStatus status;
@@ -71,28 +72,28 @@ public class Schedule {
 		this.empl = empl;
 	}
 
-	public Date getDate() {
-		return date;
+	public LocalDate getWorkDate() {
+		return workDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setWorkDate(LocalDate workDate) {
+		this.workDate = workDate;
+	}
+	
+	public LocalTime getStartWork() {
+		return startWork;
 	}
 
-	public Time getIn() {
-		return in;
+	public void setStartWork(LocalTime startWork) {
+		this.startWork = startWork;
 	}
 
-	public void setIn(Time in) {
-		this.in = in;
+	public LocalTime getEndWork() {
+		return endWork;
 	}
 
-	public Time getOut() {
-		return out;
-	}
-
-	public void setOut(Time out) {
-		this.out = out;
+	public void setEndWork(LocalTime endWork) {
+		this.endWork = endWork;
 	}
 
 	public ScheduleStatus getStatus() {
@@ -109,14 +110,6 @@ public class Schedule {
 
 	public void setType(ScheduleType type) {
 		this.type = type;
-	}
-	
-	/**
-	 * @param format "hh:mm:ss"
-	*/	
-	public Time setTimeAsString(String time) {
-		
-		return Time.valueOf(time);
-	}
-	
+	}	
+
 }

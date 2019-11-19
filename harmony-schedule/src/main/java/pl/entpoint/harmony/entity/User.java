@@ -49,7 +49,7 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
 	@JsonIgnore
-	private Employee employeeId;
+	private Employee employee;
 	
 	public User() {
 		
@@ -103,16 +103,16 @@ public class User {
 		this.role = role;
 	}
 
-	public Employee getEmployeeId() {
-		return employeeId;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmployeeId(Employee employeeId) {
-		this.employeeId = employeeId;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 			
 	public void newUser(User user) {
-		user.setEmployeeId( new Employee() );
+		user.setEmployee( new Employee() );
 		user.setRole(Roles.ROLE_USER);		
 	}
 

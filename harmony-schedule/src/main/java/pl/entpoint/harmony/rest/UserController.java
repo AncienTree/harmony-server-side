@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import pl.entpoint.harmony.entity.Employee;
 import pl.entpoint.harmony.entity.User;
-import pl.entpoint.harmony.service.TestUserService;
+import pl.entpoint.harmony.service.UserService;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
-public class TestUserController {
+public class UserController {
 
-	private static final Logger logger = LoggerFactory.getLogger(TestUserController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	private TestUserService testUserService;
+	private UserService testUserService;
 
 
 	@GetMapping("/users")
 	public List<User> getListOfUsers() {
-		List<User> users = testUserService.getCustomers();
+		List<User> users = testUserService.getUsers();
 		logger.info("=====> Pobieranie danych ");
 		
 		return users;
@@ -40,15 +40,15 @@ public class TestUserController {
 	@GetMapping("/users/{id}")
 	public User getUser(@PathVariable int id) {
 		
-		return testUserService.getCustomer(id);
+		return testUserService.getUser(id);
 	}
 
 	@PostMapping("/users")
 	public User addUser(@RequestBody User theUser) {
 		theUser.setId(0);
 		theUser.newUser(theUser);
-		theUser.getEmployeeId().newEmployee();
-		testUserService.saveCustomer(theUser);
+		theUser.getEmployee().newEmployee();
+		testUserService.createUser(theUser);
 		
 		return theUser;
 	}
@@ -63,16 +63,10 @@ public class TestUserController {
 				body.get("name"),
 				body.get("lastName"), 
 				Long.parseLong(body.get("pesel")));
-		theUser.setEmployeeId(theEmp);
-		testUserService.saveCustomer(theUser);
+		theUser.setEmployee(theEmp);
+		testUserService.createUser(theUser);
 		
 		return theUser;
-	}
-	
-	@GetMapping("/usersP/{id}")
-	public String getUserPesel(@PathVariable int id) {
-		
-		return testUserService.getUserPesel(id);
 	}
 	
 }

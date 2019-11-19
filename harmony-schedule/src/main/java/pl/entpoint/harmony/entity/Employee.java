@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -60,16 +60,16 @@ public class Employee {
 	private float unit; 
 	
 	@Column(name = "start_work_date")
-	private Date startWorkDate;
+	private LocalDate startWorkDate;
 	
 	@Column(name = "end_work_date")
-	private Date endWorkDate;
+	private LocalDate endWorkDate;
 	
 	@Column(name = "start_contract_date")
-	private Date startContractDate;
+	private LocalDate startContractDate;
 	
 	@Column(name = "end_contract_date")
-	private Date endContractDate;
+	private LocalDate endContractDate;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_details_id")
@@ -197,35 +197,35 @@ public class Employee {
 		this.unit = unit;
 	}
 
-	public Date getStartWorkDate() {
+	public LocalDate getStartWorkDate() {
 		return startWorkDate;
 	}
 
-	public void setStartWorkDate(Date startWorkDate) {
+	public void setStartWorkDate(LocalDate startWorkDate) {
 		this.startWorkDate = startWorkDate;
 	}
 
-	public Date getEndWorkDate() {
+	public LocalDate getEndWorkDate() {
 		return endWorkDate;
 	}
 
-	public void setEndWorkDate(Date endWorkDate) {
+	public void setEndWorkDate(LocalDate endWorkDate) {
 		this.endWorkDate = endWorkDate;
 	}
 
-	public Date getStartContractDate() {
+	public LocalDate getStartContractDate() {
 		return startContractDate;
 	}
 
-	public void setStartContractDate(Date startContractDate) {
+	public void setStartContractDate(LocalDate startContractDate) {
 		this.startContractDate = startContractDate;
 	}
 
-	public Date getEndContractDate() {
+	public LocalDate getEndContractDate() {
 		return endContractDate;
 	}
 
-	public void setEndContractDate(Date endContractDate) {
+	public void setEndContractDate(LocalDate endContractDate) {
 		this.endContractDate = endContractDate;
 	}
 
