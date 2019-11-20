@@ -3,6 +3,10 @@ package pl.entpoint.harmony.rest;
 import java.util.List;
 import java.util.Map;
 
+import org.jsondoc.core.annotation.Api;
+import org.jsondoc.core.annotation.ApiMethod;
+import org.jsondoc.core.annotation.ApiPathParam;
+import org.jsondoc.core.pojo.ApiStage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,11 @@ import pl.entpoint.harmony.service.UserService;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin
+@Api(
+	name="User API",
+	description = "Do tworzenia i pobrania listy użytkowników do aplikacji",
+	stage = ApiStage.ALPHA
+)
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -30,6 +39,7 @@ public class UserController {
 
 
 	@GetMapping("/users")
+	@ApiMethod(description = "Pobiera całą listę użytkowników")
 	public List<User> getListOfUsers() {
 		List<User> users = testUserService.getUsers();
 		logger.info("=====> Pobieranie danych ");
@@ -38,7 +48,8 @@ public class UserController {
 	}
 		
 	@GetMapping("/users/{id}")
-	public User getUser(@PathVariable int id) {
+	@ApiMethod(description = "Pobiera określonego użytkownika")
+	public User getUser(@ApiPathParam(name = "Id") @PathVariable int id) {
 		
 		return testUserService.getUser(id);
 	}

@@ -88,6 +88,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
+		<!-- JSONDoc  -->
+		<dependency>
+	        <groupId>org.jsondoc</groupId>
+	        <artifactId>spring-boot-starter-jsondoc</artifactId>
+	        <version>1.2.22</version>
+		</dependency>
+		<dependency>
+	        <groupId>org.jsondoc</groupId>
+	        <artifactId>jsondoc-ui-webjar</artifactId>
+	        <version>1.2.22</version>
+		</dependency>
+		
 		<!-- Provide JUnit 5 API -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
