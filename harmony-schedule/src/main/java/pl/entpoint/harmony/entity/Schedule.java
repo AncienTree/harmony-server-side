@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import pl.entpoint.harmony.entity.enums.ScheduleStatus;
 import pl.entpoint.harmony.entity.enums.ScheduleType;
 
@@ -23,7 +25,7 @@ import pl.entpoint.harmony.entity.enums.ScheduleType;
  * Created on Nov 16, 2019
  * m.dabek@entpoint.pl
  */
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 @Entity
 @Table(name = "schedule")
 public class Schedule {
@@ -50,7 +52,7 @@ public class Schedule {
 	private ScheduleStatus status;
 	
 	@Enumerated(EnumType.STRING)
-	private ScheduleType type;
+	private ScheduleType types;
 	
 	public Schedule() {
 		
@@ -104,12 +106,12 @@ public class Schedule {
 		this.status = status;
 	}
 
-	public ScheduleType getType() {
-		return type;
+	public ScheduleType getTypes() {
+		return types;
 	}
 
-	public void setType(ScheduleType type) {
-		this.type = type;
+	public void setTypes(ScheduleType types) {
+		this.types = types;
 	}	
 
 }

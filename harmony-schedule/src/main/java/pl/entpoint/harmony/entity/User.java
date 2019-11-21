@@ -32,11 +32,12 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private int id;
 
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = 50)
 	private String login;
 
+	// TODO BCrypt 
 	@JsonIgnore
-	@Column(nullable = false)
+	@Column(nullable = false, length = 68)
 	private String password;
 
 	@Column(nullable = false)

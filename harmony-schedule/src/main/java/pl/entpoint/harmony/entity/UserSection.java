@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Mateusz Dąbek
@@ -19,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * m.dabek@entpoint.pl
  */
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 @Entity
 @Table(name = "user_section")
 public class UserSection {

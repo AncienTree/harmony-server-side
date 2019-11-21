@@ -16,6 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Mateusz Dąbek
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "employees")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 public class Employee {
 	
 	@Id
@@ -32,10 +34,10 @@ public class Employee {
 	@Column(name = "id", nullable = false, unique = true)
 	private int id;
 	
-	@Column(name = "first_name")
+	@Column(name = "first_name", length = 20)
 	private String firstName;
 	
-	@Column(name = "last_name")
+	@Column(name = "last_name", length = 40)
 	private String lastName;
 	
 	@Column(length = 11, unique = true)
@@ -48,12 +50,15 @@ public class Employee {
 	@Column(name = "contract_position")
 	private String contractPosition;
 	
+	//TODO utworzyć ENUM
 	@Column(name = "work_status")
 	private String workStatus;
 	
+	//TODO Osobna tabela do konfiguracji albo ENUM
 	@Column(name = "contract_type")
 	private String contractType;
 	
+	//TODO Osobna tabela do konfiguracji 
 	@Column(name = "basic_unit")
 	private String basicUnit;
 	
@@ -73,37 +78,37 @@ public class Employee {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_details_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private EmployeeDetails emplDetails;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "contact_details_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private EmployeeContactDetails emplContactDetails;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_info_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private EmployeeInfo emplInfo;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_leave_id")
-	@JsonIgnore
+	//@JsonIgnore
 	private EmployeeLeave emplLeave;
 	
 	@OneToMany(mappedBy = "empl", fetch = FetchType.LAZY)
-	@JsonIgnore
+	//@JsonIgnore
 	private List<Schedule> schedules;
 		
 	public Employee() {
+		
+	}
+				
+	public Employee(String firstName, String lastName, long pesel) {	
 		this.emplDetails = new EmployeeDetails();
 		this.emplContactDetails = new EmployeeContactDetails();
 		this.emplInfo = new EmployeeInfo();
 		this.emplLeave = new EmployeeLeave();
-	}
-				
-	public Employee(String firstName, String lastName, long pesel) {	
-		this();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;

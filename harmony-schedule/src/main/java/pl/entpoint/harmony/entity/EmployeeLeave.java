@@ -29,6 +29,8 @@ public class EmployeeLeave {
 	
 	private int uz;
 	
+	private int additional;
+	
 	@Column(name = "last_years")
 	private int lastYears;
 
@@ -75,5 +77,14 @@ public class EmployeeLeave {
 	public void setLastYears(int lastYears) {
 		this.lastYears = lastYears;
 	}
+
+	public int getAdditional() {
+		return additional;
+	}
+
+	public void setAdditional(int additional) {
+		this.additional = additional;
+	}
+	
 
 }

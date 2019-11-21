@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,8 +31,8 @@ public class EmployeeDetails {
 	@Column(name = "lt_login")
 	private String ltLogin;
 	
-	@Column(name = "lt_id")
-	private String ltId;
+	@Column(name = "lt_id", length = 8)
+	private int ltId;
 	
 	@Column(name = "crm_login")
 	private String crmLogin;
@@ -50,8 +50,9 @@ public class EmployeeDetails {
 	@Column(name = "fte_start")
 	private float fteStart;
 	
+	//TODO automatycznie uzupelnij date przy aktualizacji danych
 	@Column(name = "update_date")
-	private Date update;
+	private LocalDate update;
 	
 	private int goal1;
 	
@@ -83,11 +84,11 @@ public class EmployeeDetails {
 		this.ltLogin = ltLogin;
 	}
 
-	public String getLtId() {
+	public int getLtId() {
 		return ltId;
 	}
 
-	public void setLtId(String ltId) {
+	public void setLtId(int ltId) {
 		this.ltId = ltId;
 	}
 
@@ -131,11 +132,11 @@ public class EmployeeDetails {
 		this.fteStart = fteStart;
 	}
 
-	public Date getUpdate() {
+	public LocalDate getUpdate() {
 		return update;
 	}
 
-	public void setUpdate(Date update) {
+	public void setUpdate(LocalDate update) {
 		this.update = update;
 	}
 

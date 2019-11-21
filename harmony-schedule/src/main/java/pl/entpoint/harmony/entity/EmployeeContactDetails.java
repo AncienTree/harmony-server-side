@@ -27,7 +27,8 @@ public class EmployeeContactDetails {
 	
 	private String city;
 	
-	@Column(name = "zip_code")
+	//TODO walidacja kodu pocztowego
+	@Column(name = "zip_code", length = 6)
 	private String zipCode;
 	
 	@Column(name = "phone_number")
