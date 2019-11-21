@@ -15,8 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * @author Mateusz Dąbek
@@ -27,6 +30,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "employees")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+@Getter @Setter @NoArgsConstructor
 public class Employee {
 	
 	@Id
@@ -99,10 +103,6 @@ public class Employee {
 	@OneToMany(mappedBy = "empl", fetch = FetchType.LAZY)
 	//@JsonIgnore
 	private List<Schedule> schedules;
-		
-	public Employee() {
-		
-	}
 				
 	public Employee(String firstName, String lastName, long pesel) {	
 		this.emplDetails = new EmployeeDetails();
@@ -113,163 +113,7 @@ public class Employee {
 		this.lastName = lastName;
 		this.pesel = pesel;
 	}
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public long getPesel() {
-		return pesel;
-	}
-
-	public void setPesel(long pesel) {
-		this.pesel = pesel;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
-	}
-
-	public String getContractPosition() {
-		return contractPosition;
-	}
-
-	public void setContractPosition(String contractPosition) {
-		this.contractPosition = contractPosition;
-	}
-
-	public String getWorkStatus() {
-		return workStatus;
-	}
-
-	public void setWorkStatus(String workStatus) {
-		this.workStatus = workStatus;
-	}
-
-	public String getContractType() {
-		return contractType;
-	}
-
-	public void setContractType(String contractType) {
-		this.contractType = contractType;
-	}
-
-	public String getBasicUnit() {
-		return basicUnit;
-	}
-
-	public void setBasicUnit(String basicUnit) {
-		this.basicUnit = basicUnit;
-	}
-
-	public float getUnit() {
-		return unit;
-	}
-
-	public void setUnit(float unit) {
-		this.unit = unit;
-	}
-
-	public LocalDate getStartWorkDate() {
-		return startWorkDate;
-	}
-
-	public void setStartWorkDate(LocalDate startWorkDate) {
-		this.startWorkDate = startWorkDate;
-	}
-
-	public LocalDate getEndWorkDate() {
-		return endWorkDate;
-	}
-
-	public void setEndWorkDate(LocalDate endWorkDate) {
-		this.endWorkDate = endWorkDate;
-	}
-
-	public LocalDate getStartContractDate() {
-		return startContractDate;
-	}
-
-	public void setStartContractDate(LocalDate startContractDate) {
-		this.startContractDate = startContractDate;
-	}
-
-	public LocalDate getEndContractDate() {
-		return endContractDate;
-	}
-
-	public void setEndContractDate(LocalDate endContractDate) {
-		this.endContractDate = endContractDate;
-	}
-
-	public EmployeeDetails getEmplDetails() {
-		return emplDetails;
-	}
-
-	public void setEmplDetails(EmployeeDetails emplDetails) {
-		this.emplDetails = emplDetails;
-	}
-
-	public EmployeeContactDetails getEmplContactDetails() {
-		return emplContactDetails;
-	}
-
-	public void setEmplContactDetails(EmployeeContactDetails emplContactDetails) {
-		this.emplContactDetails = emplContactDetails;
-	}
-
-	public EmployeeInfo getEmplInfo() {
-		return emplInfo;
-	}
-
-	public void setEmplInfo(EmployeeInfo emplInfo) {
-		this.emplInfo = emplInfo;
-	}
-
-	public EmployeeLeave getEmplLeave() {
-		return emplLeave;
-	}
-
-	public void setEmplLeave(EmployeeLeave emplLeave) {
-		this.emplLeave = emplLeave;
-	}
-
-	public void newEmployee() {
 		
-	}
-	
 }
 	
 	

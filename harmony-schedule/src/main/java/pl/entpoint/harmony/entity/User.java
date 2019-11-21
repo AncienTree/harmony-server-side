@@ -15,6 +15,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.entity.enums.Roles;
 
 /**
@@ -25,6 +29,8 @@ import pl.entpoint.harmony.entity.enums.Roles;
 
 @Entity
 @Table(name = "user")
+@Getter @Setter @NoArgsConstructor
+@Slf4j
 public class User {
 
 	@Id
@@ -51,10 +57,6 @@ public class User {
 	@JoinColumn(name = "employee_id")
 	@JsonIgnore
 	private Employee employee;
-	
-	public User() {
-		
-	}	
 
 	public User(String login, String password) {
 		this.login = login;
@@ -62,59 +64,11 @@ public class User {
 		this.status = true;
 		this.role = Roles.ROLE_USER;		
 	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	
-	public Roles getRole() {
-		return role;
-	}
-
-
-	public void setRole(Roles role) {
-		this.role = role;
-	}
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
 			
 	public void newUser(User user) {
 		user.setEmployee( new Employee() );
 		user.setRole(Roles.ROLE_USER);		
+		log.info("Stworzono nowego uzytkownika " + user.getLogin());
 	}
 
 

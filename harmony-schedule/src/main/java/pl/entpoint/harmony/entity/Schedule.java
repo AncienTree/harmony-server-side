@@ -17,6 +17,9 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pl.entpoint.harmony.entity.enums.ScheduleStatus;
 import pl.entpoint.harmony.entity.enums.ScheduleType;
 
@@ -28,6 +31,7 @@ import pl.entpoint.harmony.entity.enums.ScheduleType;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 @Entity
 @Table(name = "schedule")
+@Getter @Setter @NoArgsConstructor
 public class Schedule {
 
 	@Id
@@ -54,64 +58,4 @@ public class Schedule {
 	@Enumerated(EnumType.STRING)
 	private ScheduleType types;
 	
-	public Schedule() {
-		
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public Employee getEmpl() {
-		return empl;
-	}
-
-	public void setEmpl(Employee empl) {
-		this.empl = empl;
-	}
-
-	public LocalDate getWorkDate() {
-		return workDate;
-	}
-
-	public void setWorkDate(LocalDate workDate) {
-		this.workDate = workDate;
-	}
-	
-	public LocalTime getStartWork() {
-		return startWork;
-	}
-
-	public void setStartWork(LocalTime startWork) {
-		this.startWork = startWork;
-	}
-
-	public LocalTime getEndWork() {
-		return endWork;
-	}
-
-	public void setEndWork(LocalTime endWork) {
-		this.endWork = endWork;
-	}
-
-	public ScheduleStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(ScheduleStatus status) {
-		this.status = status;
-	}
-
-	public ScheduleType getTypes() {
-		return types;
-	}
-
-	public void setTypes(ScheduleType types) {
-		this.types = types;
-	}	
-
 }

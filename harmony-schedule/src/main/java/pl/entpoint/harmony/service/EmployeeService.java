@@ -1,5 +1,7 @@
 package pl.entpoint.harmony.service;
 
+import java.util.List;
+
 import pl.entpoint.harmony.entity.Employee;
 
 /**
@@ -8,6 +10,8 @@ import pl.entpoint.harmony.entity.Employee;
  * m.dabek@entpoint.pl
  */
 public interface EmployeeService {
+	
+	List<Employee> getEmployees();
 	
 	public Employee getEmployeeByPesel(long pesel);
 

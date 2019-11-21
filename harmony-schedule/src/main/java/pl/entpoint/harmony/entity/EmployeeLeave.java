@@ -9,6 +9,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * @author Mateusz Dąbek
  * Created on Nov 14, 2019
@@ -17,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "employee_leave")
+@Getter @Setter @NoArgsConstructor
 public class EmployeeLeave {
 
 	@Id
@@ -33,58 +38,5 @@ public class EmployeeLeave {
 	
 	@Column(name = "last_years")
 	private int lastYears;
-
-	public EmployeeLeave() {
 	
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getTotal() {
-		return total;
-	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-	public int getNormal() {
-		return normal;
-	}
-
-	public void setNormal(int normal) {
-		this.normal = normal;
-	}
-
-	public int getUz() {
-		return uz;
-	}
-
-	public void setUz(int uz) {
-		this.uz = uz;
-	}
-
-	public int getLastYears() {
-		return lastYears;
-	}
-
-	public void setLastYears(int lastYears) {
-		this.lastYears = lastYears;
-	}
-
-	public int getAdditional() {
-		return additional;
-	}
-
-	public void setAdditional(int additional) {
-		this.additional = additional;
-	}
-	
-
 }

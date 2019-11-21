@@ -14,6 +14,10 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * @author Mateusz Dąbek
  * Created on Nov 18, 2019
@@ -23,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
 @Entity
 @Table(name = "user_line")
+@Getter @Setter @NoArgsConstructor
 public class UserLine {
 
 	@Id
@@ -35,33 +40,5 @@ public class UserLine {
 	@OneToMany(mappedBy = "UserLine", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<EmployeeDetails> empl;
-	
-	public UserLine() {
-		
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<EmployeeDetails> getEmpl() {
-		return empl;
-	}
-
-	public void setEmpl(List<EmployeeDetails> empl) {
-		this.empl = empl;
-	}
-		
+			
 }

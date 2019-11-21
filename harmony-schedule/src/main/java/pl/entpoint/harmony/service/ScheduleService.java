@@ -6,5 +6,7 @@ package pl.entpoint.harmony.service;
  * m.dabek@entpoint.pl
  */
 public interface ScheduleService {
+	
+	
 
 }
