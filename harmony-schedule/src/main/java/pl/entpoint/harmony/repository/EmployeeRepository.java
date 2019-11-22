@@ -1,5 +1,7 @@
 package pl.entpoint.harmony.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,6 @@ import pl.entpoint.harmony.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
 	
-	public Employee findByPesel(long pesel);
+	public Optional<Employee> findByPesel(long pesel);
 
 }

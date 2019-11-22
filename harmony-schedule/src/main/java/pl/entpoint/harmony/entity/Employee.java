@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
@@ -101,7 +102,7 @@ public class Employee {
 	private EmployeeLeave emplLeave;
 	
 	@OneToMany(mappedBy = "empl", fetch = FetchType.LAZY)
-	//@JsonIgnore
+	@JsonIgnore
 	private List<Schedule> schedules;
 				
 	public Employee(String firstName, String lastName, long pesel) {	

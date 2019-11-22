@@ -57,17 +57,19 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean isPeselInDB(long pesel) {
-		// TODO Auto-generated method stub
+	public void changeStatus(int id, boolean status) {
+		Optional<User> result = userRepository.findById(id);
 		
-		return false;
-	}
-
-	@Override
-	public void changeStatus(int id) {
-		// TODO Auto-generated method stub
+		User theUser = null;
+		if(result.isPresent()) {
+			theUser = result.get();
+		} else {
+			throw new RuntimeException("Nie znaleziono użytkownika pod ID - " + id);
+		}
+		theUser.setStatus(status);
+		userRepository.save(theUser);
+	}		
 		
-	}
-	
-	
 }
+	
+	

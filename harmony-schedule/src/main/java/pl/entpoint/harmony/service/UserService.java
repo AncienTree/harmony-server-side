@@ -17,7 +17,5 @@ public interface UserService {
 
 	public void deleteUser(int theId);
 	
-	public boolean isPeselInDB(long pesel);
-
-	public void changeStatus(int id);
+	public void changeStatus(int id, boolean status);
 }

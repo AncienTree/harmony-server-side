@@ -14,5 +14,7 @@ public interface EmployeeService {
 	List<Employee> getEmployees();
 	
 	public Employee getEmployeeByPesel(long pesel);
+	
+	public boolean isPeselInDB(long pesel);
 
 }

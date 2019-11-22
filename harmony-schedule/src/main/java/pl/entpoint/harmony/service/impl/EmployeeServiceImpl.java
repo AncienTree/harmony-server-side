@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,26 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public Employee getEmployeeByPesel(long pesel) {
-		return emplRepository.findByPesel(pesel);
+		Optional<Employee> result = emplRepository.findByPesel(pesel);
+		
+		Employee empl = null;
+		if(result.isPresent()) {
+			empl = result.get();
+		} else {
+			throw new RuntimeException("Nie znaleziono użytkownika pod takim numerem PESEL");
+		}
+		System.out.println("====================================================================" + empl.getFirstName());
+		return empl;
 	}
-	
-	
 
+	@Override
+	public boolean isPeselInDB(long pesel) {
+		Optional<Employee> result = emplRepository.findByPesel(pesel);
+		
+		if(result.isPresent()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
