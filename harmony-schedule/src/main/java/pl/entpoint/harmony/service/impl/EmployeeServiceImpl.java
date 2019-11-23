@@ -26,6 +26,19 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> getEmployees() {
 		return emplRepository.findAll();
 	}
+	
+	@Override
+	public Employee getEmployee(int id) {
+		Optional<Employee> result = emplRepository.findById(id);
+		
+		Employee empl = null;
+		if(result.isPresent()) {
+			empl = result.get();
+		} else {
+			throw new RuntimeException("Nie znaleziono użytkownika pod takim id: " + id);
+		}
+		return empl;
+	}
 
 	@Override
 	public Employee getEmployeeByPesel(long pesel) {
@@ -37,7 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService{
 		} else {
 			throw new RuntimeException("Nie znaleziono użytkownika pod takim numerem PESEL");
 		}
-		System.out.println("====================================================================" + empl.getFirstName());
 		return empl;
 	}
 

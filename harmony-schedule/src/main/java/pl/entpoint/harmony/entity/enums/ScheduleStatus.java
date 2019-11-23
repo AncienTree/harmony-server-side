@@ -14,7 +14,8 @@ public enum ScheduleStatus {
 	UZ,
 	WP,
 	OP,
-	NN
+	NN,
+	P
 }
 
 
