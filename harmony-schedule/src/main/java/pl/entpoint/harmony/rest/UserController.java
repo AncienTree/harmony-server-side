@@ -47,7 +47,7 @@ public class UserController {
 		return users;
 	}
 		
-	@GetMapping("/user/{id}")
+	@GetMapping("/users/{id}")
 	@ApiMethod(description = "Pobiera określonego użytkownika")
 	public User getUser(@ApiPathParam(name = "Id") @PathVariable int id) {
 		//TODO zabezpieczenie przed nie znlezieniem Id
@@ -74,22 +74,25 @@ public class UserController {
 		return theUser;
 	}
 	
-	@PatchMapping("/user/{id}")
+	@PatchMapping("/users/{id}")
 	@ApiMethod(description = "Zmiana statusu loginu")
 	public void updateStatus(@ApiPathParam(name = "Status")@RequestBody boolean status,
 							@ApiPathParam(name = "Id") @PathVariable int id) {
 		//boolean active = status.get("status");
+		
 		userService.changeStatus(id, status);
 		log.info("Zmiana statusu dla id: " + id + " na status: " + status);
 	}
 	
-	@PatchMapping("/user/opt/{id}")
+	@PatchMapping("/users/opt/{id}")
 	@ApiMethod(description = "Zmiana ustawień użytkownika")
 	public void update(@ApiPathParam(name = "User")@RequestBody Map<String,Object> user,
 							@ApiPathParam(name = "Id") @PathVariable int id) {
 		User theUser = getUser(id);
 		theUser.setStatus((boolean)user.get("status"));
-		theUser.setPassword((String)user.get("password"));
+		if(!(user.get("password") == null)) {
+			theUser.setPassword((String)user.get("password"));
+		}
 		theUser.setRole(Roles.valueOf((String) user.get("role")));
 		
 		userService.createUser(theUser);
