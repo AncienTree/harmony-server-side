@@ -25,7 +25,7 @@ import pl.entpoint.harmony.service.ScheduleService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 @Api(name = "Schedule API", description = "Endpoint do pobierania czasu pracy", stage = ApiStage.ALPHA)
 public class ScheduleController {

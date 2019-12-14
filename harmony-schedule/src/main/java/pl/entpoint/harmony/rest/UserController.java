@@ -25,7 +25,7 @@ import pl.entpoint.harmony.service.UserService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 @Api(
 	name="User API",
