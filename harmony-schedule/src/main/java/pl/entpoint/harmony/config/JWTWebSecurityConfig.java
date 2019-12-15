@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import pl.entpoint.harmony.authentication.JwtDatabaseUserDetailsService;
 import pl.entpoint.harmony.authentication.JwtTokenAuthorizationOncePerRequestFilter;
 import pl.entpoint.harmony.authentication.JwtUnAuthorizedResponseAuthenticationEntryPoint;
 
@@ -30,7 +31,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtUnAuthorizedResponseAuthenticationEntryPoint jwtUnAuthorizedResponseAuthenticationEntryPoint;
  
 	@Autowired
-	private UserDetailsService jwtInMemoryUserDetailsService;
+	private UserDetailsService userDatabaseJWT;
  
 	@Autowired
 	private JwtTokenAuthorizationOncePerRequestFilter jwtAuthenticationTokenFilter;
@@ -40,7 +41,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
  
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(jwtInMemoryUserDetailsService).passwordEncoder(passwordEncoderBean());
+		auth.userDetailsService(userDatabaseJWT).passwordEncoder(passwordEncoderBean());
 	}
  
 	@Bean

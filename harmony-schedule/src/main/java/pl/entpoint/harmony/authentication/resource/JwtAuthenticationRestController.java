@@ -16,11 +16,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.entpoint.harmony.authentication.JwtDatabaseUserDetailsService;
 import pl.entpoint.harmony.authentication.JwtTokenUtil;
 import pl.entpoint.harmony.authentication.JwtUserDetails;
 
@@ -38,27 +39,27 @@ public class JwtAuthenticationRestController {
   private JwtTokenUtil jwtTokenUtil;
 
   @Autowired
-  private UserDetailsService jwtInMemoryUserDetailsService;
+  private UserDetailsService userDatabaseJWT;
 
-  @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
+  @PostMapping(value = "${jwt.get.token.uri}")
   public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
       throws AuthenticationException {
 
     authenticate(authenticationRequest.getLogin(), authenticationRequest.getPassword());
 
-    final UserDetails userDetails = jwtInMemoryUserDetailsService.loadUserByUsername(authenticationRequest.getLogin());
+    final UserDetails userDetails = userDatabaseJWT.loadUserByUsername(authenticationRequest.getLogin());
 
     final String token = jwtTokenUtil.generateToken(userDetails);
 
     return ResponseEntity.ok(new JwtTokenResponse(token));
   }
 
-  @RequestMapping(value = "${jwt.refresh.token.uri}", method = RequestMethod.GET)
+  @GetMapping(value = "${jwt.refresh.token.uri}")
   public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
     String authToken = request.getHeader(tokenHeader);
     final String token = authToken.substring(7);
     String username = jwtTokenUtil.getUsernameFromToken(token);
-    JwtUserDetails user = (JwtUserDetails) jwtInMemoryUserDetailsService.loadUserByUsername(username);
+    JwtUserDetails user = (JwtUserDetails) userDatabaseJWT.loadUserByUsername(username);
 
     if (jwtTokenUtil.canTokenBeRefreshed(token)) {
       String refreshedToken = jwtTokenUtil.refreshToken(token);
