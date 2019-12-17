@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import pl.entpoint.harmony.authentication.resource.AuthenticationException;
 import pl.entpoint.harmony.entity.User;
 import pl.entpoint.harmony.repository.UserRepository;
 
@@ -25,7 +26,9 @@ public class JwtDatabaseUserDetailsService implements UserDetailsService {
 
 		if (theUser == null) {
 			throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", username));
-		} else {
+		} else if(theUser.isStatus() == false) {
+			throw new AuthenticationException((String.format("USER_NOT_ACTIVATED '%s'.", username)), new RuntimeException());
+		} else {		
             return create(theUser);
         }
 	}

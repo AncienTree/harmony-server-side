@@ -18,7 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import pl.entpoint.harmony.authentication.JwtDatabaseUserDetailsService;
 import pl.entpoint.harmony.authentication.JwtTokenAuthorizationOncePerRequestFilter;
 import pl.entpoint.harmony.authentication.JwtUnAuthorizedResponseAuthenticationEntryPoint;
 
@@ -65,9 +64,9 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticated();
  
 		httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
- 
-		httpSecurity.headers().frameOptions().sameOrigin() // H2 Console Needs this setting
-				.cacheControl(); // disable caching
+// 
+//		httpSecurity.headers().frameOptions().sameOrigin() // H2 Console Needs this setting
+//				.cacheControl(); // disable caching
 	}
  
 	@Override
@@ -75,9 +74,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
 		webSecurity.ignoring().antMatchers(HttpMethod.POST, authenticationPath)
 				.antMatchers(HttpMethod.OPTIONS, "/**")
 				.and().ignoring()
-				.antMatchers(HttpMethod.GET, "/" // Other Stuff You want to Ignore
-				).and().ignoring()
-				.antMatchers("/h2-console/**/**");// Should not be done in Production!
+				.antMatchers(HttpMethod.GET, "/"); // Other Stuff You want to Ignore
 	}
 }
 

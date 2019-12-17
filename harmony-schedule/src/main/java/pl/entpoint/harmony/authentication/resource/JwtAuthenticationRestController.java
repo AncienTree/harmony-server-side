@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.entpoint.harmony.authentication.JwtDatabaseUserDetailsService;
 import pl.entpoint.harmony.authentication.JwtTokenUtil;
 import pl.entpoint.harmony.authentication.JwtUserDetails;
 

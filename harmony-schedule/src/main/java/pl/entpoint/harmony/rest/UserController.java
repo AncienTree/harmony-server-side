@@ -22,6 +22,7 @@ import pl.entpoint.harmony.entity.Employee;
 import pl.entpoint.harmony.entity.User;
 import pl.entpoint.harmony.entity.enums.Roles;
 import pl.entpoint.harmony.service.UserService;
+import pl.entpoint.harmony.util.BCrypt;
 
 @RestController
 @RequestMapping("/api")
@@ -62,7 +63,7 @@ public class UserController {
 		// stworzono blokade na bazie
 		User theUser = new User(
 				body.get("login"),
-				body.get("password"));
+				BCrypt.decrypt(body.get("password")));
 		theUser.setId(0);
 		Employee theEmp = new Employee(
 				body.get("name"),
@@ -91,7 +92,7 @@ public class UserController {
 		User theUser = getUser(id);
 		theUser.setStatus((boolean)user.get("status"));
 		if(!(user.get("password") == null)) {
-			theUser.setPassword((String)user.get("password"));
+			theUser.setPassword(BCrypt.decrypt((String)user.get("password")));
 		}
 		theUser.setRole(Roles.valueOf((String) user.get("role")));
 		
