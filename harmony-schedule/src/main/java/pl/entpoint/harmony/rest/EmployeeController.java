@@ -45,12 +45,12 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/employee/{pesel}")
-	@ApiMethod(description = "sprawdza czy pracownik o numerze pesel jest w bazie danych")
+	@ApiMethod(description = "Pobiera pracownika po numerze pesel")
 	public Employee getEmployeeByPesel(@ApiPathParam(name = "Pesel") @PathVariable long pesel) {
 		return emplService.getEmployeeByPesel(pesel);
 	}
 	
-	@GetMapping("/isEmpl/{pesel}")
+	@GetMapping("/employee/hr/{pesel}")
 	@ApiMethod(description = "sprawdza czy dany numer pesel jest w bazie danych")
 	public boolean isEmplInDB(@PathVariable long pesel) {
 		return emplService.isPeselInDB(pesel);
