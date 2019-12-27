@@ -27,7 +27,7 @@ public class JwtDatabaseUserDetailsService implements UserDetailsService {
 		if (theUser == null) {
 			throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", username));
 		} else if(theUser.isStatus() == false) {
-			throw new AuthenticationException((String.format("USER_NOT_ACTIVATED '%s'.", username)), new RuntimeException());
+			throw new AuthenticationException(("USER_NOT_ACTIVATED"), new RuntimeException());
 		} else {		
             return create(theUser);
         }
