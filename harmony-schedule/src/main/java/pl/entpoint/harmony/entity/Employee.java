@@ -50,6 +50,10 @@ public class Employee {
 	
 	@Column(length = 11, unique = true)
 	private long pesel;
+	
+	private char sex;
+	
+	private LocalDate birthday;
 
 	private String email;
 	
