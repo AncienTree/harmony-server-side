@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.entpoint.harmony.entity.Employee;
 import pl.entpoint.harmony.entity.User;
 import pl.entpoint.harmony.entity.enums.Roles;
 import pl.entpoint.harmony.service.UserService;
@@ -56,24 +54,24 @@ public class UserController {
 		return userService.getUser(id);
 	}
 	
-	@PostMapping("/user")
-	@ApiMethod(description = "Utworzenie nowego loginu")
-	public User createNewUser(@RequestBody Map<String, String> body) {
-		//TODO zabezpieczenie przed utworzeniem tego samego loginu
-		// stworzono blokade na bazie
-		User theUser = new User(
-				body.get("login"),
-				BCrypt.decrypt(body.get("password")));
-		theUser.setId(0);
-		Employee theEmp = new Employee(
-				body.get("name"),
-				body.get("lastName"), 
-				Long.parseLong(body.get("pesel")));
-		theUser.setEmployee(theEmp);
-		userService.createUser(theUser);
-		
-		return theUser;
-	}
+//	@PostMapping("/user")
+//	@ApiMethod(description = "Utworzenie nowego loginu")
+//	public User createNewUser(@RequestBody Map<String, String> body) {
+//		//TODO zabezpieczenie przed utworzeniem tego samego loginu
+//		// stworzono blokade na bazie
+//		User theUser = new User(
+//				body.get("login"),
+//				BCrypt.decrypt(body.get("password")));
+//		theUser.setId(0);
+//		Employee theEmp = new Employee(
+//				body.get("name"),
+//				body.get("lastName"), 
+//				Long.parseLong(body.get("pesel")));
+//		theUser.setEmployee(theEmp);
+//		userService.createUser(theUser);
+//		
+//		return theUser;
+//	}
 	
 	@PatchMapping("/users/{id}")
 	@ApiMethod(description = "Zmiana statusu loginu")

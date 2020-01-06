@@ -51,7 +51,7 @@ public class Employee {
 	@Column(length = 11, unique = true)
 	private long pesel;
 	
-	private char sex;
+	private String sex;
 	
 	private LocalDate birthday;
 
@@ -74,7 +74,7 @@ public class Employee {
 	@Column(name = "basic_unit")
 	private String basicUnit;
 	
-	private float unit; 
+	private String unit; 
 	
 	@Column(name = "start_work_date")
 	private LocalDate startWorkDate;
@@ -117,8 +117,10 @@ public class Employee {
 	@OneToMany(mappedBy = "empl", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Schedule> schedules;
-				
-	public Employee(String firstName, String lastName, long pesel) {	
+
+	public Employee(String firstName, String lastName, long pesel, String sex, LocalDate birthday, String position,
+			String contractPosition, String workStatus, String contractType, String basicUnit, String unit,
+			LocalDate startWorkDate, LocalDate startContractDate) {
 		this.emplDetails = new EmployeeDetails();
 		this.emplContactDetails = new EmployeeContactDetails();
 		this.emplInfo = new EmployeeInfo();
@@ -126,6 +128,16 @@ public class Employee {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.pesel = pesel;
+		this.sex = sex;
+		this.birthday = birthday;
+		this.position = position;
+		this.contractPosition = contractPosition;
+		this.workStatus = workStatus;
+		this.contractType = contractType;
+		this.basicUnit = basicUnit;
+		this.unit = unit;
+		this.startWorkDate = startWorkDate;
+		this.startContractDate = startContractDate;
 	}
 		
 }

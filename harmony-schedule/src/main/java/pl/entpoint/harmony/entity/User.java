@@ -1,5 +1,8 @@
 package pl.entpoint.harmony.entity;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.entity.enums.Roles;
+import pl.entpoint.harmony.util.BCrypt;
 
 /**
  * @author Mateusz Dąbek
@@ -41,7 +45,6 @@ public class User {
 	@Column(nullable = false, unique = true, length = 50)
 	private String login;
 
-	// TODO BCrypt 
 	@JsonIgnore
 	@Column(nullable = false, length = 68)
 	private String password;
@@ -62,12 +65,12 @@ public class User {
 		this.login = login;
 		this.password = password;
 		this.status = true;
-		this.role = Roles.ROLE_USER;		
+		this.role = Roles.ROLE_USER;
 	}
 			
 	public void newUser(User user) {
 		user.setEmployee( new Employee() );
-		user.setRole(Roles.ROLE_USER);		
+		user.setRole(Roles.ROLE_USER);
 		log.info("Stworzono nowego uzytkownika " + user.getLogin());
 	}
 
