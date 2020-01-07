@@ -37,7 +37,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		
 		<!-- JSON -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -95,6 +95,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
+
 		<!-- JSONDoc -->
 		<dependency>
 			<groupId>org.jsondoc</groupId>
@@ -114,13 +115,13 @@
 			<scope>provided</scope>
 		</dependency>
 
-
 		<!-- Provide JUnit 5 API -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 		<!-- and the engine for surefire and failsafe -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
