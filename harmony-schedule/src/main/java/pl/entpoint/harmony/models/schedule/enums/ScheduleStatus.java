@@ -1,0 +1,35 @@
+package pl.entpoint.harmony.models.schedule.enums;
+
+/**
+ * @author Mateusz Dąbek
+ * @created 16/11/2019
+ */
+
+public enum ScheduleStatus {
+    CN,
+    CH,
+    UB,
+    UK,
+    UW,
+    UZ,
+    WP,
+    OP,
+    NN,
+    P
+}
+
+
+/*
+ Przykładowe statusy 
+ 
+CN	->	L4 nie potwierdzone
+CH	->	Choroba
+UB	->	Urlop bezpłatny 
+UO	->	Urlop okolicznościowy
+UW	->	Urlop wypoczynkowy
+WP	->	Dzień ustawowo wolny
+OP	->	Opieka nad dzieckiem
+UZ	->	Urlop na żądanie
+NN	->	Nieobecność nieusprawiedliwiona
+
+*/

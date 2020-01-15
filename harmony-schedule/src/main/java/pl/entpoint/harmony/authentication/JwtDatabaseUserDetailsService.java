@@ -11,30 +11,34 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.authentication.resource.AuthenticationException;
-import pl.entpoint.harmony.entity.User;
-import pl.entpoint.harmony.repository.UserRepository;
+import pl.entpoint.harmony.models.user.User;
+import pl.entpoint.harmony.service.user.UserRepository;
 
 @Service
 public class JwtDatabaseUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UserRepository userRepository;
+    private UserRepository userRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User theUser = userRepository.findByLogin(username);
+    @Autowired
+    public JwtDatabaseUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-		if (theUser == null) {
-			throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", username));
-		} else if(theUser.isStatus() == false) {
-			throw new AuthenticationException(("USER_NOT_ACTIVATED"), new RuntimeException());
-		} else {		
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User theUser = userRepository.findByLogin(username);
+
+        if (theUser == null) {
+            throw new UsernameNotFoundException(String.format("USER_NOT_FOUND '%s'.", username));
+        } else if (!theUser.isStatus()) {
+            throw new AuthenticationException(("USER_NOT_ACTIVATED"), new RuntimeException());
+        } else {
             return create(theUser);
         }
-	}
+    }
 
     public static JwtUserDetails create(User user) {
-        List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
+        List<SimpleGrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(user.getRole().toString()));
         return new JwtUserDetails(user.getId(), user.getLogin(), user.getPassword(), roles.toString());
     }

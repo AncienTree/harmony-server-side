@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,65 +26,69 @@ import pl.entpoint.harmony.authentication.JwtTokenUtil;
 import pl.entpoint.harmony.authentication.JwtUserDetails;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 public class JwtAuthenticationRestController {
 
-  @Value("${jwt.http.request.header}")
-  private String tokenHeader;
+    @Value("${jwt.http.request.header}")
+    private String tokenHeader;
 
-  @Autowired
-  private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
+    private JwtTokenUtil jwtTokenUtil;
+    private UserDetailsService userDatabaseJWT;
 
-  @Autowired
-  private JwtTokenUtil jwtTokenUtil;
-
-  @Autowired
-  private UserDetailsService userDatabaseJWT;
-
-  @PostMapping(value = "${jwt.get.token.uri}")
-  public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
-      throws AuthenticationException {
-
-    authenticate(authenticationRequest.getLogin(), authenticationRequest.getPassword());
-
-    final UserDetails userDetails = userDatabaseJWT.loadUserByUsername(authenticationRequest.getLogin());
-
-    final String token = jwtTokenUtil.generateToken(userDetails);
-
-    return ResponseEntity.ok(new JwtTokenResponse(token));
-  }
-
-  @GetMapping(value = "${jwt.refresh.token.uri}")
-  public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-    String authToken = request.getHeader(tokenHeader);
-    final String token = authToken.substring(7);
-    String username = jwtTokenUtil.getUsernameFromToken(token);
-    JwtUserDetails user = (JwtUserDetails) userDatabaseJWT.loadUserByUsername(username);
-
-    if (jwtTokenUtil.canTokenBeRefreshed(token)) {
-      String refreshedToken = jwtTokenUtil.refreshToken(token);
-      return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
-    } else {
-      return ResponseEntity.badRequest().body(null);
+    @Autowired
+    public JwtAuthenticationRestController(AuthenticationManager authenticationManager,
+                                           JwtTokenUtil jwtTokenUtil,
+                                           @Qualifier("jwtDatabaseUserDetailsService") UserDetailsService userDatabaseJWT) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userDatabaseJWT = userDatabaseJWT;
     }
-  }
 
-  @ExceptionHandler({ AuthenticationException.class })
-  public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-  }
+    @PostMapping(value = "${jwt.get.token.uri}")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtTokenRequest authenticationRequest)
+            throws AuthenticationException {
 
-  private void authenticate(String username, String password) {
-    Objects.requireNonNull(username);
-    Objects.requireNonNull(password);
+        authenticate(authenticationRequest.getLogin(), authenticationRequest.getPassword());
 
-    try {
-      authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-    } catch (DisabledException e) {
-      throw new AuthenticationException("USER_DISABLED", e);
-    } catch (BadCredentialsException e) {
-      throw new AuthenticationException("INVALID_CREDENTIALS", e);
+        final UserDetails userDetails = userDatabaseJWT.loadUserByUsername(authenticationRequest.getLogin());
+
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
+        return ResponseEntity.ok(new JwtTokenResponse(token));
     }
-  }
+
+    @GetMapping(value = "${jwt.refresh.token.uri}")
+    public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        JwtUserDetails user = (JwtUserDetails) userDatabaseJWT.loadUserByUsername(username);
+
+        if (jwtTokenUtil.canTokenBeRefreshed(token)) {
+            String refreshedToken = jwtTokenUtil.refreshToken(token);
+            return ResponseEntity.ok(new JwtTokenResponse(refreshedToken));
+        } else {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @ExceptionHandler({AuthenticationException.class})
+    public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
+
+    private void authenticate(String username, String password) {
+        Objects.requireNonNull(username);
+        Objects.requireNonNull(password);
+
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new AuthenticationException("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new AuthenticationException("INVALID_CREDENTIALS", e);
+        }
+    }
 }
 
