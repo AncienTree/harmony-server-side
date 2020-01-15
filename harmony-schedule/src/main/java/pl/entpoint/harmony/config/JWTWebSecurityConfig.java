@@ -64,9 +64,6 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticated();
  
 		httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-// 
-//		httpSecurity.headers().frameOptions().sameOrigin() // H2 Console Needs this setting
-//				.cacheControl(); // disable caching
 	}
  
 	@Override
