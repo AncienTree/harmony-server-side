@@ -5,10 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
-import org.jsondoc.core.annotation.Api;
-import org.jsondoc.core.annotation.ApiMethod;
-import org.jsondoc.core.annotation.ApiPathParam;
-import org.jsondoc.core.pojo.ApiStage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,11 +32,6 @@ import pl.entpoint.harmony.util.LoginConverter;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
-@Api(
-	name="Employee API",
-	description = "Do pobrania danych pracowników",
-	stage = ApiStage.ALPHA
-)
 public class EmployeeController {
 	
 	@Autowired
@@ -52,7 +43,6 @@ public class EmployeeController {
 	private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	@PostMapping("/employee")
-	@ApiMethod(description = "Utworzenie nowego loginu")
 	public User createNewUser(@RequestBody Map<String, String> body) {		
 	System.out.println("------------------------------------------------------");
 		System.out.println(body);
@@ -85,20 +75,16 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/employees")
-	@ApiMethod(description = "Do testów. Pobiera wszystkie dane pracowników!")
 	public List<Employee> getListOfEmployees(){
-		List<Employee> empl = emplService.getEmployees();
-		return empl;
+		return emplService.getEmployees();
 	}
 
 	@GetMapping("/employee/{pesel}")
-	@ApiMethod(description = "Pobiera pracownika po numerze pesel")
-	public Employee getEmployeeByPesel(@ApiPathParam(name = "Pesel") @PathVariable long pesel) {
+	public Employee getEmployeeByPesel(@PathVariable long pesel) {
 		return emplService.getEmployeeByPesel(pesel);
 	}
 	
 	@GetMapping("/employee/hr/{pesel}")
-	@ApiMethod(description = "sprawdza czy dany numer pesel jest w bazie danych")
 	public boolean isEmplInDB(@PathVariable long pesel) {
 		return emplService.isPeselInDB(pesel);
 	}
