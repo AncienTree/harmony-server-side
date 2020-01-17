@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PatchMapping("/users/{id}")
-    public void updateStatus(boolean status, @PathVariable int id) {
+    public void updateStatus(@RequestBody boolean status, @PathVariable int id) {
         userService.changeStatus(id, status);
         log.info("Zmiana statusu dla id: " + id + " na status: " + status);
     }

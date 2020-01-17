@@ -40,11 +40,6 @@ public class DBConfiguration {
         this.env = env;
     }
 
-    @Bean
-    public DataSource securityDataSource() {
-        return DataSourceBuilder.create().build();
-    }
-
     @Profile("dev")
     @Bean
     public String devDatabaseConnection() {
