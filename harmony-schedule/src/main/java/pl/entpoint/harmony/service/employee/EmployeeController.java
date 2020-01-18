@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.models.employee.Employee;
+import pl.entpoint.harmony.models.employee.enums.WorkStatus;
 import pl.entpoint.harmony.models.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BCrypt;
@@ -33,12 +34,12 @@ import pl.entpoint.harmony.util.LoginConverter;
 @Slf4j
 public class EmployeeController {
 
-    private EmployeeService emplService;
+    private EmployeeService employeeService;
     private UserService userService;
 
     @Autowired
-    public EmployeeController(EmployeeService emplService, UserService userService) {
-        this.emplService = emplService;
+    public EmployeeController(EmployeeService employeeService, UserService userService) {
+        this.employeeService = employeeService;
         this.userService = userService;
     }
 
@@ -53,8 +54,8 @@ public class EmployeeController {
         LocalDate sw = LocalDate.parse(body.get("startWorkDate").substring(0, 10), dateFormatter);
         User theUser = new User(
                 LoginConverter.createLogin(body.get("firstName"), body.get("lastName")),
-                BCrypt.decrypt(body.get("pesel")));
-        theUser.setId(0);
+                BCrypt.encrypt(body.get("pesel")));
+        theUser.setId(0L);
         log.info("Wczytano pesel: " + body.get("pesel"));
         Employee theEmp = new Employee(
                 body.get("firstName"),
@@ -64,7 +65,7 @@ public class EmployeeController {
                 bd,
                 body.get("position"),
                 body.get("contractPosition"),
-                "Pracuje",
+                WorkStatus.WORK,
                 body.get("contractType"),
                 body.get("basicUnit"),
                 body.get("unit"),
@@ -78,17 +79,17 @@ public class EmployeeController {
 
     @GetMapping("/employees")
     public List<Employee> getListOfEmployees() {
-        return emplService.getEmployees();
+        return employeeService.getEmployees();
     }
 
     @GetMapping("/employee/{pesel}")
     public Employee getEmployeeByPesel(@PathVariable long pesel) {
-        return emplService.getEmployeeByPesel(pesel);
+        return employeeService.getEmployeeByPesel(pesel);
     }
 
     @GetMapping("/employee/hr/{pesel}")
     public boolean isEmplInDB(@PathVariable long pesel) {
-        return emplService.isPeselInDB(pesel);
+        return employeeService.isPeselInDB(pesel);
     }
 
 }

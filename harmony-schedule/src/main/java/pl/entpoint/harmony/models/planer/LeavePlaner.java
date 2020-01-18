@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.models.schedule;
+package pl.entpoint.harmony.models.planer;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,18 +13,18 @@ import java.time.LocalDate;
  */
 
 @Entity
-@Table(name = "schedule")
+@Table(name = "Leave_planer")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Schedule {
+public class LeavePlaner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "schedule_date", nullable = false)
-    private LocalDate scheduleDate;
+    @Column(name = "planer_date", nullable = false)
+    private LocalDate planerDate;
 
     @Column(nullable = false)
     private boolean active;

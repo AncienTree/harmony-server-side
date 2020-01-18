@@ -4,7 +4,7 @@ package pl.entpoint.harmony.models.schedule.enums;
  * @author Mateusz Dąbek
  * @created 16/11/2019
  */
-
+// TODO Utworzyć nowy status dla planera!
 public enum ScheduleStatus {
     CN,
     CH,

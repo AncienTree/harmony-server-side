@@ -1,8 +1,9 @@
-package pl.entpoint.harmony.models.schedule;
+package pl.entpoint.harmony.models.message;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.models.employee.Employee;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,19 +14,24 @@ import java.time.LocalDate;
  */
 
 @Entity
-@Table(name = "schedule")
+@Table(name = "messages")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Schedule {
+public class Messages {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "schedule_date", nullable = false)
-    private LocalDate scheduleDate;
+    @OneToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
 
     @Column(nullable = false)
-    private boolean active;
+    private String text;
+
+    private LocalDate crated;
+
+    private LocalDate expired;
 }

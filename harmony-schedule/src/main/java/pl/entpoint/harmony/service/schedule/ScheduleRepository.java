@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import pl.entpoint.harmony.models.employee.Employee;
-import pl.entpoint.harmony.models.schedule.Schedule;
+import pl.entpoint.harmony.models.schedule.ScheduleRecord;
 import pl.entpoint.harmony.models.schedule.enums.ScheduleStatus;
 
 /**
@@ -16,20 +16,20 @@ import pl.entpoint.harmony.models.schedule.enums.ScheduleStatus;
  */
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
+public interface ScheduleRepository extends JpaRepository<ScheduleRecord, Long> {
 
-    List<Schedule> findByStatus(ScheduleStatus status);
+    List<ScheduleRecord> findByStatus(ScheduleStatus status);
 
-    List<Schedule> findByWorkDateBetween(LocalDate startDate, LocalDate endDate);
+    List<ScheduleRecord> findByWorkDateBetween(LocalDate startDate, LocalDate endDate);
 
-    List<Schedule> findByEmployee(Employee employee);
+    List<ScheduleRecord> findByEmployee(Employee employee);
 
-    List<Schedule> findByWorkDate(LocalDate date);
+    List<ScheduleRecord> findByWorkDate(LocalDate date);
 
-    List<Schedule> findByWorkDateAndEmployee(LocalDate date, Employee employee);
+    List<ScheduleRecord> findByWorkDateAndEmployee(LocalDate date, Employee employee);
 
-    List<Schedule> findByWorkDateBetweenAndStatus(LocalDate startDate, LocalDate endDate, ScheduleStatus status);
+    List<ScheduleRecord> findByWorkDateBetweenAndStatus(LocalDate startDate, LocalDate endDate, ScheduleStatus status);
 
-    List<Schedule> findByWorkDateBetweenAndEmployee(LocalDate startDate, LocalDate endDate, Employee employee);
+    List<ScheduleRecord> findByWorkDateBetweenAndEmployee(LocalDate startDate, LocalDate endDate, Employee employee);
 
 }

@@ -4,12 +4,10 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.entpoint.harmony.models.settings.branch.UserSection;
 
 /**
  * @author Mateusz Dąbek
@@ -35,42 +32,43 @@ public class EmployeeDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "lt_login")
     private String ltLogin;
 
     @Column(name = "lt_id", length = 8)
-    private int ltId;
+    private String ltId;
 
     @Column(name = "crm_login")
     private String crmLogin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_section")
-    private UserSection userSection;
+    private String userSection;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_line")
-    private pl.entpoint.harmony.models.settings.branch.UserLine UserLine;
+    private String userLine;
 
-    private float fte;
+    private String fte;
 
     @Column(name = "fte_start")
-    private float fteStart;
+    private String fteStart;
 
-    //TODO automatycznie uzupelnij date przy aktualizacji danych
     @Column(name = "update_date")
-    private LocalDate update;
+    private LocalDate updateDate;
 
-    private int goal1;
+    @Column(length = 4)
+    private String goal1;
 
-    private int goal2;
+    @Column(length = 4)
+    private String goal2;
 
-    private int goal3;
+    @Column(length = 4)
+    private String goal3;
 
-    private int goal4;
+    @Column(length = 4)
+    private String goal4;
 
-    private int goal5;
-
+    @Column(length = 4)
+    private String goal5;
 }

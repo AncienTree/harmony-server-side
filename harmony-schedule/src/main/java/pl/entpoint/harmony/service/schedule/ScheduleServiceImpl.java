@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.models.employee.Employee;
-import pl.entpoint.harmony.models.schedule.Schedule;
+import pl.entpoint.harmony.models.schedule.ScheduleRecord;
 import pl.entpoint.harmony.models.schedule.enums.ScheduleStatus;
 
 /**
@@ -26,38 +26,38 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> getScheduleByStatus(ScheduleStatus status) {
+    public List<ScheduleRecord> getScheduleByStatus(ScheduleStatus status) {
         return scheduleRepository.findByStatus(status);
     }
 
     @Override
-    public List<Schedule> getScheduleBetweenDate(LocalDate startDate, LocalDate endDate) {
+    public List<ScheduleRecord> getScheduleBetweenDate(LocalDate startDate, LocalDate endDate) {
         return scheduleRepository.findByWorkDateBetween(startDate, endDate);
     }
 
     @Override
-    public List<Schedule> getScheduleByEmployee(Employee employee) {
+    public List<ScheduleRecord> getScheduleByEmployee(Employee employee) {
         return scheduleRepository.findByEmployee(employee);
     }
 
     @Override
-    public List<Schedule> getScheduleByDate(LocalDate date) {
+    public List<ScheduleRecord> getScheduleByDate(LocalDate date) {
         return scheduleRepository.findByWorkDate(date);
     }
 
     @Override
-    public List<Schedule> getScheduleByDateAndEmployee(LocalDate date, Employee employee) {
+    public List<ScheduleRecord> getScheduleByDateAndEmployee(LocalDate date, Employee employee) {
         return scheduleRepository.findByWorkDateAndEmployee(date, employee);
     }
 
     @Override
-    public List<Schedule> getScheduleBetweenDateAndStatus(LocalDate startDate, LocalDate endDate,
-                                                          ScheduleStatus status) {
+    public List<ScheduleRecord> getScheduleBetweenDateAndStatus(LocalDate startDate, LocalDate endDate,
+                                                                ScheduleStatus status) {
         return scheduleRepository.findByWorkDateBetweenAndStatus(startDate, endDate, status);
     }
 
     @Override
-    public List<Schedule> getScheduleBetweenDateAndEmployee(LocalDate startDate, LocalDate endDate, Employee employee) {
+    public List<ScheduleRecord> getScheduleBetweenDateAndEmployee(LocalDate startDate, LocalDate endDate, Employee employee) {
         return scheduleRepository.findByWorkDateBetweenAndEmployee(startDate, endDate, employee);
     }
 

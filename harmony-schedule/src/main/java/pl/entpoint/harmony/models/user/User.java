@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.models.user.enums.Roles;
 import pl.entpoint.harmony.models.employee.Employee;
 
+import java.time.LocalDate;
+
 /**
  * @author Mateusz Dąbek
  * @created 11/11/2019
@@ -29,7 +31,7 @@ import pl.entpoint.harmony.models.employee.Employee;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,7 +41,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
-    private int id;
+    private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
     private String login;
@@ -50,6 +52,10 @@ public class User {
 
     @Column(nullable = false)
     private boolean status;
+
+    @Column(nullable = false)
+    @JsonIgnore
+    private LocalDate created;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -65,13 +71,7 @@ public class User {
         this.password = password;
         this.status = true;
         this.role = Roles.ROLE_USER;
+        this.created = LocalDate.now();
+        log.info("Stworzono nowego uzytkownika: " + login);
     }
-
-    public void newUser(User user) {
-        user.setEmployee(new Employee());
-        user.setRole(Roles.ROLE_USER);
-        log.info("Stworzono nowego uzytkownika " + user.getLogin());
-    }
-
-
 }

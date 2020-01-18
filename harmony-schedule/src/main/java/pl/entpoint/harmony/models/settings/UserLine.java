@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.models.settings.branch;
+package pl.entpoint.harmony.models.settings;
 
 import java.util.List;
 
@@ -24,10 +24,8 @@ import pl.entpoint.harmony.models.employee.EmployeeDetails;
  * @created 18/11/2019
  */
 
-
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "user_line")
+@Table(name = "sett_line")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,13 +33,8 @@ public class UserLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(nullable = false, unique = true, length = 25)
+    @Column(nullable = false, unique = true, length = 20)
     private String name;
-
-    @OneToMany(mappedBy = "UserLine", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<EmployeeDetails> empl;
-
 }

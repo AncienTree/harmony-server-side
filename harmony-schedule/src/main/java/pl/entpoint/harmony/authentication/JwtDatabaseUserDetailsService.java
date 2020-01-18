@@ -40,6 +40,6 @@ public class JwtDatabaseUserDetailsService implements UserDetailsService {
     public static JwtUserDetails create(User user) {
         List<SimpleGrantedAuthority> roles = new ArrayList<>();
         roles.add(new SimpleGrantedAuthority(user.getRole().toString()));
-        return new JwtUserDetails(user.getId(), user.getLogin(), user.getPassword(), roles.toString());
+        return new JwtUserDetails(user.getId().intValue(), user.getLogin(), user.getPassword(), roles.toString());
     }
 }

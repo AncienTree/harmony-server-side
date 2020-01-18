@@ -1,11 +1,10 @@
-package pl.entpoint.harmony.models.schedule;
+package pl.entpoint.harmony.models.settings;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 /**
  * @author Mateusz Dąbek
@@ -13,19 +12,16 @@ import java.time.LocalDate;
  */
 
 @Entity
-@Table(name = "schedule")
+@Table(name = "sett_contract_type")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Schedule {
+public class ContractType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "schedule_date", nullable = false)
-    private LocalDate scheduleDate;
-
-    @Column(nullable = false)
-    private boolean active;
+    @Column(nullable = false, unique = true, length = 50)
+    private String name;
 }

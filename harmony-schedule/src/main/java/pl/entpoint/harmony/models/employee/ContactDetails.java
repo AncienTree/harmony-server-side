@@ -25,24 +25,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EmployeeContactDetails {
+public class ContactDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String address;
 
     private String city;
 
-    //TODO walidacja kodu pocztowego
     @Column(name = "zip_code", length = 6)
     private String zipCode;
 
     @Column(name = "phone_number")
     private int phoneNumber;
 
-    @Column(name = "contact_phone_numbere")
+    @Column(name = "contact_phone_number")
     private int contactPhoneNumber;
 
     @Column(name = "contact_name")

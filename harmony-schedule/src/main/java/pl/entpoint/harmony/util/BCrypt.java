@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BCrypt {
 
-    public static String decrypt(String pass) {
+    public static String encrypt(String pass) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         log.info("Decrypt password");
 

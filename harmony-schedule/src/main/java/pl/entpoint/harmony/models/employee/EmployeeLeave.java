@@ -1,11 +1,6 @@
 package pl.entpoint.harmony.models.employee;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -31,6 +26,7 @@ public class EmployeeLeave {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Transient
     private int total;
 
     private int normal;
@@ -39,7 +35,7 @@ public class EmployeeLeave {
 
     private int additional;
 
-    @Column(name = "last_years")
-    private int lastYears;
+    @Column(name = "past_years")
+    private int pastYears;
 
 }

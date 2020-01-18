@@ -28,7 +28,7 @@ public class EmployeeInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private boolean agreement;
 
@@ -36,12 +36,13 @@ public class EmployeeInfo {
 
     private boolean headphones;
 
+    @Column(length = 25)
     private String locker;
 
-    @Column(name = "id_card")
+    @Column(name = "id_card", length = 25)
     private String idCard;
 
-    @Column(name = "parking_card")
+    @Column(name = "parking_card", length = 25)
     private String parkingCard;
 
     private String info1;

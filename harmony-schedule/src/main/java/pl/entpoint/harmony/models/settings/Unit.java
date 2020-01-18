@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.models.schedule;
+package pl.entpoint.harmony.models.settings;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,19 +13,21 @@ import java.time.LocalDate;
  */
 
 @Entity
-@Table(name = "schedule")
+@Table(name = "sett_unit")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Schedule {
+public class Unit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(name = "schedule_date", nullable = false)
-    private LocalDate scheduleDate;
+    @Column(nullable = false, length = 45)
+    private String name;
 
-    @Column(nullable = false)
-    private boolean active;
+    @Column(name = "for_unit",nullable = false, length = 45)
+    private String forUnit;
+
+    private LocalDate update;
 }

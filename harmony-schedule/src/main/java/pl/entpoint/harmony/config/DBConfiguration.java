@@ -23,7 +23,6 @@ import java.util.Objects;
 
 @Configuration
 @ConfigurationProperties(prefix="spring.datasource")
-@SuppressWarnings("unused")
 @Getter
 @Setter
 public class DBConfiguration {
