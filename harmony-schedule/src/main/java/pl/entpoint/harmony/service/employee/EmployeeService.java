@@ -13,10 +13,10 @@ public interface EmployeeService {
 
     List<Employee> getEmployees();
 
-    Employee getEmployee(int id);
+    Employee getEmployee(Long id);
 
-    Employee getEmployeeByPesel(long pesel);
+    Employee getEmployeeByPesel(Long pesel);
 
-    boolean isPeselInDB(long pesel);
+    boolean isPeselInDB(Long pesel);
 
 }

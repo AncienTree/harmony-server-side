@@ -30,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployee(int id) {
+    public Employee getEmployee(Long id) {
         Optional<Employee> result = employeeRepository.findById(id);
 
         Employee empl;
@@ -43,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeByPesel(long pesel) {
+    public Employee getEmployeeByPesel(Long pesel) {
         Optional<Employee> result = employeeRepository.findByPesel(pesel);
 
         Employee empl;
@@ -56,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean isPeselInDB(long pesel) {
+    public boolean isPeselInDB(Long pesel) {
         Optional<Employee> result = employeeRepository.findByPesel(pesel);
 
         return result.isPresent();
