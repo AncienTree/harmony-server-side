@@ -21,10 +21,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EmployeeLeave {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Transient
     private int total;

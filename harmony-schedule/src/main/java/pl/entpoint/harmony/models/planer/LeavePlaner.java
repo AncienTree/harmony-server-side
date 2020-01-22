@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 public class LeavePlaner {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

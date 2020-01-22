@@ -10,4 +10,10 @@ public class HarmonyScheduleApplication {
         SpringApplication.run(HarmonyScheduleApplication.class, args);
     }
 
+//    public void AuthenticationManager(AuthenticationManagerBuilder builder, UserRepository repo) throws Exception {
+//        if (repo.count() == 0){
+//            repo.save(new User("user","user"));
+//        }
+//        builder.userDetailsService(username -> new CustomUserDetails(repo.findByLogin(username)));
+//    }
 }

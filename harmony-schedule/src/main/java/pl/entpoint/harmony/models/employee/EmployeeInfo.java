@@ -25,7 +25,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EmployeeInfo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

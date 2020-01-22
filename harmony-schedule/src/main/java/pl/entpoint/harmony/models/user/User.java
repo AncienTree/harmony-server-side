@@ -37,10 +37,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Slf4j
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
     private Long id;
 
     @Column(nullable = false, unique = true, length = 50)

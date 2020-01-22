@@ -17,7 +17,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 public class ContractType {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

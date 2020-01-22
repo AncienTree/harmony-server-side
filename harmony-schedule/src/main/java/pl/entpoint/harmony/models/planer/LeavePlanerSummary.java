@@ -21,7 +21,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class LeavePlanerSummary {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

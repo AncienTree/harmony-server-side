@@ -30,7 +30,6 @@ import pl.entpoint.harmony.models.employee.Employee;
 @Setter
 @NoArgsConstructor
 public class ScheduleRecord {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

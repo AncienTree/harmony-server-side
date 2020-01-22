@@ -27,10 +27,8 @@ import pl.entpoint.harmony.models.employee.enums.WorkStatus;
 @Setter
 @NoArgsConstructor
 public class Employee {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @Column(name = "first_name", length = 20)
