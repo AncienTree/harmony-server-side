@@ -1,8 +1,10 @@
 package pl.entpoint.harmony.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,6 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import pl.entpoint.harmony.service.CustomDetailsService;
 
 /**
@@ -21,11 +27,22 @@ import pl.entpoint.harmony.service.CustomDetailsService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+//@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Value("${security.signing-key}")
+    private String signingKey;
+
+    @Value("${security.security-realm}")
+    private String securityRealm;
 
     @Autowired
     private CustomDetailsService customDetailsService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+    // BEANS
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -33,6 +50,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setPasswordEncoder(bCryptPasswordEncoder() );
         provider.setUserDetailsService(customDetailsService);
         return provider;
+    }
+
+    @Bean
+    public TokenStore tokenStore(){
+        return new JwtTokenStore(defaultAccessTokenConverter());
+    }
+
+    @Bean
+    public JwtAccessTokenConverter defaultAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(signingKey);
+        return converter;
+    }
+
+    @Bean
+    @Primary
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setSupportRefreshToken(true);
+        return defaultTokenServices;
     }
 
     @Bean
@@ -45,9 +83,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    // METHODS
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        //auth.authenticationProvider(authenticationProvider());
+
+        auth.userDetailsService(customDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
@@ -60,6 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().httpBasic().realmName(securityRealm)
                 .and().authorizeRequests().antMatchers("/oauth/token")
                 .permitAll().anyRequest().authenticated();
     }

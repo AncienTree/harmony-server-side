@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(int theId) {
+    public User getUser(Long theId) {
         Optional<User> result = userRepository.findById(theId);
 
         User theUser;
@@ -58,13 +58,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(int theId) {
+    public void deleteUser(Long theId) {
         userRepository.deleteById(theId);
 
     }
 
     @Override
-    public void changeStatus(int id, boolean status) {
+    public void changeStatus(Long id, boolean status) {
         Optional<User> result = userRepository.findById(id);
 
         User theUser;

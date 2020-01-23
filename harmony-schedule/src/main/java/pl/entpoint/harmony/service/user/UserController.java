@@ -44,20 +44,20 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable int id) {
+    public User getUser(@PathVariable Long id) {
         //TODO zabezpieczenie przed nie znlezieniem Id
         log.info("Pobrano użytkownika o Id: " + id);
         return userService.getUser(id);
     }
 
     @PatchMapping("/users/{id}")
-    public void updateStatus(@RequestBody boolean status, @PathVariable int id) {
+    public void updateStatus(@RequestBody boolean status, @PathVariable Long id) {
         userService.changeStatus(id, status);
         log.info("Zmiana statusu dla id: " + id + " na status: " + status);
     }
 
     @PatchMapping("/users/opt/{id}")
-    public void update(@RequestBody Map<String, Object> user, @PathVariable int id) {
+    public void update(@RequestBody Map<String, Object> user, @PathVariable Long id) {
         User theUser = getUser(id);
         theUser.setStatus((boolean) user.get("status"));
         if (!(user.get("password") == null)) {
