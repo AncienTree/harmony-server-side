@@ -14,7 +14,7 @@ import pl.entpoint.harmony.models.user.enums.Roles;
  */
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByRole(Roles role);
 

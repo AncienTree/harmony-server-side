@@ -15,7 +15,6 @@ public class BCrypt {
     public static String encrypt(String pass) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         log.info("Decrypt password");
-
         return encoder.encode(pass);
     }
 }

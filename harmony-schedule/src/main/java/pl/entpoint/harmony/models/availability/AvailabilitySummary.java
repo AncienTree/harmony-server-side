@@ -21,7 +21,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class AvailabilitySummary {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,8 +31,8 @@ public class AvailabilitySummary {
 
     @OneToMany
     @JoinTable(name = "availability_mapping",
-                joinColumns = @JoinColumn(name = "availability_summary_id"),
-                inverseJoinColumns = @JoinColumn(name = "schedule_record_id"))
+            joinColumns = @JoinColumn(name = "availability_summary_id"),
+            inverseJoinColumns = @JoinColumn(name = "schedule_record_id"))
     private List<ScheduleRecord> scheduleRecords;
 
     @Column(name = "availability_date", nullable = false)
