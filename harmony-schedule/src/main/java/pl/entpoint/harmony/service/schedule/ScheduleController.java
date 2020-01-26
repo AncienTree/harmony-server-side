@@ -44,7 +44,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/byEmployee/{id}")
-    public List<ScheduleRecord> getScheduleByEmployee(@PathVariable int id) {
+    public List<ScheduleRecord> getScheduleByEmployee(@PathVariable Long id) {
         Employee theEmpl = employeeService.getEmployee(id);
 
         return scheduleService.getScheduleByEmployee(theEmpl);
@@ -65,14 +65,14 @@ public class ScheduleController {
 
     @GetMapping("/byDateAndEmployee")
     public List<ScheduleRecord> getScheduleByDateAndEmployee(@RequestBody Map<String, Object> dateAndId) {
-        Employee theEmpl = employeeService.getEmployee((int) dateAndId.get("id"));
+        Employee theEmpl = employeeService.getEmployee((long)dateAndId.get("id"));
 
         return scheduleService.getScheduleByDateAndEmployee(LocalDate.parse((String) dateAndId.get("date")), theEmpl);
     }
 
     @GetMapping("/byDatesAndEmployee")
     public List<ScheduleRecord> getScheduleBetweenDateAndEmployee(@RequestBody Map<String, Object> datesAndId) {
-        Employee theEmpl = employeeService.getEmployee((int) datesAndId.get("id"));
+        Employee theEmpl = employeeService.getEmployee((long)datesAndId.get("id"));
 
         return scheduleService.getScheduleBetweenDateAndEmployee((LocalDate) datesAndId.get("star"),
                 (LocalDate) datesAndId.get("end"), theEmpl);
