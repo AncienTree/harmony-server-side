@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.entpoint.harmony.models.user.User;
+import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import pl.entpoint.harmony.models.user.User;
-import pl.entpoint.harmony.models.user.enums.Roles;
+import pl.entpoint.harmony.entity.user.User;
+import pl.entpoint.harmony.entity.user.enums.Roles;
 
 /**
  * @author Mateusz Dąbek

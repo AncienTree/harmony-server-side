@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pl.entpoint.harmony.models.employee.Employee;
+import pl.entpoint.harmony.entity.employee.Employee;
 
 /**
  * @author Mateusz Dąbek

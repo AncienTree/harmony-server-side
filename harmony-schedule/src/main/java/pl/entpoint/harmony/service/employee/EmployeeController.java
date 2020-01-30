@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.entpoint.harmony.models.employee.Employee;
-import pl.entpoint.harmony.models.employee.enums.WorkStatus;
-import pl.entpoint.harmony.models.user.User;
+import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
+import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BCrypt;
 import pl.entpoint.harmony.util.LoginConverter;

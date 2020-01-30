@@ -2,8 +2,8 @@ package pl.entpoint.harmony.service.user;
 
 import java.util.List;
 
-import pl.entpoint.harmony.models.user.User;
-import pl.entpoint.harmony.models.user.enums.Roles;
+import pl.entpoint.harmony.entity.user.User;
+import pl.entpoint.harmony.entity.user.enums.Roles;
 
 /**
  * @author Mateusz Dąbek

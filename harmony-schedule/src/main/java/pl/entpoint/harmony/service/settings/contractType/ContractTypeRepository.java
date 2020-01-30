@@ -2,7 +2,7 @@ package pl.entpoint.harmony.service.settings.contractType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pl.entpoint.harmony.models.settings.ContractType;
+import pl.entpoint.harmony.entity.settings.ContractType;
 
 /**
  * @author Mateusz Dąbek

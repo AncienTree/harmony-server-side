@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.service.settings.contractType;
 
 import org.springframework.stereotype.Service;
-import pl.entpoint.harmony.models.settings.ContractType;
+import pl.entpoint.harmony.entity.settings.ContractType;
 
 import java.util.List;
 

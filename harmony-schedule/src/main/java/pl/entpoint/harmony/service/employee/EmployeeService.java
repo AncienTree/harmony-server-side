@@ -2,7 +2,7 @@ package pl.entpoint.harmony.service.employee;
 
 import java.util.List;
 
-import pl.entpoint.harmony.models.employee.Employee;
+import pl.entpoint.harmony.entity.employee.Employee;
 
 /**
  * @author Mateusz Dąbek
