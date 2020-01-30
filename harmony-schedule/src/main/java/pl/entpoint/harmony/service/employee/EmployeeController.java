@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -83,10 +85,11 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{pesel}")
-    public Employee getEmployeeByPesel(@PathVariable long pesel) {
-        return employeeService.getEmployeeByPesel(pesel);
+    public Optional<Employee> getEmployeeByPesel(@PathVariable long pesel) {
+        return Optional.ofNullable(employeeService.getEmployeeByPesel(pesel));
     }
 
+    @PreAuthorize("hasRole('ROLE_HR') or hasRole('ROLE_ADMIN')")
     @GetMapping("/employee/hr/{pesel}")
     public boolean isEmplInDB(@PathVariable long pesel) {
         return employeeService.isPeselInDB(pesel);

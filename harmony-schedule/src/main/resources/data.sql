@@ -35,11 +35,11 @@ INSERT INTO employee_leave(id, normal, uz, additional, past_years) VALUES
 
 -- Employee Table
 INSERT INTO employees(id, first_name, last_name, pesel, sex, birthday, email, position, contract_position, work_status, contract_type, basic_unit, unit, start_work_date, end_work_date, start_contract_date, end_contract_date, employee_details_id, contact_details_id, employee_info_id, employee_leave_id, created , create_date) VALUES
-  (1,'User','Testowy','12345678987','M','1990-01-01', 'user@mail.pl','Doradca','ds. sprzedaży','Pracuje','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',1,1,1,1, true, '2018-01-01'),
-  (2,'Spec','Testowy','54832165478','K','1990-01-01','spec@mail.pl','Specjalista','ds. monitoringu','Pracuje','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',2,2,2,2, true, '2018-01-01'),
-  (3,'Manager','Testowy','11245678912','M','1990-01-01','man@mail.pl','Kierownik','Kieronwik Kampanii','Pracuje','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',3,3,3,3, true, '2018-01-01'),
-  (4,'Kadry','Testowy','98548555741','K','1990-01-01','hr@mail.pl','Specjalista','ds. zasobów ludzkich','Pracuje','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',4,4,4,4, true, '2018-01-01'),
-  (5,'Admin','Testowy','92032614578','M','1990-01-01','admin@mail.pl','Specjalista','ds. IT','Pracuje','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',5,5,5,5, true, '2018-01-01');
+  (1,'User','Testowy','12345678987','M','1990-01-01', 'user@mail.pl','Doradca','ds. sprzedaży','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',1,1,1,1, true, '2018-01-01'),
+  (2,'Spec','Testowy','54832165478','K','1990-01-01','spec@mail.pl','Specjalista','ds. monitoringu','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',2,2,2,2, true, '2018-01-01'),
+  (3,'Manager','Testowy','11245678912','M','1990-01-01','man@mail.pl','Kierownik','Kieronwik Kampanii','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',3,3,3,3, true, '2018-01-01'),
+  (4,'Kadry','Testowy','98548555741','K','1990-01-01','hr@mail.pl','Specjalista','ds. zasobów ludzkich','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',4,4,4,4, true, '2018-01-01'),
+  (5,'Admin','Testowy','92032614578','M','1990-01-01','admin@mail.pl','Specjalista','ds. IT','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',5,5,5,5, true, '2018-01-01');
 
 -- User Table
 INSERT INTO users(id, login, password, status, created, role, employee_id) VALUES
@@ -49,7 +49,7 @@ INSERT INTO users(id, login, password, status, created, role, employee_id) VALUE
   (4, 'test_hr', '$2a$10$gPB/C.DzwDu.nNahJtFzwOZpWCK8zU/Z.BoDBI62lxUdWFtoWwnH2', true, '2018-01-01', 'ROLE_HR', 4),
   (5, 'test_admin', '$2a$10$gPB/C.DzwDu.nNahJtFzwOZpWCK8zU/Z.BoDBI62lxUdWFtoWwnH2', true, '2018-01-01', 'ROLE_ADMIN', 5);
 
--- Schedule racord Table
+-- Schedule record Table
 INSERT INTO schedule_record(id, end_work, start_work, status, types, work_date, employee_id) VALUES
   (1,'17:00:00','09:00:00','P','LOGIN','2019-11-01',1),
   (2,'17:00:00','09:00:00','P','LOGIN','2019-11-02',1),
@@ -102,3 +102,71 @@ INSERT INTO schedule_record(id, end_work, start_work, status, types, work_date, 
   (49,'17:00:00','09:00:00','P','LOGIN','2019-10-29',2),
   (50,'17:00:00','09:00:00','P','LOGIN','2019-10-30',2),
   (51,'17:00:00','09:00:00','P','LOGIN','2019-10-31',2);
+
+-- Schedule Table
+INSERT INTO schedule(id, schedule_date, active) VALUES
+  (1, '2019-10-01', true),
+  (2, '2019-11-01', true);
+
+-- Schedule summary Table
+INSERT INTO schedule_summary(id, schedule_date, employee_id) VALUES
+  (1, '2019-10-01', 1),
+  (2, '2019-11-01', 1),
+  (3, '2019-10-01', 2),
+  (4, '2019-11-01', 2);
+
+-- Schedule summary Table
+INSERT INTO schedule_mapping(schedule_summary_id, schedule_record_id) VALUES
+  (2, 1),
+  (2, 2),
+  (2, 3),
+  (2, 4),
+  (1, 6),
+  (1, 7),
+  (1, 8),
+  (1, 9),
+  (1, 10),
+  (1, 11),
+  (1, 12),
+  (1, 13),
+  (1, 14),
+  (1, 15),
+  (1, 16),
+  (1, 17),
+  (1, 18),
+  (1, 19),
+  (1, 20),
+  (1, 21),
+  (1, 22),
+  (1, 23),
+  (1, 24),
+  (1, 25),
+  (1, 26),
+  (1, 27),
+  (1, 28),
+  (3, 29),
+  (3, 30),
+  (3, 31),
+  (3, 32),
+  (3, 33),
+  (3, 34),
+  (3, 35),
+  (3, 36),
+  (3, 37),
+  (3, 38),
+  (3, 39),
+  (3, 40),
+  (3, 41),
+  (3, 42),
+  (3, 43),
+  (3, 44),
+  (3, 45),
+  (3, 46),
+  (3, 47),
+  (3, 48),
+  (3, 49),
+  (3, 50),
+  (3, 51),
+  (4, 5);
+
+

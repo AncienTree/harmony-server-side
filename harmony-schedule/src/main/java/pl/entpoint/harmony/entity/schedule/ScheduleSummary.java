@@ -30,9 +30,11 @@ public class ScheduleSummary implements Serializable {
     private Employee employee;
 
     @OneToMany
-    @JoinTable(name = "schedule_mapping",
-            joinColumns = @JoinColumn(name = "schedule_summary_id"),
-            inverseJoinColumns = @JoinColumn(name = "schedule_record_id"))
+    @JoinTable(
+            name = "schedule_mapping",
+            joinColumns = {@JoinColumn(name = "schedule_summary_id")},
+            inverseJoinColumns = {@JoinColumn(name = "schedule_record_id")}
+            )
     private List<ScheduleRecord> scheduleRecords;
 
     private LocalDate scheduleDate;
