@@ -1,9 +1,11 @@
 package pl.entpoint.harmony.entity.schedule;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.model.SimpleEmployee;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,7 +29,11 @@ public class ScheduleSummary implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "employee_id")
+    @JsonIgnore
     private Employee employee;
+
+    @Transient
+    private SimpleEmployee simpleEmployee;
 
     @OneToMany
     @JoinTable(

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.model.SimpleEmployee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
@@ -34,17 +35,26 @@ public class ScheduleSummaryController {
 
     @GetMapping("/schedule")
     ScheduleSummary getScheduleByDateAndEmployee(@RequestBody Map<String, String> schedule) {
-        Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployee(Long.valueOf(schedule.get("employeeId"))));
+        Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployee(Long.valueOf(schedule.get("employee"))));
+        SimpleEmployee simpleEmployee = new SimpleEmployee(employee.get());
 
-        Optional<ScheduleSummary> summary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
+        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
                 (LocalDate.parse(schedule.get("date"))),
                 employee.get()));
+        ScheduleSummary summary = optSummary.get();
+        summary.setSimpleEmployee(simpleEmployee);
 
-        return summary.get();
+        return summary;
     }
 
     @GetMapping("/schedule/date")
     List<ScheduleSummary> getScheduleByDate(@RequestBody String date) {
-        return scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
+        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
+
+        // Przypisanie SimpleEmployee do każdego grafiku z listy
+        for (ScheduleSummary scheduleSummary: summary) {
+            scheduleSummary.setSimpleEmployee(new SimpleEmployee(scheduleSummary.getEmployee()));
+        }
+        return summary;
     }
 }
