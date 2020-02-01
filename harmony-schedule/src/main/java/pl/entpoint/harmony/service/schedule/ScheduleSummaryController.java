@@ -47,8 +47,8 @@ public class ScheduleSummaryController {
         return summary;
     }
 
-    @GetMapping("/schedule/date")
-    List<ScheduleSummary> getScheduleByDate(@RequestBody String date) {
+    @GetMapping("/schedule/date/{date}")
+    List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
         // Przypisanie SimpleEmployee do każdego grafiku z listy
