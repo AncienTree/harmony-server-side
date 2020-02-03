@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/schedule")
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 public class ScheduleSummaryController {
@@ -33,7 +33,7 @@ public class ScheduleSummaryController {
         this.scheduleSummaryService = scheduleSummaryService;
     }
 
-    @GetMapping("/schedule")
+    @GetMapping("/")
     ScheduleSummary getScheduleByDateAndEmployee(@RequestBody Map<String, String> schedule) {
         Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployee(Long.valueOf(schedule.get("employee"))));
         SimpleEmployee simpleEmployee = new SimpleEmployee(employee.get());
@@ -47,7 +47,7 @@ public class ScheduleSummaryController {
         return summary;
     }
 
-    @GetMapping("/schedule/date/{date}")
+    @GetMapping("/date/{date}")
     List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 

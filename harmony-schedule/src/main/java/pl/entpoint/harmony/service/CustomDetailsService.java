@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.entpoint.harmony.util.exception.UserNotActivatedException;
 
 import java.util.Collections;
+import java.util.Optional;
 
 
 /**
@@ -34,12 +35,14 @@ public class CustomDetailsService implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.debug("Authenticating {}", username);
+        log.debug("Uwierzytelnianie {}", username);
 
-        User user = userRepository.findByLogin(username);
+        User user = Optional.of(userRepository.findByLogin(username))
+                        .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika"));
 
         if (!user.isStatus()){
-            throw new UserNotActivatedException("Użytkownik " + username +" jest nie aktywny");
+            log.debug(username + " - jest nieaktywny w bazie danych.");
+            throw new UserNotActivatedException();
         }
         GrantedAuthority auth = new SimpleGrantedAuthority(user.getRole().getAuthority());
 

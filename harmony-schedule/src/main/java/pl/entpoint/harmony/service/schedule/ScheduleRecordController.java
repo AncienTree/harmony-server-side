@@ -24,13 +24,13 @@ import pl.entpoint.harmony.service.employee.EmployeeService;
  */
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/schedule/record")
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 public class ScheduleRecordController {
 
-    ScheduleRecordService scheduleRecordService;
-    EmployeeService employeeService;
+    private ScheduleRecordService scheduleRecordService;
+    private EmployeeService employeeService;
 
     @Autowired
     public ScheduleRecordController(ScheduleRecordService scheduleRecordService, EmployeeService employeeService) {
