@@ -1,0 +1,10 @@
+${AnsiColor.AnsiColor.BRIGHT_RED}
+     _____
+  __|  _  |__    ____      _____     ____    __    _____    ____   _   __    _
+ |  |_| |    |  |    \    |     |   |    \  /  |  /     \  |    \ | |  \ \  //
+ |   _  |    |  |     \   |     \   |     \/   |  |     |  |     \| |   \ \//
+ |__| |_|  __|  |__|\__\  |__|\__\  |__/\__/|__|  \_____/  |__/\____|   /__/
+    |_____|
+
+${AnsiColor.BRIGHT_BLUE}:: Harmony 🤓  :: Running Spring Boot ${spring-boot.version} ::
+${AnsiColor.DEFAULT}

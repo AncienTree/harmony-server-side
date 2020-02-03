@@ -33,8 +33,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(securedEnabled = true)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${security.signing-key}")
     private String signingKey;
