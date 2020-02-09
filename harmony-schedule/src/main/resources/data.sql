@@ -106,7 +106,10 @@ INSERT INTO schedule_record(id, end_work, start_work, status, types, work_date, 
 -- Schedule Table
 INSERT INTO schedule(id, schedule_date, active) VALUES
   (1, '2019-10-01', true),
-  (2, '2019-11-01', true);
+  (2, '2019-11-01', true),
+  (3, '2020-02-01', true),
+  (4, '2019-12-01', true),
+  (5, '2020-01-01', true);
 
 -- Schedule summary Table
 INSERT INTO schedule_summary(id, schedule_date, employee_id) VALUES

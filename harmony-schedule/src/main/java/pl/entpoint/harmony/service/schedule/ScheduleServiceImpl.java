@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.schedule.Schedule;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Mateusz Dąbek
@@ -24,5 +25,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Schedule getScheduleByDate(LocalDate date) {
         return scheduleRepository.findByScheduleDate(date);
+    }
+
+    @Override
+    public List<Schedule> getSchedules() {
+        return scheduleRepository.findAll();
     }
 }

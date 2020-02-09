@@ -3,6 +3,7 @@ package pl.entpoint.harmony.service.schedule;
 import pl.entpoint.harmony.entity.schedule.Schedule;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Mateusz Dąbek
@@ -11,4 +12,6 @@ import java.time.LocalDate;
 public interface ScheduleService {
 
     Schedule getScheduleByDate(LocalDate date);
+
+    List<Schedule> getSchedules();
 }
