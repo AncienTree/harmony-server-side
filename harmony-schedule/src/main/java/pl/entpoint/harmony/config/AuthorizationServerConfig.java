@@ -63,13 +63,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient(clientId).secret(bCryptPasswordEncoder.encode(clientSecret))
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                .authorizedGrantTypes("password", "authorization_code")
                 .scopes("read", "write")
                 .resourceIds(resourceIds)
                 .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "USER", "ADMIN")
                 .autoApprove(true)
-                .accessTokenValiditySeconds(3600)
-                .refreshTokenValiditySeconds(7200);
+                .accessTokenValiditySeconds(0);
     }
 
     @Override
