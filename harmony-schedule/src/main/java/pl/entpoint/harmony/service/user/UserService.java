@@ -20,7 +20,7 @@ public interface UserService {
 
     User getUser(Long theId);
 
-    void deleteUser(Long theId);
-
     void changeStatus(Long id, boolean status);
+
+    User getUserByLogin(String login);
 }

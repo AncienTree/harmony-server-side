@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.user.User;
+import pl.entpoint.harmony.service.user.UserService;
 
 /**
  * @author Mateusz Dąbek
@@ -17,11 +19,13 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
+    private UserService userService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserService userService) {
         this.employeeRepository = employeeRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -60,5 +64,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         Optional<Employee> result = employeeRepository.findByPesel(pesel);
 
         return result.isPresent();
+    }
+
+    @Override
+    public String getFullNameByLogin(String login) {
+        User tempUser = userService.getUserByLogin(login);
+        Employee tempEmployee = getEmployee(tempUser.getEmployee().getId());
+
+        return tempEmployee.getFirstName() + " " + tempEmployee.getLastName();
     }
 }

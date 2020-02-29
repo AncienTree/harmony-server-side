@@ -19,12 +19,10 @@ import pl.entpoint.harmony.service.employee.EmployeeServiceImpl;
 public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
-    EmployeeServiceImpl employeeService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, EmployeeServiceImpl employeeService) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.employeeService = employeeService;
     }
 
     @Override
@@ -58,12 +56,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long theId) {
-        userRepository.deleteById(theId);
-
-    }
-
-    @Override
     public void changeStatus(Long id, boolean status) {
         Optional<User> result = userRepository.findById(id);
 
@@ -77,6 +69,18 @@ public class UserServiceImpl implements UserService {
         userRepository.save(theUser);
     }
 
+    @Override
+    public User getUserByLogin(String login) {
+        Optional<User> result = Optional.ofNullable(userRepository.findByLogin(login));
+
+        User theUser;
+        if (result.isPresent()) {
+            theUser = result.get();
+        } else {
+            throw new RuntimeException("Nie znaleziono użytkownika pod loginem - " + login);
+        }
+        return theUser;
+    }
 }
 	
 	

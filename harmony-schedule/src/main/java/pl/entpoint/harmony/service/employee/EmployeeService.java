@@ -19,4 +19,6 @@ public interface EmployeeService {
 
     boolean isPeselInDB(Long pesel);
 
+    String getFullNameByLogin(String login);
+
 }

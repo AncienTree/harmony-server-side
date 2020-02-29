@@ -38,9 +38,6 @@ public class Employee implements Serializable {
     @Column(name = "last_name", length = 40)
     private String lastName;
 
-    @Transient
-    private String fullName;
-
     @Column(length = 11, unique = true)
     private long pesel;
 
