@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.entity.employee;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -44,7 +44,7 @@ public class EmployeeDetails implements Serializable {
     private String crmLogin;
 
     @Column(name = "crm_expiration_date")
-    private LocalDate crmAccountExpirationDate;
+    private Date crmAccountExpirationDate;
 
     @JoinColumn(name = "user_section")
     private String userSection;
@@ -58,7 +58,7 @@ public class EmployeeDetails implements Serializable {
     private String fteStart;
 
     @Column(name = "update_date")
-    private LocalDate updateDate;
+    private Date updateDate;
 
     @Column(length = 4)
     private String goal1;

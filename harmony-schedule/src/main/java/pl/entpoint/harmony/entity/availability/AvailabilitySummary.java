@@ -8,7 +8,7 @@ import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public class AvailabilitySummary implements Serializable {
     private List<ScheduleRecord> scheduleRecords;
 
     @Column(name = "availability_date", nullable = false)
-    private LocalDate availabilityDate;
+    private Date availabilityDate;
 
     @Column(name = "accepted_by", nullable = false)
     private String acceptedBy;

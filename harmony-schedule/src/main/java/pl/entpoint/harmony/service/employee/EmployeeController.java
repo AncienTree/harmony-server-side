@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.employee;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -49,11 +50,15 @@ public class EmployeeController {
 
     @PostMapping("/employee")
     public User createNewUser(@RequestBody Map<String, String> body) {
-        System.out.println("------------------------------------------------------");
+        System.out.println("-------------------");
+        System.out.println("-------------------");
+        System.out.println("-------------------");
         System.out.println(body);
-        System.out.println("------------------------------------------------------");
-        LocalDate bd = LocalDate.parse(body.get("birthday").substring(0, 10), dateFormatter);
-        LocalDate sw = LocalDate.parse(body.get("startWorkDate").substring(0, 10), dateFormatter);
+        System.out.println("-------------------");
+        System.out.println("-------------------");
+        System.out.println("-------------------");
+        Date birthday = Date.valueOf(body.get("birthday").substring(0, 10));
+        Date start =Date.valueOf(body.get("startWorkDate").substring(0, 10));
         User theUser = new User(
                 LoginConverter.createLogin(body.get("firstName"), body.get("lastName")),
                 BCrypt.encrypt(body.get("pesel")));
@@ -64,18 +69,24 @@ public class EmployeeController {
                 body.get("lastName"),
                 Long.parseLong(body.get("pesel")),
                 body.get("sex"),
-                bd,
+                birthday,
                 body.get("position"),
                 body.get("contractPosition"),
                 WorkStatus.WORK,
                 body.get("contractType"),
                 body.get("basicUnit"),
                 body.get("unit"),
-                sw,
-                sw);
+                start,
+                start);
         theUser.setEmployee(theEmp);
-        userService.createUser(theUser);
+        System.out.println("-------------------");
+        System.out.println(start);
+        System.out.println("-------------------");
 
+        System.out.println("-------------------");
+        System.out.println(theEmp);
+        System.out.println("-------------------");
+        userService.createUser(theUser);
         return theUser;
     }
 

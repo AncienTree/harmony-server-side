@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.schedule;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -52,35 +53,33 @@ public class ScheduleRecordController {
 
     @GetMapping("/byDate/{date}")
     public List<ScheduleRecord> getScheduleByDate(@PathVariable String date) {
-        System.out.println(date);
-        System.out.println(LocalDate.parse(date));
-        return scheduleRecordService.getScheduleByDate(LocalDate.parse(date));
+        return scheduleRecordService.getScheduleByDate(Date.valueOf(date));
     }
 
     @GetMapping("/byDates")
-    public List<ScheduleRecord> getScheduleBetweenDate(@RequestBody Map<String, LocalDate> dates) {
+    public List<ScheduleRecord> getScheduleBetweenDate(@RequestBody Map<String, String> dates) {
 
-        return scheduleRecordService.getScheduleBetweenDate(dates.get("start"), dates.get("end"));
+        return scheduleRecordService.getScheduleBetweenDate(Date.valueOf("start"), Date.valueOf("end"));
     }
 
     @GetMapping("/byDateAndEmployee")
     public List<ScheduleRecord> getScheduleByDateAndEmployee(@RequestBody Map<String, Object> dateAndId) {
         Employee theEmpl = employeeService.getEmployee((long)dateAndId.get("id"));
 
-        return scheduleRecordService.getScheduleByDateAndEmployee(LocalDate.parse((String) dateAndId.get("date")), theEmpl);
+        return scheduleRecordService.getScheduleByDateAndEmployee(Date.valueOf((String) dateAndId.get("date")), theEmpl);
     }
 
     @GetMapping("/byDatesAndEmployee")
     public List<ScheduleRecord> getScheduleBetweenDateAndEmployee(@RequestBody Map<String, Object> datesAndId) {
         Employee theEmpl = employeeService.getEmployee((long)datesAndId.get("id"));
 
-        return scheduleRecordService.getScheduleBetweenDateAndEmployee((LocalDate) datesAndId.get("star"),
-                (LocalDate) datesAndId.get("end"), theEmpl);
+        return scheduleRecordService.getScheduleBetweenDateAndEmployee(Date.valueOf((String) datesAndId.get("star")),
+                Date.valueOf((String) datesAndId.get("end")), theEmpl);
     }
 
     @GetMapping("/byDatesAndStatus")
     public List<ScheduleRecord> getScheduleBetweenDateAndStatus(@RequestBody Map<String, Object> datesAndStatus) {
-        return scheduleRecordService.getScheduleBetweenDateAndStatus(LocalDate.parse((String) datesAndStatus.get("start")),
-                LocalDate.parse((String) datesAndStatus.get("end")), ScheduleStatus.valueOf((String) datesAndStatus.get("status")));
+        return scheduleRecordService.getScheduleBetweenDateAndStatus(Date.valueOf((String) datesAndStatus.get("start")),
+                Date.valueOf((String) datesAndStatus.get("end")), ScheduleStatus.valueOf((String) datesAndStatus.get("status")));
     }
 }

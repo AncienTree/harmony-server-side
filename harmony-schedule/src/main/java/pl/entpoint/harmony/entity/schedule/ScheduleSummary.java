@@ -9,7 +9,7 @@ import pl.entpoint.harmony.entity.model.SimpleEmployee;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -43,5 +43,5 @@ public class ScheduleSummary implements Serializable {
             )
     private List<ScheduleRecord> scheduleRecords;
 
-    private LocalDate scheduleDate;
+    private Date scheduleDate;
 }

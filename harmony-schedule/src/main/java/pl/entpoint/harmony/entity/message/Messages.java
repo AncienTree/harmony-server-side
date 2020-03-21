@@ -7,7 +7,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * @author Mateusz Dąbek
@@ -31,7 +31,7 @@ public class Messages implements Serializable {
     @Column(nullable = false)
     private String text;
 
-    private LocalDate crated;
+    private Date crated;
 
-    private LocalDate expired;
+    private Date expired;
 }

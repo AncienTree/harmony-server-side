@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * @author Mateusz Dąbek
@@ -24,7 +24,7 @@ public class Schedule implements Serializable {
     private Long id;
 
     @Column(name = "schedule_date", nullable = false)
-    private LocalDate scheduleDate;
+    private Date scheduleDate;
 
     @Column(nullable = false)
     private boolean active;

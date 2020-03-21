@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * @author Mateusz Dąbek
@@ -24,7 +24,7 @@ public class MonthHours implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private Date date;
 
     @Column(nullable = false, length = 4)
     private int rbh;

@@ -8,7 +8,7 @@ import pl.entpoint.harmony.entity.model.SimpleEmployee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -39,7 +39,7 @@ public class ScheduleSummaryController {
         SimpleEmployee simpleEmployee = new SimpleEmployee(employee.get());
 
         Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
-                (LocalDate.parse(schedule.get("date"))),
+                Date.valueOf(schedule.get("date")),
                 employee.get()));
         ScheduleSummary summary = optSummary.get();
         summary.setSimpleEmployee(simpleEmployee);
@@ -49,7 +49,7 @@ public class ScheduleSummaryController {
 
     @GetMapping("/date/{date}")
     List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
-        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
+        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(Date.valueOf(date));
 
         // Przypisanie SimpleEmployee do każdego grafiku z listy
         for (ScheduleSummary scheduleSummary: summary) {

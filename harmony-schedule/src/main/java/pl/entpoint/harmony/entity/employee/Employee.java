@@ -1,19 +1,18 @@
 package pl.entpoint.harmony.entity.employee;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 
 /**
@@ -27,6 +26,7 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +44,7 @@ public class Employee implements Serializable {
     @Column(length = 1)
     private String sex;
 
-    private LocalDate birthday;
+    private Date birthday;
 
     @Email
     private String email;
@@ -67,16 +67,16 @@ public class Employee implements Serializable {
     private String unit;
 
     @Column(name = "start_work_date")
-    private LocalDate startWorkDate;
+    private Date startWorkDate;
 
     @Column(name = "end_work_date")
-    private LocalDate endWorkDate;
+    private Date endWorkDate;
 
     @Column(name = "start_contract_date")
-    private LocalDate startContractDate;
+    private Date startContractDate;
 
     @Column(name = "end_contract_date")
-    private LocalDate endContractDate;
+    private Date endContractDate;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_details_id")
@@ -105,11 +105,11 @@ public class Employee implements Serializable {
     private boolean created;
 
     @Column(name = "create_date")
-    private LocalDate createDate;
+    private Date createDate;
 
-    public Employee(String firstName, String lastName, long pesel, String sex, LocalDate birthday, String position,
+    public Employee(String firstName, String lastName, long pesel, String sex, Date birthday, String position,
                     String contractPosition, WorkStatus workStatus, String contractType, String basicUnit, String unit,
-                    LocalDate startWorkDate, LocalDate startContractDate) {
+                    Date startWorkDate, Date startContractDate) {
         this.employeeDetails = new EmployeeDetails();
         this.contactDetails = new ContactDetails();
         this.employeeInfo = new EmployeeInfo();
@@ -128,7 +128,7 @@ public class Employee implements Serializable {
         this.startWorkDate = startWorkDate;
         this.startContractDate = startContractDate;
         this.created = false;
-        this.createDate = LocalDate.now();
+        this.createDate = new Date(new java.util.Date().getTime());
     }
 }
 	

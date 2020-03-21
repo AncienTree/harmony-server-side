@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * @author Mateusz Dąbek
@@ -24,7 +24,7 @@ public class LeavePlaner implements Serializable {
     private Long id;
 
     @Column(name = "planer_date", nullable = false)
-    private LocalDate planerDate;
+    private Date planerDate;
 
     @Column(nullable = false)
     private boolean active;

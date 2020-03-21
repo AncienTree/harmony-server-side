@@ -1,8 +1,8 @@
 package pl.entpoint.harmony.entity.schedule;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Date;
+import java.sql.Time;
 
 import javax.persistence.*;
 
@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,13 +41,13 @@ public class ScheduleRecord implements Serializable {
     private Employee employee;
 
     @Column(name = "work_date", nullable = false)
-    private LocalDate workDate;
+    private Date workDate;
 
     @Column(name = "start_work", nullable = false)
-    private LocalTime startWork;
+    private Time startWork;
 
     @Column(name = "end_work", nullable = false)
-    private LocalTime endWork;
+    private Time endWork;
 
     @Enumerated(EnumType.STRING)
     private ScheduleStatus status;
@@ -56,6 +55,7 @@ public class ScheduleRecord implements Serializable {
     @Enumerated(EnumType.STRING)
     private ScheduleType types;
 
-    private LocalDate update;
+    @Column(name = "update_date")
+    private Date update;
 
 }

@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     }
 
     @Override
-    public List<ScheduleRecord> getScheduleBetweenDate(LocalDate startDate, LocalDate endDate) {
+    public List<ScheduleRecord> getScheduleBetweenDate(Date startDate, Date endDate) {
         return scheduleRecordRepository.findByWorkDateBetween(startDate, endDate);
     }
 
@@ -41,23 +41,23 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     }
 
     @Override
-    public List<ScheduleRecord> getScheduleByDate(LocalDate date) {
+    public List<ScheduleRecord> getScheduleByDate(Date date) {
         return scheduleRecordRepository.findByWorkDate(date);
     }
 
     @Override
-    public List<ScheduleRecord> getScheduleByDateAndEmployee(LocalDate date, Employee employee) {
+    public List<ScheduleRecord> getScheduleByDateAndEmployee(Date date, Employee employee) {
         return scheduleRecordRepository.findByWorkDateAndEmployee(date, employee);
     }
 
     @Override
-    public List<ScheduleRecord> getScheduleBetweenDateAndStatus(LocalDate startDate, LocalDate endDate,
+    public List<ScheduleRecord> getScheduleBetweenDateAndStatus(Date startDate, Date endDate,
                                                                 ScheduleStatus status) {
         return scheduleRecordRepository.findByWorkDateBetweenAndStatus(startDate, endDate, status);
     }
 
     @Override
-    public List<ScheduleRecord> getScheduleBetweenDateAndEmployee(LocalDate startDate, LocalDate endDate, Employee employee) {
+    public List<ScheduleRecord> getScheduleBetweenDateAndEmployee(Date startDate, Date endDate, Employee employee) {
         return scheduleRecordRepository.findByWorkDateBetweenAndEmployee(startDate, endDate, employee);
     }
 

@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,16 +20,16 @@ public interface ScheduleRecordRepository extends JpaRepository<ScheduleRecord, 
 
     List<ScheduleRecord> findByStatus(ScheduleStatus status);
 
-    List<ScheduleRecord> findByWorkDateBetween(LocalDate startDate, LocalDate endDate);
+    List<ScheduleRecord> findByWorkDateBetween(Date startDate, Date endDate);
 
     List<ScheduleRecord> findByEmployee(Employee employee);
 
-    List<ScheduleRecord> findByWorkDate(LocalDate date);
+    List<ScheduleRecord> findByWorkDate(Date date);
 
-    List<ScheduleRecord> findByWorkDateAndEmployee(LocalDate date, Employee employee);
+    List<ScheduleRecord> findByWorkDateAndEmployee(Date date, Employee employee);
 
-    List<ScheduleRecord> findByWorkDateBetweenAndStatus(LocalDate startDate, LocalDate endDate, ScheduleStatus status);
+    List<ScheduleRecord> findByWorkDateBetweenAndStatus(Date startDate, Date endDate, ScheduleStatus status);
 
-    List<ScheduleRecord> findByWorkDateBetweenAndEmployee(LocalDate startDate, LocalDate endDate, Employee employee);
+    List<ScheduleRecord> findByWorkDateBetweenAndEmployee(Date startDate, Date endDate, Employee employee);
 
 }

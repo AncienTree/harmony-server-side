@@ -23,6 +23,7 @@ import pl.entpoint.harmony.entity.user.enums.Roles;
 import pl.entpoint.harmony.entity.employee.Employee;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -54,7 +55,7 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     @JsonIgnore
-    private LocalDate created;
+    private Date created;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -70,7 +71,7 @@ public class User implements Serializable {
         this.password = password;
         this.status = true;
         this.role = Roles.ROLE_USER;
-        this.created = LocalDate.now();
+        this.created = new Date(new java.util.Date().getTime());
         log.info("Stworzono nowego uzytkownika: " + login);
     }
 }

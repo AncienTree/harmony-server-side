@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.schedule.Schedule;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule getScheduleByDate(LocalDate date) {
+    public Schedule getScheduleByDate(Date date) {
         return scheduleRepository.findByScheduleDate(date);
     }
 

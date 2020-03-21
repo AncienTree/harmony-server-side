@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.entity.settings;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 import javax.persistence.*;
 
@@ -29,7 +29,7 @@ public class UserSection implements Serializable {
     private String name;
 
     @Column(nullable = false)
-    private LocalDate expired;
+    private Date expired;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", nullable = false)

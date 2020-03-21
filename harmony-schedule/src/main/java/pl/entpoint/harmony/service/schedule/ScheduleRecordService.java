@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -16,16 +16,16 @@ public interface ScheduleRecordService {
 	
 	List<ScheduleRecord> getScheduleByStatus(ScheduleStatus status);
 	
-	List<ScheduleRecord> getScheduleBetweenDate(LocalDate startDate, LocalDate endDate);
+	List<ScheduleRecord> getScheduleBetweenDate(Date startDate, Date endDate);
 	
 	List<ScheduleRecord> getScheduleByEmployee(Employee employee);
 
-	List<ScheduleRecord> getScheduleByDate(LocalDate date);
+	List<ScheduleRecord> getScheduleByDate(Date date);
 
-	List<ScheduleRecord> getScheduleByDateAndEmployee(LocalDate date, Employee employee);
+	List<ScheduleRecord> getScheduleByDateAndEmployee(Date date, Employee employee);
 	
-	List<ScheduleRecord> getScheduleBetweenDateAndStatus(LocalDate startDate, LocalDate endDate, ScheduleStatus status);
+	List<ScheduleRecord> getScheduleBetweenDateAndStatus(Date startDate, Date endDate, ScheduleStatus status);
 	
-	List<ScheduleRecord> getScheduleBetweenDateAndEmployee(LocalDate startDate, LocalDate endDate, Employee employee);
+	List<ScheduleRecord> getScheduleBetweenDateAndEmployee(Date startDate, Date endDate, Employee employee);
 
 }

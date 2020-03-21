@@ -3,17 +3,17 @@ package pl.entpoint.harmony;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.TimeZone;
+
 @SpringBootApplication
 public class HarmonyScheduleApplication {
 
     public static void main(String[] args) {
+        TimeZone timeZone = TimeZone.getTimeZone("Europe/Warsaw");
+        TimeZone.setDefault(timeZone);
+
         SpringApplication.run(HarmonyScheduleApplication.class, args);
     }
 
-//    public void AuthenticationManager(AuthenticationManagerBuilder builder, UserRepository repo) throws Exception {
-//        if (repo.count() == 0){
-//            repo.save(new User("user","user"));
-//        }
-//        builder.userDetailsService(username -> new CustomUserDetails(repo.findByLogin(username)));
-//    }
+
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * @author Mateusz Dąbek
@@ -29,5 +29,6 @@ public class Unit implements Serializable {
     @Column(name = "for_unit",nullable = false, length = 45)
     private String forUnit;
 
-    private LocalDate update;
+    @Column(name = "update_date")
+    private Date update;
 }

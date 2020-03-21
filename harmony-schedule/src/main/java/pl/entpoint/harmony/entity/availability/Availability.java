@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 
 /**
  * @author Mateusz Dąbek
@@ -24,7 +24,7 @@ public class Availability implements Serializable{
     private Long id;
 
     @Column(name = "availability_date", nullable = false)
-    private LocalDate availabilityDate;
+    private Date availabilityDate;
 
     @Column(nullable = false)
     private boolean active;
