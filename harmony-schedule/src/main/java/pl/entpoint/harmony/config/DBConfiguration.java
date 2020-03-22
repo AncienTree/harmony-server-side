@@ -12,8 +12,10 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.util.Objects;
+import java.util.TimeZone;
 
 /**
  * @author Mateusz Dąbek
@@ -36,6 +38,11 @@ public class DBConfiguration {
     @Autowired
     public DBConfiguration(Environment env) {
         this.env = env;
+    }
+
+    @PostConstruct
+    void started() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
 
     @Profile("dev")
