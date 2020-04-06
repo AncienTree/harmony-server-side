@@ -101,7 +101,9 @@ INSERT INTO schedule_record(id, end_work, start_work, status, types, work_date, 
   (48,'17:00:00','09:00:00','P','LOGIN','2019-10-28',2),
   (49,'17:00:00','09:00:00','P','LOGIN','2019-10-29',2),
   (50,'17:00:00','09:00:00','P','LOGIN','2019-10-30',2),
-  (51,'17:00:00','09:00:00','P','LOGIN','2019-10-31',2);
+  (51,'17:00:00','09:00:00','P','LOGIN','2019-10-31',2),
+  (52,'17:00:00','09:00:00','P','OBEC','2019-10-31',2),
+  (53,'17:00:00','09:00:00','P','DOSTP','2019-10-31',2);
 
 -- Schedule Table
 INSERT INTO schedule(id, schedule_date, active) VALUES
@@ -170,6 +172,8 @@ INSERT INTO schedule_mapping(schedule_summary_id, schedule_record_id) VALUES
   (3, 49),
   (3, 50),
   (3, 51),
+  (3, 52),
+  (3, 53),
   (4, 5);
 
 

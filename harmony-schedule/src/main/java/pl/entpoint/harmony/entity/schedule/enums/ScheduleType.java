@@ -18,10 +18,10 @@ public enum ScheduleType {
 /*
 
 wg. dyspozycyjności
-wg. dostępności
-wg. grafiku
+wg. dostępności*
+wg. grafiku*
 wg. zalogowania
 wg. jitsi
-wg. obecności
+wg. obecności*
 wg. dzwonienia
 */
