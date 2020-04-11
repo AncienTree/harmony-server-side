@@ -15,7 +15,7 @@ public enum Roles implements GrantedAuthority {
     ROLE_HR("HR"),
     ROLE_ADMIN("ADMIN");
 
-    public final String name;
+    private final String name;
 
     Roles(String name) {
         this.name = name;

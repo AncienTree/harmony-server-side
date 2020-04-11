@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleStatus;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -29,6 +30,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class ScheduleRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +40,7 @@ public class ScheduleRecord implements Serializable {
     @JoinColumn(name = "employee_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
+    @ToString.Exclude
     private Employee employee;
 
     @Column(name = "work_date", nullable = false)

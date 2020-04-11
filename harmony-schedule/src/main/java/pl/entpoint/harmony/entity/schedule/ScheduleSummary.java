@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.model.SimpleEmployee;
 
@@ -22,6 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class ScheduleSummary implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +32,11 @@ public class ScheduleSummary implements Serializable {
     @OneToOne
     @JoinColumn(name = "employee_id")
     @JsonIgnore
+    @ToString.Exclude
     private Employee employee;
 
     @Transient
+    @ToString.Exclude
     private SimpleEmployee simpleEmployee;
 
     @OneToMany

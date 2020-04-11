@@ -5,13 +5,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.model.SimpleEmployee;
+import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
+import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * @author Mateusz Dąbek
@@ -56,5 +60,26 @@ public class ScheduleSummaryController {
             scheduleSummary.setSimpleEmployee(new SimpleEmployee(scheduleSummary.getEmployee()));
         }
         return summary;
+    }
+
+    @GetMapping("/{date}/{status}")
+    List<ScheduleSummary> getScheduleByDate(@PathVariable String date, @PathVariable String status) {
+        List<ScheduleSummary> filteredList;
+        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(Date.valueOf(date));
+//        filteredList  = summary.stream().filter(
+//                graf -> graf.getScheduleRecords().stream()
+//                    .anyMatch(record -> record.getTypes().checkValue(status)))
+//                .collect(Collectors.toList());
+
+        // Działa ale usuwa jednego usera?
+        filteredList  = summary.stream().filter(
+                graf -> graf.getScheduleRecords().removeIf(record -> !(record.getTypes().checkValue(status))))
+                .collect(Collectors.toList());
+
+        // Przypisanie SimpleEmployee do każdego grafiku z listy
+        for (ScheduleSummary scheduleSummary: filteredList) {
+            scheduleSummary.setSimpleEmployee(new SimpleEmployee(scheduleSummary.getEmployee()));
+        }
+        return filteredList;
     }
 }
