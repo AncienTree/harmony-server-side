@@ -1,7 +1,6 @@
 package pl.entpoint.harmony.service.schedule;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -62,11 +61,11 @@ public class ScheduleRecordController {
         return scheduleRecordService.getScheduleBetweenDate(Date.valueOf("start"), Date.valueOf("end"));
     }
 
-    @GetMapping("/byDateAndEmployee")
-    public List<ScheduleRecord> getScheduleByDateAndEmployee(@RequestBody Map<String, Object> dateAndId) {
-        Employee theEmpl = employeeService.getEmployee((long)dateAndId.get("id"));
+    @GetMapping("{id}/{date}")
+    public List<ScheduleRecord> getScheduleByDateAndEmployee(@PathVariable String id, @PathVariable String date) {
+        Employee theEmpl = employeeService.getEmployee(Long.valueOf(id));
 
-        return scheduleRecordService.getScheduleByDateAndEmployee(Date.valueOf((String) dateAndId.get("date")), theEmpl);
+        return scheduleRecordService.getScheduleByDateAndEmployee(Date.valueOf(date), theEmpl);
     }
 
     @GetMapping("/byDatesAndEmployee")
