@@ -64,22 +64,15 @@ public class ScheduleSummaryController {
 
     @GetMapping("/{date}/{status}")
     List<ScheduleSummary> getScheduleByDate(@PathVariable String date, @PathVariable String status) {
-        List<ScheduleSummary> filteredList;
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(Date.valueOf(date));
-//        filteredList  = summary.stream().filter(
-//                graf -> graf.getScheduleRecords().stream()
-//                    .anyMatch(record -> record.getTypes().checkValue(status)))
-//                .collect(Collectors.toList());
 
-        // Działa ale usuwa jednego usera?
-        filteredList  = summary.stream().filter(
-                graf -> graf.getScheduleRecords().removeIf(record -> !(record.getTypes().checkValue(status))))
-                .collect(Collectors.toList());
+        // Filtorwanie rekordów po danym statusie
+        summary.forEach(p -> p.getScheduleRecords().removeIf(g -> g.getTypes().checkValue(status)));
 
         // Przypisanie SimpleEmployee do każdego grafiku z listy
-        for (ScheduleSummary scheduleSummary: filteredList) {
+        for (ScheduleSummary scheduleSummary: summary) {
             scheduleSummary.setSimpleEmployee(new SimpleEmployee(scheduleSummary.getEmployee()));
         }
-        return filteredList;
+        return summary;
     }
 }

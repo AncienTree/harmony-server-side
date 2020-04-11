@@ -23,6 +23,6 @@ public enum ScheduleType {
     }
 
     public boolean checkValue(String text){
-        return this.value.equals(text);
+        return !this.value.equals(text);
     }
 }
