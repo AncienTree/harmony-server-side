@@ -16,7 +16,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
  */
 
 @Entity
-@Table(name = "sett_section")
+@Table(name = "user_section", schema = "settings")
 @Getter
 @Setter
 @NoArgsConstructor

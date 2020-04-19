@@ -14,7 +14,7 @@ import java.sql.Date;
  */
 
 @Entity
-@Table(name = "schedule")
+@Table(name = "schedule", schema = "schedule")
 @Getter
 @Setter
 @NoArgsConstructor

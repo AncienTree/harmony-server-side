@@ -21,7 +21,7 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
  */
 
 @Entity
-@Table(name = "employees")
+@Table(name = "employees", schema = "employee")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter
 @Setter

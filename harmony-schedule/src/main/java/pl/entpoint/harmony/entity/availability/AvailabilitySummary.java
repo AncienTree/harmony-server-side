@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "availability_summary")
+@Table(name = "availability_summary", schema = "availability")
 @Getter
 @Setter
 @NoArgsConstructor

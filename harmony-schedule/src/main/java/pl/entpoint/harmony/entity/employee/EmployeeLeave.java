@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "employee_leave")
+@Table(name = "employee_leave", schema = "employee")
 @Getter
 @Setter
 @NoArgsConstructor

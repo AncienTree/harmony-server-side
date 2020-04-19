@@ -14,7 +14,7 @@ import java.sql.Date;
  */
 
 @Entity
-@Table(name = "Leave_planer")
+@Table(name = "Leave_planer", schema = "planer")
 @Getter
 @Setter
 @NoArgsConstructor

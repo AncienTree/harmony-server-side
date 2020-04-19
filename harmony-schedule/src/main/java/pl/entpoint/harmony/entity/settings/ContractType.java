@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "sett_contract_type")
+@Table(name = "contract_type", schema = "settings")
 @Getter
 @Setter
 @NoArgsConstructor

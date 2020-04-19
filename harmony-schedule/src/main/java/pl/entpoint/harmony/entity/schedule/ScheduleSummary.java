@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "schedule_summary")
+@Table(name = "schedule_summary", schema = "schedule")
 @Getter
 @Setter
 @NoArgsConstructor

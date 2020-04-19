@@ -19,7 +19,7 @@ import java.io.Serializable;
  */
 
 @Entity
-@Table(name = "sett_line")
+@Table(name = "user_line", schema = "settings")
 @Getter
 @Setter
 @NoArgsConstructor

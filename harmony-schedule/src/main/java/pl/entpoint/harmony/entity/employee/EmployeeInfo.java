@@ -22,7 +22,7 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "employee_info")
+@Table(name = "employee_info", schema = "employee")
 @Getter
 @Setter
 @NoArgsConstructor

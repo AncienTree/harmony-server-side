@@ -26,7 +26,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-@Table(name = "schedule_record")
+@Table(name = "schedule_record", schema = "schedule")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -33,7 +33,7 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "users")
 @Getter
 @Setter
 @NoArgsConstructor

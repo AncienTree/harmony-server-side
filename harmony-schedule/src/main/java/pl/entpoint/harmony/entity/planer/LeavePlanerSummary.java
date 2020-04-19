@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name = "leave_planer_summary")
+@Table(name = "leave_planer_summary", schema = "planer")
 @Getter
 @Setter
 @NoArgsConstructor
