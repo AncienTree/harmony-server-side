@@ -60,14 +60,21 @@ public class ScheduleSummaryController {
     
     @PostMapping("/add")
     void createSummary(@RequestBody Map<String, String> body) {
-    	Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployee(Long.valueOf(body.get("id"))));        
-        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
-                Date.valueOf(body.get("date")), employee.get()));
-        
-        if(optSummary.isPresent()) {        	
+    	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
+        Optional<ScheduleSummary> optSummary;
+        ScheduleSummary summary;
+        if (employee != null){
+            optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
+                    Date.valueOf(body.get("date")), employee));
+        } else {
+            throw new RuntimeException("Użytkownik nie istnieje");
+        }
+        if(optSummary.isPresent()) {
         	throw new RuntimeException("Grafik istnieje dla użytkownika o danej dacie");
         } else {
-        	ScheduleSummary summary = new ScheduleSummary(employee.get(), body.get("date"));
+        	summary = new ScheduleSummary(employee, body.get("date"));
+//        	summary.setId(0L);
+        	scheduleSummaryService.create(summary);
         }
     }
 }

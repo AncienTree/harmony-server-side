@@ -32,4 +32,9 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
     public List<ScheduleSummary> getScheduleByDate(Date date) {
         return scheduleSummaryRepository.findByScheduleDate(date);
     }
+
+    @Override
+    public void create(ScheduleSummary scheduleSummary) {
+    scheduleSummaryRepository.save(scheduleSummary);
+    }
 }
