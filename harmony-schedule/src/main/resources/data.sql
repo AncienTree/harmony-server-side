@@ -10,7 +10,7 @@ CREATE SCHEMA IF NOT exists settings;
 CREATE SCHEMA IF NOT exists users;
 
 -- Contact details Table
-INSERT INTO contact_details(id, address, city, zip_code, phone_number, contact_phone_number, contact_name) VALUES
+INSERT INTO employee.contact_details(id, address, city, zip_code, phone_number, contact_phone_number, contact_name) VALUES
   (1,'Mickewicza 14','Katowice','41-477','123456789','987654321','Osoba kontaktowa 1'),
   (2,'Damrota 1','Katowice','41-400','458777556','458777556','Osoba kontaktowa 2'),
   (3,'Powstańców 1/4','Sosnowiec','49-999','986574213','986574213','Osoba kontaktowa 3'),
@@ -18,7 +18,7 @@ INSERT INTO contact_details(id, address, city, zip_code, phone_number, contact_p
   (5,'Szkolna 124/12','Warszawa','00-017','111222333','111222333','Osoba kontaktowa 5');
 
 -- Employee details Table
-INSERT INTO employee_details(id, lt_login, lt_id, crm_login, crm_expiration_date, user_line, user_section, fte, fte_start, update_date, goal1, goal2, goal3, goal4, goal5) VALUES
+INSERT INTO employee.employee_details(id, lt_login, lt_id, crm_login, crm_expiration_date, user_line, user_section, fte, fte_start, update_date, goal1, goal2, goal3, goal4, goal5) VALUES
   (1,'user_l','1354','user','2020-12-31','Sekcja 1','Level 1','1','1','2019-11-21','100','24','3','1','0'),
   (2,'spec_l','1114','spec','2020-12-31','Sekcja 1','Level 1','1','1','2019-11-21','100','24','3','1','0'),
   (3,'mena_l','2224','kier','2020-12-31','Sekcja 1','Level 2','1','1','2019-11-21','100','24','3','1','0'),
@@ -26,7 +26,7 @@ INSERT INTO employee_details(id, lt_login, lt_id, crm_login, crm_expiration_date
   (5,'admin_l','1224','admin','2020-12-31','Sekcja IT','Level 4','1','1','2019-11-21','0','0','0','0','0');
 
 -- Employee info Table
-INSERT INTO employee_info(id, agreement, ppk, headphones, locker, id_card, parking_card, info1, info2, info3, info4) VALUES
+INSERT INTO employee.employee_info(id, agreement, ppk, headphones, locker, id_card, parking_card, info1, info2, info3, info4) VALUES
   (1,true,true,true,'MS100','MAKSIMUM101','004',NULL,NULL,NULL,NULL),
   (2,true,true,true,'MS101','MAKSIMUM104','001',NULL,NULL,NULL,NULL),
   (3,true,true,true,'MS102','MAKSIMUM103','002',NULL,NULL,NULL,NULL),
@@ -34,7 +34,7 @@ INSERT INTO employee_info(id, agreement, ppk, headphones, locker, id_card, parki
   (5,true,true,true,'MS10$','MAKSIMUM001','006',NULL,NULL,NULL,NULL);
 
 -- Employee leave Table
-INSERT INTO employee_leave(id, normal, uz, additional, past_years) VALUES
+INSERT INTO employee.employee_leave(id, normal, uz, additional, past_years) VALUES
   (1,16,4,0,0),
   (2,16,4,0,0),
   (3,20,4,0,0),
@@ -42,7 +42,7 @@ INSERT INTO employee_leave(id, normal, uz, additional, past_years) VALUES
   (5,20,4,8,12);
 
 -- Employee Table
-INSERT INTO employees(id, first_name, last_name, pesel, sex, birthday, email, position, contract_position, work_status, contract_type, basic_unit, unit, start_work_date, end_work_date, start_contract_date, end_contract_date, employee_details_id, contact_details_id, employee_info_id, employee_leave_id, created , create_date) VALUES
+INSERT INTO employee.employees(id, first_name, last_name, pesel, sex, birthday, email, position, contract_position, work_status, contract_type, basic_unit, unit, start_work_date, end_work_date, start_contract_date, end_contract_date, employee_details_id, contact_details_id, employee_info_id, employee_leave_id, created , create_date) VALUES
   (1,'User','Testowy','12345678987','M','1990-01-01', 'user@mail.pl','Doradca','ds. sprzedaży','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',1,1,1,1, true, '2018-01-01'),
   (2,'Spec','Testowy','54832165478','K','1990-01-01','spec@mail.pl','Specjalista','ds. monitoringu','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',2,2,2,2, true, '2018-01-01'),
   (3,'Manager','Testowy','11245678912','M','1990-01-01','man@mail.pl','Kierownik','Kieronwik Kampanii','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',3,3,3,3, true, '2018-01-01'),
@@ -50,7 +50,7 @@ INSERT INTO employees(id, first_name, last_name, pesel, sex, birthday, email, po
   (5,'Admin','Testowy','92032614578','M','1990-01-01','admin@mail.pl','Specjalista','ds. IT','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',5,5,5,5, true, '2018-01-01');
 
 -- User Table
-INSERT INTO users(id, login, password, status, created, role, employee_id) VALUES
+INSERT INTO users.users(id, login, password, status, created, role, employee_id) VALUES
   (1, 'test_user', '$2a$10$gPB/C.DzwDu.nNahJtFzwOZpWCK8zU/Z.BoDBI62lxUdWFtoWwnH2', true, '2019-01-01', 'ROLE_USER', 1),
   (2, 'test_spec', '$2a$10$gPB/C.DzwDu.nNahJtFzwOZpWCK8zU/Z.BoDBI62lxUdWFtoWwnH2', true, '2019-01-01', 'ROLE_SPEC', 2),
   (3, 'test_manager', '$2a$10$gPB/C.DzwDu.nNahJtFzwOZpWCK8zU/Z.BoDBI62lxUdWFtoWwnH2', true, '2018-01-01', 'ROLE_MANAGER', 3),
@@ -58,7 +58,7 @@ INSERT INTO users(id, login, password, status, created, role, employee_id) VALUE
   (5, 'test_admin', '$2a$10$gPB/C.DzwDu.nNahJtFzwOZpWCK8zU/Z.BoDBI62lxUdWFtoWwnH2', true, '2018-01-01', 'ROLE_ADMIN', 5);
 
 -- Schedule record Table
-INSERT INTO schedule_record(id, end_work, start_work, status, types, work_date, employee_id) VALUES
+INSERT INTO schedule.schedule_record(id, end_work, start_work, status, types, work_date, employee_id) VALUES
   (1,'17:00:00','09:00:00','P','ZALOGOWANIE','2019-11-01',1),
   (2,'17:00:00','09:00:00','P','ZALOGOWANIE','2019-11-02',1),
   (3,'17:00:00','09:00:00','P','ZALOGOWANIE','2019-11-03',1),
@@ -114,7 +114,7 @@ INSERT INTO schedule_record(id, end_work, start_work, status, types, work_date, 
   (53,'17:00:00','09:00:00','P','DOSTEPNOSC','2019-10-31',2);
 
 -- Schedule Table
-INSERT INTO schedule(id, schedule_date, active) VALUES
+INSERT INTO schedule.schedule(id, schedule_date, active) VALUES
   (1, '2019-10-01', true),
   (2, '2019-11-01', true),
   (3, '2020-02-01', true),
@@ -122,14 +122,14 @@ INSERT INTO schedule(id, schedule_date, active) VALUES
   (5, '2020-01-01', true);
 
 -- Schedule summary Table
-INSERT INTO schedule_summary(id, schedule_date, employee_id) VALUES
+INSERT INTO schedule.schedule_summary(id, schedule_date, employee_id) VALUES
   (1, '2019-10-01', 1),
   (2, '2019-11-01', 1),
   (3, '2019-10-01', 2),
   (4, '2019-11-01', 2);
 
 -- Schedule summary Table
-INSERT INTO schedule_mapping(schedule_summary_id, schedule_record_id) VALUES
+INSERT INTO schedule.schedule_mapping(schedule_summary_id, schedule_record_id) VALUES
   (2, 1),
   (2, 2),
   (2, 3),

@@ -32,6 +32,7 @@ public class LeavePlanerSummary implements Serializable {
 
     @OneToMany
     @JoinTable(name = "leave_planer_mapping",
+            schema = "planer",
             joinColumns = @JoinColumn(name = "leave_planer_id"),
             inverseJoinColumns = @JoinColumn(name = "schedule_record_id"))
     private List<ScheduleRecord> scheduleRecords;

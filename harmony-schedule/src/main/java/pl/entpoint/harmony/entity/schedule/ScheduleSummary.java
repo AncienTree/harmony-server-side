@@ -42,6 +42,7 @@ public class ScheduleSummary implements Serializable {
     @OneToMany
     @JoinTable(
             name = "schedule_mapping",
+            schema = "schedule",
             joinColumns = {@JoinColumn(name = "schedule_summary_id")},
             inverseJoinColumns = {@JoinColumn(name = "schedule_record_id")}
             )

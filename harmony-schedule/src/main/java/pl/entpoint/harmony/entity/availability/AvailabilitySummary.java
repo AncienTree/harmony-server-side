@@ -32,6 +32,7 @@ public class AvailabilitySummary implements Serializable {
 
     @OneToMany
     @JoinTable(name = "availability_mapping",
+            schema = "availability",
             joinColumns = @JoinColumn(name = "availability_summary_id"),
             inverseJoinColumns = @JoinColumn(name = "schedule_record_id"))
     private List<ScheduleRecord> scheduleRecords;
