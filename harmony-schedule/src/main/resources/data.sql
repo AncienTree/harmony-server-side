@@ -1,6 +1,14 @@
 -- Temp data
 --
 
+CREATE SCHEMA IF NOT exists planer;
+CREATE SCHEMA IF NOT exists availability;
+CREATE SCHEMA IF NOT exists employee;
+CREATE SCHEMA IF NOT exists messages;
+CREATE SCHEMA IF NOT exists schedule;
+CREATE SCHEMA IF NOT exists settings;
+CREATE SCHEMA IF NOT exists users;
+
 -- Contact details Table
 INSERT INTO contact_details(id, address, city, zip_code, phone_number, contact_phone_number, contact_name) VALUES
   (1,'Mickewicza 14','Katowice','41-477','123456789','987654321','Osoba kontaktowa 1'),

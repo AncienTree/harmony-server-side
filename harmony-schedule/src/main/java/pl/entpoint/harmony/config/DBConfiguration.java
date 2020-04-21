@@ -57,7 +57,7 @@ public class DBConfiguration {
     @Profile("test")
     @Bean
     public String testDatabaseConnection() {
-        System.out.println("DB connection to VPS for Test Env only! - MySQL");
+        System.out.println("DB connection to VPS for Test Env only! - PostgreSQL");
         System.out.println(driverClassName);
         System.out.println(url);
         return "DB connection to VPS for Test Env only! - MySQL";

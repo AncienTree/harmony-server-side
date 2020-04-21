@@ -5,17 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.model.SimpleEmployee;
-import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
-import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * @author Mateusz Dąbek
@@ -35,21 +31,7 @@ public class ScheduleSummaryController {
     public ScheduleSummaryController(EmployeeService employeeService, ScheduleSummaryService scheduleSummaryService) {
         this.employeeService = employeeService;
         this.scheduleSummaryService = scheduleSummaryService;
-    }
-
-    @GetMapping("/")
-    ScheduleSummary getScheduleByDateAndEmployee(@RequestBody Map<String, String> schedule) {
-        Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployee(Long.valueOf(schedule.get("employee"))));
-        SimpleEmployee simpleEmployee = new SimpleEmployee(employee.get());
-
-        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
-                Date.valueOf(schedule.get("date")),
-                employee.get()));
-        ScheduleSummary summary = optSummary.get();
-        summary.setSimpleEmployee(simpleEmployee);
-
-        return summary;
-    }
+    }   
 
     @GetMapping("/date/{date}")
     List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
@@ -75,4 +57,34 @@ public class ScheduleSummaryController {
         }
         return summary;
     }
+    
+    @PostMapping("/add")
+    void createSummary(@RequestBody Map<String, String> body) {
+    	Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployee(Long.valueOf(body.get("id"))));        
+        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
+                Date.valueOf(body.get("date")), employee.get()));
+        
+        if(optSummary.isPresent()) {        	
+        	throw new RuntimeException("Grafik istnieje dla użytkownika o danej dacie");
+        } else {
+        	ScheduleSummary summary = new ScheduleSummary(employee.get(), body.get("date"));
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -48,4 +48,12 @@ public class ScheduleSummary implements Serializable {
     private List<ScheduleRecord> scheduleRecords;
 
     private Date scheduleDate;
+
+	public ScheduleSummary(Employee employee, String scheduleDate) {
+		this.employee = employee;
+		this.simpleEmployee = new SimpleEmployee(employee);
+		this.scheduleDate = Date.valueOf(scheduleDate);
+	}
+    
+    
 }
