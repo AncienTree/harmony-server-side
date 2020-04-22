@@ -1,8 +1,6 @@
 package pl.entpoint.harmony.service.employee;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -46,17 +44,8 @@ public class EmployeeController {
         this.userService = userService;
     }
 
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     @PostMapping("/employee")
     public User createNewUser(@RequestBody Map<String, String> body) {
-        System.out.println("-------------------");
-        System.out.println("-------------------");
-        System.out.println("-------------------");
-        System.out.println(body);
-        System.out.println("-------------------");
-        System.out.println("-------------------");
-        System.out.println("-------------------");
         Date birthday = Date.valueOf(body.get("birthday").substring(0, 10));
         Date start =Date.valueOf(body.get("startWorkDate").substring(0, 10));
         User theUser = new User(
@@ -78,14 +67,7 @@ public class EmployeeController {
                 body.get("unit"),
                 start,
                 start);
-        theUser.setEmployee(theEmp);
-        System.out.println("-------------------");
-        System.out.println(start);
-        System.out.println("-------------------");
-
-        System.out.println("-------------------");
-        System.out.println(theEmp);
-        System.out.println("-------------------");
+        theUser.setEmployee(theEmp);        
         userService.createUser(theUser);
         return theUser;
     }

@@ -2,7 +2,6 @@ package pl.entpoint.harmony.entity.employee;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -28,7 +27,9 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 @NoArgsConstructor
 @ToString
 public class Employee implements Serializable {
-    @Id
+	private static final long serialVersionUID = -7862141771762074429L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

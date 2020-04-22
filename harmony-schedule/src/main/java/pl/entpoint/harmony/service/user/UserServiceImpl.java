@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.entity.user.enums.Roles;
-import pl.entpoint.harmony.service.employee.EmployeeServiceImpl;
 
 /**
  * @author Mateusz Dąbek

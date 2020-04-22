@@ -19,7 +19,9 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 public class LeavePlaner implements Serializable {
-    @Id
+	private static final long serialVersionUID = -6919831420560838186L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleStatus;
@@ -26,7 +25,6 @@ import pl.entpoint.harmony.service.employee.EmployeeService;
 @RestController
 @RequestMapping("/api/schedule/record")
 @CrossOrigin(origins = "http://localhost:4200")
-@Slf4j
 public class ScheduleRecordController {
 
     private ScheduleRecordService scheduleRecordService;

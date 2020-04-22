@@ -24,7 +24,6 @@ import pl.entpoint.harmony.entity.employee.Employee;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 
 /**
  * @author Mateusz Dąbek
@@ -39,7 +38,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Slf4j
 public class User implements Serializable {
-    @Id
+	private static final long serialVersionUID = 5389204544218772819L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

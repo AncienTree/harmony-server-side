@@ -22,7 +22,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class LeavePlanerSummary implements Serializable {
-    @Id
+	private static final long serialVersionUID = 7101596293019377412L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

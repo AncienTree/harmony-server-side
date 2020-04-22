@@ -27,7 +27,9 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class EmployeeInfo implements Serializable {
-    @Id
+	private static final long serialVersionUID = -4010973083833894767L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

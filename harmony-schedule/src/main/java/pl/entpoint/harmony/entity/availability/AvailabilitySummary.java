@@ -22,7 +22,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class AvailabilitySummary implements Serializable {
-    @Id
+	private static final long serialVersionUID = -41960536005894529L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

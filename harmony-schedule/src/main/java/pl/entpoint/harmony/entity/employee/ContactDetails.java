@@ -28,7 +28,9 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class ContactDetails implements Serializable {
-    @Id
+	private static final long serialVersionUID = 7373634928251884422L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -21,7 +21,9 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @Setter
 @NoArgsConstructor
 public class UserSection implements Serializable {
-    @Id
+	private static final long serialVersionUID = 3600600240967351713L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

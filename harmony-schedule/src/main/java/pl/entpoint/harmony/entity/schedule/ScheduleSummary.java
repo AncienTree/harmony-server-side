@@ -25,7 +25,9 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class ScheduleSummary implements Serializable {
-    @Id
+	private static final long serialVersionUID = -7850728271314700401L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

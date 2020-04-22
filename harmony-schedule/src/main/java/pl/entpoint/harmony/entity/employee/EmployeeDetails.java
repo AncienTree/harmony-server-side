@@ -30,7 +30,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class EmployeeDetails implements Serializable {
-    @Id
+	private static final long serialVersionUID = -2461411805344035506L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

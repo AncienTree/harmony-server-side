@@ -1,13 +1,10 @@
 package pl.entpoint.harmony.util.exception;
 
-
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 public class UserNotActivatedException extends RuntimeException {
 
-    public UserNotActivatedException() {
+	private static final long serialVersionUID = 3226752854350634837L;
+
+	public UserNotActivatedException() {
         super("Użytkownik jest nie aktywny.");
     }
 }

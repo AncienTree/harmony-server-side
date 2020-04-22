@@ -1,7 +1,5 @@
 package pl.entpoint.harmony.entity.schedule.enums;
 
-import pl.entpoint.harmony.entity.schedule.Schedule;
-
 /**
  * @author Mateusz Dąbek
  * @created 16/11/2019

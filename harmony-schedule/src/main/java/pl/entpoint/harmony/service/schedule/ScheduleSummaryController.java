@@ -1,6 +1,5 @@
 package pl.entpoint.harmony.service.schedule;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -21,7 +20,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/schedule")
 @CrossOrigin(origins = "http://localhost:4200")
-@Slf4j
 public class ScheduleSummaryController {
 
     private EmployeeService employeeService;

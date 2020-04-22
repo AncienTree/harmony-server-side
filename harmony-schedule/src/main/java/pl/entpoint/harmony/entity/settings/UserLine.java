@@ -24,7 +24,9 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class UserLine implements Serializable {
-    @Id
+	private static final long serialVersionUID = 2063302342409158600L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

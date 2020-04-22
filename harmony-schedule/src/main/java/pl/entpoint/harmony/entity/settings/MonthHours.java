@@ -19,7 +19,9 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 public class MonthHours implements Serializable {
-    @Id
+	private static final long serialVersionUID = -3553573220315549028L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

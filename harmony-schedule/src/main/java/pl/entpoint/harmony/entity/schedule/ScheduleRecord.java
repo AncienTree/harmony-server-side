@@ -32,7 +32,9 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @NoArgsConstructor
 @ToString
 public class ScheduleRecord implements Serializable {
-    @Id
+	private static final long serialVersionUID = 392393332921570984L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

@@ -18,7 +18,9 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 public class ContractType implements Serializable {
-    @Id
+	private static final long serialVersionUID = 118698729771543703L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

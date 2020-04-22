@@ -20,7 +20,9 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 public class Messages implements Serializable {
-    @Id
+	private static final long serialVersionUID = 6746795456528686061L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

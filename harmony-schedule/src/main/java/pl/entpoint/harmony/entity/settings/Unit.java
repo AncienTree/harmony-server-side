@@ -19,7 +19,9 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 public class Unit implements Serializable {
-    @Id
+	private static final long serialVersionUID = -6038584818439693221L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

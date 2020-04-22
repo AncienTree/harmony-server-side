@@ -10,7 +10,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class SimpleEmployee implements Serializable {
-    private Long id;
+	private static final long serialVersionUID = 3650577428665471954L;
+	private Long id;
     private String fullName;
     private String position;
     private WorkStatus workStatus;
