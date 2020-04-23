@@ -15,7 +15,8 @@ public enum ScheduleStatus {
     WP,
     OP,
     NN,
-    P
+    P,
+    BLOCK
 }
 
 

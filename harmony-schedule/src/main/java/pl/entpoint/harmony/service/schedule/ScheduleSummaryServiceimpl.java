@@ -35,6 +35,6 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 
     @Override
     public void create(ScheduleSummary scheduleSummary) {
-    scheduleSummaryRepository.save(scheduleSummary);
+    	scheduleSummaryRepository.save(scheduleSummary);
     }
 }
