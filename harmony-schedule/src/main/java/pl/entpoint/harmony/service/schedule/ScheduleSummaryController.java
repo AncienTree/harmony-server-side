@@ -1,6 +1,8 @@
 package pl.entpoint.harmony.service.schedule;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.model.SimpleEmployee;
@@ -57,22 +59,20 @@ public class ScheduleSummaryController {
     }
     
     @PostMapping("/add")
-    void createSummary(@RequestBody Map<String, String> body) {
+    ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
     	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
-        Optional<ScheduleSummary> optSummary;
+        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
+                Date.valueOf(body.get("date")), employee));;
         ScheduleSummary summary;
-        if (employee != null){
-            optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
-                    Date.valueOf(body.get("date")), employee));
-        } else {
-            throw new RuntimeException("Użytkownik nie istnieje");
-        }
+
         if(optSummary.isPresent()) {
-        	throw new RuntimeException("Grafik istnieje dla użytkownika o danej dacie");
+            return new ResponseEntity<>("Dla danego użytkownika i daty istnieje już grafik.", HttpStatus.BAD_REQUEST);
         } else {
         	summary = new ScheduleSummary(employee, body.get("date"));
-//        	summary.setId(0L);
         	scheduleSummaryService.create(summary);
+
+            return new ResponseEntity<>("Utworzono grafik dla " + employee.getFirstName() + " " + employee.getLastName(),
+                    HttpStatus.CREATED);
         }
     }
 }
