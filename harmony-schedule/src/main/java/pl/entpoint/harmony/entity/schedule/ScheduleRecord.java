@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleStatus;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -31,7 +32,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ScheduleRecord implements Serializable {
+public class ScheduleRecord extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 392393332921570984L;
 
 	@Id

@@ -3,6 +3,7 @@ package pl.entpoint.harmony.entity.schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Schedule implements Serializable {
+public class Schedule extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 1315074368792278981L;
 
 	@Id
@@ -31,5 +32,5 @@ public class Schedule implements Serializable {
     @Column(nullable = false)
     private boolean active;
     
-//    private boolean visible;
+    private boolean visible;
 }

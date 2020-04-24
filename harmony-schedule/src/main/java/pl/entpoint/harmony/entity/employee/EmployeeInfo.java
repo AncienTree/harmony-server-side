@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.auditing.AuditEntity;
 
 import java.io.Serializable;
 
@@ -26,7 +27,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EmployeeInfo implements Serializable {
+public class EmployeeInfo extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -4010973083833894767L;
 
 	@Id

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -28,19 +29,23 @@ import lombok.ToString;
 public abstract class AuditEntity {
 	
 	@CreatedDate
-	@Column(nullable = false)
+	@Column(name = "created_date", nullable = false)
+    @JsonIgnore
     private Instant createdDate;
 	
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "last_modified_date",nullable = false)
+    @JsonIgnore
     private Instant lastModifiedDate;
     
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
+    @JsonIgnore
     private String createdBy;
     
     @LastModifiedBy
     @Column(name = "last_modified_by", nullable = false)
+    @JsonIgnore
     private String lastModifiedBy;
 
 }

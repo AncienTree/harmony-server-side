@@ -3,6 +3,7 @@ package pl.entpoint.harmony.entity.message;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.Employee;
 
 import javax.persistence.*;
@@ -19,7 +20,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Messages implements Serializable {
+public class Messages extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 6746795456528686061L;
 
 	@Id

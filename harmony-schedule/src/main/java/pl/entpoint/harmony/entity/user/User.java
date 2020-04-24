@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.user.enums.Roles;
 import pl.entpoint.harmony.entity.employee.Employee;
 
@@ -37,7 +38,7 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 @Slf4j
-public class User implements Serializable {
+public class User extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 5389204544218772819L;
 
 	@Id

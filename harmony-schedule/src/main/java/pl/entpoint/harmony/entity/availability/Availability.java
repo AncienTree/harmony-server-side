@@ -3,6 +3,7 @@ package pl.entpoint.harmony.entity.availability;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +19,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Availability implements Serializable{
+public class Availability extends AuditEntity implements Serializable{
 	private static final long serialVersionUID = 1136414836525890890L;
 
 	@Id

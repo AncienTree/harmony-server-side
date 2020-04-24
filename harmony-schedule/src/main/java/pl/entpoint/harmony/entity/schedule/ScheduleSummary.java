@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.model.SimpleEmployee;
 
@@ -24,7 +25,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
-public class ScheduleSummary implements Serializable {
+public class ScheduleSummary extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -7850728271314700401L;
 
 	@Id

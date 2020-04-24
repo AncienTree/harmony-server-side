@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 
 /**
@@ -26,7 +27,7 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Employee implements Serializable {
+public class Employee extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -7862141771762074429L;
 
 	@Id
@@ -105,9 +106,6 @@ public class Employee implements Serializable {
 
     private boolean created;
 
-    @Column(name = "create_date")
-    private Date createDate;
-
     public Employee(String firstName, String lastName, long pesel, String sex, Date birthday, String position,
                     String contractPosition, WorkStatus workStatus, String contractType, String basicUnit, String unit,
                     Date startWorkDate, Date startContractDate) {
@@ -129,7 +127,6 @@ public class Employee implements Serializable {
         this.startWorkDate = startWorkDate;
         this.startContractDate = startContractDate;
         this.created = false;
-        this.createDate = new Date(new java.util.Date().getTime());
     }
 }
 	

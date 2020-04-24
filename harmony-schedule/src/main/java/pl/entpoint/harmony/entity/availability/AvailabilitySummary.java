@@ -3,12 +3,14 @@ package pl.entpoint.harmony.entity.availability;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AvailabilitySummary implements Serializable {
+public class AvailabilitySummary extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -41960536005894529L;
 
 	@Id
@@ -44,4 +46,7 @@ public class AvailabilitySummary implements Serializable {
 
     @Column(name = "accepted_by", nullable = false)
     private String acceptedBy;
+
+    @Column(name = "accepted_date", nullable = false)
+    private Instant acceptedDate;
 }

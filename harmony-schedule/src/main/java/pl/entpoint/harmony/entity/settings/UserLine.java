@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.auditing.AuditEntity;
 
 import java.io.Serializable;
 
@@ -23,7 +24,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserLine implements Serializable {
+public class UserLine extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 2063302342409158600L;
 
 	@Id

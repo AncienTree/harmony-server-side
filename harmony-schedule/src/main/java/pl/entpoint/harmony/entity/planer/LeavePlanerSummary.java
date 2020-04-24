@@ -3,6 +3,7 @@ package pl.entpoint.harmony.entity.planer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
@@ -21,7 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LeavePlanerSummary implements Serializable {
+public class LeavePlanerSummary extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 7101596293019377412L;
 
 	@Id
