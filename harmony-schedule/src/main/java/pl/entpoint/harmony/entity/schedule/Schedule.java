@@ -19,7 +19,7 @@ import java.sql.Date;
 @Setter
 @NoArgsConstructor
 public class Schedule implements Serializable {
-	private static final long serialVersionUID = 1315074368792278980L;
+	private static final long serialVersionUID = 1315074368792278981L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +30,6 @@ public class Schedule implements Serializable {
 
     @Column(nullable = false)
     private boolean active;
+    
+//    private boolean visible;
 }
