@@ -18,18 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginAttemptsLogger {
    
     @EventListener
-    public void authSuccessEventListener(AuthenticationSuccessEvent authorizedEvent){
+    public void authSuccessEventListener(AuthenticationSuccessEvent successEvent){
 
-        log.info("Oauth2 login success");
-        log.info("Event : " + authorizedEvent.getAuthentication().getPrincipal());
-        log.info("Details: " + authorizedEvent.getAuthentication().getDetails());
+        log.info("---- SuccessEvent ----");
+        log.info("Event : " + successEvent.getAuthentication().getPrincipal());
+        log.info("Details: " + successEvent.getAuthentication().getDetails());
     }
 
     @EventListener
-    public void authFailedEventListener(AbstractAuthenticationFailureEvent oAuth2AuthenticationFailureEvent){
-        // write custom code here login failed audit.
-    	log.info("Oauth2 login Failed");
-    	log.info("Event : " + oAuth2AuthenticationFailureEvent.getAuthentication().getPrincipal());
-    	log.info("Details: " + oAuth2AuthenticationFailureEvent.getAuthentication().getDetails());
+    public void authFailedEventListener(AbstractAuthenticationFailureEvent failureEvent){
+    	log.info("---- FailureEvent ----");
+    	log.info("Event : " + failureEvent.getAuthentication().getPrincipal());
+    	log.info("Details: " + failureEvent.getAuthentication().getDetails());
     }
 }

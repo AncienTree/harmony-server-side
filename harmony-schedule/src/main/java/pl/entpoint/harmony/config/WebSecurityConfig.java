@@ -102,7 +102,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .and().httpBasic().realmName(securityRealm)
 
                 .and().authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/oauth/token").permitAll()
