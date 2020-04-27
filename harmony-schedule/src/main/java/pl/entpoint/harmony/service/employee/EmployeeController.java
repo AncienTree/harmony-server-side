@@ -21,6 +21,7 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BCrypt;
+import pl.entpoint.harmony.util.BlowfishEncryption;
 import pl.entpoint.harmony.util.LoginConverter;
 
 /**
@@ -45,7 +46,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/employee")
-    public User createNewUser(@RequestBody Map<String, String> body) {
+    public User createNewUser(@RequestBody Map<String, String> body) throws Exception {
         Date birthday = Date.valueOf(body.get("birthday").substring(0, 10));
         Date start =Date.valueOf(body.get("startWorkDate").substring(0, 10));
         User theUser = new User(
@@ -56,7 +57,7 @@ public class EmployeeController {
         Employee theEmp = new Employee(
                 body.get("firstName"),
                 body.get("lastName"),
-                Long.parseLong(body.get("pesel")),
+                BlowfishEncryption.encrypt(body.get("pesel")),
                 body.get("sex"),
                 birthday,
                 body.get("position"),
@@ -78,13 +79,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{pesel}")
-    public Optional<Employee> getEmployeeByPesel(@PathVariable long pesel) {
+    public Optional<Employee> getEmployeeByPesel(@PathVariable String pesel) {
         return Optional.ofNullable(employeeService.getEmployeeByPesel(pesel));
     }
 
     @PreAuthorize("hasRole('ROLE_HR') or hasRole('ROLE_ADMIN')")
     @GetMapping("/employee/hr/{pesel}")
-    public boolean isEmplInDB(@PathVariable long pesel) {
+    public boolean isEmplInDB(@PathVariable String pesel) {
         return employeeService.isPeselInDB(pesel);
     }
 

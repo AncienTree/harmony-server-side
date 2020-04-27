@@ -15,6 +15,6 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    Optional<Employee> findByPesel(long pesel);
+    Optional<Employee> findByPesel(String pesel);
 
 }

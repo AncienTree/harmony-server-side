@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
+import pl.entpoint.harmony.util.BlowfishEncryption;
 
 /**
  * @author Mateusz Dąbek
@@ -47,8 +48,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeByPesel(Long pesel) {
-        Optional<Employee> result = employeeRepository.findByPesel(pesel);
+    public Employee getEmployeeByPesel(String pesel) {
+        Optional<Employee> result = null;
+		try {
+			result = employeeRepository.findByPesel(BlowfishEncryption.encrypt(pesel));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         Employee empl;
         if (result.isPresent()) {
@@ -60,8 +66,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public boolean isPeselInDB(Long pesel) {
-        Optional<Employee> result = employeeRepository.findByPesel(pesel);
+    public boolean isPeselInDB(String pesel) {
+        Optional<Employee> result = null;
+		try {
+			result = employeeRepository.findByPesel(BlowfishEncryption.encrypt(pesel));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         return result.isPresent();
     }

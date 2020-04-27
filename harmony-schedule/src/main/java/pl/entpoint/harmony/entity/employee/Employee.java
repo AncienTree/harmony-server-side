@@ -40,8 +40,8 @@ public class Employee extends AuditEntity implements Serializable {
     @Column(name = "last_name", length = 40)
     private String lastName;
 
-    @Column(length = 11, unique = true)
-    private long pesel;
+    @Column(length = 40, unique = true)
+    private String pesel;
 
     @Column(length = 1)
     private String sex;
@@ -106,7 +106,7 @@ public class Employee extends AuditEntity implements Serializable {
 
     private boolean created;
 
-    public Employee(String firstName, String lastName, long pesel, String sex, Date birthday, String position,
+    public Employee(String firstName, String lastName, String pesel, String sex, Date birthday, String position,
                     String contractPosition, WorkStatus workStatus, String contractType, String basicUnit, String unit,
                     Date startWorkDate, Date startContractDate) {
         this.employeeDetails = new EmployeeDetails();

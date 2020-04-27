@@ -15,9 +15,9 @@ public interface EmployeeService {
 
     Employee getEmployee(Long id);
 
-    Employee getEmployeeByPesel(Long pesel);
+    Employee getEmployeeByPesel(String pesel);
 
-    boolean isPeselInDB(Long pesel);
+    boolean isPeselInDB(String pesel);
 
     String getFullNameByLogin(String login);
 
