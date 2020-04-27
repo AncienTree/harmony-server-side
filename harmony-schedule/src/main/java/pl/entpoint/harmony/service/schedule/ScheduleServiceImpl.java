@@ -28,6 +28,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public List<Schedule> getActiveSchedules() {
+        return scheduleRepository.findAllActive();
+    }
+
+    @Override
     public List<Schedule> getSchedules() {
         return scheduleRepository.findAll();
     }

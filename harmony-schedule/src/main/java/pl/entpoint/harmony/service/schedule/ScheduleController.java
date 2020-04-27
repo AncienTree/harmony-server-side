@@ -28,6 +28,11 @@ public class ScheduleController {
 
     @GetMapping("listSchedule")
     public List<Schedule> scheduleList() {
+        return scheduleService.getActiveSchedules();
+    }
+
+    @GetMapping("all")
+    public List<Schedule> activeScheduleList() {
         return scheduleService.getSchedules();
     }
 }

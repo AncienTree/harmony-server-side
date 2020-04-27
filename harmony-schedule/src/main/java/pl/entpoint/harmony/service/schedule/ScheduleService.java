@@ -12,6 +12,6 @@ import java.util.List;
 public interface ScheduleService {
 
     Schedule getScheduleByDate(Date date);
-
+    List<Schedule> getActiveSchedules();
     List<Schedule> getSchedules();
 }
