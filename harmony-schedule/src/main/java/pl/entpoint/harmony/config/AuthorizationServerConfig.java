@@ -19,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import pl.entpoint.harmony.service.CustomDetailsService;
 import pl.entpoint.harmony.util.token.CustomToken;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 
 /**
@@ -45,14 +46,18 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private TokenStore tokenStore;
     private JwtAccessTokenConverter defaultAccessTokenConverter;
+    private DataSource customDataSource;
 
     @Autowired
-    AuthorizationServerConfig(AuthenticationManager authenticationManager, CustomDetailsService customDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, TokenStore tokenStore, JwtAccessTokenConverter defaultAccessTokenConverter) {
+    AuthorizationServerConfig(AuthenticationManager authenticationManager, CustomDetailsService customDetailsService,
+                              BCryptPasswordEncoder bCryptPasswordEncoder, TokenStore tokenStore,
+                              JwtAccessTokenConverter defaultAccessTokenConverter, DataSource customDataSource) {
         this.authenticationManager = authenticationManager;
         this.customDetailsService = customDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.tokenStore = tokenStore;
         this.defaultAccessTokenConverter = defaultAccessTokenConverter;
+        this.customDataSource = customDataSource;
     }
 
     @Override
@@ -65,7 +70,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
+        clients.jdbc(customDataSource)
                 .withClient(clientId).secret(bCryptPasswordEncoder.encode(clientSecret))
                 .authorizedGrantTypes("password", "authorization_code")
                 .scopes("read", "write")
