@@ -35,12 +35,12 @@ public class ScheduleController {
 	}
 
 	@GetMapping("listSchedule")
-	public List<Schedule> scheduleList() {
+	public List<Schedule> activeScheduleList() {
 		return scheduleService.getActiveSchedules();
 	}
 
 	@GetMapping("all")
-	public List<Schedule> activeScheduleList() {
+	public List<Schedule> ScheduleList() {
 		return scheduleService.getSchedules();
 	}
 

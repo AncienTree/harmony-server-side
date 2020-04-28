@@ -18,9 +18,9 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     Schedule findByScheduleDate(Date date);
 
-    @Query("SELECT s FROM Schedule s WHERE s.active=true AND s.visible=true ORDER BY s.scheduleDate ASC")
+    @Query("SELECT s FROM Schedule s WHERE s.visible=true ORDER BY s.scheduleDate ASC")
     List<Schedule> findAllActive();
 
-    @Query("SELECT s FROM Schedule s WHERE s.active=true AND s.visible=true ORDER BY s.scheduleDate ASC")
+    @Query("SELECT s FROM Schedule s ORDER BY s.scheduleDate ASC")
     List<Schedule> findAll();
 }
