@@ -6,6 +6,7 @@ import pl.entpoint.harmony.entity.schedule.Schedule;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Mateusz Dąbek
@@ -35,5 +36,21 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<Schedule> getSchedules() {
         return scheduleRepository.findAll();
+    }
+    
+    @Override
+    public void changeStatus(Long id, boolean active, boolean visible) {
+        Optional<Schedule> result = scheduleRepository.findById(id);
+        
+        Schedule schedule;
+        if(result.isPresent()) {
+        	schedule = result.get();
+        } else {
+            throw new RuntimeException("Nie znaleziono grafiku pod ID - " + id);
+        }
+        schedule.setActive(active);
+        schedule.setVisible(visible);
+        
+    	scheduleRepository.save(schedule);
     }
 }

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -51,13 +53,14 @@ public class UserController {
     }
 
     @PatchMapping("/users/{id}")
-    public void updateStatus(@RequestBody boolean status, @PathVariable Long id) {
+    public ResponseEntity<String> updateStatus(@RequestBody boolean status, @PathVariable Long id) {
         userService.changeStatus(id, status);
         log.info("Zmiana statusu dla id: " + id + " na status: " + status);
+        return new ResponseEntity<>("Zmiana statusu dla id: \" + id + \" na status: \" + status", HttpStatus.OK);
     }
 
     @PatchMapping("/users/opt/{id}")
-    public void update(@RequestBody Map<String, Object> user, @PathVariable Long id) {
+    public ResponseEntity<String> update(@RequestBody Map<String, Object> user, @PathVariable Long id) {
         User theUser = getUser(id);
         theUser.setStatus((boolean) user.get("status"));
         if (!(user.get("password") == null)) {
@@ -67,5 +70,7 @@ public class UserController {
 
         userService.createUser(theUser);
         log.info("Zmiana statusu loginu: " + theUser.getLogin() + " na status: " + theUser.isStatus());
+
+        return new ResponseEntity<>("Zmiana statusu loginu: " + theUser.getLogin() + " na status: " + theUser.isStatus(), HttpStatus.OK);
     }
 }
