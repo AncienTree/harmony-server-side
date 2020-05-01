@@ -3,16 +3,15 @@ package pl.entpoint.harmony.service.schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
+import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.schedule.Schedule;
+import pl.entpoint.harmony.service.employee.EmployeeService;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,10 +27,15 @@ import java.util.Map;
 public class ScheduleController {
 
 	ScheduleService scheduleService;
+	ScheduleSummaryService scheduleSummaryService;
+	EmployeeService employeeService;
 
 	@Autowired
-	public ScheduleController(ScheduleService scheduleService) {
+	public ScheduleController(ScheduleService scheduleService, ScheduleSummaryService scheduleSummaryService,
+							  EmployeeService employeeService) {
 		this.scheduleService = scheduleService;
+		this.scheduleSummaryService = scheduleSummaryService;
+		this.employeeService = employeeService;
 	}
 
 	@GetMapping("listSchedule")
@@ -45,19 +49,29 @@ public class ScheduleController {
 	}
 
 	@PatchMapping("changeStatus")
-    public ResponseEntity<String> changestatus(@RequestBody Map<String, String> body) {
+	public ResponseEntity<String> changestatus(@RequestBody Map<String, String> body) {
 		log.info("Zmiana statusu grafiku");
 		log.debug(body.toString());
 		Boolean active = Boolean.parseBoolean(body.get("active"));
 		Boolean visible = Boolean.parseBoolean(body.get("visible"));
-		
-    	if(active == true && visible == false) {
-    		log.warn("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.");
-    		return new ResponseEntity<>("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.", HttpStatus.BAD_REQUEST);
-    	}
-    	
-    	log.info("Wysłanie do serwisu zmiane grafiku");
-    	scheduleService.changeStatus(Long.parseLong(body.get("id")), active, visible);
-    	return new ResponseEntity<>("Zmieniono statusy dla grafiku o id " + body.get("id"), HttpStatus.OK);
-    }
+
+		if (active == true && visible == false) {
+			log.warn("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.");
+			return new ResponseEntity<>("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.", HttpStatus.BAD_REQUEST);
+		}
+
+		log.info("Wysłanie do serwisu zmiane grafiku");
+		scheduleService.changeStatus(Long.parseLong(body.get("id")), active, visible);
+		return new ResponseEntity<>("Zmieniono statusy dla grafiku o id " + body.get("id"), HttpStatus.OK);
+	}
+
+	@PostMapping("create")
+	public ResponseEntity<String> createSchedule(@RequestBody Date date) {
+		Schedule schedule = scheduleService.createSchedule(date);
+		List<Employee> employees = employeeService.getEmployeesByStatus(WorkStatus.WORK);
+
+		scheduleSummaryService.massCreate(date, employees);
+
+		return new ResponseEntity<>("Utworzono nowy harmonogram dla daty " + date, HttpStatus.CREATED);
+	}
 }

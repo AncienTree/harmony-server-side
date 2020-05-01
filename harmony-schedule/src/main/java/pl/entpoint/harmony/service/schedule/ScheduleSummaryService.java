@@ -12,8 +12,7 @@ import java.util.List;
  */
 public interface ScheduleSummaryService {
     ScheduleSummary getScheduleByDateAndEmployee(Date date, Employee employee);
-
     List<ScheduleSummary> getScheduleByDate(Date date);
-
-    void create (ScheduleSummary scheduleSummary);
+    ScheduleSummary create (Date date, Employee employee);
+    void massCreate(Date date, List<Employee> employees);
 }

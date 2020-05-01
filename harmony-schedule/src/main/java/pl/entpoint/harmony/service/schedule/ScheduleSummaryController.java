@@ -61,19 +61,16 @@ public class ScheduleSummaryController {
     @PostMapping("/add")
     ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
     	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
-        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
+       Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
                 Date.valueOf(body.get("date")), employee));;
-        ScheduleSummary summary;
 
         if(optSummary.isPresent()) {
             return new ResponseEntity<>("Dla danego użytkownika i daty istnieje już grafik.", HttpStatus.BAD_REQUEST);
         } else {
-        	summary = new ScheduleSummary(employee, body.get("date"));
-        	scheduleSummaryService.create(summary);
-
+        	scheduleSummaryService.create(Date.valueOf(body.get("date")), employee);
             return new ResponseEntity<>("Utworzono grafik dla " + employee.getFirstName() + " " + employee.getLastName(),
                     HttpStatus.CREATED);
-        }
+       }
     }
 }
 

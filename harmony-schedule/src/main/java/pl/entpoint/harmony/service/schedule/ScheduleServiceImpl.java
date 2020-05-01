@@ -53,4 +53,17 @@ public class ScheduleServiceImpl implements ScheduleService {
         
     	scheduleRepository.save(schedule);
     }
+
+    @Override
+    public Schedule createSchedule(Date date) {
+        Optional<Schedule> result = Optional.ofNullable(scheduleRepository.findByScheduleDate(date));
+        Schedule schedule;
+        if(!result.isPresent()) {
+            schedule = new Schedule(date);
+        } else {
+            throw new RuntimeException("Grafik o dacie " + date + " już istnieje w bazie.");
+        }
+        scheduleRepository.save(schedule);
+        return schedule;
+    }
 }

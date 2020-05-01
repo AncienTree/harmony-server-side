@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BlowfishEncryption;
@@ -83,5 +84,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee tempEmployee = getEmployee(tempUser.getEmployee().getId());
 
         return tempEmployee.getFirstName() + " " + tempEmployee.getLastName();
+    }
+
+    @Override
+    public List<Employee> getEmployeesByStatus(WorkStatus status) {
+        return employeeRepository.findByWorkStatus(status);
     }
 }

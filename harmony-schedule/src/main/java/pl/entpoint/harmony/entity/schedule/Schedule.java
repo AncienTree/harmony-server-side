@@ -33,4 +33,10 @@ public class Schedule extends AuditEntity implements Serializable {
     private boolean active;
     
     private boolean visible;
+
+    public Schedule(Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
+        this.active = true;
+        this.visible = true;
+    }
 }
