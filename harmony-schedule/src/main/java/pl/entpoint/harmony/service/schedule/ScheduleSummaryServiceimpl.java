@@ -1,7 +1,6 @@
 package pl.entpoint.harmony.service.schedule;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;

@@ -66,11 +66,11 @@ public class ScheduleController {
 	}
 
 	@PostMapping("create")
-	public ResponseEntity<String> createSchedule(@RequestBody Date date) {
-		Schedule schedule = scheduleService.createSchedule(date);
+	public ResponseEntity<String> createSchedule(@RequestBody String date) {
+		Schedule schedule = scheduleService.createSchedule(Date.valueOf(date));
 		List<Employee> employees = employeeService.getEmployeesByStatus(WorkStatus.WORK);
 
-		scheduleSummaryService.massCreate(date, employees);
+		scheduleSummaryService.massCreate(Date.valueOf(date), employees);
 
 		return new ResponseEntity<>("Utworzono nowy harmonogram dla daty " + date, HttpStatus.CREATED);
 	}
