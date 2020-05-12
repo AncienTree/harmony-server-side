@@ -1,6 +1,8 @@
 package pl.entpoint.harmony.service.employee;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BlowfishEncryption;
+import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
 /**
  * @author Mateusz Dąbek
@@ -43,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (result.isPresent()) {
             empl = result.get();
         } else {
-            throw new RuntimeException("Nie znaleziono użytkownika pod takim id: " + id);
+            throw new EmployeeNotFoundException(id);
         }
         return empl;
     }
@@ -61,7 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (result.isPresent()) {
             empl = result.get();
         } else {
-            throw new RuntimeException("Nie znaleziono użytkownika pod takim numerem PESEL");
+            throw new EmployeeNotFoundException();
         }
         return empl;
     }
@@ -89,5 +92,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployeesByStatus(WorkStatus status) {
         return employeeRepository.findByWorkStatus(status);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByStatusIsNot(WorkStatus status) {
+        return employeeRepository.findByWorkStatusNot(status);
+    }
+
+    @Override
+    public Map<String, Long> countByWorkStatus() {
+        Map<String, Long> counter = new HashMap<>();
+        counter.put("working", employeeRepository.countByWorkStatus(WorkStatus.WORK));
+        counter.put("l4", employeeRepository.countByWorkStatus(WorkStatus.L4));
+        counter.put("suspend", employeeRepository.countByWorkStatus(WorkStatus.SUSPENDED));
+        counter.put("not_working", employeeRepository.countByWorkStatus(WorkStatus.NOT_WORK));
+
+        return counter;
     }
 }

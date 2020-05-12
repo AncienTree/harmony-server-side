@@ -19,5 +19,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     Optional<Employee> findByPesel(String pesel);
     List<Employee> findByWorkStatus(WorkStatus status);
+    List<Employee> findByWorkStatusNot(WorkStatus status);
+    Long countByWorkStatus(WorkStatus status);
 
 }

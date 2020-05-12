@@ -7,6 +7,6 @@ package pl.entpoint.harmony.entity.employee.enums;
 public enum WorkStatus {
     WORK,
     L4,
-    UNDRFINED,
+    SUSPENDED,
     NOT_WORK
 }

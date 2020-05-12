@@ -29,7 +29,7 @@ import pl.entpoint.harmony.util.LoginConverter;
  * @created 21/11/2019
  */
 
-
+//TODO zmienić RequestMapping na poddomenę Employee
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -78,6 +78,11 @@ public class EmployeeController {
         return employeeService.getEmployees();
     }
 
+    @GetMapping("/headcount")
+    public List<Employee> getListOfWorkingEmployee() {
+        return employeeService.getEmployeesByStatusIsNot(WorkStatus.NOT_WORK);
+    }
+
     @GetMapping("/employee/{pesel}")
     public Optional<Employee> getEmployeeByPesel(@PathVariable String pesel) {
         return Optional.ofNullable(employeeService.getEmployeeByPesel(pesel));
@@ -89,4 +94,8 @@ public class EmployeeController {
         return employeeService.isPeselInDB(pesel);
     }
 
+    @GetMapping("/counter")
+    public Map<String, Long> counter() {
+        return employeeService.countByWorkStatus();
+    }
 }
