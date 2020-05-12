@@ -31,7 +31,7 @@ import pl.entpoint.harmony.util.LoginConverter;
 
 //TODO zmienić RequestMapping na poddomenę Employee
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/employee")
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 public class EmployeeController {
@@ -45,7 +45,7 @@ public class EmployeeController {
         this.userService = userService;
     }
 
-    @PostMapping("/employee")
+    @PostMapping("/create")
     public User createNewUser(@RequestBody Map<String, String> body) throws Exception {
         Date birthday = Date.valueOf(body.get("birthday").substring(0, 10));
         Date start =Date.valueOf(body.get("startWorkDate").substring(0, 10));
@@ -73,9 +73,9 @@ public class EmployeeController {
         return theUser;
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/all")
     public List<Employee> getListOfEmployees() {
-        return employeeService.getEmployees();
+        return employeeService.getEmployeesByStatusIsNot(WorkStatus.NOT_WORK);
     }
 
     @GetMapping("/headcount")
@@ -83,13 +83,13 @@ public class EmployeeController {
         return employeeService.getEmployeesByStatusIsNot(WorkStatus.NOT_WORK);
     }
 
-    @GetMapping("/employee/{pesel}")
+    @GetMapping("/{pesel}")
     public Optional<Employee> getEmployeeByPesel(@PathVariable String pesel) {
         return Optional.ofNullable(employeeService.getEmployeeByPesel(pesel));
     }
 
     @PreAuthorize("hasRole('ROLE_HR') or hasRole('ROLE_ADMIN')")
-    @GetMapping("/employee/hr/{pesel}")
+    @GetMapping("/hr/{pesel}")
     public boolean isEmplInDB(@PathVariable String pesel) {
         return employeeService.isPeselInDB(pesel);
     }
