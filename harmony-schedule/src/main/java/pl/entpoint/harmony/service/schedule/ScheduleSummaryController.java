@@ -69,7 +69,7 @@ public class ScheduleSummaryController {
         } else {
         	scheduleSummaryService.create(Date.valueOf(body.get("date")), employee);
             return new ResponseEntity<>("Utworzono grafik dla " + employee.getFirstName() + " " + employee.getLastName(),
-                    HttpStatus.CREATED);
+                    HttpStatus.OK);
        }
     }
 }

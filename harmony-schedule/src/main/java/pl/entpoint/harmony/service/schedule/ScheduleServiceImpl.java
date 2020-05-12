@@ -3,6 +3,8 @@ package pl.entpoint.harmony.service.schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.schedule.Schedule;
+import pl.entpoint.harmony.util.exception.schedule.ScheduleExisteException;
+import pl.entpoint.harmony.util.exception.schedule.ScheduleNotFoundException;
 
 import java.sql.Date;
 import java.util.List;
@@ -46,7 +48,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if(result.isPresent()) {
         	schedule = result.get();
         } else {
-            throw new RuntimeException("Nie znaleziono grafiku pod ID - " + id);
+            throw new ScheduleNotFoundException(id);
         }
         schedule.setActive(active);
         schedule.setVisible(visible);
@@ -61,7 +63,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if(!result.isPresent()) {
             schedule = new Schedule(date);
         } else {
-            throw new RuntimeException("Grafik o dacie " + date + " już istnieje w bazie.");
+            throw new ScheduleExisteException(date);
         }
         scheduleRepository.save(schedule);
         return schedule;
