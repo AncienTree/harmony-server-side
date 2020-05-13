@@ -34,12 +34,12 @@ INSERT INTO employee.contact_details(id, address, city, zip_code, phone_number, 
   (5,'Szkolna 124/12','Warszawa','00-017','111222333','111222333','Osoba kontaktowa 5', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01');
 
 -- Employee details Table
-INSERT INTO employee.employee_details(id, lt_login, lt_id, crm_login, crm_expiration_date, user_line, user_section, fte, fte_start, update_date, goal1, goal2, goal3, goal4, goal5, created_by, created_date, last_modified_by, last_modified_date) VALUES
-  (1,'user_l','1354','user','2020-12-31','Sekcja 1','Level 1','1','1','2019-11-21','100','24','3','1','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (2,'spec_l','1114','spec','2020-12-31','Sekcja 1','Level 1','1','1','2019-11-21','100','24','3','1','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (3,'mena_l','2224','kier','2020-12-31','Sekcja 1','Level 2','1','1','2019-11-21','100','24','3','1','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (4,'hr_l','4334','hr','2020-12-31','Sekcja HR','Level 3','1','1','2019-11-21','0','0','0','0','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (5,'admin_l','1224','admin','2020-12-31','Sekcja IT','Level 4','1','1','2019-11-21','0','0','0','0','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01');
+INSERT INTO employee.employee_details(id, lt_login, lt_id, crm_login, crm_expiration_date, user_line, user_section, fte, fte_start, goal1, goal2, goal3, goal4, goal5, created_by, created_date, last_modified_by, last_modified_date) VALUES
+  (1,'user_l','1354','user','2020-12-31','Sekcja 1','Level 1','1','1','100','24','3','1','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (2,'spec_l','1114','spec','2020-12-31','Sekcja 1','Level 1','1','1','100','24','3','1','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (3,'mena_l','2224','kier','2020-12-31','Sekcja 1','Level 2','1','1','100','24','3','1','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (4,'hr_l','4334','hr','2020-12-31','Sekcja HR','Level 3','1','1','0','0','0','0','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (5,'admin_l','1224','admin','2020-12-31','Sekcja IT','Level 4','1','1','0','0','0','0','0', 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01');
 
 -- Employee info Table
 INSERT INTO employee.employee_info(id, agreement, ppk, headphones, locker, id_card, parking_card, info1, info2, info3, info4, created_by, created_date, last_modified_by, last_modified_date) VALUES

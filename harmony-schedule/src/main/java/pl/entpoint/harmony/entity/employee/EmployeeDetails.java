@@ -60,9 +60,6 @@ public class EmployeeDetails extends AuditEntity implements Serializable {
     @Column(name = "fte_start")
     private String fteStart;
 
-    @Column(name = "update_date")
-    private Date updateDate;
-
     @Column(length = 4)
     private String goal1;
 

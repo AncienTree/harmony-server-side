@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -17,9 +18,11 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
-    Optional<Employee> findByPesel(String pesel);
     List<Employee> findByWorkStatus(WorkStatus status);
     List<Employee> findByWorkStatusNot(WorkStatus status);
+
+    Optional<Employee> findByPesel(String pesel);
+
     Long countByWorkStatus(WorkStatus status);
 
 }
