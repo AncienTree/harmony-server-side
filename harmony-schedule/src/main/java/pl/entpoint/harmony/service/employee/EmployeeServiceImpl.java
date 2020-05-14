@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.employee.EmployeeInfo;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
@@ -40,14 +41,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployee(Long id) {
-        Optional<Employee> result = employeeRepository.findById(id);
+        Optional<Employee> result = Optional.ofNullable(employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id)));
 
-        Employee empl;
+        Employee empl = null;
         if (result.isPresent()) {
             empl = result.get();
-        } else {
-            throw new EmployeeNotFoundException(id);
-        }
+        } 
         return empl;
     }
 
@@ -67,6 +67,32 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeNotFoundException();
         }
         return empl;
+    }
+
+    @Override
+    public void change(Employee employee) {
+        Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepository.findById(employee.getId())
+                .orElseThrow(() -> new EmployeeNotFoundException(employee.getId())));
+        Employee empl = null;
+        if (optionalEmployee.isPresent()){
+            empl = optionalEmployee.get();
+        }
+        // Zmiany
+        assert empl != null;
+
+        empl.setBirthday(employee.getBirthday());
+        empl.setEmail(employee.getEmail());
+        empl.setPosition(employee.getPosition());
+        empl.setContractPosition(employee.getContractPosition());
+        empl.setContractType(employee.getContractType());
+        empl.setBasicUnit(employee.getBasicUnit());
+        empl.setUnit(employee.getUnit());
+        empl.setStartWorkDate(employee.getStartWorkDate());
+        empl.setEndWorkDate(employee.getEndWorkDate());
+        empl.setStartContractDate(employee.getStartContractDate());
+        empl.setEndContractDate(employee.getEndContractDate());
+
+        employeeRepository.save(empl);
     }
 
     @Override

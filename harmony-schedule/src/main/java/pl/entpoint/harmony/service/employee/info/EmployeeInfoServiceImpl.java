@@ -50,6 +50,5 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService{
         emplInfo.setInfo4(employeeInfo.getInfo4());
 
         employeeInfoRepository.save(emplInfo);
-
     }
 }

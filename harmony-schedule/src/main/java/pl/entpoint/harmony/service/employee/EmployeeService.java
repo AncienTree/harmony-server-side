@@ -18,6 +18,8 @@ public interface EmployeeService {
     List<Employee> getEmployeesByStatusIsNot(WorkStatus status);
     Employee getEmployee(Long id);
     Employee getEmployeeByPesel(String pesel);
+
+    void change(Employee employee);
     boolean isPeselInDB(String pesel);
     String getFullNameByLogin(String login);
     Map<String, Long> countByWorkStatus();

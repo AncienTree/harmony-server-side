@@ -6,14 +6,10 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -81,6 +77,17 @@ public class EmployeeController {
     @GetMapping("/headcount")
     public List<Employee> getListOfWorkingEmployee() {
         return employeeService.getEmployeesByStatusIsNot(WorkStatus.NOT_WORK);
+    }
+
+    @GetMapping("/{id}")
+    public Employee getEmployee(@PathVariable Long id){
+        return employeeService.getEmployee(id);
+    }
+
+    @PatchMapping("/")
+    public ResponseEntity<String> saveChange(@RequestBody Employee employee){
+        employeeService.change(employee);
+        return new ResponseEntity<>("Dane pracownika zostały zapisane.", HttpStatus.OK);
     }
 
     @GetMapping("/{pesel}")
