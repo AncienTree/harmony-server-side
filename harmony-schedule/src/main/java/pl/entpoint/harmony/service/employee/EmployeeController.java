@@ -90,13 +90,13 @@ public class EmployeeController {
         return new ResponseEntity<>("Dane pracownika zostały zapisane.", HttpStatus.OK);
     }
 
-    @GetMapping("/{pesel}")
+    @GetMapping("/hr/{pesel}")
     public Optional<Employee> getEmployeeByPesel(@PathVariable String pesel) {
         return Optional.ofNullable(employeeService.getEmployeeByPesel(pesel));
     }
 
     @PreAuthorize("hasRole('ROLE_HR') or hasRole('ROLE_ADMIN')")
-    @GetMapping("/hr/{pesel}")
+    @GetMapping("/hr/{pesel}/isAvailable")
     public boolean isEmplInDB(@PathVariable String pesel) {
         return employeeService.isPeselInDB(pesel);
     }

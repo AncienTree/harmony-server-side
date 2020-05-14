@@ -41,14 +41,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployee(Long id) {
-        Optional<Employee> result = Optional.ofNullable(employeeRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException(id)));
-
-        Employee empl = null;
-        if (result.isPresent()) {
-            empl = result.get();
-        } 
-        return empl;
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
+        try {
+            employee.setPesel(BlowfishEncryption.decrypt(employee.getPesel()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return employee;
     }
 
     @Override
