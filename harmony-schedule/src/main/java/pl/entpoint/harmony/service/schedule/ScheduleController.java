@@ -10,6 +10,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.schedule.Schedule;
 import pl.entpoint.harmony.service.employee.EmployeeService;
+import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
 
 import java.sql.Date;
 import java.util.List;

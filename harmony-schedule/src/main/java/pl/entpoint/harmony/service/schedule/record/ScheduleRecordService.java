@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.service.schedule;
+package pl.entpoint.harmony.service.schedule.record;
 
 import java.sql.Date;
 import java.util.List;

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import pl.entpoint.harmony.auditing.AuditEntity;
 
 import java.io.Serializable;
@@ -20,9 +21,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "employee_leave", schema = "employee")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @ToString
 public class EmployeeLeave extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 3145073070391952073L;
 

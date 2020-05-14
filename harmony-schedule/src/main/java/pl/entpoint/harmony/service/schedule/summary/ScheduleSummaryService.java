@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.service.schedule;
+package pl.entpoint.harmony.service.schedule.summary;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;

@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.service.schedule;
+package pl.entpoint.harmony.service.schedule.summary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
