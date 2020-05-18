@@ -79,7 +79,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         // Zmiany
         assert empl != null;
 
-        empl.setBirthday(employee.getBirthday());
         empl.setEmail(employee.getEmail());
         empl.setPosition(employee.getPosition());
         empl.setContractPosition(employee.getContractPosition());
@@ -87,7 +86,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         empl.setBasicUnit(employee.getBasicUnit());
         empl.setUnit(employee.getUnit());
         empl.setStartWorkDate(employee.getStartWorkDate());
-        empl.setEndWorkDate(employee.getEndWorkDate());
         empl.setStartContractDate(employee.getStartContractDate());
         empl.setEndContractDate(employee.getEndContractDate());
 

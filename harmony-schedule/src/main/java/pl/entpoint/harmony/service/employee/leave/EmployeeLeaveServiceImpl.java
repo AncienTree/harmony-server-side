@@ -40,7 +40,6 @@ public class EmployeeLeaveServiceImpl implements EmployeeLeaveService {
         // Zmiany
         assert emplLeave != null;
 
-        emplLeave.setTotal(employeeLeave.getTotal());
         emplLeave.setNormal(employeeLeave.getNormal());
         emplLeave.setUz(employeeLeave.getUz());
         emplLeave.setAdditional(employeeLeave.getAdditional());
