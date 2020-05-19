@@ -43,7 +43,7 @@ public class DayOffController {
 		return dayOffService.getDayOffBetweenDats(body.get("start"), body.get("end"));
 	}
 	
-	@GetMapping("/${date}")
+	@GetMapping("/{date}")
 	public DayOff getDayOff(@PathVariable Date date) {
 		return dayOffService.getDayOff(date);
 	}
