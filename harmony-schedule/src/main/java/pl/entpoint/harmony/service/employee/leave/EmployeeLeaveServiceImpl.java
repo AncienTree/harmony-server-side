@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**

@@ -68,7 +68,7 @@ public class ScheduleController {
 
 	@PostMapping("create")
 	public ResponseEntity<String> createSchedule(@RequestBody String date) {
-		Schedule schedule = scheduleService.createSchedule(Date.valueOf(date));
+		scheduleService.createSchedule(Date.valueOf(date));
 		List<Employee> employees = employeeService.getEmployeesByStatus(WorkStatus.WORK);
 
 		scheduleSummaryService.massCreate(Date.valueOf(date), employees);

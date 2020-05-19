@@ -1,9 +1,15 @@
 package pl.entpoint.harmony.service.settings.contractType;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.settings.ContractType;
+import pl.entpoint.harmony.util.exception.ContractTypeNotFoundException;
+import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Mateusz Dąbek
@@ -12,13 +18,27 @@ import java.util.List;
 
 @Service
 public class ContractTypeServiceImpl implements ContractTypeService{
-    @Override
+	
+	ContractTypeRepository contractTypeRepository;
+	
+	@Autowired
+    public ContractTypeServiceImpl(ContractTypeRepository contractTypeRepository) {
+		super();
+		this.contractTypeRepository = contractTypeRepository;
+	}
+
+	@Override
     public List<ContractType> getContractTypes() {
-        return null;
+        return contractTypeRepository.findAll();
     }
 
     @Override
     public ContractType getContractType(Long id) {
-        return null;
+    	return contractTypeRepository.findById(id).orElseThrow(() -> new ContractTypeNotFoundException(id));    	
+    }
+    
+    @Override
+    public void createContractType(ContractType contract) {
+    	contractTypeRepository.save(contract);
     }
 }

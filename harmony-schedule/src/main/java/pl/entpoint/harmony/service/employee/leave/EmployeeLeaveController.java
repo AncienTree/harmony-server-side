@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
 
-import javax.validation.Valid;
-
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020

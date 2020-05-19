@@ -11,6 +11,6 @@ import java.util.List;
 public interface ContractTypeService {
 
     List<ContractType> getContractTypes();
-
     ContractType getContractType(Long id);
+    void createContractType(ContractType contract);
 }

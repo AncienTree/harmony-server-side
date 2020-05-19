@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
-import pl.entpoint.harmony.entity.employee.EmployeeInfo;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
