@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeInfo;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,9 +29,10 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService{
     }
 
     @Override
-    public void change(EmployeeInfo employeeInfo) {
-        Optional<EmployeeInfo> info = Optional.ofNullable(employeeInfoRepository.findById(employeeInfo.getId())
-                .orElseThrow(() -> new EmployeeNotFoundException(employeeInfo.getId())));
+    public void change(Map<String, String> employeeInfo) {
+        Long id = Long.parseLong(employeeInfo.get("id"));
+        Optional<EmployeeInfo> info = Optional.ofNullable(employeeInfoRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id)));
         EmployeeInfo emplInfo = null;
         if (info.isPresent()){
             emplInfo = info.get();
@@ -38,16 +40,20 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService{
         // Zmiany
         assert emplInfo != null;
 
-        emplInfo.setAgreement(employeeInfo.isAgreement());
-        emplInfo.setPpk(employeeInfo.isPpk());
-        emplInfo.setHeadphones(employeeInfo.isHeadphones());
-        emplInfo.setLocker(employeeInfo.getLocker());
-        emplInfo.setIdCard(employeeInfo.getIdCard());
-        emplInfo.setParkingCard(employeeInfo.getParkingCard());
-        emplInfo.setInfo1(employeeInfo.getInfo1());
-        emplInfo.setInfo2(employeeInfo.getInfo2());
-        emplInfo.setInfo3(employeeInfo.getInfo3());
-        emplInfo.setInfo4(employeeInfo.getInfo4());
+        boolean agreement = Boolean.parseBoolean(employeeInfo.get("agreement"));
+        boolean ppk = Boolean.parseBoolean(employeeInfo.get("ppk"));
+        boolean headphones = Boolean.parseBoolean(employeeInfo.get("headphones"));
+
+        emplInfo.setAgreement(agreement);
+        emplInfo.setPpk(ppk);
+        emplInfo.setHeadphones(headphones);
+        emplInfo.setLocker(employeeInfo.get("locker"));
+        emplInfo.setIdCard(employeeInfo.get("idCard"));
+        emplInfo.setParkingCard(employeeInfo.get("parkingCard"));
+        emplInfo.setInfo1(employeeInfo.get("info1"));
+        emplInfo.setInfo2(employeeInfo.get("info2"));
+        emplInfo.setInfo3(employeeInfo.get("info3"));
+        emplInfo.setInfo4(employeeInfo.get("info4"));
 
         employeeInfoRepository.save(emplInfo);
     }

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.ContactDetails;
 
+import java.util.Map;
+
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020
@@ -31,7 +33,7 @@ public class ContactDetailsController {
     }
 
     @PatchMapping("/")
-    public ResponseEntity<String> saveChange(@RequestBody ContactDetails contactDetails){
+    public ResponseEntity<String> saveChange(@RequestBody Map<String, String> contactDetails){
 
         contactDetailsService.change(contactDetails);
         return new ResponseEntity<>("Dane kontakotwe zostały zapisane.", HttpStatus.OK);

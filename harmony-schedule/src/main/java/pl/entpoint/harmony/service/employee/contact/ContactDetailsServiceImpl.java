@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.ContactDetails;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,9 +29,10 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
     }
 
     @Override
-    public void change(ContactDetails contactDetails) {
-        Optional<ContactDetails> contact = Optional.ofNullable(contactDetailsRepository.findById(contactDetails.getId())
-                .orElseThrow(() -> new EmployeeNotFoundException(contactDetails.getId())));
+    public void change(Map<String, String> contactDetails) {
+        Long id = Long.parseLong(contactDetails.get("id"));
+        Optional<ContactDetails> contact = Optional.ofNullable(contactDetailsRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id)));
         ContactDetails cd = null;
         if (contact.isPresent()){
             cd = contact.get();
@@ -38,12 +40,12 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
         // Zmiany
         assert cd != null;
 
-        cd.setAddress(contactDetails.getAddress());
-        cd.setCity(contactDetails.getCity());
-        cd.setZipCode(contactDetails.getZipCode());
-        cd.setPhoneNumber(contactDetails.getPhoneNumber());
-        cd.setContactName(contactDetails.getContactName());
-        cd.setContactPhoneNumber(contactDetails.getContactPhoneNumber());
+        cd.setAddress(contactDetails.get("address"));
+        cd.setCity(contactDetails.get("city"));
+        cd.setZipCode(contactDetails.get("zipCode"));
+        cd.setPhoneNumber(contactDetails.get("phone"));
+        cd.setContactName(contactDetails.get("contact"));
+        cd.setContactPhoneNumber(contactDetails.get("contactPhone"));
 
         contactDetailsRepository.save(cd);
     }

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
 
+import java.util.Map;
+
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020
@@ -30,7 +32,7 @@ public class EmployeeLeaveController {
     }
 
     @PatchMapping("/")
-    public ResponseEntity<String> saveChange(@RequestBody EmployeeLeave employeeLeave){
+    public ResponseEntity<String> saveChange(@RequestBody Map<String, String> employeeLeave){
         employeeLeaveService.change(employeeLeave);
         return new ResponseEntity<>("Dane urlopowe zostały zapisane.", HttpStatus.OK);
     }

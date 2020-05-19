@@ -43,10 +43,10 @@ public class ContactDetails extends AuditEntity implements Serializable {
     private String zipCode;
 
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "contact_phone_number")
-    private int contactPhoneNumber;
+    private String contactPhoneNumber;
 
     @Column(name = "contact_name")
     private String contactName;

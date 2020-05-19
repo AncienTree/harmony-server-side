@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeDetails;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
+import java.sql.Date;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,9 +30,10 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
     }
 
     @Override
-    public void change(EmployeeDetails employeeDetails) {
-        Optional<EmployeeDetails> details = Optional.ofNullable(employeeDetailsRepository.findById(employeeDetails.getId())
-                .orElseThrow(() -> new EmployeeNotFoundException(employeeDetails.getId())));
+    public void change(Map<String, String> employeeDetails) {
+        Long id = Long.parseLong(employeeDetails.get("id"));
+        Optional<EmployeeDetails> details = Optional.ofNullable(employeeDetailsRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id)));
         EmployeeDetails emplDeta = null;
         if (details.isPresent()){
             emplDeta = details.get();
@@ -38,19 +41,21 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
         // Zmiany
         assert emplDeta != null;
 
-        emplDeta.setLtId(employeeDetails.getLtId());
-        emplDeta.setLtLogin(employeeDetails.getLtLogin());
-        emplDeta.setCrmLogin(employeeDetails.getCrmLogin());
-        emplDeta.setCrmAccountExpirationDate(employeeDetails.getCrmAccountExpirationDate());
-        emplDeta.setUserLine(employeeDetails.getUserLine());
-        emplDeta.setUserSection(employeeDetails.getUserSection());
-        emplDeta.setFte(employeeDetails.getFte());
-        emplDeta.setFteStart(employeeDetails.getFteStart());
-        emplDeta.setGoal1(employeeDetails.getGoal1());
-        emplDeta.setGoal2(employeeDetails.getGoal2());
-        emplDeta.setGoal3(employeeDetails.getGoal3());
-        emplDeta.setGoal4(employeeDetails.getGoal4());
-        emplDeta.setGoal5(employeeDetails.getGoal5());
+        Date crmExp = Date.valueOf(employeeDetails.get("crmExp"));
+
+        emplDeta.setLtId(employeeDetails.get("ltLogin"));
+        emplDeta.setLtLogin(employeeDetails.get("ltId"));
+        emplDeta.setCrmLogin(employeeDetails.get("crmLogin"));
+        emplDeta.setCrmAccountExpirationDate(crmExp);
+        emplDeta.setUserLine(employeeDetails.get("userLine"));
+        emplDeta.setUserSection(employeeDetails.get("userSection"));
+        emplDeta.setFte(employeeDetails.get("fte"));
+        emplDeta.setFteStart(employeeDetails.get("fteStart"));
+        emplDeta.setGoal1(employeeDetails.get("goal1"));
+        emplDeta.setGoal2(employeeDetails.get("goal2"));
+        emplDeta.setGoal3(employeeDetails.get("goal3"));
+        emplDeta.setGoal4(employeeDetails.get("goal4"));
+        emplDeta.setGoal5(employeeDetails.get("goal5"));
 
         employeeDetailsRepository.save(emplDeta);
     }

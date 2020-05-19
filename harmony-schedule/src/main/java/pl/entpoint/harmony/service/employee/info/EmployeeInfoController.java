@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.EmployeeInfo;
 
+import java.util.Map;
+
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020
@@ -31,7 +33,7 @@ public class EmployeeInfoController {
     }
 
     @PatchMapping("/")
-    public ResponseEntity<String> saveChange(@RequestBody EmployeeInfo employeeInfo){
+    public ResponseEntity<String> saveChange(@RequestBody Map<String, String> employeeInfo){
         employeeInfoService.change(employeeInfo);
         return new ResponseEntity<>("Dane informacyjne zostały zapisane.", HttpStatus.OK);
     }
