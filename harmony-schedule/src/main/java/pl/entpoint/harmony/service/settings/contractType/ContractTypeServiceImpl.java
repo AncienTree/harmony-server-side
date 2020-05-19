@@ -3,13 +3,10 @@ package pl.entpoint.harmony.service.settings.contractType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.settings.ContractType;
 import pl.entpoint.harmony.util.exception.ContractTypeNotFoundException;
-import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Mateusz Dąbek

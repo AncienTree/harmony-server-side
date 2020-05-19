@@ -84,9 +84,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         empl.setContractType(employee.getContractType());
         empl.setBasicUnit(employee.getBasicUnit());
         empl.setUnit(employee.getUnit());
-        empl.setStartWorkDate(employee.getStartWorkDate());
-        empl.setStartContractDate(employee.getStartContractDate());
-        empl.setEndContractDate(employee.getEndContractDate());
 
         employeeRepository.save(empl);
     }
