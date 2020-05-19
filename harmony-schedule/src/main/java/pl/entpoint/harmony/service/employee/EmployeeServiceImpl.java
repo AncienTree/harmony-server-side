@@ -68,9 +68,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void change(Employee employee) {
-        Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepository.findById(employee.getId())
-                .orElseThrow(() -> new EmployeeNotFoundException(employee.getId())));
+    public void change(Map<String, String> employee) {
+        Long id = Long.parseLong(employee.get("id"));
+        Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id)));
         Employee empl = null;
         if (optionalEmployee.isPresent()){
             empl = optionalEmployee.get();
@@ -78,13 +79,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         // Zmiany
         assert empl != null;
 
-        empl.setEmail(employee.getEmail());
-        empl.setPosition(employee.getPosition());
-        empl.setContractPosition(employee.getContractPosition());
-        empl.setContractType(employee.getContractType());
-        empl.setBasicUnit(employee.getBasicUnit());
-        empl.setUnit(employee.getUnit());
-
+        empl.setEmail(employee.get("email"));
+        empl.setPosition(employee.get("position"));
+        empl.setContractPosition(employee.get("contractPosition"));
+        empl.setContractType(employee.get("contractType"));
+        empl.setBasicUnit(employee.get("basicUnit"));
+        empl.setUnit(employee.get("unit"));
         employeeRepository.save(empl);
     }
 

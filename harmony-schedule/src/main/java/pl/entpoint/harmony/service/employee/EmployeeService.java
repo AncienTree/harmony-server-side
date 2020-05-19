@@ -19,7 +19,7 @@ public interface EmployeeService {
     Employee getEmployee(Long id);
     Employee getEmployeeByPesel(String pesel);
 
-    void change(Employee employee);
+    void change(Map<String, String> employee);
     boolean isPeselInDB(String pesel);
     String getFullNameByLogin(String login);
     Map<String, Long> countByWorkStatus();

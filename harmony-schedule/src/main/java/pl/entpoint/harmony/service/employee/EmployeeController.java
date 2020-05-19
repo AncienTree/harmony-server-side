@@ -85,7 +85,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("/")
-    public ResponseEntity<String> saveChange(@RequestBody Employee employee){
+    public ResponseEntity<String> saveChange(@RequestBody Map<String, String> employee){
         employeeService.change(employee);
         return new ResponseEntity<>("Dane pracownika zostały zapisane.", HttpStatus.OK);
     }
