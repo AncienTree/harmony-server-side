@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
-import pl.entpoint.harmony.entity.employee.Employee;
 
 /**
  * @author Mateusz Dąbek
@@ -34,7 +33,6 @@ public class UserSection extends AuditEntity implements Serializable {
     @Column(nullable = false)
     private Date expired;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee lider;
+    @Column(name = "lider", nullable = false)
+    private String lider;
 }

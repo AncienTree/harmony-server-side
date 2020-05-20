@@ -21,7 +21,6 @@ public class DayOffServiceImpl implements DayOffService {
 	
 	@Autowired
 	public DayOffServiceImpl(DayOffRepository dayOffRepository) {
-		super();
 		this.dayOffRepository = dayOffRepository;
 	}
 

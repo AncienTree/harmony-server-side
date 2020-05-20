@@ -20,7 +20,6 @@ public class ContractTypeServiceImpl implements ContractTypeService{
 	
 	@Autowired
     public ContractTypeServiceImpl(ContractTypeRepository contractTypeRepository) {
-		super();
 		this.contractTypeRepository = contractTypeRepository;
 	}
 

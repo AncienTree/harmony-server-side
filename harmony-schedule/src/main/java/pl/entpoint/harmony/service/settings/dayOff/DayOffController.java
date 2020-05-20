@@ -34,7 +34,6 @@ public class DayOffController {
 
 	@Autowired
 	public DayOffController(DayOffService dayOffService) {
-		super();
 		this.dayOffService = dayOffService;
 	}
 	
