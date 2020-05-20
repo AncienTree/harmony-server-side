@@ -47,20 +47,24 @@ public class UserSectionController {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<String> create(@RequestBody UserSection line) {
-		userSectionService.save(line);
+	public ResponseEntity<String> create(@RequestBody UserSection section) {
+		if (userSectionService.checkSection(section)) {
+			return new ResponseEntity<>("Podany lider ma już aktywną sekcję.", HttpStatus.BAD_REQUEST);
+		}
+
+		userSectionService.save(section);
         return new ResponseEntity<>("Dodano nową sekcję.", HttpStatus.CREATED);
 	}
 	
 	@PatchMapping("/")
-	public ResponseEntity<String> update(@RequestBody Map<String, String> line) {
-		userSectionService.change(line);
+	public ResponseEntity<String> update(@RequestBody Map<String, String> section) {
+		userSectionService.change(section);
         return new ResponseEntity<>("Zmieniono dane sekcjii.", HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/")
-	public ResponseEntity<String> delete(@RequestBody UserSection line) {
-		userSectionService.delete(line);
-        return new ResponseEntity<>("Usunięto sekcję " + line.getName(), HttpStatus.OK);
+	public ResponseEntity<String> delete(@RequestBody UserSection section) {
+		userSectionService.delete(section);
+        return new ResponseEntity<>("Usunięto sekcję " + section.getName(), HttpStatus.OK);
 	}
 }

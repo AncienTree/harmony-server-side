@@ -15,6 +15,7 @@ public interface UserSectionService {
 	
 	List<UserSection> getAllActive();
 	UserSection getAllActiveLider(String liderName);
+	boolean checkSection(UserSection section);
 	void save(UserSection section);
 	void change(Map<String, String> section);
 	void delete(UserSection section);	

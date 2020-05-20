@@ -3,6 +3,7 @@ package pl.entpoint.harmony.service.settings.userSection;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,5 +61,14 @@ public class UserSectionServiceImpl implements UserSectionService {
 	@Override
 	public void delete(UserSection section) {
 		userSectionRepository.delete(section);
+	}
+
+	@Override
+	public boolean checkSection(UserSection section) {
+		date = new Date(System.currentTimeMillis());
+		Optional<UserSection> userSection = Optional.ofNullable(userSectionRepository.findByLiderAndExpiredGreaterThanEqual(
+				section.getLider(), date));
+
+		return userSection.isPresent();
 	}
 }
