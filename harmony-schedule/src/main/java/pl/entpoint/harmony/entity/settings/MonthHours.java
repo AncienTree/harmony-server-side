@@ -8,6 +8,7 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author Mateusz Dąbek
@@ -26,8 +27,8 @@ public class MonthHours extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Date date;
+    @Column(nullable = false, unique = true)
+    private LocalDate date;
 
     @Column(nullable = false, length = 4)
     private int rbh;
