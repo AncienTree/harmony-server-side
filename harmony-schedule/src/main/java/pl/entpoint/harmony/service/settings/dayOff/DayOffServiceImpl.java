@@ -40,8 +40,9 @@ public class DayOffServiceImpl implements DayOffService {
 	}
 
 	@Override
-	public void delete(Date date) {
-		DayOff day = dayOffRepository.findByDate(date);
+	public void delete(Long id) {
+		DayOff day = dayOffRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Nie znaleziono dnia wolnego od pracy."));
 		dayOffRepository.delete(day);
 	}
 }

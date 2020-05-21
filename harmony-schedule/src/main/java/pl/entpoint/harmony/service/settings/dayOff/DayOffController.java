@@ -62,9 +62,9 @@ public class DayOffController {
         return new ResponseEntity<>("Zaktualizowano opis.", HttpStatus.OK);
     }
 	
-	@DeleteMapping("/")
-    public ResponseEntity<String> delete(@RequestBody DayOff day){
-		dayOffService.delete(day.getDate());
+	@DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+		dayOffService.delete(id);
         return new ResponseEntity<>("Usunięto z bazy dzień wolny.", HttpStatus.OK);
     }
 

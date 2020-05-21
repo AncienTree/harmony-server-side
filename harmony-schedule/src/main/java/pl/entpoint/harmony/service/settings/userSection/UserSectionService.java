@@ -18,5 +18,5 @@ public interface UserSectionService {
 	boolean checkSection(UserSection section);
 	void save(UserSection section);
 	void change(Map<String, String> section);
-	void delete(UserSection section);	
+	void delete(Long id);	
 }

@@ -58,10 +58,10 @@ public class UserLineController {
         return new ResponseEntity<>("Zmieniono nazwę lini", HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/")
-	public ResponseEntity<String> delete(@RequestBody UserLine line) {
-		userLineService.delete(line);
-        return new ResponseEntity<>("Usunięto linię " + line.getName(), HttpStatus.OK);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		userLineService.delete(id);
+        return new ResponseEntity<>("Usunięto linię.", HttpStatus.OK);
 	}
 	
 }

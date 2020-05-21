@@ -62,9 +62,9 @@ public class UserSectionController {
         return new ResponseEntity<>("Zmieniono dane sekcjii.", HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/")
-	public ResponseEntity<String> delete(@RequestBody UserSection section) {
-		userSectionService.delete(section);
-        return new ResponseEntity<>("Usunięto sekcję " + section.getName(), HttpStatus.OK);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> delete(@PathVariable Long id) {
+		userSectionService.delete(id);
+        return new ResponseEntity<>("Usunięto sekcję.", HttpStatus.OK);
 	}
 }

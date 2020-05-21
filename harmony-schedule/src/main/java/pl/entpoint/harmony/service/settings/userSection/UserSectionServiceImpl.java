@@ -59,8 +59,10 @@ public class UserSectionServiceImpl implements UserSectionService {
 	}
 
 	@Override
-	public void delete(UserSection section) {
-		userSectionRepository.delete(section);
+	public void delete(Long id) {
+		UserSection userSection = userSectionRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Nie znaleziono podanej sekcji."));
+		userSectionRepository.delete(userSection);
 	}
 
 	@Override

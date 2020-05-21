@@ -40,8 +40,10 @@ public class UserLineServiceImpl implements UserLineService {
 	}
 
 	@Override
-	public void delete(UserLine line) {
-		userLineRepository.delete(line);		
+	public void delete(Long id) {
+		UserLine userLine = userLineRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Nie znaleziono podanej lini."));
+		userLineRepository.delete(userLine);		
 	}
 
 	@Override
