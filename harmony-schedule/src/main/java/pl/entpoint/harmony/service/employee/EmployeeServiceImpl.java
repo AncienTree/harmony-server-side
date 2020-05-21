@@ -1,15 +1,13 @@
 package pl.entpoint.harmony.service.employee;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
+import pl.entpoint.harmony.entity.model.SimpleEmployee;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BlowfishEncryption;
@@ -36,6 +34,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
+    }
+
+    @Override
+    public List<SimpleEmployee> getWorkingEmployeesByPosition(String position) {
+        List<Employee> employees = employeeRepository.findByPositionAndWorkStatusNot(position, WorkStatus.NOT_WORK);
+        List<SimpleEmployee> simpleEmployees = new ArrayList<>();
+
+        for (Employee empl: employees) {
+            simpleEmployees.add(new SimpleEmployee(empl));
+        }
+        return simpleEmployees;
+    }
+
+    @Override
+    public List<Employee> getEmployeesByStatus(WorkStatus status) {
+        return employeeRepository.findByWorkStatus(status);
+    }
+
+    @Override
+    public List<Employee> getEmployeesByStatusIsNot(WorkStatus status) {
+        return employeeRepository.findByWorkStatusNot(status);
     }
 
     @Override
@@ -106,16 +125,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee tempEmployee = getEmployee(tempUser.getEmployee().getId());
 
         return tempEmployee.getFirstName() + " " + tempEmployee.getLastName();
-    }
-
-    @Override
-    public List<Employee> getEmployeesByStatus(WorkStatus status) {
-        return employeeRepository.findByWorkStatus(status);
-    }
-
-    @Override
-    public List<Employee> getEmployeesByStatusIsNot(WorkStatus status) {
-        return employeeRepository.findByWorkStatusNot(status);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.service.employee;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
+import pl.entpoint.harmony.entity.model.SimpleEmployee;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BCrypt;
@@ -77,6 +79,11 @@ public class EmployeeController {
     @GetMapping("/headcount")
     public List<Employee> getListOfWorkingEmployee() {
         return employeeService.getEmployeesByStatusIsNot(WorkStatus.NOT_WORK);
+    }
+
+    @GetMapping("/position/{position}")
+    public List<SimpleEmployee> getListOfWorkingEmployeeByPosition(@PathVariable String position) {
+        return employeeService.getWorkingEmployeesByPosition(position);
     }
 
     @GetMapping("/{id}")
