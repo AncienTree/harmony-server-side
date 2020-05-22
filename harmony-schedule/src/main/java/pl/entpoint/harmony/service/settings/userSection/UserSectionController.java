@@ -41,6 +41,11 @@ public class UserSectionController {
 		return userSectionService.getAllActive();
 	}
 	
+	@GetMapping("/all")
+	public List<UserSection> getAllSections() {
+		return userSectionService.getAll();
+	}
+	
 	@GetMapping("/{name}")
 	public UserSection getSections(@PathVariable String name) {
 		return userSectionService.getAllActiveLider(name);

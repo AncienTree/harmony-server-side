@@ -14,6 +14,7 @@ import pl.entpoint.harmony.entity.settings.UserSection;
 public interface UserSectionService {
 	
 	List<UserSection> getAllActive();
+	List<UserSection> getAll();
 	UserSection getAllActiveLider(String liderName);
 	boolean checkSection(UserSection section);
 	void save(UserSection section);

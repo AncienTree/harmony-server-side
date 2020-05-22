@@ -26,6 +26,11 @@ public class UserSectionServiceImpl implements UserSectionService {
 	public UserSectionServiceImpl(UserSectionRepository userSectionRepository) {
 		this.userSectionRepository = userSectionRepository;
 	}
+	
+	@Override
+	public List<UserSection> getAll() {
+		return userSectionRepository.findAll();
+	}
 
 	@Override
 	public List<UserSection> getAllActive() {
