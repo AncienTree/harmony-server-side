@@ -82,6 +82,8 @@ public class Employee extends AuditEntity implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_details_id")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private EmployeeDetails employeeDetails;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
