@@ -6,6 +6,7 @@ import java.util.Map;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.model.SimpleEmployee;
+import pl.entpoint.harmony.entity.model.view.HrTable;
 
 /**
  * @author Mateusz Dąbek
@@ -18,6 +19,7 @@ public interface EmployeeService {
     List<Employee> getEmployeesByStatus(WorkStatus status);
     List<Employee> getEmployeesByStatusIsNot(WorkStatus status);
     List<SimpleEmployee> getWorkingEmployeesByPosition(String position);
+    List<HrTable> getPersonalDate();
     Employee getEmployee(Long id);
     Employee getEmployeeByPesel(String pesel);
 

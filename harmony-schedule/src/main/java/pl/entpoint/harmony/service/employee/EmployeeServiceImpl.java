@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.model.SimpleEmployee;
+import pl.entpoint.harmony.entity.model.view.HrTable;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BlowfishEncryption;
@@ -23,11 +24,13 @@ import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+    private HrTableViewRepository hrTableViewRepository;
     private UserService userService;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, UserService userService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, HrTableViewRepository hrTableViewRepository, UserService userService) {
         this.employeeRepository = employeeRepository;
+        this.hrTableViewRepository = hrTableViewRepository;
         this.userService = userService;
     }
 
@@ -55,6 +58,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployeesByStatusIsNot(WorkStatus status) {
         return employeeRepository.findByWorkStatusNot(status);
+    }
+
+    @Override
+    public List<HrTable> getPersonalDate() {
+        return hrTableViewRepository.findAll();
     }
 
     @Override
