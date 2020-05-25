@@ -7,6 +7,7 @@ import pl.entpoint.harmony.entity.settings.ContractType;
 import pl.entpoint.harmony.util.exception.ContractTypeNotFoundException;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Mateusz Dąbek
@@ -36,5 +37,21 @@ public class ContractTypeServiceImpl implements ContractTypeService{
     @Override
     public void createContractType(ContractType contract) {
     	contractTypeRepository.save(contract);
+    }
+
+    @Override
+    public void change(Map<String, String> contract) {
+        ContractType contractType = contractTypeRepository.findById(Long.parseLong(contract.get("id")))
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono podanej umowy."));
+
+        contractType.setName(contract.get("name"));
+        contractTypeRepository.save(contractType);
+    }
+
+    @Override
+    public void delete(Long id) {
+        ContractType contractType = contractTypeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nie znaleziono umowy pod tym id."));
+        contractTypeRepository.delete(contractType);
     }
 }
