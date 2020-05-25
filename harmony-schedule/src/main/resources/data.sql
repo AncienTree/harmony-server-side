@@ -59,11 +59,11 @@ INSERT INTO employee.employee_leave(id, normal, uz, additional, past_years, crea
 
 -- Employee Table
 INSERT INTO employee.employees(id, first_name, last_name, pesel, sex, birthday, email, position, contract_position, work_status, contract_type, basic_unit, unit, start_work_date, end_work_date, start_contract_date, end_contract_date, employee_details_id, contact_details_id, employee_info_id, employee_leave_id, created, created_by, created_date, last_modified_by, last_modified_date) VALUES
-  (1,'User','Testowy','12345678987','M','1990-01-01', 'user@mail.pl','Doradca','ds. sprzedaży','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',1,1,1,1, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (2,'Spec','Testowy','54832165478','K','1990-01-01','spec@mail.pl','Specjalista','ds. monitoringu','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',2,2,2,2, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (3,'Manager','Testowy','11245678912','M','1990-01-01','man@mail.pl','Kierownik','Kieronwik Kampanii','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',3,3,3,3, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (4,'Kadry','Testowy','98548555741','K','1990-01-01','hr@mail.pl','Specjalista','ds. zasobów ludzkich','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',4,4,4,4, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
-  (5,'Admin','Testowy','92457789632','M','1990-01-01','admin@mail.pl','Specjalista','ds. IT','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',5,5,5,5, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01');
+  (1,'User','Testowy','12345678987','M','1990-01-01', 'user@mail.pl','doradca','ds. sprzedaży','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',1,1,1,1, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (2,'Spec','Testowy','54832165478','K','1990-01-01','spec@mail.pl','specjalista','ds. monitoringu','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',2,2,2,2, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (3,'Manager','Testowy','11245678912','M','1990-01-01','man@mail.pl','kierownik','Kieronwik Kampanii','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',3,3,3,3, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (4,'Kadry','Testowy','98548555741','K','1990-01-01','hr@mail.pl','specjalista','ds. zasobów ludzkich','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',4,4,4,4, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01'),
+  (5,'Admin','Testowy','92457789632','M','1990-01-01','admin@mail.pl','specjalista','ds. IT','WORK','Umowa','Kwota','1.1','2019-01-04','2021-01-04','2019-01-04','2021-01-04',5,5,5,5, true, 'Wpis Testowy', '2020-01-01', 'Wpis Testowy', '2020-01-01');
 
 -- User Table
 INSERT INTO users.users(id, login, password, status, created, role, employee_id, created_by, created_date, last_modified_by, last_modified_date) VALUES
@@ -201,3 +201,101 @@ INSERT INTO schedule.schedule_mapping(schedule_summary_id, schedule_record_id) V
   (4, 5);
 
 
+-- View: employee.personal_data_v
+
+-- DROP VIEW employee.personal_data_v;
+
+CREATE OR REPLACE VIEW employee.personal_data_v AS 
+ SELECT empl.id as employee_id,
+    empl.basic_unit,
+    empl.birthday,
+    empl.contract_position,
+    empl.contract_type,
+    empl.created,
+    empl.email,
+    empl.end_contract_date,
+    empl.end_work_date,
+    empl.first_name,
+    empl.last_name,
+    empl.pesel,
+    empl.position,
+    empl.sex,
+    empl.start_contract_date,
+    empl.start_work_date,
+    empl.unit,
+    empl.work_status,
+    empl.contact_details_id,
+    empl.employee_details_id,
+    empl.employee_info_id,
+    empl.employee_leave_id,
+    details.crm_expiration_date,
+    details.crm_login,
+    details.fte,
+    details.fte_start,
+    details.goal1,
+    details.goal2,
+    details.goal3,
+    details.goal4,
+    details.goal5,
+    details.lt_id,
+    details.lt_login,
+    details.user_line,
+    details.user_section,
+    info.agreement,
+    info.headphones,
+    info.id_card,
+    info.info1,
+    info.info2,
+    info.info3,
+    info.info4,
+    info.locker,
+    info.parking_card,
+    info.ppk,
+    leave.additional,
+    leave.normal,
+    leave.past_years,
+    leave.uz,
+    contact.address,
+    contact.city,
+    contact.contact_name,
+    contact.contact_phone_number,
+    contact.phone_number,
+    contact.zip_code
+   FROM employee.employees empl
+     JOIN employee.employee_details details USING (id)
+     JOIN employee.employee_info info USING (id)
+     JOIN employee.employee_leave leave USING (id)
+     JOIN employee.contact_details contact USING (id);
+
+ALTER TABLE employee.personal_data_v
+  OWNER TO testapi;
+
+
+-- View: employee.hr_table_v
+
+-- DROP VIEW employee.hr_table_v;
+
+CREATE OR REPLACE VIEW employee.hr_table_v AS 
+ SELECT personal_data_v.employee_id as id,
+    concat(personal_data_v.last_name, ' ', personal_data_v.first_name) AS full_name,
+    personal_data_v."position",
+    personal_data_v.user_section,
+    personal_data_v.user_line,
+    personal_data_v.work_status,
+    personal_data_v.sex,
+    personal_data_v.birthday,
+    personal_data_v.contract_type,
+    personal_data_v.start_contract_date,
+    personal_data_v.end_contract_date,
+    personal_data_v.crm_expiration_date,
+    personal_data_v.fte,
+    personal_data_v.email,
+    personal_data_v.city,
+    personal_data_v.normal + personal_data_v.uz + personal_data_v.past_years + personal_data_v.additional AS leave
+   FROM employee.personal_data_v
+  WHERE personal_data_v.work_status::text <> 'NOT_WORK'::text;
+
+ALTER TABLE employee.hr_table_v
+  OWNER TO testapi;
+COMMENT ON VIEW employee.hr_table_v
+  IS 'Do not touch';

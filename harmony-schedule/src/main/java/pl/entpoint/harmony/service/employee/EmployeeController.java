@@ -43,7 +43,7 @@ public class EmployeeController {
         this.userService = userService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public User createNewUser(@RequestBody Map<String, String> body) throws Exception {
         Date birthday = Date.valueOf(body.get("birthday").substring(0, 10));
         Date start =Date.valueOf(body.get("startWorkDate").substring(0, 10));
