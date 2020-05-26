@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -21,43 +23,46 @@ import java.time.LocalDate;
 @Getter @NoArgsConstructor
 public class HrTable {
     @Id
-    Long id;
+    private Long id;
 
     @Column(name = "full_name")
-    String fullName;
+    private String fullName;
 
-    String position;
+    private String position;
+    
+    @Column(name = "lt_login")
+    private String ltLogin;
+    
+    private String etat;
 
     @Column(name = "user_section")
-    String userSection;
+    private String userSection;
 
     @Column(name = "user_line")
-    String userLine;
+    private String userLine;
 
     @Column(name = "work_status")
-    String workStatus;
-
-    String sex;
-
-    LocalDate birthday;
+    private String workStatus;
 
     @Column(name = "contract_type")
-    String contractType;
+    private String contractType;
+
+    @Column(name = "start_work_date")
+    private Date startWorkDate;
+
+    @Column(name = "end_work_date")
+    private Date endWorkDate;
 
     @Column(name = "start_contract_date")
-    LocalDate startContractDate;
+    private Date startContractDate;
 
     @Column(name = "end_contract_date")
-    LocalDate endContractDate;
+    private Date endContractDate;
 
     @Column(name = "crm_expiration_date")
-    LocalDate crmExpirationDate;
+    private LocalDate crmExpirationDate;
 
-    String fte;
+    private String email;
 
-    String email;
-
-    String city;
-
-    int leave;
+    private int leave;
 }

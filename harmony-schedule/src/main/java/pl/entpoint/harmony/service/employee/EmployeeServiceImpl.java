@@ -107,6 +107,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         assert empl != null;
 
         empl.setEmail(employee.get("email"));
+        empl.setEtat(Float.parseFloat(employee.get("etat")));
         empl.setPosition(employee.get("position"));
         empl.setContractPosition(employee.get("contractPosition"));
         empl.setContractType(employee.get("contractType"));

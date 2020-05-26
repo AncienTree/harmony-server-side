@@ -43,8 +43,8 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
 
         Date crmExp = Date.valueOf(employeeDetails.get("crmExp"));
 
-        emplDeta.setLtId(employeeDetails.get("ltLogin"));
-        emplDeta.setLtLogin(employeeDetails.get("ltId"));
+        emplDeta.setLtId(employeeDetails.get("ltId"));
+        emplDeta.setLtLogin(employeeDetails.get("ltLogin"));
         emplDeta.setCrmLogin(employeeDetails.get("crmLogin"));
         emplDeta.setCrmAccountExpirationDate(crmExp);
         emplDeta.setUserLine(employeeDetails.get("userLine"));

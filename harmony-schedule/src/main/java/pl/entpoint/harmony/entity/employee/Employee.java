@@ -50,6 +50,8 @@ public class Employee extends AuditEntity implements Serializable {
 
     @Email
     private String email;
+    
+    private Float etat;
 
     private String position;
 

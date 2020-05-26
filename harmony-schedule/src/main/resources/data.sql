@@ -213,6 +213,7 @@ CREATE OR REPLACE VIEW employee.personal_data_v AS
     empl.contract_type,
     empl.created,
     empl.email,
+    empl.etat
     empl.end_contract_date,
     empl.end_work_date,
     empl.first_name,
@@ -269,6 +270,8 @@ CREATE OR REPLACE VIEW employee.personal_data_v AS
 
 ALTER TABLE employee.personal_data_v
   OWNER TO testapi;
+ COMMENT ON VIEW employee.personal_data_v
+  IS 'Do not touch';
 
 
 -- View: employee.hr_table_v
@@ -278,20 +281,20 @@ ALTER TABLE employee.personal_data_v
 CREATE OR REPLACE VIEW employee.hr_table_v AS 
  SELECT personal_data_v.employee_id as id,
     concat(personal_data_v.last_name, ' ', personal_data_v.first_name) AS full_name,
-    personal_data_v."position",
+    personal_data_v.position,
+    personal_data_v.etat,
+    personal_data_v.lt_login,
+    personal_data_v.end_work_date,
+    personal_data_v.start_work_date,
     personal_data_v.user_section,
     personal_data_v.user_line,
     personal_data_v.work_status,
-    personal_data_v.sex,
-    personal_data_v.birthday,
     personal_data_v.contract_type,
     personal_data_v.start_contract_date,
     personal_data_v.end_contract_date,
     personal_data_v.crm_expiration_date,
-    personal_data_v.fte,
     personal_data_v.email,
-    personal_data_v.city,
-    personal_data_v.normal + personal_data_v.uz + personal_data_v.past_years + personal_data_v.additional AS leave
+    personal_data_v.normal + personal_data_v.past_years + personal_data_v.additional AS leave
    FROM employee.personal_data_v
   WHERE personal_data_v.work_status::text <> 'NOT_WORK'::text;
 
