@@ -77,7 +77,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .resourceIds(resourceIds)
                 .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT", "USER", "ADMIN")
                 .autoApprove(true)
-                .accessTokenValiditySeconds(0);
+                .accessTokenValiditySeconds(28800);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package pl.entpoint.harmony.config;
 
+import org.apache.catalina.filters.RemoteAddrFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -86,6 +88,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+//    TODO whitelist IP  
+    
+//    @Bean
+//    public FilterRegistrationBean remoteAddressFilter() {
+//
+//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+//        RemoteAddrFilter filter = new RemoteAddrFilter();
+//
+//        //filter.setAllow("192.168.0.2");
+//        filter.setDenyStatus(403);
+//
+//        filterRegistrationBean.setFilter(filter);
+//        filterRegistrationBean.addUrlPatterns("/*");
+//
+//        return filterRegistrationBean;
+//
+//    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customDetailsService)
@@ -95,9 +115,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .headers().frameOptions().sameOrigin()
-//                .and()
-                .csrf().disable()
+        		.csrf().disable()
                 .cors()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)

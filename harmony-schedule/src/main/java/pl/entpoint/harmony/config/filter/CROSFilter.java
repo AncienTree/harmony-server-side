@@ -1,6 +1,5 @@
-package pl.entpoint.harmony.config;
+package pl.entpoint.harmony.config.filter;
 
-import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,7 @@ import java.io.IOException;
 
 @Component
 @Slf4j
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(1)
 public class CROSFilter implements Filter {
 
     @Override
