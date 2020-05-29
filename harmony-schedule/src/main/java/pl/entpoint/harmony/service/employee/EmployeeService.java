@@ -22,7 +22,8 @@ public interface EmployeeService {
     List<HrTable> getPersonalDate();
     Employee getEmployee(Long id);
     Employee getEmployeeByPesel(String pesel);
-
+    
+    void newEmployee(Map<String, String> body);
     void change(Map<String, String> employee);
     boolean isPeselInDB(String pesel);
     String getFullNameByLogin(String login);

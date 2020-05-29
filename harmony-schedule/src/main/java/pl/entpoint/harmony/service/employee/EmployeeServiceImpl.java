@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.employee;
 
+import java.sql.Date;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import pl.entpoint.harmony.entity.model.SimpleEmployee;
 import pl.entpoint.harmony.entity.model.view.HrTable;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
+import pl.entpoint.harmony.util.BCrypt;
 import pl.entpoint.harmony.util.BlowfishEncryption;
+import pl.entpoint.harmony.util.LoginConverter;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
 /**
@@ -145,5 +148,32 @@ public class EmployeeServiceImpl implements EmployeeService {
         counter.put("not_working", employeeRepository.countByWorkStatus(WorkStatus.NOT_WORK));
 
         return counter;
+    }
+    
+    @Override
+    public void newEmployee(Map<String, String> body) {
+    	Date birthday = Date.valueOf(body.get("birthday").substring(0, 10));
+        Date start = Date.valueOf(body.get("startWorkDate").substring(0, 10));
+        
+        User theUser = new User(
+                LoginConverter.createLogin(body.get("firstName"), body.get("lastName")),
+                BCrypt.encrypt(body.get("pesel")));
+        theUser.setId(0L);
+        Employee theEmp = new Employee(
+                body.get("firstName"),
+                body.get("lastName"),
+                BlowfishEncryption.encrypt(body.get("pesel")),
+                body.get("sex"),
+                birthday,
+                body.get("position"),
+                body.get("contractPosition"),
+                WorkStatus.WORK,
+                body.get("contractType"),
+                body.get("basicUnit"),
+                body.get("unit"),
+                start,
+                start);
+        theUser.setEmployee(theEmp);        
+        userService.createUser(theUser);    	
     }
 }

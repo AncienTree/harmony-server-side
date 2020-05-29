@@ -119,6 +119,7 @@ public class Employee extends AuditEntity implements Serializable {
         this.lastName = lastName;
         this.pesel = pesel;
         this.sex = sex;
+        this.etat = 1.0F;
         this.birthday = birthday;
         this.position = position;
         this.contractPosition = contractPosition;
