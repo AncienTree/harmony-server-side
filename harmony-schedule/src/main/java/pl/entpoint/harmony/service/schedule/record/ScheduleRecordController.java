@@ -24,8 +24,8 @@ import pl.entpoint.harmony.service.employee.EmployeeService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ScheduleRecordController {
 
-    private ScheduleRecordService scheduleRecordService;
-    private EmployeeService employeeService;
+    private final ScheduleRecordService scheduleRecordService;
+    private final EmployeeService employeeService;
 
     @Autowired
     public ScheduleRecordController(ScheduleRecordService scheduleRecordService, EmployeeService employeeService) {

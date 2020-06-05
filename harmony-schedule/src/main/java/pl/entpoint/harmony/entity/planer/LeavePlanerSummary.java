@@ -8,6 +8,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
@@ -19,9 +20,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "leave_planer_summary", schema = "planer")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class LeavePlanerSummary extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 7101596293019377412L;
 
@@ -40,10 +39,11 @@ public class LeavePlanerSummary extends AuditEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "schedule_record_id"))
     private List<ScheduleRecord> scheduleRecords;
 
-    @Column(nullable = false)
+    @NotNull
     private Date year;
 
-    @Column(name = "accepted_by", nullable = false)
+    @Column(name = "accepted_by")
+    @NotNull
     private String acceptedBy;
 
 }

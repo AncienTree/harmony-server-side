@@ -20,13 +20,12 @@ import pl.entpoint.harmony.entity.model.view.HrTable;
  * @created 21/11/2019
  */
 
-//TODO zmienić RequestMapping na poddomenę Employee
 @RestController
 @RequestMapping("/api/employee")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EmployeeController {
 
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     @Autowired
     public EmployeeController(EmployeeService employeeService) {
@@ -34,7 +33,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> createNewUser(@RequestBody Map<String, String> body) throws Exception {
+    public ResponseEntity<String> createNewUser(@RequestBody Map<String, String> body) {
     	employeeService.newEmployee(body);
         return new ResponseEntity<>("Utworzono nowego pracownika: " + body.get("firstName") + " " + 
                 body.get("lastName"), HttpStatus.CREATED);

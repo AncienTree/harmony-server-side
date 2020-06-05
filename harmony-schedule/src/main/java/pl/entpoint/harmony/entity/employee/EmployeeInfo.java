@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -24,9 +25,7 @@ import java.io.Serializable;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "employee_info", schema = "employee")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class EmployeeInfo extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -4010973083833894767L;
 
@@ -40,13 +39,15 @@ public class EmployeeInfo extends AuditEntity implements Serializable {
 
     private boolean headphones;
 
-    @Column(length = 25)
+    @Size(max = 25)
     private String locker;
 
-    @Column(name = "id_card", length = 25)
+    @Column(name = "id_card")
+    @Size(max = 25)
     private String idCard;
 
-    @Column(name = "parking_card", length = 25)
+    @Column(name = "parking_card")
+    @Size(max = 25)
     private String parkingCard;
 
     private String info1;

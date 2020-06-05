@@ -7,8 +7,7 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Getter @Setter
 public class SimpleEmployee implements Serializable {
 	private static final long serialVersionUID = 3650577428665471954L;
 	private Long id;

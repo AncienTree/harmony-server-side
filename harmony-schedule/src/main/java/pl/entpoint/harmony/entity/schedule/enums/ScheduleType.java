@@ -14,7 +14,7 @@ public enum ScheduleType {
     OBECNOSC("OBEC"),
     DZWONIENIE("DZWON");
 
-    private String value;
+    private final String value;
 
     ScheduleType(String value) {
         this.value = value;

@@ -21,10 +21,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "schedule_summary", schema = "schedule")
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Getter @Setter @NoArgsConstructor @ToString
 public class ScheduleSummary extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -7850728271314700401L;
 

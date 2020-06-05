@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,9 +36,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "users", schema = "users")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 @Slf4j
 public class User extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 5389204544218772819L;
@@ -45,22 +45,25 @@ public class User extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(unique = true)
+    @NotNull
+    @Size(min = 1, max = 50)
     private String login;
 
     @JsonIgnore
-    @Column(nullable = false, length = 68)
+    @NotNull
+    @Size(min = 8, max = 68)
     private String password;
 
-    @Column(nullable = false)
+    @NotNull
     private boolean status;
 
-    @Column(nullable = false)
     @JsonIgnore
+    @NotNull
     private Date created;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Roles role;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

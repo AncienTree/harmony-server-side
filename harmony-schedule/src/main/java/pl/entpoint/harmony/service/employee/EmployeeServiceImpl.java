@@ -26,9 +26,9 @@ import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeRepository employeeRepository;
-    private HrTableViewRepository hrTableViewRepository;
-    private UserService userService;
+    private final EmployeeRepository employeeRepository;
+    private final HrTableViewRepository hrTableViewRepository;
+    private final UserService userService;
 
     @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, HrTableViewRepository hrTableViewRepository, UserService userService) {

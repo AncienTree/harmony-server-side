@@ -25,7 +25,7 @@ import java.util.Optional;
 @Slf4j
 public class CustomDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public CustomDetailsService(UserRepository userRepository) {

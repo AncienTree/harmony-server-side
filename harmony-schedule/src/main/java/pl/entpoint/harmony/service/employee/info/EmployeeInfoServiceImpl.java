@@ -37,6 +37,7 @@ public class EmployeeInfoServiceImpl implements EmployeeInfoService{
         if (info.isPresent()){
             emplInfo = info.get();
         }
+
         // Zmiany
         assert emplInfo != null;
 

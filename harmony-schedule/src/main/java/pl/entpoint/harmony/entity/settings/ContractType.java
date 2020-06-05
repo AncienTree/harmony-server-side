@@ -6,6 +6,8 @@ import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -15,9 +17,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "contract_type", schema = "settings")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class ContractType extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 118698729771543703L;
 
@@ -25,6 +25,8 @@ public class ContractType extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(unique = true)
+    @NotNull
+    @Size(max = 50)
     private String name;
 }

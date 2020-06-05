@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,9 +28,7 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "employee_details", schema = "employee")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class EmployeeDetails extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -2461411805344035506L;
 
@@ -40,7 +39,8 @@ public class EmployeeDetails extends AuditEntity implements Serializable {
     @Column(name = "lt_login")
     private String ltLogin;
 
-    @Column(name = "lt_id", length = 8)
+    @Column(name = "lt_id")
+    @Size(max = 8)
     private String ltId;
 
     @Column(name = "crm_login")
@@ -60,18 +60,18 @@ public class EmployeeDetails extends AuditEntity implements Serializable {
     @Column(name = "fte_start")
     private String fteStart;
 
-    @Column(length = 4)
+    @Size(max = 4)
     private String goal1;
 
-    @Column(length = 4)
+    @Size(max = 4)
     private String goal2;
 
-    @Column(length = 4)
+    @Size(max = 4)
     private String goal3;
 
-    @Column(length = 4)
+    @Size(max = 4)
     private String goal4;
 
-    @Column(length = 4)
+    @Size(max = 4)
     private String goal5;
 }

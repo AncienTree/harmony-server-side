@@ -24,8 +24,8 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ScheduleSummaryController {
 
-    private EmployeeService employeeService;
-    private ScheduleSummaryService scheduleSummaryService;
+    private final EmployeeService employeeService;
+    private final ScheduleSummaryService scheduleSummaryService;
 
     @Autowired
     public ScheduleSummaryController(EmployeeService employeeService, ScheduleSummaryService scheduleSummaryService) {
@@ -62,7 +62,7 @@ public class ScheduleSummaryController {
     ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
     	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
-                Date.valueOf(body.get("date")), employee));;
+                Date.valueOf(body.get("date")), employee));
 
         if(optSummary.isPresent()) {
             return new ResponseEntity<>("Dla danego użytkownika i daty istnieje już grafik.", HttpStatus.BAD_REQUEST);

@@ -37,6 +37,7 @@ public class EmployeeLeaveServiceImpl implements EmployeeLeaveService {
         if (leave.isPresent()){
             emplLeave = leave.get();
         }
+
         // Zmiany
         assert emplLeave != null;
 

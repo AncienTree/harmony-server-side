@@ -37,6 +37,7 @@ public class ContactDetailsServiceImpl implements ContactDetailsService {
         if (contact.isPresent()){
             cd = contact.get();
         }
+
         // Zmiany
         assert cd != null;
 

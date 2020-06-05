@@ -20,9 +20,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "availability_summary", schema = "availability")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class AvailabilitySummary extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -41960536005894529L;
 

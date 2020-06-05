@@ -6,6 +6,8 @@ import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -16,9 +18,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "month_hours", schema = "settings")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class MonthHours extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -3553573220315549028L;
 
@@ -26,9 +26,11 @@ public class MonthHours extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @NotNull
     private LocalDate date;
 
-    @Column(nullable = false, length = 4)
+    @NotNull
+    @Size(max = 4)
     private int rbh;
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -16,9 +17,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Leave_planer", schema = "planer")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class LeavePlaner extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -6919831420560838186L;
 
@@ -26,9 +25,10 @@ public class LeavePlaner extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "planer_date", nullable = false)
+    @Column(name = "planer_date")
+    @NotNull
     private Date planerDate;
 
-    @Column(nullable = false)
+    @NotNull
     private boolean active;
 }

@@ -34,19 +34,17 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
-
     @Value("${security.jwt.client-id}")
     private String clientId;
-
     @Value("${security.jwt.client-secret}")
     private String clientSecret;
 
-    private AuthenticationManager authenticationManager;
-    private CustomDetailsService customDetailsService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private TokenStore tokenStore;
-    private JwtAccessTokenConverter defaultAccessTokenConverter;
-    private DataSource customDataSource;
+    private final AuthenticationManager authenticationManager;
+    private final CustomDetailsService customDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final TokenStore tokenStore;
+    private final JwtAccessTokenConverter defaultAccessTokenConverter;
+    private final DataSource customDataSource;
 
     @Autowired
     AuthorizationServerConfig(AuthenticationManager authenticationManager, CustomDetailsService customDetailsService,
@@ -59,6 +57,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         this.defaultAccessTokenConverter = defaultAccessTokenConverter;
         this.customDataSource = customDataSource;
     }
+
+    /*
+     *
+     * Beans
+     *
+     */
+
+    @Bean
+    public TokenEnhancer tokenEnhancer(){
+        return new CustomToken();
+    }
+
+    /*
+     *
+     * Methods
+     *
+     */
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -87,10 +102,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager).accessTokenConverter(defaultAccessTokenConverter)
                 .userDetailsService(customDetailsService).tokenEnhancer(tokenEnhancerChain);
-    }
-
-    @Bean
-    public TokenEnhancer tokenEnhancer(){
-        return new CustomToken();
     }
 }

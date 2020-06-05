@@ -5,6 +5,8 @@ import java.sql.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.*;
 
@@ -23,10 +25,7 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 @Entity
 @Table(name = "employees", schema = "employee")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Getter @Setter @NoArgsConstructor @ToString
 public class Employee extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = -7862141771762074429L;
 
@@ -34,16 +33,21 @@ public class Employee extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", length = 20)
+    @Column(name = "first_name")
+    @Size(max = 20)
+    @NotNull
     private String firstName;
 
-    @Column(name = "last_name", length = 40)
+    @Column(name = "last_name")
+    @Size(max = 40)
+    @NotNull
     private String lastName;
 
-    @Column(length = 40, unique = true)
+    @Column(unique = true)
+    @Size(max = 40)
     private String pesel;
 
-    @Column(length = 1)
+    @Size(max = 1)
     private String sex;
 
     private Date birthday;

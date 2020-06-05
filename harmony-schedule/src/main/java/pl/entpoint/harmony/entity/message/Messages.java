@@ -7,6 +7,7 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.Employee;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -17,9 +18,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "messages", schema = "messages")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class Messages extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 6746795456528686061L;
 
@@ -28,10 +27,11 @@ public class Messages extends AuditEntity implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
+    @NotNull
     private Employee employee;
 
-    @Column(nullable = false)
+    @NotNull
     private String text;
 
     private Date crated;

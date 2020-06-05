@@ -35,19 +35,28 @@ import pl.entpoint.harmony.util.token.CustomAccessTokenConverter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${security.signing-key}")
     private String signingKey;
-
     @Value("${security.security-realm}")
     private String securityRealm;
 
-    @Autowired
-    private CustomDetailsService customDetailsService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Autowired
-    private CustomAccessTokenConverter customAccessTokenConverter;
+    private final CustomDetailsService customDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final CustomAccessTokenConverter customAccessTokenConverter;
 
+    @Autowired
+    WebSecurityConfig(CustomDetailsService customDetailsService,
+                      BCryptPasswordEncoder bCryptPasswordEncoder,
+                      CustomAccessTokenConverter customAccessTokenConverter) {
+        this.customDetailsService = customDetailsService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.customAccessTokenConverter = customAccessTokenConverter;
+    }
 
-    // BEANS
+    /*
+     *
+     * Beans
+     *
+     */
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -88,8 +97,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-//    TODO whitelist IP  
-    
+//    TODO whitelist IP
 //    @Bean
 //    public FilterRegistrationBean remoteAddressFilter() {
 //
@@ -105,6 +113,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        return filterRegistrationBean;
 //
 //    }
+
+    /*
+     *
+     * Methods
+     *
+     */
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

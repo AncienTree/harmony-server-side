@@ -24,15 +24,13 @@ import java.util.TimeZone;
 
 @Configuration
 @ConfigurationProperties(prefix="spring.datasource")
-@Getter
-@Setter
+@Getter @Setter
 public class DBConfiguration {
 
     private String driverClassName;
     private String url;
     private String username;
     private String password;
-    
     private Environment env;
 
     @Autowired
@@ -44,6 +42,12 @@ public class DBConfiguration {
     void started() {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
     }
+
+    /*
+     *
+     * Beans
+     *
+     */
 
     @Profile("dev")
     @Bean
@@ -60,7 +64,7 @@ public class DBConfiguration {
         System.out.println("DB connection to VPS for Test Env only! - PostgreSQL");
         System.out.println(driverClassName);
         System.out.println(url);
-        return "DB connection to VPS for Test Env only! - MySQL";
+        return "DB connection to VPS for Test Env only! - PostgreSQL";
     }
     
     @Primary

@@ -6,6 +6,7 @@ import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -16,9 +17,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "availability", schema = "availability")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class Availability extends AuditEntity implements Serializable{
 	private static final long serialVersionUID = 1136414836525890890L;
 
@@ -26,9 +25,10 @@ public class Availability extends AuditEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "availability_date", nullable = false)
+    @Column(name = "availability_date")
+    @NotNull
     private Date availabilityDate;
 
-    @Column(nullable = false)
+    @NotNull
     private boolean active;
 }

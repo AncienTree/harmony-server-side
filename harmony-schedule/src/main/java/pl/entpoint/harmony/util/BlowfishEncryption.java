@@ -17,9 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BlowfishEncryption {
 	// TODO Zmienić i ukryć w finalnej wersji
-	private static final String KEY = "Test";;
+	private static final String KEY = "Test";
 
-	public static String encrypt(String stringToEncrypt) {
+    public static String encrypt(String stringToEncrypt) {
 		log.info("Rozpoczęcie szyfrowania.");
 		try {
 			byte[] keyData = (KEY).getBytes();

@@ -38,6 +38,7 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
         if (details.isPresent()){
             emplDeta = details.get();
         }
+
         // Zmiany
         assert emplDeta != null;
 

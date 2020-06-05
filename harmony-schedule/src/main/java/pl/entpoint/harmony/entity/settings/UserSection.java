@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,7 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 
 @Entity
 @Table(name = "user_section", schema = "settings")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class UserSection extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 3600600240967351713L;
 
@@ -27,12 +27,15 @@ public class UserSection extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 40)
+    @Column(unique = true)
+    @NotNull
+    @Size(max = 40)
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
     private Date expired;
 
-    @Column(name = "lider", nullable = false)
+    @Column(name = "lider")
+    @NotNull
     private String lider;
 }

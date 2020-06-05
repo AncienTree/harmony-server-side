@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -28,10 +29,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "schedule_record", schema = "schedule")
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Getter @Setter @NoArgsConstructor @ToString
 public class ScheduleRecord extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 392393332921570984L;
 
@@ -40,19 +38,23 @@ public class ScheduleRecord extends AuditEntity implements Serializable {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @ToString.Exclude
+    @NotNull
     private Employee employee;
 
-    @Column(name = "work_date", nullable = false)
+    @Column(name = "work_date")
+    @NotNull
     private Date workDate;
 
-    @Column(name = "start_work", nullable = false)
+    @Column(name = "start_work")
+    @NotNull
     private Time startWork;
 
-    @Column(name = "end_work", nullable = false)
+    @Column(name = "end_work")
+    @NotNull
     private Time endWork;
 
     @Enumerated(EnumType.STRING)

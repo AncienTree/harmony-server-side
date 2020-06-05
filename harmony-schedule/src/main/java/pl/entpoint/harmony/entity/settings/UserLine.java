@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +23,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "user_line", schema = "settings")
-@Getter
-@Setter
-@NoArgsConstructor
+@Getter @Setter @NoArgsConstructor
 public class UserLine extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 2063302342409158600L;
 
@@ -31,6 +31,8 @@ public class UserLine extends AuditEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(unique = true)
+    @NotNull
+    @Size(max = 20)
     private String name;
 }

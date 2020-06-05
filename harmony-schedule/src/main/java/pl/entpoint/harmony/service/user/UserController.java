@@ -30,7 +30,7 @@ import pl.entpoint.harmony.util.BCrypt;
 @Slf4j
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
 	public UserController(UserService userService) {
