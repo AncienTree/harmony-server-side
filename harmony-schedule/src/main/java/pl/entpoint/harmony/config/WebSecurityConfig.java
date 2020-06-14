@@ -38,16 +38,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${security.security-realm}")
     private String securityRealm;
 
-    private final CustomDetailsService customDetailsService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final CustomAccessTokenConverter customAccessTokenConverter;
+    private CustomDetailsService customDetailsService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private CustomAccessTokenConverter customAccessTokenConverter;
+
+    /*
+     *
+     * Setter-based dependency injection
+     * Constructor causes Circular dependencies
+     *
+     */
 
     @Autowired
-    WebSecurityConfig(CustomDetailsService customDetailsService,
-                      BCryptPasswordEncoder bCryptPasswordEncoder,
-                      CustomAccessTokenConverter customAccessTokenConverter) {
+    public void setCustomDetailsService(CustomDetailsService customDetailsService) {
         this.customDetailsService = customDetailsService;
+    }
+
+    @Autowired
+    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @Autowired
+    public void setCustomAccessTokenConverter(CustomAccessTokenConverter customAccessTokenConverter) {
         this.customAccessTokenConverter = customAccessTokenConverter;
     }
 
