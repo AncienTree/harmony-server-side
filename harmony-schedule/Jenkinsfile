@@ -8,19 +8,25 @@ pipeline {
    stages {
       stage('Build App') {
          steps {
-            sh "mvn clean install -DskipTests=true"
+            dir('harmony-schedule'){
+                sh "mvn clean install -DskipTests=true"
+            }
          }
       }
 
       stage('Test App') {
         steps {
-            sh "mvn test"
+            dir('harmony-schedule'){
+                sh "mvn test"
+            }
         }
       }
 
       stage('Code Analysis') {
         steps {
+        dir('harmony-schedule'){
             sh "mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -DskipTests=true"
+            }
          }
       }
    }
