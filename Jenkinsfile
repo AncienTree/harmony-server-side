@@ -20,7 +20,7 @@ pipeline {
 
       stage('Code Analysis') {
         steps {
-            sh "mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -DskipTests=true"
+            sh "mvn sonar:sonar -Dsonar.host.url=http://sonar:9000 -DskipTests=true"
          }
       }
    }
