@@ -81,7 +81,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployeeByPesel(String pesel) {
-        Optional<Employee> result = null;
+        Optional<Employee> result = Optional.empty();
 		try {
 			result = employeeRepository.findByPesel(BlowfishEncryption.encrypt(pesel));
 		} catch (Exception e) {
@@ -121,7 +121,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public boolean isPeselInDB(String pesel) {
-        Optional<Employee> result = null;
+        Optional<Employee> result = Optional.empty();
 		try {
 			result = employeeRepository.findByPesel(BlowfishEncryption.encrypt(pesel));
 		} catch (Exception e) {
