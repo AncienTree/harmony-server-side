@@ -25,13 +25,18 @@ public class DayOffServiceImpl implements DayOffService {
 	}
 
 	@Override
-	public DayOff getDayOff(Date date) {
-		return dayOffRepository.findByDate(date);
+	public List<DayOff> getAllDayOff() {
+		return dayOffRepository.findAll();
 	}
 
 	@Override
 	public List<DayOff> getDayOffBetweenDats(Date start, Date end) {
 		return dayOffRepository.findByDateBetween(start, end);
+	}
+
+	@Override
+	public DayOff getDayOff(Date date) {
+		return dayOffRepository.findByDate(date);
 	}
 
 	@Override

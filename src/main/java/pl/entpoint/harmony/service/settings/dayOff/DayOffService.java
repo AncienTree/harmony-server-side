@@ -12,9 +12,10 @@ import pl.entpoint.harmony.entity.settings.DayOff;
  */
 
 public interface DayOffService {
-	
-	DayOff getDayOff(Date date);
+
+	List<DayOff> getAllDayOff();
 	List<DayOff> getDayOffBetweenDats(Date start, Date end);
+	DayOff getDayOff(Date date);
 	void create(DayOff dayOff);
 	void delete(Long id);
 }

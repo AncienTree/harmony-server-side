@@ -36,15 +36,15 @@ public class DayOffController {
 	public DayOffController(DayOffService dayOffService) {
 		this.dayOffService = dayOffService;
 	}
+
+	@GetMapping("/")
+	public List<DayOff> getAllDayOff() {
+		return dayOffService.getAllDayOff();
+	}
 	
 	@PostMapping("/between")
 	public List<DayOff> getDayOffBetween(@RequestBody Map<String, Date> body){
 		return dayOffService.getDayOffBetweenDats(body.get("start"), body.get("end"));
-	}
-	
-	@GetMapping("/{date}")
-	public DayOff getDayOff(@PathVariable Date date) {
-		return dayOffService.getDayOff(date);
 	}
 	
 	@PostMapping("/")
