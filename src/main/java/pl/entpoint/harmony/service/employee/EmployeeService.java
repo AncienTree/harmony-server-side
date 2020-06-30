@@ -5,8 +5,8 @@ import java.util.Map;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
-import pl.entpoint.harmony.entity.model.SimpleEmployee;
-import pl.entpoint.harmony.entity.model.view.HrTable;
+import pl.entpoint.harmony.entity.dto.SimpleEmployee;
+import pl.entpoint.harmony.entity.dto.view.HrTable;
 
 /**
  * @author Mateusz Dąbek
@@ -26,6 +26,7 @@ public interface EmployeeService {
     void newEmployee(Map<String, String> body);
     void change(Map<String, String> employee);
     boolean isPeselInDB(String pesel);
+    void fireEmployee(Employee employee);
     String getFullNameByLogin(String login);
     Map<String, Long> countByWorkStatus();
 }

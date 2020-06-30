@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
-import pl.entpoint.harmony.entity.model.SimpleEmployee;
-import pl.entpoint.harmony.entity.model.view.HrTable;
+import pl.entpoint.harmony.entity.dto.SimpleEmployee;
+import pl.entpoint.harmony.entity.dto.view.HrTable;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BCrypt;
@@ -175,5 +175,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 start);
         theUser.setEmployee(theEmp);        
         userService.createUser(theUser);    	
+    }
+
+    @Override
+    public void fireEmployee(Employee employee) {
+        //TODO Utworzyć metodę usuwającą pracownika z bazy danych
+        System.out.println("FireEmployee method activated.");
     }
 }

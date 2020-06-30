@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.entity.model;
+package pl.entpoint.harmony.entity.dto;
 
 import lombok.Getter;
 import lombok.Setter;

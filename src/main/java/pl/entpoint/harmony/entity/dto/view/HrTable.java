@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.entity.model.view;
+package pl.entpoint.harmony.entity.dto.view;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
