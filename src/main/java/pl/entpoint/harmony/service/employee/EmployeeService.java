@@ -26,7 +26,7 @@ public interface EmployeeService {
     void newEmployee(Map<String, String> body);
     void change(Map<String, String> employee);
     boolean isPeselInDB(String pesel);
-    void fireEmployee(Employee employee);
+    void fireEmployee(Long id);
     String getFullNameByLogin(String login);
     Map<String, Long> countByWorkStatus();
 }

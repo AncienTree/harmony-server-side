@@ -26,7 +26,6 @@ import pl.entpoint.harmony.entity.user.enums.Roles;
 import pl.entpoint.harmony.entity.employee.Employee;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 /**
  * @author Mateusz Dąbek
@@ -58,10 +57,6 @@ public class User extends AuditEntity implements Serializable {
     @NotNull
     private boolean status;
 
-    @JsonIgnore
-    @NotNull
-    private Date created;
-
     @Enumerated(EnumType.STRING)
     @NotNull
     private Roles role;
@@ -76,7 +71,6 @@ public class User extends AuditEntity implements Serializable {
         this.password = password;
         this.status = true;
         this.role = Roles.ROLE_USER;
-        this.created = new Date(new java.util.Date().getTime());
         log.info("Stworzono nowego uzytkownika: " + login);
     }
 }

@@ -178,7 +178,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void fireEmployee(Employee employee) {
+    public void fireEmployee(Long id) {
         //TODO Utworzyć metodę usuwającą pracownika z bazy danych
         System.out.println("FireEmployee method activated.");
     }

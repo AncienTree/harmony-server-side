@@ -11,11 +11,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import pl.entpoint.harmony.entity.employee.Employee;
-import pl.entpoint.harmony.entity.employee.OldEmployee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 import pl.entpoint.harmony.entity.dto.view.HrTable;
-import pl.entpoint.harmony.service.employee.old.OldEmployeeService;
 
 /**
  * @author Mateusz Dąbek
@@ -28,12 +26,10 @@ import pl.entpoint.harmony.service.employee.old.OldEmployeeService;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-    private final OldEmployeeService oldEmployeeService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, OldEmployeeService oldEmployeeService) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
-        this.oldEmployeeService = oldEmployeeService;
     }
 
     @PostMapping("/")
@@ -75,13 +71,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/hr/{pesel}")
-    public boolean[] getEmployeeByPesel(@PathVariable String pesel) {
-        boolean[] peselDB = new boolean[2];
+    public boolean getEmployeeByPesel(@PathVariable String pesel) {
         Optional<Employee> empl = Optional.ofNullable(employeeService.getEmployeeByPesel(pesel));
-
-        peselDB[0] = empl.isPresent();
-        peselDB[1] = oldEmployeeService.findByPesel(pesel);
-        return peselDB;
+        return empl.isPresent();
     }
 
     @PreAuthorize("hasRole('ROLE_HR') or hasRole('ROLE_ADMIN')")
@@ -93,5 +85,12 @@ public class EmployeeController {
     @GetMapping("/counter")
     public Map<String, Long> counter() {
         return employeeService.countByWorkStatus();
+    }
+    
+    @PostMapping("/fire")
+    public ResponseEntity<String> fire(@PathVariable Long id) {
+        employeeService.fireEmployee(id);
+        
+        return new ResponseEntity<>("Użytkownik został zwolniony: ", HttpStatus.OK);
     }
 }

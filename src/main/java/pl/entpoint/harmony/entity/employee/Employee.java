@@ -45,6 +45,7 @@ public class Employee extends AuditEntity implements Serializable {
 
     @Column(unique = true)
     @Size(max = 40)
+    @NotNull
     private String pesel;
 
     @Size(max = 1)
@@ -111,6 +112,9 @@ public class Employee extends AuditEntity implements Serializable {
     private EmployeeLeave employeeLeave;
 
     private boolean created;
+    
+    @Column(name = "active_account")
+    private boolean activeAccount;
 
     public Employee(String firstName, String lastName, String pesel, String sex, Date birthday, String position,
                     String contractPosition, WorkStatus workStatus, String contractType, String basicUnit, String unit,
@@ -134,6 +138,7 @@ public class Employee extends AuditEntity implements Serializable {
         this.startWorkDate = startWorkDate;
         this.startContractDate = startContractDate;
         this.created = false;
+        this.activeAccount = true;
     }
 }
 	
