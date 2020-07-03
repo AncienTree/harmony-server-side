@@ -40,5 +40,14 @@ public class EmployeeLeave extends AuditEntity implements Serializable {
 
     @Column(name = "past_years")
     private int pastYears;
+    
+    public void fire() {
+    	this.total = 0;
+    	this.normal = 0;
+    	this.uz = 0;
+    	this.additional = 0;
+    	this.pastYears = 0;
+    	
+    }
 
 }

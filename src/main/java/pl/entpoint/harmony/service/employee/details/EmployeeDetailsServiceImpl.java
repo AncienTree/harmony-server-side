@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeDetails;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
@@ -42,7 +42,7 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
         // Zmiany
         assert emplDeta != null;
 
-        Date crmExp = Date.valueOf(employeeDetails.get("crmExp"));
+        LocalDate crmExp = LocalDate.parse(employeeDetails.get("crmExp"));
 
         emplDeta.setLtId(employeeDetails.get("ltId"));
         emplDeta.setLtLogin(employeeDetails.get("ltLogin"));

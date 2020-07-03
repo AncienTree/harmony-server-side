@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.entity.employee;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -51,7 +51,7 @@ public class Employee extends AuditEntity implements Serializable {
     @Size(max = 1)
     private String sex;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     @Email
     private String email;
@@ -76,16 +76,16 @@ public class Employee extends AuditEntity implements Serializable {
     private String unit;
 
     @Column(name = "start_work_date")
-    private Date startWorkDate;
+    private LocalDate startWorkDate;
 
     @Column(name = "end_work_date")
-    private Date endWorkDate;
+    private LocalDate endWorkDate;
 
     @Column(name = "start_contract_date")
-    private Date startContractDate;
+    private LocalDate startContractDate;
 
     @Column(name = "end_contract_date")
-    private Date endContractDate;
+    private LocalDate endContractDate;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_details_id")
@@ -116,9 +116,9 @@ public class Employee extends AuditEntity implements Serializable {
     @Column(name = "active_account")
     private boolean activeAccount;
 
-    public Employee(String firstName, String lastName, String pesel, String sex, Date birthday, String position,
+    public Employee(String firstName, String lastName, String pesel, String sex, LocalDate birthday, String position,
                     String contractPosition, WorkStatus workStatus, String contractType, String basicUnit, String unit,
-                    Date startWorkDate, Date startContractDate) {
+                    LocalDate startWorkDate, LocalDate startContractDate) {
         this.employeeDetails = new EmployeeDetails();
         this.contactDetails = new ContactDetails();
         this.employeeInfo = new EmployeeInfo();
@@ -140,6 +140,22 @@ public class Employee extends AuditEntity implements Serializable {
         this.created = false;
         this.activeAccount = true;
     }
+    
+    public void fire() {
+    	this.birthday = null;
+    	this.email = null;
+    	this.position = null;
+    	this.contractPosition = null;
+    	this.etat = null;
+    	this.contractType = null;
+    	this.basicUnit = null;
+    	this.unit = null;
+    	this.endWorkDate = LocalDate.now();
+    	this.startContractDate = null;
+    	this.endContractDate = null;
+    	
+    	this.activeAccount = false;
+    	this.workStatus = WorkStatus.NOT_WORK;
+    }
 }
-	
 	

@@ -57,5 +57,15 @@ public class EmployeeInfo extends AuditEntity implements Serializable {
     private String info3;
 
     private String info4;
+    
+    public void fire() {
+    	this.locker = null;
+    	this.parkingCard = null;
+    	this.idCard = null;
+    	this.info1 = null;
+    	this.info2 = null;
+    	this.info3 = null;
+    	this.info4 = null;
+    }
 
 }

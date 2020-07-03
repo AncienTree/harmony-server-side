@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.employee;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,9 +152,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     
     @Override
     public void newEmployee(Map<String, String> body) {
-    	Date birthday = Date.valueOf(body.get("birthday").substring(0, 10));
-        Date start = Date.valueOf(body.get("startWorkDate").substring(0, 10));
-        
+    	LocalDate birthday = LocalDate.parse(body.get("birthday").substring(0, 10));
+    	LocalDate start = LocalDate.parse(body.get("startWorkDate").substring(0, 10));
+    	
         User theUser = new User(
                 LoginConverter.createLogin(body.get("firstName"), body.get("lastName")),
                 BCrypt.encrypt(body.get("pesel")));
@@ -179,7 +179,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void fireEmployee(Long id) {
-        //TODO Utworzyć metodę usuwającą pracownika z bazy danych
-        System.out.println("FireEmployee method activated.");
+    	Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id)));
+    	
+    	Employee employee = optionalEmployee.get();
+    	employee.fire();
+    	employee.getEmployeeDetails().fire();
+    	employee.getEmployeeInfo().fire();
+    	employee.getEmployeeLeave().fire();
+    	employee.getContactDetails().fire();
+    	
+    	employeeRepository.save(employee);
     }
 }

@@ -50,5 +50,14 @@ public class ContactDetails extends AuditEntity implements Serializable {
 
     @Column(name = "contact_name")
     private String contactName;
+    
+    public void fire() {
+    	this.address = null;
+    	this.city = null;
+    	this.zipCode = null;
+    	this.phoneNumber = null;
+    	this.contactPhoneNumber = null;
+    	this.contactName = null;
+    }
 
 }

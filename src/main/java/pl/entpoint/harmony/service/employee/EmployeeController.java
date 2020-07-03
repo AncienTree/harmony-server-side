@@ -87,8 +87,8 @@ public class EmployeeController {
         return employeeService.countByWorkStatus();
     }
     
-    @PostMapping("/fire")
-    public ResponseEntity<String> fire(@PathVariable Long id) {
+    @PostMapping("/test/fire")
+    public ResponseEntity<String> fire(@RequestBody Long id) {
         employeeService.fireEmployee(id);
         
         return new ResponseEntity<>("Użytkownik został zwolniony: ", HttpStatus.OK);
