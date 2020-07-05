@@ -16,6 +16,7 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
+import pl.entpoint.harmony.entity.user.User;
 
 /**
  * @author Mateusz Dąbek
@@ -111,6 +112,10 @@ public class Employee extends AuditEntity implements Serializable {
     @JsonIdentityReference(alwaysAsId = true)
     private EmployeeLeave employeeLeave;
 
+    @OneToOne(mappedBy = "employee")
+    @JsonIgnore
+    private User user;
+
     private boolean created;
     
     @Column(name = "active_account")
@@ -156,6 +161,7 @@ public class Employee extends AuditEntity implements Serializable {
     	
     	this.activeAccount = false;
     	this.workStatus = WorkStatus.NOT_WORK;
+    	this.user.setStatus(false);
     }
 }
 	

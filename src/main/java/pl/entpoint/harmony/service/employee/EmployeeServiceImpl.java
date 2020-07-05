@@ -181,8 +181,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void fireEmployee(Long id) {
     	Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id)));
-    	
-    	Employee employee = optionalEmployee.get();
+        Employee employee = null;
+    	if (optionalEmployee.isPresent()){
+            employee = optionalEmployee.get();
+        } else {
+    	    throw new EmployeeNotFoundException(id);
+        }
+
+    	if(employee.getWorkStatus() == WorkStatus.NOT_WORK){
+    	    throw new IllegalArgumentException("Użytkownik już nie pracuje.");
+        }
+
     	employee.fire();
     	employee.getEmployeeDetails().fire();
     	employee.getEmployeeInfo().fire();
