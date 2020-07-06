@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.employee;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findByWorkStatus(WorkStatus status);
     List<Employee> findByWorkStatusNot(WorkStatus status);
     List<Employee> findByPositionAndWorkStatusNot(String position,WorkStatus status);
+    List<Employee> findByWorkStatusAndStartWorkDateLessThanEqual(WorkStatus status, LocalDate date);
     Optional<Employee> findByPesel(String pesel);
     Long countByWorkStatus(WorkStatus status);
 

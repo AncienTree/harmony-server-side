@@ -87,7 +87,7 @@ public class EmployeeController {
         return employeeService.countByWorkStatus();
     }
     
-    @PostMapping("/test/fire")
+    @PostMapping("/fire")
     public ResponseEntity<String> fire(@RequestBody Long id) {
         employeeService.fireEmployee(id);
         

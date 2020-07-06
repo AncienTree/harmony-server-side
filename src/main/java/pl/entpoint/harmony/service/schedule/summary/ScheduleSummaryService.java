@@ -15,4 +15,6 @@ public interface ScheduleSummaryService {
     List<ScheduleSummary> getScheduleByDate(LocalDate date);
     ScheduleSummary create (LocalDate date, Employee employee);
     void massCreate(LocalDate date, List<Employee> employees);
+    
+    List<Employee> getEmployeeWithoutSchedule(LocalDate date);
 }

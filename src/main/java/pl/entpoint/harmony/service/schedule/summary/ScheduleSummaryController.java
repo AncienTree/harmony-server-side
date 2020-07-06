@@ -72,6 +72,23 @@ public class ScheduleSummaryController {
                     HttpStatus.OK);
        }
     }
+    
+    @GetMapping("/employee/{date}")
+    List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
+    	LocalDate localDate = LocalDate.parse(date);
+    	
+        return scheduleSummaryService.getEmployeeWithoutSchedule(localDate);
+    }
+
+    @PostMapping("/employee/{date}")
+    ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable LocalDate date){
+        for (Long ids : id) {
+            Employee employee = employeeService.getEmployee(ids);
+            scheduleSummaryService.create(date, employee);
+        }
+        return new ResponseEntity<>("Utworzono grafik dla " + id.length + " pracowników",
+                HttpStatus.CREATED);
+    }
 }
 
 

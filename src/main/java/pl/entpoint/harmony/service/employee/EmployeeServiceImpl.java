@@ -68,7 +68,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return hrTableViewRepository.findAll();
     }
 
+        
     @Override
+	public List<Employee> getEmployeesByStatusAndStartWork(WorkStatus status, LocalDate date) {
+		return employeeRepository.findByWorkStatusAndStartWorkDateLessThanEqual(status, date);
+	}
+
+	@Override
     public Employee getEmployee(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
         try {
