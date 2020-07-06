@@ -72,6 +72,13 @@ public class ScheduleSummaryController {
                     HttpStatus.OK);
        }
     }
+    
+    @GetMapping("/test/{date}")
+    List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
+    	LocalDate localDate = LocalDate.parse(date);
+    	
+        return scheduleSummaryService.getEmployeeWithoutSchedule(localDate);
+    }
 }
 
 

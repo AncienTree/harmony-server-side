@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.employee;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public interface EmployeeService {
     List<Employee> getEmployees();
     List<Employee> getEmployeesByStatus(WorkStatus status);
     List<Employee> getEmployeesByStatusIsNot(WorkStatus status);
+    List<Employee> getEmployeesByStatusAndStartWork(WorkStatus status, LocalDate date);
     List<SimpleEmployee> getWorkingEmployeesByPosition(String position);
     List<HrTable> getPersonalDate();
     Employee getEmployee(Long id);
