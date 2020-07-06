@@ -12,7 +12,7 @@ import pl.entpoint.harmony.entity.schedule.Schedule;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -68,10 +68,10 @@ public class ScheduleController {
 
 	@PostMapping("create")
 	public ResponseEntity<String> createSchedule(@RequestBody String date) {
-		scheduleService.createSchedule(Date.valueOf(date));
+		scheduleService.createSchedule(LocalDate.parse(date));
 		List<Employee> employees = employeeService.getEmployeesByStatus(WorkStatus.WORK);
 
-		scheduleSummaryService.massCreate(Date.valueOf(date), employees);
+		scheduleSummaryService.massCreate(LocalDate.parse(date), employees);
 
 		return new ResponseEntity<>("Utworzono nowy harmonogram dla daty " + date, HttpStatus.CREATED);
 	}

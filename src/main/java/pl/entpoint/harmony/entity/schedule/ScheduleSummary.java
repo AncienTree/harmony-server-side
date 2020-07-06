@@ -11,7 +11,7 @@ import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -48,12 +48,12 @@ public class ScheduleSummary extends AuditEntity implements Serializable {
             )
     private List<ScheduleRecord> scheduleRecords;
 
-    private Date scheduleDate;
+    private LocalDate scheduleDate;
 
 	public ScheduleSummary(Employee employee, String scheduleDate) {
 		this.employee = employee;
 		this.simpleEmployee = new SimpleEmployee(employee);
-		this.scheduleDate = Date.valueOf(scheduleDate);
+		this.scheduleDate = LocalDate.parse(scheduleDate);
 	}
     
     

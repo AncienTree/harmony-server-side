@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.dayOff;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +43,7 @@ public class DayOffController {
 	}
 	
 	@PostMapping("/between")
-	public List<DayOff> getDayOffBetween(@RequestBody Map<String, Date> body){
+	public List<DayOff> getDayOffBetween(@RequestBody Map<String, LocalDate> body){
 		return dayOffService.getDayOffBetweenDats(body.get("start"), body.get("end"));
 	}
 	

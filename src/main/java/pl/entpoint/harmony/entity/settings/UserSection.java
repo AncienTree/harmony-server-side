@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.entity.settings;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,7 +33,7 @@ public class UserSection extends AuditEntity implements Serializable {
     private String name;
 
     @NotNull
-    private Date expired;
+    private LocalDate expired;
 
     @Column(name = "lider")
     @NotNull

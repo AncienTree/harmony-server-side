@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.dayOff;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +16,6 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 
 @Repository
 public interface DayOffRepository extends JpaRepository<DayOff, Long> {
-	DayOff findByDate(Date date);
-	List<DayOff> findByDateBetween(Date start, Date end);
+	DayOff findByDate(LocalDate date);
+	List<DayOff> findByDateBetween(LocalDate start, LocalDate end);
 }

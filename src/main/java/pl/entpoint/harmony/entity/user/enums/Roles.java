@@ -12,6 +12,7 @@ public enum Roles implements GrantedAuthority {
     ROLE_USER("USER"),
     ROLE_SPEC("SPEC"),
     ROLE_MANAGER("MANAGER"),
+    ROLE_SENIOR("SENIOR"),
     ROLE_HR("HR"),
     ROLE_ADMIN("ADMIN");
 

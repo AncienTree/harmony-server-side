@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.schedule.summary;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -11,8 +11,8 @@ import java.util.List;
  * @created 30/01/2020
  */
 public interface ScheduleSummaryService {
-    ScheduleSummary getScheduleByDateAndEmployee(Date date, Employee employee);
-    List<ScheduleSummary> getScheduleByDate(Date date);
-    ScheduleSummary create (Date date, Employee employee);
-    void massCreate(Date date, List<Employee> employees);
+    ScheduleSummary getScheduleByDateAndEmployee(LocalDate date, Employee employee);
+    List<ScheduleSummary> getScheduleByDate(LocalDate date);
+    ScheduleSummary create (LocalDate date, Employee employee);
+    void massCreate(LocalDate date, List<Employee> employees);
 }

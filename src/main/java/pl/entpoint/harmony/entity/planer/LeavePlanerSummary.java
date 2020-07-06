@@ -10,7 +10,7 @@ import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -40,7 +40,7 @@ public class LeavePlanerSummary extends AuditEntity implements Serializable {
     private List<ScheduleRecord> scheduleRecords;
 
     @NotNull
-    private Date year;
+    private LocalDate year;
 
     @Column(name = "accepted_by")
     @NotNull

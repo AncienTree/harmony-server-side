@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.dayOff;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +30,12 @@ public class DayOffServiceImpl implements DayOffService {
 	}
 
 	@Override
-	public List<DayOff> getDayOffBetweenDats(Date start, Date end) {
+	public List<DayOff> getDayOffBetweenDats(LocalDate start, LocalDate end) {
 		return dayOffRepository.findByDateBetween(start, end);
 	}
 
 	@Override
-	public DayOff getDayOff(Date date) {
+	public DayOff getDayOff(LocalDate date) {
 		return dayOffRepository.findByDate(date);
 	}
 

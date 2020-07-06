@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.dayOff;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import pl.entpoint.harmony.entity.settings.DayOff;
@@ -14,8 +14,8 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 public interface DayOffService {
 
 	List<DayOff> getAllDayOff();
-	List<DayOff> getDayOffBetweenDats(Date start, Date end);
-	DayOff getDayOff(Date date);
+	List<DayOff> getDayOffBetweenDats(LocalDate start, LocalDate end);
+	DayOff getDayOff(LocalDate date);
 	void create(DayOff dayOff);
 	void delete(Long id);
 }

@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -48,16 +47,16 @@ public class HrTable {
     private String contractType;
 
     @Column(name = "start_work_date")
-    private Date startWorkDate;
+    private LocalDate startWorkDate;
 
     @Column(name = "end_work_date")
-    private Date endWorkDate;
+    private LocalDate endWorkDate;
 
     @Column(name = "start_contract_date")
-    private Date startContractDate;
+    private LocalDate startContractDate;
 
     @Column(name = "end_contract_date")
-    private Date endContractDate;
+    private LocalDate endContractDate;
 
     @Column(name = "crm_expiration_date")
     private LocalDate crmExpirationDate;

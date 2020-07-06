@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,17 +26,17 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
     }
 
     @Override
-    public ScheduleSummary getScheduleByDateAndEmployee(Date date, Employee employee) {
+    public ScheduleSummary getScheduleByDateAndEmployee(LocalDate date, Employee employee) {
         return scheduleSummaryRepository.findByScheduleDateAndEmployee(date, employee);
     }
 
     @Override
-    public List<ScheduleSummary> getScheduleByDate(Date date) {
+    public List<ScheduleSummary> getScheduleByDate(LocalDate date) {
         return scheduleSummaryRepository.findByScheduleDate(date);
     }
 
     @Override
-    public ScheduleSummary create(Date date, Employee employee) {
+    public ScheduleSummary create(LocalDate date, Employee employee) {
         Optional<ScheduleSummary> scheduleSummary = Optional.ofNullable(getScheduleByDateAndEmployee(date, employee));
         ScheduleSummary summary = null;
 
@@ -50,7 +50,7 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
     }
 
     @Override
-    public void massCreate(Date date, List<Employee> employees) {
+    public void massCreate(LocalDate date, List<Employee> employees) {
         List<ScheduleSummary> employeeList = new ArrayList<>();
 
         for (Employee employee: employees) {

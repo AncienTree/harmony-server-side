@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule.record;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +17,6 @@ import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 @Repository
 public interface ScheduleRecordRepository extends JpaRepository<ScheduleRecord, Long> {
 
-    List<ScheduleRecord> findByWorkDateAndEmployee(Date date, Employee employee);
+    List<ScheduleRecord> findByWorkDateAndEmployee(LocalDate date, Employee employee);
 
 }

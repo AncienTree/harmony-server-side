@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule.record;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     }
 
     @Override
-    public List<ScheduleRecord> getScheduleRecodByDateAndEmployee(Date date, Employee employee) {
+    public List<ScheduleRecord> getScheduleRecodByDateAndEmployee(LocalDate date, Employee employee) {
         return scheduleRecordRepository.findByWorkDateAndEmployee(date, employee);
     }
     

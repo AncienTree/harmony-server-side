@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.userSection;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +17,7 @@ import pl.entpoint.harmony.entity.settings.UserSection;
 @Repository
 public interface UserSectionRepository extends JpaRepository<UserSection, Long>{
 	
-	List<UserSection> findByExpiredGreaterThanEqual(Date date);
+	List<UserSection> findByExpiredGreaterThanEqual(LocalDate date);
 	UserSection findByName(String name);
-	UserSection findByLiderAndExpiredGreaterThanEqual(String name, Date date);
+	UserSection findByLiderAndExpiredGreaterThanEqual(String name, LocalDate date);
 }

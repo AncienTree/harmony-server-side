@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule.record;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -13,7 +13,7 @@ import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
 public interface ScheduleRecordService {
 	
-	List<ScheduleRecord> getScheduleRecodByDateAndEmployee(Date date, Employee employee);
+	List<ScheduleRecord> getScheduleRecodByDateAndEmployee(LocalDate date, Employee employee);
 	
 	void create (ScheduleRecord record);
 }

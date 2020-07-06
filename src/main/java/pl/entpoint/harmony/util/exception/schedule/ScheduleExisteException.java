@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.util.exception.schedule;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author Mateusz Dąbek
@@ -8,7 +8,7 @@ import java.sql.Date;
  */
 public class ScheduleExisteException extends RuntimeException{
 
-    public ScheduleExisteException(Date date) {
+    public ScheduleExisteException(LocalDate date) {
         super("Grafik o dacie " + date + " już istnieje w bazie.");
     }
 }

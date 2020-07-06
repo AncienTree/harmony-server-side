@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.entpoint.harmony.entity.schedule.Schedule;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
-    Schedule findByScheduleDate(Date date);
+    Schedule findByScheduleDate(LocalDate date);
 
     @Query("SELECT s FROM Schedule s WHERE s.visible=true ORDER BY s.scheduleDate ASC")
     List<Schedule> findAllActive();

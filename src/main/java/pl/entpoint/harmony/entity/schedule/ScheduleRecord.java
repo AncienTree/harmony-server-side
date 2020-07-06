@@ -1,8 +1,8 @@
 package pl.entpoint.harmony.entity.schedule;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -47,23 +47,19 @@ public class ScheduleRecord extends AuditEntity implements Serializable {
 
     @Column(name = "work_date")
     @NotNull
-    private Date workDate;
+    private LocalDate workDate;
 
     @Column(name = "start_work")
     @NotNull
-    private Time startWork;
+    private LocalTime startWork;
 
     @Column(name = "end_work")
     @NotNull
-    private Time endWork;
+    private LocalTime endWork;
 
     @Enumerated(EnumType.STRING)
     private ScheduleStatus status;
 
     @Enumerated(EnumType.STRING)
     private ScheduleType types;
-
-    @Column(name = "update_date")
-    private Date update;
-
 }

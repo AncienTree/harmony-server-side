@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.entity.settings;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +35,7 @@ public class DayOff extends AuditEntity implements Serializable {
 
     @Column(unique = true)
     @NotNull
-    private Date date;
+    private LocalDate date;
 
     private String info;
 }

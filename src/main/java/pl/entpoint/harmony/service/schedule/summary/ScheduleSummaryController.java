@@ -9,7 +9,7 @@ import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,7 +35,7 @@ public class ScheduleSummaryController {
 
     @GetMapping("/date/{date}")
     List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
-        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(Date.valueOf(date));
+        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
         // Przypisanie SimpleEmployee do każdego grafiku z listy
         for (ScheduleSummary scheduleSummary: summary) {
@@ -46,7 +46,7 @@ public class ScheduleSummaryController {
 
     @GetMapping("/{date}/{status}")
     List<ScheduleSummary> getScheduleByDate(@PathVariable String date, @PathVariable String status) {
-        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(Date.valueOf(date));
+        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
         // Filtorwanie rekordów po danym statusie
         summary.forEach(p -> p.getScheduleRecords().removeIf(g -> g.getTypes().checkValue(status)));
@@ -62,12 +62,12 @@ public class ScheduleSummaryController {
     ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
     	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
-                Date.valueOf(body.get("date")), employee));
+    		   LocalDate.parse(body.get("date")), employee));
 
         if(optSummary.isPresent()) {
             return new ResponseEntity<>("Dla danego użytkownika i daty istnieje już grafik.", HttpStatus.BAD_REQUEST);
         } else {
-        	scheduleSummaryService.create(Date.valueOf(body.get("date")), employee);
+        	scheduleSummaryService.create(LocalDate.parse(body.get("date")), employee);
             return new ResponseEntity<>("Utworzono grafik dla " + employee.getFirstName() + " " + employee.getLastName(),
                     HttpStatus.OK);
        }

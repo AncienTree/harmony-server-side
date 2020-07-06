@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.userSection;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +19,7 @@ import pl.entpoint.harmony.entity.settings.UserSection;
 @Service
 public class UserSectionServiceImpl implements UserSectionService {
 
-	Date date;
+	LocalDate date;
 	UserSectionRepository userSectionRepository;
 	
 	@Autowired
@@ -34,14 +34,14 @@ public class UserSectionServiceImpl implements UserSectionService {
 
 	@Override
 	public List<UserSection> getAllActive() {
-		date = new Date(System.currentTimeMillis());
+		date = LocalDate.now();
 		
 		return userSectionRepository.findByExpiredGreaterThanEqual(date);
 	}
 
 	@Override
 	public UserSection getAllActiveLider(String liderName) {
-		date = new Date(System.currentTimeMillis());
+		date = LocalDate.now();
 		
 		return userSectionRepository.findByLiderAndExpiredGreaterThanEqual(liderName, date);
 	}
@@ -57,7 +57,7 @@ public class UserSectionServiceImpl implements UserSectionService {
 				.orElseThrow(() -> new RuntimeException("Nie znaleziono podanej sekcji."));
 		
 		userSection.setName(section.get("name"));
-		userSection.setExpired(Date.valueOf(section.get("expired")));
+		userSection.setExpired(LocalDate.parse(section.get("expired")));
 		userSection.setLider(section.get("lider"));
 		
 		userSectionRepository.save(userSection);
@@ -72,7 +72,7 @@ public class UserSectionServiceImpl implements UserSectionService {
 
 	@Override
 	public boolean checkSection(UserSection section) {
-		date = new Date(System.currentTimeMillis());
+		date = LocalDate.now();
 		Optional<UserSection> userSection = Optional.ofNullable(userSectionRepository.findByLiderAndExpiredGreaterThanEqual(
 				section.getLider(), date));
 

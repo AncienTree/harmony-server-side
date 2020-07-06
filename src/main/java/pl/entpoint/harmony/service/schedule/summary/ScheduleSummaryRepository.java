@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface ScheduleSummaryRepository extends JpaRepository<ScheduleSummary, Long> {
 
-    ScheduleSummary findByScheduleDateAndEmployee(Date date, Employee employee);
+    ScheduleSummary findByScheduleDateAndEmployee(LocalDate date, Employee employee);
 
-    List<ScheduleSummary> findByScheduleDate(Date date);
+    List<ScheduleSummary> findByScheduleDate(LocalDate date);
 }

@@ -9,8 +9,8 @@ import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -40,7 +40,7 @@ public class AvailabilitySummary extends AuditEntity implements Serializable {
     private List<ScheduleRecord> scheduleRecords;
 
     @Column(name = "availability_date", nullable = false)
-    private Date availabilityDate;
+    private LocalDate availabilityDate;
 
     @Column(name = "accepted_by", nullable = false)
     private String acceptedBy;

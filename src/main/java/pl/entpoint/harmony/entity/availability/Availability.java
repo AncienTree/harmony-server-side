@@ -8,7 +8,7 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author Mateusz Dąbek
@@ -27,7 +27,7 @@ public class Availability extends AuditEntity implements Serializable{
 
     @Column(name = "availability_date")
     @NotNull
-    private Date availabilityDate;
+    private LocalDate availabilityDate;
 
     @NotNull
     private boolean active;

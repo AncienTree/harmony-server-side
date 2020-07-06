@@ -8,7 +8,7 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author Mateusz Dąbek
@@ -27,14 +27,14 @@ public class Schedule extends AuditEntity implements Serializable {
 
     @Column(name = "schedule_date")
     @NotNull
-    private Date scheduleDate;
+    private LocalDate scheduleDate;
 
     @NotNull
     private boolean active;
     
     private boolean visible;
 
-    public Schedule(Date scheduleDate) {
+    public Schedule(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
         this.active = true;
         this.visible = true;

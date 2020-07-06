@@ -9,7 +9,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * @author Mateusz Dąbek
@@ -34,7 +34,5 @@ public class Messages extends AuditEntity implements Serializable {
     @NotNull
     private String text;
 
-    private Date crated;
-
-    private Date expired;
+    private LocalDate expired;
 }

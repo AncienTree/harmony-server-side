@@ -6,7 +6,7 @@ import pl.entpoint.harmony.entity.schedule.Schedule;
 import pl.entpoint.harmony.util.exception.schedule.ScheduleExisteException;
 import pl.entpoint.harmony.util.exception.schedule.ScheduleNotFoundException;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule getScheduleByDate(Date date) {
+    public Schedule getScheduleByDate(LocalDate date) {
         return scheduleRepository.findByScheduleDate(date);
     }
 
@@ -57,7 +57,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule createSchedule(Date date) {
+    public Schedule createSchedule(LocalDate date) {
         Optional<Schedule> result = Optional.ofNullable(scheduleRepository.findByScheduleDate(date));
         Schedule schedule;
         if(!result.isPresent()) {
