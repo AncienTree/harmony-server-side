@@ -30,7 +30,7 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 @CrossOrigin(origins = "http://localhost:4200")
 public class DayOffController {
 	
-	DayOffService dayOffService;
+	final DayOffService dayOffService;
 
 	@Autowired
 	public DayOffController(DayOffService dayOffService) {

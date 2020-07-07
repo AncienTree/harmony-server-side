@@ -19,7 +19,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 public class EmployeeLeaveController {
-    EmployeeLeaveService employeeLeaveService;
+    final EmployeeLeaveService employeeLeaveService;
 
     @Autowired
     public EmployeeLeaveController(EmployeeLeaveService employeeLeaveService) {

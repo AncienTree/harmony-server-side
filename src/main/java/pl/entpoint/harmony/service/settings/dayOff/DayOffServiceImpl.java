@@ -17,7 +17,7 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 @Service
 public class DayOffServiceImpl implements DayOffService {
 
-	DayOffRepository dayOffRepository;
+	final DayOffRepository dayOffRepository;
 	
 	@Autowired
 	public DayOffServiceImpl(DayOffRepository dayOffRepository) {

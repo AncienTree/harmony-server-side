@@ -19,8 +19,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Value("${security.jwt.resource-ids}")
     private String resourceIds;
 
+    final TokenStore tokenStore;
+
     @Autowired
-    TokenStore tokenStore;
+    public ResourceServerConfig(TokenStore tokenStore) {
+        this.tokenStore = tokenStore;
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {

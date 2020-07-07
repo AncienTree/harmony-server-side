@@ -17,7 +17,7 @@ import pl.entpoint.harmony.entity.user.enums.Roles;
 @Service
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
+    final UserRepository userRepository;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository) {

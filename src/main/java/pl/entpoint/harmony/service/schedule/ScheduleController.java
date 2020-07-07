@@ -27,9 +27,9 @@ import java.util.Map;
 @Slf4j
 public class ScheduleController {
 
-	ScheduleService scheduleService;
-	ScheduleSummaryService scheduleSummaryService;
-	EmployeeService employeeService;
+	final ScheduleService scheduleService;
+	final ScheduleSummaryService scheduleSummaryService;
+	final EmployeeService employeeService;
 
 	@Autowired
 	public ScheduleController(ScheduleService scheduleService, ScheduleSummaryService scheduleSummaryService,
@@ -53,10 +53,10 @@ public class ScheduleController {
 	public ResponseEntity<String> changestatus(@RequestBody Map<String, String> body) {
 		log.info("Zmiana statusu grafiku");
 		log.debug(body.toString());
-		Boolean active = Boolean.parseBoolean(body.get("active"));
-		Boolean visible = Boolean.parseBoolean(body.get("visible"));
+		boolean active = Boolean.parseBoolean(body.get("active"));
+		boolean visible = Boolean.parseBoolean(body.get("visible"));
 
-		if (active == true && visible == false) {
+		if (active && !visible) {
 			log.warn("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.");
 			return new ResponseEntity<>("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.", HttpStatus.BAD_REQUEST);
 		}

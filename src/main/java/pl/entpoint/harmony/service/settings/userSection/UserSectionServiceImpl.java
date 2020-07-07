@@ -20,7 +20,7 @@ import pl.entpoint.harmony.entity.settings.UserSection;
 public class UserSectionServiceImpl implements UserSectionService {
 
 	LocalDate date;
-	UserSectionRepository userSectionRepository;
+	final UserSectionRepository userSectionRepository;
 	
 	@Autowired
 	public UserSectionServiceImpl(UserSectionRepository userSectionRepository) {

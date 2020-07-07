@@ -20,8 +20,8 @@ import java.util.Optional;
 @Service
 public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 
-    ScheduleSummaryRepository scheduleSummaryRepository;
-    EmployeeService employeeService;
+    final ScheduleSummaryRepository scheduleSummaryRepository;
+    final EmployeeService employeeService;
 
     @Autowired
     public ScheduleSummaryServiceimpl(ScheduleSummaryRepository scheduleSummaryRepository,
@@ -41,9 +41,9 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
     }
 
     @Override
-    public ScheduleSummary create(LocalDate date, Employee employee) {
+    public void create(LocalDate date, Employee employee) {
         Optional<ScheduleSummary> scheduleSummary = Optional.ofNullable(getScheduleByDateAndEmployee(date, employee));
-        ScheduleSummary summary = null;
+        ScheduleSummary summary;
 
         if(scheduleSummary.isPresent()) {
             throw new RuntimeException("Dla danego użytkownika i daty istnieje już grafik.");
@@ -51,7 +51,6 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
             summary = new ScheduleSummary(employee, date.toString());
             scheduleSummaryRepository.save(summary);
         }
-        return summary;
     }
 
     @Override
@@ -77,9 +76,10 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 		for (Employee employee : fullEmployees) {
 			boolean check = false;
 			for (ScheduleSummary schedule : scheduleSummaries) {
-				if(employee == schedule.getEmployee()) {
-					check = true;
-				}
+                if (employee == schedule.getEmployee()) {
+                    check = true;
+                    break;
+                }
 			}
 			if(!check) {
 				withoutSchedule.add(employee);

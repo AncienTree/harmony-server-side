@@ -6,5 +6,5 @@ ${AnsiColor.BRIGHT_RED}
  |__| |_|  __|  |__|\__\  |__|\__\  |__/\__/|__|  \_____/  |__/\____|   /__/
     |_____|
 
-${AnsiColor.BRIGHT_BLUE}:: Harmony :: Running Spring Boot ${spring-boot.version} ::
-${AnsiColor.DEFAULT}
+${AnsiColor.BRIGHT_CYAN}:: Harmony :: Running Spring Boot ${spring-boot.version} ::
+${AnsiColor.BRIGHT_WHITE}

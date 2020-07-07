@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/setting/monthhours")
 @CrossOrigin(origins = "http://localhost:4200")
 public class MonthHoursController {
-    MonthHoursService monthHoursService;
+    final MonthHoursService monthHoursService;
 
     @Autowired
     public MonthHoursController(MonthHoursService monthHoursService) {

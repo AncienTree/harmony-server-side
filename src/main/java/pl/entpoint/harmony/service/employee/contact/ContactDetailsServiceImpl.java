@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class ContactDetailsServiceImpl implements ContactDetailsService {
 
-    ContactDetailsRepository contactDetailsRepository;
+    final ContactDetailsRepository contactDetailsRepository;
 
     @Autowired
     public ContactDetailsServiceImpl(ContactDetailsRepository contactDetailsRepository) {

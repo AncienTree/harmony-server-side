@@ -20,7 +20,7 @@ import java.util.Map;
 @Slf4j
 public class EmployeeDetailsController {
 
-    EmployeeDetailsService employeeDetailsService;
+    final EmployeeDetailsService employeeDetailsService;
 
     @Autowired
     public EmployeeDetailsController(EmployeeDetailsService employeeDetailsService) {

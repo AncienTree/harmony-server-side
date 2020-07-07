@@ -16,7 +16,7 @@ import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 @Service
 public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
-    ScheduleRecordRepository scheduleRecordRepository;
+    final ScheduleRecordRepository scheduleRecordRepository;
 
     @Autowired
     public ScheduleRecordServiceImpl(ScheduleRecordRepository scheduleRecordRepository) {

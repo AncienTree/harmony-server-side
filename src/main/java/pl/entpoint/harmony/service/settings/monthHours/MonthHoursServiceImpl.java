@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Service
 public class MonthHoursServiceImpl implements MonthHoursService {
-    MonthHoursRepository monthHoursRepository;
+    final MonthHoursRepository monthHoursRepository;
 
     @Autowired
     public MonthHoursServiceImpl(MonthHoursRepository monthHoursRepository) {

@@ -17,7 +17,7 @@ import java.util.Map;
 @Service
 public class ContractTypeServiceImpl implements ContractTypeService{
 	
-	ContractTypeRepository contractTypeRepository;
+	final ContractTypeRepository contractTypeRepository;
 	
 	@Autowired
     public ContractTypeServiceImpl(ContractTypeRepository contractTypeRepository) {

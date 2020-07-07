@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class EmployeeLeaveServiceImpl implements EmployeeLeaveService {
 
-    EmployeeLeaveRepository employeeLeaveRepository;
+    final EmployeeLeaveRepository employeeLeaveRepository;
 
     @Autowired
     public EmployeeLeaveServiceImpl(EmployeeLeaveRepository employeeLeaveRepository) {

@@ -20,7 +20,7 @@ import pl.entpoint.harmony.entity.settings.ContractType;
 @CrossOrigin(origins = "http://localhost:4200")
 public class ContractTypeController {
 	
-	ContractTypeService contractTypeService;
+	final ContractTypeService contractTypeService;
 	
 	@Autowired
 	public ContractTypeController(ContractTypeService contractTypeService) {

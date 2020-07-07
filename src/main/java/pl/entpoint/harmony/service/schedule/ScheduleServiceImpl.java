@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
 
-    ScheduleRepository scheduleRepository;
+    final ScheduleRepository scheduleRepository;
 
     @Autowired
     public ScheduleServiceImpl(ScheduleRepository scheduleRepository) {
@@ -57,7 +57,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public Schedule createSchedule(LocalDate date) {
+    public void createSchedule(LocalDate date) {
         Optional<Schedule> result = Optional.ofNullable(scheduleRepository.findByScheduleDate(date));
         Schedule schedule;
         if(!result.isPresent()) {
@@ -66,6 +66,5 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new ScheduleExisteException(date);
         }
         scheduleRepository.save(schedule);
-        return schedule;
     }
 }

@@ -29,7 +29,7 @@ import pl.entpoint.harmony.entity.settings.UserLine;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserLineController {
 
-	UserLineService userLineService;
+	final UserLineService userLineService;
 
 	@Autowired
 	public UserLineController(UserLineService userLineService) {

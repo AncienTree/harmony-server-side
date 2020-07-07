@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class EmployeeInfoServiceImpl implements EmployeeInfoService{
 
-    EmployeeInfoRepository employeeInfoRepository;
+    final EmployeeInfoRepository employeeInfoRepository;
 
     @Autowired
     public EmployeeInfoServiceImpl(EmployeeInfoRepository employeeInfoRepository) {

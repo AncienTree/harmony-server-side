@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.stereotype.Component;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
 import java.util.HashMap;
@@ -14,10 +15,16 @@ import java.util.Map;
  * @author Mateusz Dąbek
  * @created 29/02/2020
  */
+
+@Component
 public class CustomToken implements TokenEnhancer {
 
+    private final EmployeeService employeeService;
+
     @Autowired
-    private EmployeeService employeeService;
+    public CustomToken(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {

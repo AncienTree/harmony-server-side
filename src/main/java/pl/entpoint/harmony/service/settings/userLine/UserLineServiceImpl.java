@@ -17,7 +17,7 @@ import pl.entpoint.harmony.entity.settings.UserLine;
 @Service
 public class UserLineServiceImpl implements UserLineService {
 	
-	UserLineRepository userLineRepository;
+	final UserLineRepository userLineRepository;
 	
 	@Autowired
 	public UserLineServiceImpl(UserLineRepository userLineRepository) {
