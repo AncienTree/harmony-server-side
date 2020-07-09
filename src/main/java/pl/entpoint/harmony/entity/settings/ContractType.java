@@ -29,4 +29,14 @@ public class ContractType extends AuditEntity implements Serializable {
     @NotNull
     @Size(max = 50)
     private String name;
+
+	public ContractType(Long id, String name) {
+		
+		if(id < 1 || id == null) {
+			this.id = 0L;
+		} else {
+			this.id = id;
+		}		
+		this.name = name;
+	}    
 }

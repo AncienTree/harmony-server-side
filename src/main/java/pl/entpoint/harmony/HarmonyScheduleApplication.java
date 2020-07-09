@@ -9,7 +9,6 @@ import java.util.TimeZone;
 public class HarmonyScheduleApplication {
 
     public static void main(String[] args) {
-        System.out.println("--------------------------- Start Application ---------------------------");
         TimeZone timeZone = TimeZone.getTimeZone("Europe/Warsaw");
         TimeZone.setDefault(timeZone);
 

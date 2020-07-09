@@ -6,6 +6,8 @@ package pl.entpoint.harmony.util;
  */
 
 public class LoginConverter {
+	
+	private LoginConverter() {}
 
     public static String createLogin(String firstName, String lastName) {
         String fn = replacePolishChar(firstName).toLowerCase().trim();

@@ -6,6 +6,8 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
 import java.util.HashMap;
@@ -17,20 +19,17 @@ import java.util.Map;
  */
 
 @Component
+@Slf4j
 public class CustomToken implements TokenEnhancer {
-
-    private final EmployeeService employeeService;
-
-    @Autowired
-    public CustomToken(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+	
+	@Autowired
+    private EmployeeService employeeService;
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
         String fullname = employeeService.getFullNameByLogin(oAuth2Authentication.getName());
 
-        System.out.println(fullname);
+        log.info("Użytkownik " + fullname + " zalogował się do systemu.");
         Map<String, Object> infoToken = new HashMap<>();
 
         // Dodatkowe pola w payload JWT

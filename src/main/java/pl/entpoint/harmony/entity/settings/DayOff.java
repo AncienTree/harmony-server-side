@@ -38,4 +38,14 @@ public class DayOff extends AuditEntity implements Serializable {
     private LocalDate date;
 
     private String info;
+
+	public DayOff(Long id, @NotNull LocalDate date, String info) {
+		if(id < 1 || id == null) {
+			this.id = 0L;
+		} else {
+			this.id = id;
+		}		
+		this.date = date;
+		this.info = info;
+	}   
 }

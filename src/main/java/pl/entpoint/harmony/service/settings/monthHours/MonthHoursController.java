@@ -30,7 +30,7 @@ public class MonthHoursController {
     }
 
     @PostMapping("/")
-    ResponseEntity<String> create(@RequestBody MonthHours monthHours) {
+    public ResponseEntity<String> create(@RequestBody MonthHours monthHours) {
 
         monthHoursService.create(monthHours);
         return new ResponseEntity<>("Utworzono nowe roboczogodziny miesiąca", HttpStatus.CREATED);

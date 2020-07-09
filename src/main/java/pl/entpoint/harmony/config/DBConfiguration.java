@@ -2,6 +2,7 @@ package pl.entpoint.harmony.config;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -25,6 +26,7 @@ import java.util.TimeZone;
 @Configuration
 @ConfigurationProperties(prefix="spring.datasource")
 @Getter @Setter
+@Slf4j
 public class DBConfiguration {
 
     private String driverClassName;
@@ -52,18 +54,18 @@ public class DBConfiguration {
     @Profile("dev")
     @Bean
     public String devDatabaseConnection() {
-        System.out.println("DB connection for DEV Env - H2");
-        System.out.println(driverClassName);
-        System.out.println(url);
+        log.info("DB connection for DEV Env - H2");
+        log.info(driverClassName);
+        log.info(url);
         return "DB connection for DEV Env - H2";
     }
 
     @Profile("test")
     @Bean
     public String testDatabaseConnection() {
-        System.out.println("DB connection to VPS for Test Env only! - PostgreSQL");
-        System.out.println(driverClassName);
-        System.out.println(url);
+    	log.info("DB connection to VPS for Test Env only! - PostgreSQL");
+    	log.info(driverClassName);
+    	log.info(url);
         return "DB connection to VPS for Test Env only! - PostgreSQL";
     }
     

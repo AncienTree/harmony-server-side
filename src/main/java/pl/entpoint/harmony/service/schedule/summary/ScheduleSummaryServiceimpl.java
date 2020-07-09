@@ -46,7 +46,7 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
         ScheduleSummary summary;
 
         if(scheduleSummary.isPresent()) {
-            throw new RuntimeException("Dla danego użytkownika i daty istnieje już grafik.");
+            throw new IllegalArgumentException("Dla danego użytkownika i daty istnieje już grafik.");
         } else {
             summary = new ScheduleSummary(employee, date.toString());
             scheduleSummaryRepository.save(summary);

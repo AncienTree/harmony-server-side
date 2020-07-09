@@ -31,11 +31,11 @@ public class ContractTypeServiceImpl implements ContractTypeService{
 
     @Override
     public ContractType getContractType(Long id) {
-    	return contractTypeRepository.findById(id).orElseThrow(() -> new ContractTypeNotFoundException(id));    	
+    	return contractTypeRepository.findById(id).orElseThrow(() -> new ContractTypeNotFoundException(id));
     }
     
     @Override
-    public void createContractType(ContractType contract) {
+    public void createContractType(ContractType contract) {  	
     	contractTypeRepository.save(contract);
     }
 

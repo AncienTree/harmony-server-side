@@ -7,4 +7,4 @@ ${AnsiColor.BRIGHT_RED}
     |_____|
 
 ${AnsiColor.BRIGHT_CYAN}:: Harmony :: Running Spring Boot ${spring-boot.version} ::
-${AnsiColor.BRIGHT_WHITE}
+${AnsiColor.DEFAULT}

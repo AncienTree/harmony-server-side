@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class BCrypt {
+	
+	private BCrypt() {}
 
     public static String encrypt(String pass) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

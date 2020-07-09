@@ -13,7 +13,7 @@ import pl.entpoint.harmony.entity.dto.view.HrTable;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BCrypt;
-import pl.entpoint.harmony.util.BlowfishEncryption;
+import pl.entpoint.harmony.util.EncryptionData;
 import pl.entpoint.harmony.util.LoginConverter;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
@@ -78,7 +78,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getEmployee(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
         try {
-            employee.setPesel(BlowfishEncryption.decrypt(employee.getPesel()));
+            employee.setPesel(EncryptionData.decrypt(employee.getPesel()));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getEmployeeByPesel(String pesel) {
         Optional<Employee> result = Optional.empty();
 		try {
-			result = employeeRepository.findByPesel(BlowfishEncryption.encrypt(pesel));
+			result = employeeRepository.findByPesel(EncryptionData.encrypt(pesel));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -129,7 +129,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public boolean isPeselInDB(String pesel) {
         Optional<Employee> result = Optional.empty();
 		try {
-			result = employeeRepository.findByPesel(BlowfishEncryption.encrypt(pesel));
+			result = employeeRepository.findByPesel(EncryptionData.encrypt(pesel));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -168,7 +168,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee theEmp = new Employee(
                 body.get("firstName"),
                 body.get("lastName"),
-                BlowfishEncryption.encrypt(body.get("pesel")),
+                EncryptionData.encrypt(body.get("pesel")),
                 body.get("sex"),
                 birthday,
                 body.get("position"),

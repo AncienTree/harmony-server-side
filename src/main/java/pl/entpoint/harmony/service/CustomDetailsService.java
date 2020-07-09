@@ -34,7 +34,7 @@ public class CustomDetailsService implements UserDetailsService {
 
     @Override
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         log.debug("Uwierzytelnianie {}", username);
 
         User user = Optional.of(userRepository.findByLogin(username))

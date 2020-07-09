@@ -63,7 +63,7 @@ public class UserController {
     public ResponseEntity<String> update(@RequestBody Map<String, Object> user, @PathVariable Long id) {
         User theUser = getUser(id);
         theUser.setStatus((boolean) user.get("status"));
-        if (!(user.get("password") == null)) {
+        if (user.get("password") != null) {
             theUser.setPassword(BCrypt.encrypt((String) user.get("password")));
         }
         theUser.setRole(Roles.valueOf((String) user.get("role")));

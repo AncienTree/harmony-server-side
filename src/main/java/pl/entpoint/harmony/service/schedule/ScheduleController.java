@@ -45,7 +45,7 @@ public class ScheduleController {
 	}
 
 	@GetMapping("all")
-	public List<Schedule> ScheduleList() {
+	public List<Schedule> ScheduleLists() {
 		return scheduleService.getSchedules();
 	}
 

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         if (result.isPresent()) {
             theUser = result.get();
         } else {
-            throw new RuntimeException("Nie znaleziono użytkownika pod ID - " + theId);
+            throw new IllegalArgumentException("Nie znaleziono użytkownika pod ID - " + theId);
         }
         return theUser;
     }
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
         if (result.isPresent()) {
             theUser = result.get();
         } else {
-            throw new RuntimeException("Nie znaleziono użytkownika pod ID - " + id);
+            throw new IllegalArgumentException("Nie znaleziono użytkownika pod ID - " + id);
         }
         theUser.setStatus(status);
         userRepository.save(theUser);
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
         if (result.isPresent()) {
             theUser = result.get();
         } else {
-            throw new RuntimeException("Nie znaleziono użytkownika pod loginem - " + login);
+            throw new IllegalArgumentException("Nie znaleziono użytkownika pod loginem - " + login);
         }
         return theUser;
     }

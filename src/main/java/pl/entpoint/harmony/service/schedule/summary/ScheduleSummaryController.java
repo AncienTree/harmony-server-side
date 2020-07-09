@@ -34,7 +34,7 @@ public class ScheduleSummaryController {
     }   
 
     @GetMapping("/date/{date}")
-    List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
+    public List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
         // Przypisanie SimpleEmployee do każdego grafiku z listy
@@ -45,7 +45,7 @@ public class ScheduleSummaryController {
     }
 
     @GetMapping("/{date}/{status}")
-    List<ScheduleSummary> getScheduleByDate(@PathVariable String date, @PathVariable String status) {
+    public List<ScheduleSummary> getScheduleByDate(@PathVariable String date, @PathVariable String status) {
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
         // Filtorwanie rekordów po danym statusie
@@ -59,7 +59,7 @@ public class ScheduleSummaryController {
     }
     
     @PostMapping("/add")
-    ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
+    public ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
     	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
     		   LocalDate.parse(body.get("date")), employee));
@@ -74,14 +74,14 @@ public class ScheduleSummaryController {
     }
     
     @GetMapping("/employee/{date}")
-    List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
+    public List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
     	LocalDate localDate = LocalDate.parse(date);
     	
         return scheduleSummaryService.getEmployeeWithoutSchedule(localDate);
     }
 
     @PostMapping("/employee/{date}")
-    ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable LocalDate date){
+    public ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable LocalDate date){
         for (Long ids : id) {
             Employee employee = employeeService.getEmployee(ids);
             scheduleSummaryService.create(date, employee);
