@@ -81,10 +81,11 @@ public class ScheduleSummaryController {
     }
 
     @PostMapping("/employee/{date}")
-    public ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable LocalDate date){
+    public ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable String date){
+    	LocalDate localDate = LocalDate.parse(date);
         for (Long ids : id) {
             Employee employee = employeeService.getEmployee(ids);
-            scheduleSummaryService.create(date, employee);
+            scheduleSummaryService.create(localDate, employee);
         }
         return new ResponseEntity<>("Utworzono grafik dla " + id.length + " pracowników",
                 HttpStatus.CREATED);
