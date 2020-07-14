@@ -2,8 +2,6 @@ package pl.entpoint.harmony.service.settings.monthHours;
 
 import pl.entpoint.harmony.entity.settings.MonthHours;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,8 +11,7 @@ import java.util.Map;
 
 
 public interface MonthHoursService {
-    List<MonthHours> getMonthHoursOnYear(int year);
-    MonthHours getMonthHoursByDate(LocalDate date);
+    MonthHours getMonthHoursByYear(String year);
     void create(MonthHours monthHours);
     void delete(MonthHours monthHours);
     void change(Map<String, String> monthHours);

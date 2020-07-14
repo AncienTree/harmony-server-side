@@ -25,8 +25,11 @@ public class DayOffServiceImpl implements DayOffService {
 	}
 
 	@Override
-	public List<DayOff> getAllDayOff() {
-		return dayOffRepository.findAll();
+	public List<DayOff> getDayOffByYear(String year) {
+		LocalDate start = LocalDate.of(Integer.parseInt(year), 1, 1);
+		LocalDate end = LocalDate.of(Integer.parseInt(year), 12, 31);
+		
+		return dayOffRepository.findByDateBetween(start, end);
 	}
 
 	@Override

@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.settings.MonthHours;
 
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,22 +18,14 @@ public class MonthHoursServiceImpl implements MonthHoursService {
     @Autowired
     public MonthHoursServiceImpl(MonthHoursRepository monthHoursRepository) {
         this.monthHoursRepository = monthHoursRepository;
-    }
+    }   
 
     @Override
-    public List<MonthHours> getMonthHoursOnYear(int year) {
-        LocalDate start = LocalDate.of(year, 1,1);
-        LocalDate end = LocalDate.of(year, 12,1);
-
-        return monthHoursRepository.findAllByDateBetween(start, end);
-    }
-
-    @Override
-    public MonthHours getMonthHoursByDate(LocalDate date) {
-        return monthHoursRepository.findByDate(date);
-    }
-
-    @Override
+	public MonthHours getMonthHoursByYear(String year) {
+		return monthHoursRepository.findByYear(year);
+	}
+    
+	@Override
     public void create(MonthHours monthHours) {
         monthHoursRepository.save(monthHours);
     }
@@ -47,11 +37,21 @@ public class MonthHoursServiceImpl implements MonthHoursService {
 
     @Override
     public void change(Map<String, String> monthHours) {
-        Long id = Long.parseLong(monthHours.get("id"));
+        Integer id = Integer.parseInt(monthHours.get("id"));
         MonthHours hours = monthHoursRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Nie znaleziono podanego miesiąca."));
-
-        hours.setRbh(Integer.parseInt(monthHours.get("rbh")));
+                () -> new IllegalArgumentException("Nie znaleziono podanego miesiąca."));
+        hours.setJanuary(Integer.parseInt(monthHours.get("january")));
+        hours.setFebruary(Integer.parseInt(monthHours.get("february")));
+        hours.setMarch(Integer.parseInt(monthHours.get("march")));
+        hours.setApril(Integer.parseInt(monthHours.get("april")));
+        hours.setMay(Integer.parseInt(monthHours.get("may")));
+        hours.setJune(Integer.parseInt(monthHours.get("june")));
+        hours.setJuly(Integer.parseInt(monthHours.get("july")));
+        hours.setAugust(Integer.parseInt(monthHours.get("august")));
+        hours.setSeptember(Integer.parseInt(monthHours.get("september")));
+        hours.setOctober(Integer.parseInt(monthHours.get("october")));
+        hours.setNovember(Integer.parseInt(monthHours.get("november")));
+        hours.setDecember(Integer.parseInt(monthHours.get("december")));        
 
         monthHoursRepository.save(hours);
     }

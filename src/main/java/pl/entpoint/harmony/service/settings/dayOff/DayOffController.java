@@ -36,10 +36,10 @@ public class DayOffController {
 	public DayOffController(DayOffService dayOffService) {
 		this.dayOffService = dayOffService;
 	}
-
-	@GetMapping("/")
-	public List<DayOff> getAllDayOff() {
-		return dayOffService.getAllDayOff();
+	
+	@GetMapping("/{year}")
+	public List<DayOff> getDayOffByYear(@PathVariable String year){
+		return dayOffService.getDayOffByYear(year);
 	}
 	
 	@PostMapping("/between")
@@ -53,7 +53,7 @@ public class DayOffController {
         return new ResponseEntity<>("Dodano nowy dzień wolny.", HttpStatus.CREATED);
     }
 	
-	@PatchMapping("/update")
+	@PatchMapping("/")
     public ResponseEntity<String> update(@RequestBody DayOff day){
 		DayOff dayOff = dayOffService.getDayOff(day.getDate());
 		dayOff.setInfo(day.getInfo());

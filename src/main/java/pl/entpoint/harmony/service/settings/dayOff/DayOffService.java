@@ -13,7 +13,7 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 
 public interface DayOffService {
 
-	List<DayOff> getAllDayOff();
+	List<DayOff> getDayOffByYear(String year);
 	List<DayOff> getDayOffBetweenDats(LocalDate start, LocalDate end);
 	DayOff getDayOff(LocalDate date);
 	void create(DayOff dayOff);
