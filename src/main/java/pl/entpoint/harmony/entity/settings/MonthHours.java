@@ -27,6 +27,7 @@ public class MonthHours extends AuditEntity implements Serializable {
 
     @Column(unique = true)
     @NotNull
+    @Size(max = 4)
     private String year;
 
     @NotNull

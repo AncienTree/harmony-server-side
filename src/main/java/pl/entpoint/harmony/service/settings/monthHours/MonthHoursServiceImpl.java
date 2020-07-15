@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.settings.MonthHours;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,8 +22,8 @@ public class MonthHoursServiceImpl implements MonthHoursService {
     }   
 
     @Override
-	public MonthHours getMonthHoursByYear(String year) {
-		return monthHoursRepository.findByYear(year);
+	public List<MonthHours> getAll() {
+		return monthHoursRepository.findAll();
 	}
     
 	@Override

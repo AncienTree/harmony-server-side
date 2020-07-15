@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.settings.monthHours;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class MonthHoursController {
         this.monthHoursService = monthHoursService;
     }
 
-    @GetMapping("/{year}")
-    public MonthHours getYear(@PathVariable String year) {
-        return monthHoursService.getMonthHoursByYear(year);
+    @GetMapping("/")
+    public List<MonthHours> getYear() {
+        return monthHoursService.getAll();
     }
 
     @PostMapping("/")
