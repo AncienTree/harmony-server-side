@@ -55,10 +55,8 @@ public class DayOffController {
 	
 	@PatchMapping("/")
     public ResponseEntity<String> update(@RequestBody DayOff day){
-		DayOff dayOff = dayOffService.getDayOff(day.getDate());
-		dayOff.setInfo(day.getInfo());
+		dayOffService.update(day);
 		
-		dayOffService.create(dayOff);
         return new ResponseEntity<>("Zaktualizowano opis.", HttpStatus.OK);
     }
 	

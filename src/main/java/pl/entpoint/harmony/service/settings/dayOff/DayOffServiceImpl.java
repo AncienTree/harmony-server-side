@@ -2,6 +2,7 @@ package pl.entpoint.harmony.service.settings.dayOff;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,7 +47,24 @@ public class DayOffServiceImpl implements DayOffService {
 	public void create(DayOff dayOff) {
 		dayOffRepository.save(dayOff);
 	}
-
+		
+	@Override
+	public void update(DayOff dayOff) {
+		Long id = dayOff.getId();
+		Optional<DayOff> optional = Optional.ofNullable(dayOffRepository.findById(id))
+					.orElseThrow(() -> new IllegalArgumentException("Nie znaleziono dnia wolnego o takim ID"));
+		DayOff tempDayOff = null;
+		
+		if(optional.isPresent()) {
+			tempDayOff = optional.get();
+		}
+		assert tempDayOff != null;
+		tempDayOff.setDate(dayOff.getDate());
+		tempDayOff.setInfo(dayOff.getInfo());		
+		
+		create(tempDayOff);
+	}
+	
 	@Override
 	public void delete(Long id) {
 		DayOff day = dayOffRepository.findById(id)

@@ -17,5 +17,6 @@ public interface DayOffService {
 	List<DayOff> getDayOffBetweenDats(LocalDate start, LocalDate end);
 	DayOff getDayOff(LocalDate date);
 	void create(DayOff dayOff);
+	void update(DayOff dayOff);
 	void delete(Long id);
 }
