@@ -65,4 +65,22 @@ public class MonthHours extends AuditEntity implements Serializable {
     
     @NotNull
     private int december;
+
+    public int getRbh(int month){
+        switch (month){
+            case 1: return getJanuary();
+            case 2: return getFebruary();
+            case 3: return getMarch();
+            case 4: return getApril();
+            case 5: return getMay();
+            case 6: return getJune();
+            case 7: return getJuly();
+            case 8: return getAugust();
+            case 9: return getSeptember();
+            case 10: return getOctober();
+            case 11: return getNovember();
+            case 12: return getDecember();
+            default: return 0;
+        }
+    }
 }

@@ -11,4 +11,5 @@ import pl.entpoint.harmony.entity.settings.MonthHours;
 
 @Repository
 public interface MonthHoursRepository extends JpaRepository<MonthHours, Integer> {
+    MonthHours findByYear(String year);
 }

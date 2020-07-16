@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.settings.MonthHours;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author Mateusz Dąbek
@@ -55,5 +57,17 @@ public class MonthHoursServiceImpl implements MonthHoursService {
         hours.setDecember(Integer.parseInt(monthHours.get("december")));        
 
         monthHoursRepository.save(hours);
+    }
+
+    @Override
+    public int checkMonthHours(LocalDate date) {
+        Optional<MonthHours> optionalMonthHours = Optional.ofNullable(monthHoursRepository.findByYear(String.valueOf(date.getYear())));
+        MonthHours monthHours;
+        if (optionalMonthHours.isPresent()){
+            monthHours = optionalMonthHours.get();
+        } else {
+            return 0;
+        }
+        return monthHours.getRbh(date.getMonthValue());
     }
 }

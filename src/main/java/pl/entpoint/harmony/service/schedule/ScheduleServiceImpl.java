@@ -3,6 +3,9 @@ package pl.entpoint.harmony.service.schedule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.schedule.Schedule;
+import pl.entpoint.harmony.entity.settings.DayOff;
+import pl.entpoint.harmony.service.settings.dayOff.DayOffService;
+import pl.entpoint.harmony.service.settings.monthHours.MonthHoursService;
 import pl.entpoint.harmony.util.exception.schedule.ScheduleExisteException;
 import pl.entpoint.harmony.util.exception.schedule.ScheduleNotFoundException;
 
@@ -19,20 +22,33 @@ import java.util.Optional;
 public class ScheduleServiceImpl implements ScheduleService {
 
     final ScheduleRepository scheduleRepository;
+    final DayOffService dayOffService;
+    final MonthHoursService monthHoursService;
 
     @Autowired
-    public ScheduleServiceImpl(ScheduleRepository scheduleRepository) {
+    public ScheduleServiceImpl(ScheduleRepository scheduleRepository, DayOffService dayOffService, MonthHoursService monthHoursService) {
         this.scheduleRepository = scheduleRepository;
+        this.dayOffService = dayOffService;
+        this.monthHoursService = monthHoursService;
     }
 
     @Override
     public Schedule getScheduleByDate(LocalDate date) {
-        return scheduleRepository.findByScheduleDate(date);
+        Schedule schedule = scheduleRepository.findByScheduleDate(date);
+        schedule.setRbh(addMonthHours(schedule));
+        schedule.setDayOffs(addDayOff(schedule));
+        return schedule;
     }
 
     @Override
     public List<Schedule> getActiveSchedules() {
-        return scheduleRepository.findAllActive();
+        List<Schedule> schedules = scheduleRepository.findAllActive();
+
+        for (Schedule schedule: schedules) {
+            schedule.setRbh(addMonthHours(schedule));
+            schedule.setDayOffs(addDayOff(schedule));
+        }
+        return schedules;
     }
 
     @Override
@@ -66,5 +82,16 @@ public class ScheduleServiceImpl implements ScheduleService {
             throw new ScheduleExisteException(date);
         }
         scheduleRepository.save(schedule);
+    }
+
+    private int addMonthHours(Schedule schedule){
+        return monthHoursService.checkMonthHours(schedule.getScheduleDate());
+    }
+
+    private List<DayOff> addDayOff(Schedule schedule){
+        LocalDate start = schedule.getScheduleDate();
+        LocalDate end = LocalDate.of(start.getYear(), start.getMonthValue(), start.lengthOfMonth());
+
+        return dayOffService.getDayOffBetweenDats(start, end);
     }
 }
