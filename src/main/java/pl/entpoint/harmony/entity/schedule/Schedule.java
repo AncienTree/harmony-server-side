@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.settings.DayOff;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Mateusz Dąbek
@@ -33,6 +35,12 @@ public class Schedule extends AuditEntity implements Serializable {
     private boolean active;
     
     private boolean visible;
+    
+    @Transient
+    private List<DayOff> dayOffs;
+    
+    @Transient
+    private int rbh;
 
     public Schedule(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
