@@ -23,6 +23,7 @@ public interface EmployeeService {
     List<SimpleEmployee> getWorkingEmployeesByPosition(String position);
     List<HrTable> getPersonalDate();
     Employee getEmployee(Long id);
+    Employee getEmployeeNotDecrypted(Long id);
     Employee getEmployeeByPesel(String pesel);
     
     void newEmployee(Map<String, String> body);

@@ -84,7 +84,7 @@ public class ScheduleSummaryController {
     public ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable String date){
     	LocalDate localDate = LocalDate.parse(date);
         for (Long ids : id) {
-            Employee employee = employeeService.getEmployee(ids);
+            Employee employee = employeeService.getEmployeeNotDecrypted(ids);
             scheduleSummaryService.create(localDate, employee);
         }
         return new ResponseEntity<>("Utworzono grafik dla " + id.length + " pracowników",

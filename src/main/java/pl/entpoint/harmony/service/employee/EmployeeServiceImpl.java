@@ -84,8 +84,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employee;
     }
+	
+	
 
     @Override
+	public Employee getEmployeeNotDecrypted(Long id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
+	}
+
+	@Override
     public Employee getEmployeeByPesel(String pesel) {
         Optional<Employee> result = Optional.empty();
 		try {
