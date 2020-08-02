@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.entpoint.harmony.entity.dto.Presence;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.service.employee.EmployeeService;
@@ -37,6 +38,14 @@ public class ScheduleRecordController {
     public List<ScheduleRecord> getScheduleByDateAndEmployee(@PathVariable String id, @PathVariable String date) {
         Employee theEmpl = employeeService.getEmployee(Long.valueOf(id));
 
-        return scheduleRecordService.getScheduleRecodByDateAndEmployee(LocalDate.parse(date), theEmpl);
+        return scheduleRecordService.getScheduleRecordByDateAndEmployee(LocalDate.parse(date), theEmpl);
     }
+
+    @GetMapping("{date}")
+    public List<Presence> getPresenceData(@PathVariable String date) {
+
+
+        return scheduleRecordService.getScheduleRecordForPresence(LocalDate.parse(date));
+    }
+
 }

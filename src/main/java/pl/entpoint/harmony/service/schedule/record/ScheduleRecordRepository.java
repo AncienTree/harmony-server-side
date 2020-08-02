@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
+import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Mateusz Dąbek
@@ -18,5 +21,5 @@ import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 public interface ScheduleRecordRepository extends JpaRepository<ScheduleRecord, Long> {
 
     List<ScheduleRecord> findByWorkDateAndEmployee(LocalDate date, Employee employee);
-
+    List<ScheduleRecord> findByWorkDateAndTypes(LocalDate workDate, ScheduleType types);
 }
