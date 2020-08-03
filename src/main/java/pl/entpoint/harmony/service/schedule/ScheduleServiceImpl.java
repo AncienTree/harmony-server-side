@@ -94,4 +94,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return dayOffService.getDayOffBetweenDats(start, end);
     }
+
+	@Override
+	public boolean isActive(LocalDate date) {
+		Schedule schedule = scheduleRepository.findByScheduleDate(date);
+		
+		return schedule.isActive();
+	}   
+    
 }

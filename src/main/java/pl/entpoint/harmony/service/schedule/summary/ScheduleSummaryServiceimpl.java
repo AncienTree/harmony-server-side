@@ -2,10 +2,14 @@ package pl.entpoint.harmony.service.schedule.summary;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import pl.entpoint.harmony.entity.dto.EmployeeScheduleList;
+import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
+import pl.entpoint.harmony.service.schedule.ScheduleService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,13 +25,15 @@ import java.util.Optional;
 public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 
     final ScheduleSummaryRepository scheduleSummaryRepository;
+    final ScheduleService scheduleService;
     final EmployeeService employeeService;
 
     @Autowired
     public ScheduleSummaryServiceimpl(ScheduleSummaryRepository scheduleSummaryRepository,
-			EmployeeService employeeService) {
+			EmployeeService employeeService, ScheduleService scheduleService) {
 		this.scheduleSummaryRepository = scheduleSummaryRepository;
 		this.employeeService = employeeService;
+		this.scheduleService = scheduleService;
 	}
 
     @Override
@@ -86,5 +92,27 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 			}
 		}
 		return withoutSchedule;
-	}    
+	}
+
+	@Override
+	public EmployeeScheduleList getListOfEmployees(LocalDate scheduleDate) {
+		if (scheduleService.isActive(scheduleDate)) {
+			List<ScheduleSummary> lists = getScheduleByDate(scheduleDate);
+			List<SimpleEmployee> employees = new ArrayList<>();
+			
+			EmployeeScheduleList scheduleList = new EmployeeScheduleList();
+			scheduleList.setScheduleDate(scheduleDate);
+			
+			// Pobieranie pracowników z wyciągu grafiku
+			for (ScheduleSummary summary : lists) {
+				employees.add(new SimpleEmployee(summary.getEmployee()));
+			}
+			
+			scheduleList.setEmployees(employees);
+		
+			return scheduleList;
+		} else {
+			throw new IllegalArgumentException("Grafik jest nieaktywny");
+		}		
+	} 	
 }

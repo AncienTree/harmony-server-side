@@ -16,4 +16,5 @@ public interface ScheduleService {
     List<Schedule> getSchedules();
     void changeStatus(Long id, boolean active, boolean visible);
     void createSchedule(LocalDate date);
+    boolean isActive(LocalDate date);
 }

@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.schedule.summary;
 
+import pl.entpoint.harmony.entity.dto.EmployeeScheduleList;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 
@@ -15,6 +16,7 @@ public interface ScheduleSummaryService {
     List<ScheduleSummary> getScheduleByDate(LocalDate date);
     void create (LocalDate date, Employee employee);
     void massCreate(LocalDate date, List<Employee> employees);
+    EmployeeScheduleList getListOfEmployees(LocalDate scheduleDate);
     
     List<Employee> getEmployeeWithoutSchedule(LocalDate date);
 }

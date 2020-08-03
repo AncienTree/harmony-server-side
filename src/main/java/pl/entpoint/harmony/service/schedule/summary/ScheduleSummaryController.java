@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.dto.EmployeeScheduleList;
 import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
@@ -58,6 +59,20 @@ public class ScheduleSummaryController {
         return summary;
     }
     
+    @GetMapping("/employee/{date}")
+    public List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
+    	LocalDate localDate = LocalDate.parse(date);
+    	
+        return scheduleSummaryService.getEmployeeWithoutSchedule(localDate);
+    }
+    
+    @GetMapping("/employeeList/{date}")
+    public EmployeeScheduleList getListOfEmployee(@PathVariable String date) {
+    	LocalDate localDate = LocalDate.parse(date);
+    	
+        return scheduleSummaryService.getListOfEmployees(localDate);
+    }
+    
     @PostMapping("/add")
     public ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
     	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
@@ -71,14 +86,7 @@ public class ScheduleSummaryController {
             return new ResponseEntity<>("Utworzono grafik dla " + employee.getFirstName() + " " + employee.getLastName(),
                     HttpStatus.OK);
        }
-    }
-    
-    @GetMapping("/employee/{date}")
-    public List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
-    	LocalDate localDate = LocalDate.parse(date);
-    	
-        return scheduleSummaryService.getEmployeeWithoutSchedule(localDate);
-    }
+    }    
 
     @PostMapping("/employee/{date}")
     public ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable String date){
