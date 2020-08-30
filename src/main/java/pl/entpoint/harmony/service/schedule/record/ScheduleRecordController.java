@@ -4,11 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import pl.entpoint.harmony.entity.dto.Presence;
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -43,9 +41,23 @@ public class ScheduleRecordController {
 
     @GetMapping("{date}")
     public List<Presence> getPresenceData(@PathVariable String date) {
-
-
         return scheduleRecordService.getScheduleRecordForPresence(LocalDate.parse(date));
     }
 
+    @PostMapping("")
+    public ResponseEntity<String> createRecord(@RequestBody ScheduleRecord scheduleRecord) {
+        System.out.println("---------------------------------------------");
+        System.out.println(scheduleRecord);
+        System.out.println("---------------------------------------------");
+     //   scheduleRecordService.create(scheduleRecord);
+
+        return new ResponseEntity<>("Utworzono rekord", HttpStatus.CREATED);
+    }
+
+    @PatchMapping("")
+    public ResponseEntity<String> updateRecord(@RequestBody ScheduleRecord scheduleRecord) {
+        scheduleRecordService.update(scheduleRecord);
+
+        return new ResponseEntity<>("Zaktualizowane rekord", HttpStatus.OK);
+    }
 }

@@ -17,4 +17,5 @@ public interface ScheduleRecordService {
 	List<ScheduleRecord> getScheduleRecordByDateAndEmployee(LocalDate date, Employee employee);
 	List<Presence> getScheduleRecordForPresence(LocalDate date);
 	void create (ScheduleRecord record);
+	void update (ScheduleRecord record);
 }

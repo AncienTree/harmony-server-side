@@ -3,6 +3,7 @@ package pl.entpoint.harmony.service.schedule.record;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.dto.Presence;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
+import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
+import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
 /**
  * @author Mateusz Dąbek
@@ -45,7 +48,33 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
     @Override
     public void create(ScheduleRecord record) {
-    	scheduleRecordRepository.save(record);
-    	
+        ScheduleRecord scheduleRecord = new ScheduleRecord();
+        scheduleRecord.setEmployee(record.getEmployee());
+        scheduleRecord.setStatus(record.getStatus());
+        scheduleRecord.setTypes(record.getTypes());
+        scheduleRecord.setStartWork(record.getStartWork());
+        scheduleRecord.setEndWork(record.getEndWork());
+        scheduleRecord.setWorkDate(record.getWorkDate());
+
+        System.out.println("---------------------------------------------");
+        System.out.println(record);
+        System.out.println("---------------------------------------------");
+
+    	scheduleRecordRepository.save(scheduleRecord);
+
+    }
+
+    @Override
+    public void update(ScheduleRecord record) {
+        Optional<ScheduleRecord> scheduleRecord;
+        scheduleRecord = Optional.ofNullable(scheduleRecordRepository.findById(record.getId()).orElseThrow(
+                () -> new IllegalArgumentException("Nieznaleziono rekordu o podanym ID: " + record.getId())));
+        ScheduleRecord updatedRecord = scheduleRecord.get();
+
+        updatedRecord.setStatus(record.getStatus());
+        updatedRecord.setStartWork(record.getStartWork());
+        updatedRecord.setEndWork(record.getEndWork());
+
+        scheduleRecordRepository.save(updatedRecord);
     }
 }
