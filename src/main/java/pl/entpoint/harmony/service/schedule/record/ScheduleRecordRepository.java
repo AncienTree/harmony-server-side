@@ -10,8 +10,6 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * @author Mateusz Dąbek
  * @created 19/11/2019

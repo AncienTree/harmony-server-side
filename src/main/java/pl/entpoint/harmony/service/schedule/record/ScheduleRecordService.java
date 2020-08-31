@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import pl.entpoint.harmony.entity.dto.Presence;
+import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
@@ -16,6 +17,6 @@ public interface ScheduleRecordService {
 	
 	List<ScheduleRecord> getScheduleRecordByDateAndEmployee(LocalDate date, Employee employee);
 	List<Presence> getScheduleRecordForPresence(LocalDate date);
-	void create (ScheduleRecord record);
-	void update (ScheduleRecord record);
+	void create (Record record);
+	void update (Record record);
 }

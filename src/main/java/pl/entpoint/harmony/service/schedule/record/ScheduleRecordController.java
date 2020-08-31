@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import pl.entpoint.harmony.entity.dto.Presence;
+import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.service.employee.EmployeeService;
@@ -45,17 +46,14 @@ public class ScheduleRecordController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createRecord(@RequestBody ScheduleRecord scheduleRecord) {
-        System.out.println("---------------------------------------------");
-        System.out.println(scheduleRecord);
-        System.out.println("---------------------------------------------");
-     //   scheduleRecordService.create(scheduleRecord);
+    public ResponseEntity<String> createRecord(@RequestBody Record scheduleRecord) {
+        scheduleRecordService.create(scheduleRecord);
 
         return new ResponseEntity<>("Utworzono rekord", HttpStatus.CREATED);
     }
 
     @PatchMapping("")
-    public ResponseEntity<String> updateRecord(@RequestBody ScheduleRecord scheduleRecord) {
+    public ResponseEntity<String> updateRecord(@RequestBody Record scheduleRecord) {
         scheduleRecordService.update(scheduleRecord);
 
         return new ResponseEntity<>("Zaktualizowane rekord", HttpStatus.OK);

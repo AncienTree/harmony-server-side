@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.service.schedule.record;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.dto.Presence;
+import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
-import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
-import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
+import pl.entpoint.harmony.service.employee.EmployeeService;
 
 /**
  * @author Mateusz Dąbek
@@ -24,10 +25,12 @@ import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
     final ScheduleRecordRepository scheduleRecordRepository;
+    final EmployeeService employeeService; 
 
     @Autowired
-    public ScheduleRecordServiceImpl(ScheduleRecordRepository scheduleRecordRepository) {
-        this.scheduleRecordRepository = scheduleRecordRepository;
+    public ScheduleRecordServiceImpl(ScheduleRecordRepository scheduleRecordRepository, EmployeeService employeeService) {
+        this.employeeService = employeeService;
+		this.scheduleRecordRepository = scheduleRecordRepository;
     }
 
     @Override
@@ -47,33 +50,33 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     }
 
     @Override
-    public void create(ScheduleRecord record) {
+    public void create(Record record) {
         ScheduleRecord scheduleRecord = new ScheduleRecord();
-        scheduleRecord.setEmployee(record.getEmployee());
+        Employee employee = employeeService.getEmployee(record.getEmployee());
+        
+        scheduleRecord.setEmployee(employee);
         scheduleRecord.setStatus(record.getStatus());
         scheduleRecord.setTypes(record.getTypes());
-        scheduleRecord.setStartWork(record.getStartWork());
-        scheduleRecord.setEndWork(record.getEndWork());
-        scheduleRecord.setWorkDate(record.getWorkDate());
-
-        System.out.println("---------------------------------------------");
-        System.out.println(record);
-        System.out.println("---------------------------------------------");
+        scheduleRecord.setStartWork(LocalTime.parse(record.getStartWork()));
+        scheduleRecord.setEndWork(LocalTime.parse(record.getEndWork()));
+        scheduleRecord.setWorkDate(LocalDate.parse(record.getWorkDate()));
 
     	scheduleRecordRepository.save(scheduleRecord);
 
     }
 
     @Override
-    public void update(ScheduleRecord record) {
+    public void update(Record record) {
+    	System.out.println("Aktualizacja rekordu");
+    	System.out.println(record);
         Optional<ScheduleRecord> scheduleRecord;
         scheduleRecord = Optional.ofNullable(scheduleRecordRepository.findById(record.getId()).orElseThrow(
                 () -> new IllegalArgumentException("Nieznaleziono rekordu o podanym ID: " + record.getId())));
         ScheduleRecord updatedRecord = scheduleRecord.get();
 
         updatedRecord.setStatus(record.getStatus());
-        updatedRecord.setStartWork(record.getStartWork());
-        updatedRecord.setEndWork(record.getEndWork());
+        updatedRecord.setStartWork(LocalTime.parse(record.getStartWork()));
+        updatedRecord.setEndWork(LocalTime.parse(record.getEndWork()));
 
         scheduleRecordRepository.save(updatedRecord);
     }

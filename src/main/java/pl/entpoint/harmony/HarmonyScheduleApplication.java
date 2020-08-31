@@ -5,14 +5,18 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.TimeZone;
 
+import javax.annotation.PostConstruct;
+
 @SpringBootApplication
 public class HarmonyScheduleApplication {
 
     public static void main(String[] args) {
-        TimeZone timeZone = TimeZone.getTimeZone("Europe/Warsaw");
-        TimeZone.setDefault(timeZone);
-
         SpringApplication.run(HarmonyScheduleApplication.class, args);
+    }
+    
+    @PostConstruct
+    public void setTimeZone() {
+       TimeZone.setDefault(TimeZone.getTimeZone("Europe/Warsaw"));
     }
 
 
