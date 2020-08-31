@@ -75,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-    public Employee getEmployee(Long id) {
+    public Employee getEmployeeDecrypted(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
         try {
             employee.setPesel(EncryptionData.decrypt(employee.getPesel()));
@@ -147,7 +147,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public String getFullNameByLogin(String login) {
         User tempUser = userService.getUserByLogin(login);
-        Employee tempEmployee = getEmployee(tempUser.getEmployee().getId());
+        Employee tempEmployee = getEmployeeDecrypted(tempUser.getEmployee().getId());
 
         return tempEmployee.getFirstName() + " " + tempEmployee.getLastName();
     }

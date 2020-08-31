@@ -35,7 +35,7 @@ public class ScheduleRecordController {
 
     @GetMapping("{id}/{date}")
     public List<ScheduleRecord> getScheduleByDateAndEmployee(@PathVariable String id, @PathVariable String date) {
-        Employee theEmpl = employeeService.getEmployee(Long.valueOf(id));
+        Employee theEmpl = employeeService.getEmployeeDecrypted(Long.valueOf(id));
 
         return scheduleRecordService.getScheduleRecordByDateAndEmployee(LocalDate.parse(date), theEmpl);
     }

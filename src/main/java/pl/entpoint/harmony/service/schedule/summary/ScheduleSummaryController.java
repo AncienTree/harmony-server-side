@@ -75,7 +75,7 @@ public class ScheduleSummaryController {
     
     @PostMapping("/add")
     public ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
-    	Employee employee = employeeService.getEmployee(Long.valueOf(body.get("id")));
+    	Employee employee = employeeService.getEmployeeDecrypted(Long.valueOf(body.get("id")));
        Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
     		   LocalDate.parse(body.get("date")), employee));
 

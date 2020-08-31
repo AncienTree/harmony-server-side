@@ -22,7 +22,7 @@ public interface EmployeeService {
     List<Employee> getEmployeesByStatusAndStartWork(WorkStatus status, LocalDate date);
     List<SimpleEmployee> getWorkingEmployeesByPosition(String position);
     List<HrTable> getPersonalDate();
-    Employee getEmployee(Long id);
+    Employee getEmployeeDecrypted(Long id);
     Employee getEmployeeNotDecrypted(Long id);
     Employee getEmployeeByPesel(String pesel);
     

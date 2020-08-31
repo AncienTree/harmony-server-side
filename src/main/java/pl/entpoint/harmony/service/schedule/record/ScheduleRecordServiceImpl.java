@@ -13,8 +13,11 @@ import pl.entpoint.harmony.entity.dto.Presence;
 import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
+import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 import pl.entpoint.harmony.service.employee.EmployeeService;
+import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
+import pl.entpoint.harmony.util.ConvertData;
 
 /**
  * @author Mateusz Dąbek
@@ -25,11 +28,13 @@ import pl.entpoint.harmony.service.employee.EmployeeService;
 public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
     final ScheduleRecordRepository scheduleRecordRepository;
+    final ScheduleSummaryService scheduleSummaryService;
     final EmployeeService employeeService; 
 
     @Autowired
-    public ScheduleRecordServiceImpl(ScheduleRecordRepository scheduleRecordRepository, EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public ScheduleRecordServiceImpl(ScheduleRecordRepository scheduleRecordRepository, ScheduleSummaryService scheduleSummaryService, EmployeeService employeeService) {
+        this.scheduleSummaryService = scheduleSummaryService;
+		this.employeeService = employeeService;
 		this.scheduleRecordRepository = scheduleRecordRepository;
     }
 
@@ -52,7 +57,7 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     @Override
     public void create(Record record) {
         ScheduleRecord scheduleRecord = new ScheduleRecord();
-        Employee employee = employeeService.getEmployee(record.getEmployee());
+        Employee employee = employeeService.getEmployeeNotDecrypted(record.getEmployee());
         
         scheduleRecord.setEmployee(employee);
         scheduleRecord.setStatus(record.getStatus());
@@ -61,8 +66,11 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
         scheduleRecord.setEndWork(LocalTime.parse(record.getEndWork()));
         scheduleRecord.setWorkDate(LocalDate.parse(record.getWorkDate()));
 
+        // Dodanie rekordu do tabeli mapującej
+        ScheduleSummary scheduleSummary = scheduleSummaryService.getScheduleByDateAndEmployee(ConvertData.getFirstDayOfMonth(record.getWorkDate()), employee);
+        scheduleSummary.getScheduleRecords().add(scheduleRecord);
+        
     	scheduleRecordRepository.save(scheduleRecord);
-
     }
 
     @Override

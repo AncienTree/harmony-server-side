@@ -61,7 +61,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public Employee getEmployee(@PathVariable Long id){
-        return employeeService.getEmployee(id);
+        return employeeService.getEmployeeDecrypted(id);
     }
 
     @PatchMapping("/")

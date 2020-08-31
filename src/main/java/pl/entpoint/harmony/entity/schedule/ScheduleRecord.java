@@ -34,8 +34,9 @@ public class ScheduleRecord extends AuditEntity implements Serializable {
 	private static final long serialVersionUID = 392393332921570984L;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@SequenceGenerator(name="schedule_record_sqe", sequenceName="schedule.schedule_record_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="schedule_record_sqe")
+	private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
