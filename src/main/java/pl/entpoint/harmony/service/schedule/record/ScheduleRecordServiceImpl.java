@@ -44,6 +44,11 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     }
 
     @Override
+    public ScheduleRecord getScheduleRecordByDateAndEmployeeAndTypes(LocalDate date, Employee employee, ScheduleType type) {
+        return scheduleRecordRepository.findByWorkDateAndEmployeeAndTypes(date, employee, type);
+    }
+
+    @Override
     public List<Presence> getScheduleRecordForPresence(LocalDate date) {
         List<Presence> presences = new ArrayList<>();
         presences.add(new Presence(ScheduleType.DOSTEPNOSC, scheduleRecordRepository.findByWorkDateAndTypes(date, ScheduleType.DOSTEPNOSC)));
@@ -56,21 +61,30 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
     @Override
     public void create(Record record) {
-        ScheduleRecord scheduleRecord = new ScheduleRecord();
         Employee employee = employeeService.getEmployeeNotDecrypted(record.getEmployee());
-        
-        scheduleRecord.setEmployee(employee);
-        scheduleRecord.setStatus(record.getStatus());
-        scheduleRecord.setTypes(record.getTypes());
-        scheduleRecord.setStartWork(LocalTime.parse(record.getStartWork()));
-        scheduleRecord.setEndWork(LocalTime.parse(record.getEndWork()));
-        scheduleRecord.setWorkDate(LocalDate.parse(record.getWorkDate()));
 
-        // Dodanie rekordu do tabeli mapującej
-        ScheduleSummary scheduleSummary = scheduleSummaryService.getScheduleByDateAndEmployee(ConvertData.getFirstDayOfMonth(record.getWorkDate()), employee);
-        scheduleSummary.getScheduleRecords().add(scheduleRecord);
-        
-    	scheduleRecordRepository.save(scheduleRecord);
+        Optional<ScheduleRecord> recordOpt = Optional.ofNullable(scheduleRecordRepository
+                .findByWorkDateAndEmployeeAndTypes(LocalDate.parse(record.getWorkDate()), employee, record.getTypes()));
+
+        if (recordOpt.isPresent()){
+          record.setId(recordOpt.get().getId());
+          update(record);
+        } else {
+            ScheduleRecord scheduleRecord = new ScheduleRecord();
+
+            scheduleRecord.setEmployee(employee);
+            scheduleRecord.setStatus(record.getStatus());
+            scheduleRecord.setTypes(record.getTypes());
+            scheduleRecord.setStartWork(LocalTime.parse(record.getStartWork()));
+            scheduleRecord.setEndWork(LocalTime.parse(record.getEndWork()));
+            scheduleRecord.setWorkDate(LocalDate.parse(record.getWorkDate()));
+
+            // Dodanie rekordu do tabeli mapującej
+            ScheduleSummary scheduleSummary = scheduleSummaryService.getScheduleByDateAndEmployee(ConvertData.getFirstDayOfMonth(record.getWorkDate()), employee);
+            scheduleSummary.getScheduleRecords().add(scheduleRecord);
+
+            scheduleRecordRepository.save(scheduleRecord);
+        }
     }
 
     @Override

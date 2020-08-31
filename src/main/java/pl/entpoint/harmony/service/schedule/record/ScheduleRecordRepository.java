@@ -19,5 +19,6 @@ import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 public interface ScheduleRecordRepository extends JpaRepository<ScheduleRecord, Long> {
 
     List<ScheduleRecord> findByWorkDateAndEmployee(LocalDate date, Employee employee);
+    ScheduleRecord findByWorkDateAndEmployeeAndTypes(LocalDate date, Employee employee, ScheduleType type);
     List<ScheduleRecord> findByWorkDateAndTypes(LocalDate workDate, ScheduleType types);
 }
