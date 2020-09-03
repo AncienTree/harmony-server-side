@@ -152,7 +152,6 @@ public class Employee extends AuditEntity implements Serializable {
     	this.position = null;
     	this.contractPosition = null;
     	this.etat = null;
-    	this.contractType = null;
     	this.basicUnit = null;
     	this.unit = null;
     	this.endWorkDate = LocalDate.now();

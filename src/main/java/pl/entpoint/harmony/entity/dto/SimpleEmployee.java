@@ -18,6 +18,7 @@ public class SimpleEmployee implements Serializable {
     private float etat;
     private LocalDate startWorkDate;
     private LocalDate endWorkDate;
+    private String contractType;
     private String userSection;
     private String userLine;
     private String fte;
@@ -29,6 +30,7 @@ public class SimpleEmployee implements Serializable {
         position = employee.getPosition();
         workStatus = employee.getWorkStatus();
 
+        contractType = employee.getContractType();
         startWorkDate = employee.getStartWorkDate();
         endWorkDate = employee.getEndWorkDate();
         userSection = employee.getEmployeeDetails().getUserSection();
