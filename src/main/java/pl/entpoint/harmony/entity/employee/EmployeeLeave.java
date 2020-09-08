@@ -49,5 +49,9 @@ public class EmployeeLeave extends AuditEntity implements Serializable {
     	this.pastYears = 0;
     	
     }
+    
+   public int getTotal() {
+	   return normal + uz + additional + pastYears;
+   }
 
 }
