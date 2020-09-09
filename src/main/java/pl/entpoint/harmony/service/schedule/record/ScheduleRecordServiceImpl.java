@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.schedule.record;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.dto.Presence;
@@ -14,6 +16,7 @@ import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
+import pl.entpoint.harmony.entity.schedule.enums.ScheduleStatus;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
@@ -101,5 +104,50 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
         updatedRecord.setEndWork(LocalTime.parse(record.getEndWork()));
 
         scheduleRecordRepository.save(updatedRecord);
+    }
+
+    @Override
+    public int getCurrentMonthStatus(Employee employee, String type, LocalDate date) {
+        LocalDate start = LocalDate.of(date.getYear(), date.getMonth(), 1);
+        LocalDate end = LocalDate.of(date.getYear(), date.getMonth(), date.lengthOfMonth());
+
+        switch (type) {
+            case "work":
+                return getSumOfHours(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
+                        start, end, employee, ScheduleType.OBECNOSC, ScheduleStatus.P));
+            case "leave":
+                return getSumOfDays(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
+                        start, end, employee, ScheduleType.OBECNOSC, ScheduleStatus.UZ)) +
+                        getSumOfDays(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
+                                start, end, employee, ScheduleType.OBECNOSC, ScheduleStatus.UW)) +
+                        getSumOfDays(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
+                                start, end, employee, ScheduleType.OBECNOSC, ScheduleStatus.UK));
+            case "absences":
+                return getSumOfDays(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
+                        start, end, employee, ScheduleType.OBECNOSC, ScheduleStatus.CH)) +
+                        getSumOfDays(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
+                                start, end, employee, ScheduleType.OBECNOSC, ScheduleStatus.CN)) +
+                        getSumOfDays(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
+                                start, end, employee, ScheduleType.OBECNOSC, ScheduleStatus.NN));
+            default:
+                return -1;
+        }
+    }
+
+    private int getSumOfHours(List<ScheduleRecord> scheduleRecordList) {
+        int sum = 0;
+
+        for (ScheduleRecord record: scheduleRecordList) {
+            sum += (record.getEndWork().minusHours(record.getStartWork().getHour())).getHour();
+        }
+        return sum;
+    }
+
+    private int getSumOfDays(List<ScheduleRecord> scheduleRecordList) {
+        int sum = 0;
+        for (ScheduleRecord record: scheduleRecordList) {
+            sum++;
+        }
+        return sum;
     }
 }

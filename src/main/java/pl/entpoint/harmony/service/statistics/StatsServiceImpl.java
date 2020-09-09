@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class StatsServiceImpl implements StatsService {
 
-	private static LocalDate date = LocalDate.now();
+	private static final LocalDate DATE = LocalDate.now();
 	
 	private final UserService userService;
 	private final ScheduleRecordService recordService;
@@ -48,14 +48,12 @@ public class StatsServiceImpl implements StatsService {
 		}		
 		
 		stats.setLeaves(user.getEmployee().getEmployeeLeave().getTotal());
-		stats.setCurrentMonthHours(mHoursService.checkMonthHours(date));
-		
+		stats.setCurrentMonthHours(mHoursService.checkMonthHours(DATE));
+		stats.setCurrentMonthWorkedHours(recordService.getCurrentMonthStatus(user.getEmployee(), "work", DATE));
+		stats.setCurrentMonthAbsences(recordService.getCurrentMonthStatus(user.getEmployee(),"absences", DATE));
+		stats.setCurrentMonthLeaves(recordService.getCurrentMonthStatus(user.getEmployee(),"leave", DATE));
 
-//		private int currentMonthWorkedHours;
-//	    private int currentMonthHours;
-//		private int currentMonthLeaves;
 //		private int absences;
-//		private int currentMonthAbsences
 
 		return stats;
 	}
