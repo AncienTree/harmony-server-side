@@ -21,4 +21,14 @@ public interface ScheduleRecordService {
 	List<Presence> getScheduleRecordForPresence(LocalDate date);
 	void create (Record record);
 	void update (Record record);
+
+	/**
+	 *  Pobieranie ilości dni na danych statusach
+	 *
+	 * @param employee encja użytkownika
+	 * @param type as string "work", "leave", "absences".
+	 * @param date miesiąc w którym ma szukać danych
+	 * @return Zwraca ilość dni na wybranym statusie
+	 */
+    int getCurrentMonthStatus(Employee employee, String type, LocalDate date);
 }

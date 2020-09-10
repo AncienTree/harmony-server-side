@@ -26,7 +26,7 @@ public enum ScheduleStatus {
 CN	->	L4 nie potwierdzone
 CH	->	Choroba
 UB	->	Urlop bezpłatny 
-UO	->	Urlop okolicznościowy
+UK	->	Urlop okolicznościowy
 UW	->	Urlop wypoczynkowy
 WP	->	Dzień ustawowo wolny
 OP	->	Opieka nad dzieckiem
