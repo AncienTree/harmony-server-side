@@ -27,8 +27,11 @@ public interface ScheduleRecordService {
 	 *
 	 * @param employee encja użytkownika
 	 * @param type as string "work", "leave", "absences".
-	 * @param date miesiąc w którym ma szukać danych
+	 * @param start od którego dnia ma szukać
+	 * @param end do którego dnia ma szukać
 	 * @return Zwraca ilość dni na wybranym statusie
 	 */
+    int getNumbersOfDaysByStatus(Employee employee, String type, LocalDate start, LocalDate end);
     int getCurrentMonthStatus(Employee employee, String type, LocalDate date);
+    int getCurrentYearStatus(Employee employee, String type, LocalDate date);
 }

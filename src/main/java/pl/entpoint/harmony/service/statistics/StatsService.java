@@ -11,5 +11,5 @@ import java.security.Principal;
 
 public interface StatsService {
     Stats getMyStats(Principal principal);
-    Stats getStats(Long id);
+    Stats getSomeoneStats(Long id);
 }

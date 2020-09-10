@@ -1,14 +1,13 @@
 package pl.entpoint.harmony.service.schedule.record;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.dto.Presence;
@@ -105,12 +104,27 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
         scheduleRecordRepository.save(updatedRecord);
     }
+    
+    
 
     @Override
-    public int getCurrentMonthStatus(Employee employee, String type, LocalDate date) {
+	public int getCurrentMonthStatus(Employee employee, String type, LocalDate date) {
         LocalDate start = LocalDate.of(date.getYear(), date.getMonth(), 1);
         LocalDate end = LocalDate.of(date.getYear(), date.getMonth(), date.lengthOfMonth());
+        
+		return getNumbersOfDaysByStatus(employee, type, start, end);
+	}
 
+	@Override
+	public int getCurrentYearStatus(Employee employee, String type, LocalDate date) {
+        LocalDate start = LocalDate.of(date.getYear(), Month.JANUARY, 1);
+        LocalDate end = LocalDate.of(date.getYear(), Month.DECEMBER, 31);
+        
+        return getNumbersOfDaysByStatus(employee, type, start, end);
+	}
+	
+	@Override
+    public int getNumbersOfDaysByStatus(Employee employee, String type, LocalDate start, LocalDate end) {
         switch (type) {
             case "work":
                 return getSumOfHours(scheduleRecordRepository.findByWorkDateBetweenAndEmployeeAndTypesAndStatus(
@@ -144,10 +158,6 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     }
 
     private int getSumOfDays(List<ScheduleRecord> scheduleRecordList) {
-        int sum = 0;
-        for (ScheduleRecord record: scheduleRecordList) {
-            sum++;
-        }
-        return sum;
+        return scheduleRecordList.size();
     }
 }
