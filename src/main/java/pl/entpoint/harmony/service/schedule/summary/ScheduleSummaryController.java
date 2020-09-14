@@ -10,6 +10,7 @@ import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,13 @@ public class ScheduleSummaryController {
         }
         return summary;
     }
+    
+    @GetMapping("/date/{date}/my")
+    public ScheduleSummary getMySchedule(@PathVariable String date, Principal principal) {
+    	LocalDate localDate = LocalDate.parse(date);
+    	
+        return scheduleSummaryService.getMySchedule(localDate, principal.getName());
+    }
 
     @GetMapping("/{date}/{status}")
     public List<ScheduleSummary> getScheduleByDate(@PathVariable String date, @PathVariable String status) {
@@ -58,7 +66,7 @@ public class ScheduleSummaryController {
         }
         return summary;
     }
-    
+            
     @GetMapping("/employee/{date}")
     public List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
     	LocalDate localDate = LocalDate.parse(date);

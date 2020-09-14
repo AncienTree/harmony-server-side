@@ -12,6 +12,7 @@ import pl.entpoint.harmony.entity.schedule.Schedule;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,11 @@ public class ScheduleController {
 	@GetMapping("listSchedule")
 	public List<Schedule> activeScheduleList() {
 		return scheduleService.getActiveSchedules();
+	}
+	
+	@GetMapping("listMySchedule")
+	public List<Schedule> MyScheduleList(Principal principal) {
+		return scheduleService.getMySchedules(principal.getName());
 	}
 
 	@GetMapping("all")

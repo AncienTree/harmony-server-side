@@ -17,6 +17,8 @@ public interface ScheduleSummaryService {
     void create (LocalDate date, Employee employee);
     void massCreate(LocalDate date, List<Employee> employees);
     EmployeeScheduleList getListOfEmployees(LocalDate scheduleDate);
+    List<ScheduleSummary> getEmployeeSchedules(String login);
     
     List<Employee> getEmployeeWithoutSchedule(LocalDate date);
+	ScheduleSummary getMySchedule(LocalDate localDate, String name);
 }

@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.service.schedule.summary;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.dto.EmployeeScheduleList;
@@ -8,8 +9,10 @@ import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
+import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.ScheduleService;
+import pl.entpoint.harmony.service.user.UserService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,10 +30,12 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
     final ScheduleSummaryRepository scheduleSummaryRepository;
     final ScheduleService scheduleService;
     final EmployeeService employeeService;
+    final UserService userService;
 
     @Autowired
     public ScheduleSummaryServiceimpl(ScheduleSummaryRepository scheduleSummaryRepository,
-			EmployeeService employeeService, ScheduleService scheduleService) {
+			EmployeeService employeeService, ScheduleService scheduleService, UserService userService) {
+		this.userService = userService;
 		this.scheduleSummaryRepository = scheduleSummaryRepository;
 		this.employeeService = employeeService;
 		this.scheduleService = scheduleService;
@@ -44,9 +49,16 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 	@Override
     public List<ScheduleSummary> getScheduleByDate(LocalDate date) {
         return scheduleSummaryRepository.findByScheduleDate(date);
-    }
+    }	
 
     @Override
+	public List<ScheduleSummary> getEmployeeSchedules(String login) {
+    	return scheduleSummaryRepository.findByEmployee(loginToEntity(login).getEmployee());
+	}
+
+	
+
+	@Override
     public void create(LocalDate date, Employee employee) {
         Optional<ScheduleSummary> scheduleSummary = Optional.ofNullable(getScheduleByDateAndEmployee(date, employee));
         ScheduleSummary summary;
@@ -114,5 +126,27 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 		} else {
 			throw new IllegalArgumentException("Grafik jest nieaktywny");
 		}		
-	} 	
+	}
+
+	@Override
+	public ScheduleSummary getMySchedule(LocalDate localDate, String name) {
+		Employee tempEmpl = loginToEntity(name).getEmployee();
+		
+		ScheduleSummary summ = getScheduleByDateAndEmployee(localDate, tempEmpl);
+		summ.setSimpleEmployee(new SimpleEmployee(tempEmpl));
+		return  summ;
+	} 
+	
+	
+	private User loginToEntity(String login) {
+		User user;
+    	Optional<User> opt = Optional.of(userService.getUserByLogin(login));
+    	
+    	if(opt.isPresent()) {
+    		user = opt.get();
+    	} else {
+    		throw new UsernameNotFoundException("Nie znaleziono użytkownika o loginie " + login);
+    	}
+		return user;
+	}	
 }

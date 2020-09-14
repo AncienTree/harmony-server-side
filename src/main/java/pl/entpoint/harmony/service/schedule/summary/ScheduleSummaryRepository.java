@@ -19,4 +19,5 @@ public interface ScheduleSummaryRepository extends JpaRepository<ScheduleSummary
     ScheduleSummary findByScheduleDateAndEmployee(LocalDate date, Employee employee);
 
     List<ScheduleSummary> findByScheduleDate(LocalDate date);
+    List<ScheduleSummary> findByEmployee(Employee employee);
 }
