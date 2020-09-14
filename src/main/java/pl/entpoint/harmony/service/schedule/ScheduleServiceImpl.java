@@ -12,9 +12,7 @@ import pl.entpoint.harmony.util.exception.schedule.ScheduleExisteException;
 import pl.entpoint.harmony.util.exception.schedule.ScheduleNotFoundException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -62,7 +60,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     	for (ScheduleSummary summ : schedulesSum) {    		
     		returnSchedules.addAll(schedules.stream().filter(x -> summ.getScheduleDate().isEqual(x.getScheduleDate())).collect(Collectors.toList()));
 		}
-    	
+
+        Collections.sort(returnSchedules);
+
         return returnSchedules;
     }
 

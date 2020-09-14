@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 @Table(name = "schedule", schema = "schedule")
 @Getter @Setter @NoArgsConstructor
-public class Schedule extends AuditEntity implements Serializable {
+public class Schedule extends AuditEntity implements Serializable, Comparable<Schedule> {
 	private static final long serialVersionUID = 1315074368792278981L;
 
 	@Id
@@ -46,5 +46,10 @@ public class Schedule extends AuditEntity implements Serializable {
         this.scheduleDate = scheduleDate;
         this.active = true;
         this.visible = true;
+    }
+
+    @Override
+    public int compareTo(Schedule schedule) {
+        return getScheduleDate().compareTo(schedule.getScheduleDate());
     }
 }
