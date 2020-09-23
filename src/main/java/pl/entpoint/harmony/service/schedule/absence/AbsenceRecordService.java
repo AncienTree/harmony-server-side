@@ -2,8 +2,8 @@ package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
-import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 
 /**
@@ -15,10 +15,10 @@ import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 public interface AbsenceRecordService {
 	
 	List<AbsenceRecord> getAll();
-	List<AbsenceRecord> getEmployeeRequests(Employee employee);
+	List<AbsenceRecord> getEmployeeRequests(Long id);
 	List<AbsenceRecord> getMyRequests(Principal principal);
-	void submiteRequest(AbsenceRecord record);
-	void acceptRequest(AbsenceRecord record);
-	void declineRequest(AbsenceRecord record); 
+	void submiteRequest(Map<String, String> recordd);
+	void acceptRequest(Long id, Principal principal);
+	void declineRequest(Long id); 
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.dto.Presence;
 import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleStatus;
@@ -147,8 +148,36 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
                 return -1;
         }
     }
+	
+    @Override
+	public void accepteAbsence(AbsenceRecord recordAccepted) {
+    	ScheduleRecord record = null;
+    	Optional<ScheduleRecord> opt = Optional.ofNullable(scheduleRecordRepository
+    			.findByWorkDateAndEmployeeAndTypes(recordAccepted.getWorkDate(), recordAccepted.getEmployee(), ScheduleType.OBECNOSC));
+    	if(opt.isPresent()) {
+    		record = opt.get();
+    		record.setStatus(ScheduleStatus.UW);
+    		record.setStartWork(LocalTime.of(0, 0, 0));
+    		record.setEndWork(LocalTime.of(0, 0, 0));
+    	} else {
+    		record = new ScheduleRecord();
+    		record.setEmployee(recordAccepted.getEmployee());
+    		record.setWorkDate(recordAccepted.getWorkDate());
+    		record.setTypes(ScheduleType.OBECNOSC);
+    		record.setStatus(ScheduleStatus.UW);
+    		record.setStartWork(LocalTime.of(0, 0, 0));
+    		record.setEndWork(LocalTime.of(0, 0, 0));
+    	}
+    	
+    	// Dodanie rekordu do tabeli mapującej
+        ScheduleSummary scheduleSummary = scheduleSummaryService.getScheduleByDateAndEmployee(ConvertData.getFirstDayOfMonth(recordAccepted.getWorkDate().toString()),
+        		recordAccepted.getEmployee());
+        scheduleSummary.getScheduleRecords().add(record);
+    	
+    	scheduleRecordRepository.save(record);
+	}
 
-    private int getSumOfHours(List<ScheduleRecord> scheduleRecordList) {
+	private int getSumOfHours(List<ScheduleRecord> scheduleRecordList) {
         int sum = 0;
 
         for (ScheduleRecord record: scheduleRecordList) {

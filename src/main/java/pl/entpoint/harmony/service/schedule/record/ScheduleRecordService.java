@@ -6,6 +6,7 @@ import java.util.List;
 import pl.entpoint.harmony.entity.dto.Presence;
 import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 
@@ -34,4 +35,5 @@ public interface ScheduleRecordService {
     int getNumbersOfDaysByStatus(Employee employee, String type, LocalDate start, LocalDate end);
     int getCurrentMonthStatus(Employee employee, String type, LocalDate date);
     int getCurrentYearStatus(Employee employee, String type, LocalDate date);
+	void accepteAbsence(AbsenceRecord recordAccepted);
 }
