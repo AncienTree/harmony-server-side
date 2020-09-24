@@ -1,15 +1,14 @@
 package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.pojo.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.record.ScheduleRecordService;
@@ -23,12 +22,12 @@ import pl.entpoint.harmony.service.user.UserService;
 
 @Service
 public class AbsenceRecordServiceImpl implements AbsenceRecordService {
-	
+
 	private final AbsenceRecordRepository absenceRepository;
 	private final UserService userService;
 	private final EmployeeService emplService;
 	private final ScheduleRecordService scheduleRecordService;
-	
+
 	@Autowired
 	public AbsenceRecordServiceImpl(AbsenceRecordRepository absenceRepository, UserService userService,
 			ScheduleRecordService scheduleRecordService, EmployeeService emplService) {
@@ -52,18 +51,23 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 	@Override
 	public List<AbsenceRecord> getMyRequests(Principal principal) {
 		Employee tmpEmployee = userService.getUserByLogin(principal.getName()).getEmployee();
-		
+
 		return absenceRepository.findByEmployeeAndVisibleTrue(tmpEmployee);
 	}
 
 	@Override
-	public void submiteRequest(Map<String, String> record) {
-		Employee empl = emplService.getEmployeeNotDecrypted(Long.parseLong(record.get("employee")));
-		AbsenceRecord rec = new AbsenceRecord();
-		rec.setEmployee(empl);
-		rec.setWorkDate(LocalDate.parse(record.get("workDate")));
-		
-		absenceRepository.save(rec);
+	public void submiteRequest(List<AbsencePojo> record, String login) {
+		Employee employee = userService.getUserByLogin(login).getEmployee();
+		Employee empl = emplService.getEmployeeNotDecrypted(employee.getId());
+
+		for (AbsencePojo absencePojo : record) {
+			AbsenceRecord rec = new AbsenceRecord();
+			rec.setEmployee(empl);
+			rec.setWorkDate(absencePojo.getWorkDate());
+
+			absenceRepository.save(rec);
+		}
+
 	}
 
 	@Override
@@ -78,10 +82,10 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 
 		recordAccepted.setAcceptedBy(principal.getName());
 		recordAccepted.setVisible(false);
-		
+
 		// Stworzenie rekordu do grafiku z urlopem
 		scheduleRecordService.accepteAbsence(recordAccepted);
-		
+
 		absenceRepository.save(recordAccepted);
 	}
 
@@ -94,7 +98,7 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 		} else {
 			throw new IllegalArgumentException("Wniosek urlopowy nie istnieje w bazie danych: " + id);
 		}
-		
+
 		absenceRepository.delete(recordDeclined);
 	}
 

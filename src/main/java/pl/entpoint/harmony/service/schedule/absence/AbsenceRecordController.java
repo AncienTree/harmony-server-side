@@ -2,7 +2,6 @@ package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.entpoint.harmony.entity.pojo.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 
 
@@ -53,8 +53,8 @@ public class AbsenceRecordController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<String> submiteRequest(@RequestBody Map<String, String> record) {
-		absenceRecordService.submiteRequest(record);
+	public ResponseEntity<String> submiteRequest(@RequestBody List<AbsencePojo> record, Principal principal) {
+		absenceRecordService.submiteRequest(record, principal.getName());
 		
 		return new ResponseEntity<>("Utworzono nowy wniosek urlopowy", HttpStatus.CREATED);
 	}
