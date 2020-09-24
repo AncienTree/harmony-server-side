@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.service.schedule.summary;
 
-import pl.entpoint.harmony.entity.dto.EmployeeScheduleList;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.pojo.EmployeeScheduleList;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 
 import java.time.LocalDate;

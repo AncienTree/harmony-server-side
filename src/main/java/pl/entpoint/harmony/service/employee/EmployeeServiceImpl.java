@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
-import pl.entpoint.harmony.entity.dto.SimpleEmployee;
-import pl.entpoint.harmony.entity.dto.view.HrTable;
+import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
+import pl.entpoint.harmony.entity.pojo.dbview.HrTable;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.BCrypt;

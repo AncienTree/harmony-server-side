@@ -1,7 +1,8 @@
 package pl.entpoint.harmony.service.employee;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.entpoint.harmony.entity.dto.view.HrTable;
+
+import pl.entpoint.harmony.entity.pojo.dbview.HrTable;
 
 /**
  * @author Mateusz Dąbek

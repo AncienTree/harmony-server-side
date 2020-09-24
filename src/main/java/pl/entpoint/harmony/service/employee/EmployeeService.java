@@ -6,8 +6,8 @@ import java.util.Map;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
-import pl.entpoint.harmony.entity.dto.SimpleEmployee;
-import pl.entpoint.harmony.entity.dto.view.HrTable;
+import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
+import pl.entpoint.harmony.entity.pojo.dbview.HrTable;
 
 /**
  * @author Mateusz Dąbek

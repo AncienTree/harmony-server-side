@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import pl.entpoint.harmony.entity.dto.Presence;
-import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.pojo.Presence;
+import pl.entpoint.harmony.entity.pojo.Record;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 

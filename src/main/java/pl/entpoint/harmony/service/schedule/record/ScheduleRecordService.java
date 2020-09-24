@@ -3,9 +3,9 @@ package pl.entpoint.harmony.service.schedule.record;
 import java.time.LocalDate;
 import java.util.List;
 
-import pl.entpoint.harmony.entity.dto.Presence;
-import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.pojo.Presence;
+import pl.entpoint.harmony.entity.pojo.Record;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;

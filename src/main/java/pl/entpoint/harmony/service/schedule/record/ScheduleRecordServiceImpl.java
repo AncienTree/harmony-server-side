@@ -10,9 +10,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pl.entpoint.harmony.entity.dto.Presence;
-import pl.entpoint.harmony.entity.dto.Record;
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.pojo.Presence;
+import pl.entpoint.harmony.entity.pojo.Record;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;

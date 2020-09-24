@@ -2,8 +2,9 @@ package pl.entpoint.harmony.service.statistics;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.entpoint.harmony.entity.dto.Stats;
+
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.pojo.Stats;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.schedule.record.ScheduleRecordService;
 import pl.entpoint.harmony.service.settings.monthHours.MonthHoursService;

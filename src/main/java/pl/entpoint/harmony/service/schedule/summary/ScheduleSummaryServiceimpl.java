@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import pl.entpoint.harmony.entity.dto.EmployeeScheduleList;
-import pl.entpoint.harmony.entity.dto.SimpleEmployee;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
+import pl.entpoint.harmony.entity.pojo.EmployeeScheduleList;
+import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.employee.EmployeeService;

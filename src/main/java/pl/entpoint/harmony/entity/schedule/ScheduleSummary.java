@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.Employee;
-import pl.entpoint.harmony.entity.dto.SimpleEmployee;
+import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
 
 import javax.persistence.*;
 import java.io.Serializable;

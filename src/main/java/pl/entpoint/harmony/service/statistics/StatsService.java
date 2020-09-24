@@ -1,8 +1,8 @@
 package pl.entpoint.harmony.service.statistics;
 
-import pl.entpoint.harmony.entity.dto.Stats;
-
 import java.security.Principal;
+
+import pl.entpoint.harmony.entity.pojo.Stats;
 
 /**
  * @author Mateusz Dąbek
