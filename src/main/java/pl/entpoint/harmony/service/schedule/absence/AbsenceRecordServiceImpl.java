@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,11 +62,14 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 		Employee empl = emplService.getEmployeeNotDecrypted(employee.getId());
 
 		for (AbsencePojo absencePojo : record) {
-			AbsenceRecord rec = new AbsenceRecord();
-			rec.setEmployee(empl);
-			rec.setWorkDate(absencePojo.getWorkDate());
+			if(!isAlreadyInDb(empl, absencePojo.getWorkDate())) {
+				AbsenceRecord rec = new AbsenceRecord();
+				rec.setEmployee(empl);
+				rec.setWorkDate(absencePojo.getWorkDate());
 
-			absenceRepository.save(rec);
+				absenceRepository.save(rec);
+			}
+
 		}
 
 	}
@@ -101,5 +105,13 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 
 		absenceRepository.delete(recordDeclined);
 	}
+
+	@Override
+	public boolean isAlreadyInDb(Employee employee, LocalDate date) {
+		Optional<AbsenceRecord> opt = Optional.ofNullable(absenceRepository.findByEmployeeAndWorkDate(employee, date));
+		return opt.isPresent();
+	}
+	
+	
 
 }

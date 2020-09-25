@@ -1,7 +1,10 @@
 package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
+
+import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 
@@ -19,5 +22,6 @@ public interface AbsenceRecordService {
 	void submiteRequest(List<AbsencePojo> recordd, String login);
 	void acceptRequest(Long id, Principal principal);
 	void declineRequest(Long id); 
+	boolean isAlreadyInDb(Employee employee, LocalDate date);
 
 }
