@@ -20,8 +20,11 @@ class LoginConverterTest {
 		String name = "Łukasz";
 		String surname = "Żółćoch";
 		
+		//when
+		String result = LoginConverter.createLogin(name, surname);
+		
         //then
-		assertThat(LoginConverter.createLogin(name, surname), equalTo("zolcoch_l"));		
+		assertThat(result, equalTo("zolcoch_l"));		
 	}
 	
 	@Test
@@ -30,8 +33,11 @@ class LoginConverterTest {
 		String name = "Łukasz";
 		String surname = "Żółćoch - Klimczak";
 		
+		//when
+		String result = LoginConverter.createLogin(name, surname);
+		
         //then
-		assertThat(LoginConverter.createLogin(name, surname), equalTo("zolcoch_l"));
+		assertThat(result, equalTo("zolcoch_l"));
 	}
 
 }
