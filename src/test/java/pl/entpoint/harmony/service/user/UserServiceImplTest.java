@@ -23,6 +23,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.entity.user.enums.Roles;
 
+/**
+ * @author Mateusz Dąbek
+ * @created 07/10/2020
+ */
+
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
 
@@ -63,7 +68,7 @@ class UserServiceImplTest {
 	@Test
 	void getUsersByIdShouldReturnUserWithSelectedId() {
 		//given
-		Optional<User> user = Optional.ofNullable(new User("Test", "a"));
+		Optional<User> user = Optional.of(new User("Test", "a"));
 		
 		//when
 		when(userRepository.findById(Mockito.anyLong())).thenReturn(user);
@@ -91,7 +96,7 @@ class UserServiceImplTest {
 	@Test
 	void getUsersByIdAndSendChangeStatusShouldReturnChangedStatus() {
 		//given
-		Optional<User> user = Optional.ofNullable(new User("Status", "a"));
+		Optional<User> user = Optional.of(new User("Status", "a"));
 		user.get().setStatus(false);
 		
 		//when
@@ -105,7 +110,7 @@ class UserServiceImplTest {
 	}
 	
 	@Test
-	void getUsersByloginShouldReturnUserWithSelectedLogin() {
+	void getUsersByLoginShouldReturnUserWithSelectedLogin() {
 		//given
 		User user = new User("Login", "a");
 		
@@ -119,11 +124,13 @@ class UserServiceImplTest {
 	}
 
 	private List<User> getUsersList() {
-		return new ArrayList<User>(List.of(
-				new User("User 1", "abc"), 
-				new User("User 2", "abc"),
-				new User("User 3", "abc"), 
-				new User("User 4", "abc")));
+		List<User> users = new ArrayList<>();
+		users.add(new User("User 1", "abc"));
+		users.add(new User("User 2", "abc"));
+		users.add(new User("User 3", "abc"));
+		users.add(new User("User 4", "abc"));
+
+		return users;
 	}
 
 }

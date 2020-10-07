@@ -84,8 +84,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employee;
     }
-	
-	
 
     @Override
 	public Employee getEmployeeNotDecrypted(Long id) {
