@@ -1,7 +1,6 @@
 package pl.entpoint.harmony.service.employee.contact;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +16,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/employee/contact")
 @CrossOrigin(origins = "http://localhost:4200")
-@Slf4j
+@AllArgsConstructor
 public class ContactDetailsController {
 
     private final ContactDetailsService contactDetailsService;
-
-    @Autowired
-    public ContactDetailsController(ContactDetailsService contactDetailsService) {
-        this.contactDetailsService = contactDetailsService;
-    }
 
     @GetMapping("/{id}")
     public ContactDetails getContact(@PathVariable Long id){

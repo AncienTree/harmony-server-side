@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.service;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,14 +23,9 @@ import java.util.Optional;
  */
 @Service
 @Slf4j
+@AllArgsConstructor
 public class CustomDetailsService implements UserDetailsService {
-
     private final UserRepository userRepository;
-
-    @Autowired
-    public CustomDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     @Transactional(readOnly = true)

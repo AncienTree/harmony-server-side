@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.settings.UserSection;
@@ -17,16 +17,11 @@ import pl.entpoint.harmony.entity.settings.UserSection;
  */
 
 @Service
+@AllArgsConstructor
 public class UserSectionServiceImpl implements UserSectionService {
-
 	LocalDate date;
-	final UserSectionRepository userSectionRepository;
-	
-	@Autowired
-	public UserSectionServiceImpl(UserSectionRepository userSectionRepository) {
-		this.userSectionRepository = userSectionRepository;
-	}
-	
+	private final UserSectionRepository userSectionRepository;
+
 	@Override
 	public List<UserSection> getAll() {
 		return userSectionRepository.findAll();

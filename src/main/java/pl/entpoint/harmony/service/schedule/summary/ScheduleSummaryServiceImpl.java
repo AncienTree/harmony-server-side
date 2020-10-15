@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule.summary;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -25,21 +25,13 @@ import java.util.Optional;
  */
 
 @Service
-public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
+@AllArgsConstructor
+public class ScheduleSummaryServiceImpl implements ScheduleSummaryService {
 
     final ScheduleSummaryRepository scheduleSummaryRepository;
     final ScheduleService scheduleService;
     final EmployeeService employeeService;
     final UserService userService;
-
-    @Autowired
-    public ScheduleSummaryServiceimpl(ScheduleSummaryRepository scheduleSummaryRepository,
-			EmployeeService employeeService, ScheduleService scheduleService, UserService userService) {
-		this.userService = userService;
-		this.scheduleSummaryRepository = scheduleSummaryRepository;
-		this.employeeService = employeeService;
-		this.scheduleService = scheduleService;
-	}
 
     @Override
     public ScheduleSummary getScheduleByDateAndEmployee(LocalDate date, Employee employee) {

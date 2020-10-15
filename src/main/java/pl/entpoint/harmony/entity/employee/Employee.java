@@ -1,6 +1,5 @@
 package pl.entpoint.harmony.entity.employee;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
@@ -27,11 +26,10 @@ import pl.entpoint.harmony.entity.user.User;
 @Table(name = "employees", schema = "employee")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter @Setter @NoArgsConstructor @ToString
-public class Employee extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = -7862141771762074429L;
-
+public class Employee extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="employees_sqe", sequenceName="employee.employees_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employees_sqe")
     private Long id;
 
     @Column(name = "first_name")

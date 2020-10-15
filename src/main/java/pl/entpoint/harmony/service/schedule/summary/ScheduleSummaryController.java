@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule.summary;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,16 +24,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/schedule")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class ScheduleSummaryController {
 
     private final EmployeeService employeeService;
     private final ScheduleSummaryService scheduleSummaryService;
-
-    @Autowired
-    public ScheduleSummaryController(EmployeeService employeeService, ScheduleSummaryService scheduleSummaryService) {
-        this.employeeService = employeeService;
-        this.scheduleSummaryService = scheduleSummaryService;
-    }   
 
     @GetMapping("/date/{date}")
     public List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {

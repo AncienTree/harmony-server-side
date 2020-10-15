@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -22,21 +22,13 @@ import pl.entpoint.harmony.service.user.UserService;
  */
 
 @Service
+@AllArgsConstructor
 public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 
 	private final AbsenceRecordRepository absenceRepository;
 	private final UserService userService;
 	private final EmployeeService emplService;
 	private final ScheduleRecordService scheduleRecordService;
-
-	@Autowired
-	public AbsenceRecordServiceImpl(AbsenceRecordRepository absenceRepository, UserService userService,
-			ScheduleRecordService scheduleRecordService, EmployeeService emplService) {
-		this.emplService = emplService;
-		this.absenceRepository = absenceRepository;
-		this.userService = userService;
-		this.scheduleRecordService = scheduleRecordService;
-	}
 
 	@Override
 	public List<AbsenceRecord> getAll() {

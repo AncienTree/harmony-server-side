@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.settings.contractType;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +18,9 @@ import pl.entpoint.harmony.entity.settings.ContractType;
 @RestController
 @RequestMapping("/api/setting/contract")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class ContractTypeController {
-	
 	final ContractTypeService contractTypeService;
-	
-	@Autowired
-	public ContractTypeController(ContractTypeService contractTypeService) {
-		this.contractTypeService = contractTypeService;
-	}
 
 	@GetMapping("/{id}")
 	public ContractType getContract(@PathVariable Long id) {

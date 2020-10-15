@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.schedule.absence;
 import java.security.Principal;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,15 +28,11 @@ import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 @RestController
 @RequestMapping("/api/schedule/absence")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class AbsenceRecordController {
 	
 	private final AbsenceRecordService absenceRecordService;
 
-	@Autowired
-	public AbsenceRecordController(AbsenceRecordService absenceRecordService) {
-		this.absenceRecordService = absenceRecordService;
-	}
-	
 	@GetMapping("")
 	public List<AbsenceRecord> getAllRequests() {
 		return absenceRecordService.getAll();

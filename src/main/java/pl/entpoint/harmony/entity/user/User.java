@@ -1,17 +1,6 @@
 package pl.entpoint.harmony.entity.user;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -25,23 +14,19 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.user.enums.Roles;
 import pl.entpoint.harmony.entity.employee.Employee;
 
-import java.io.Serializable;
-
 /**
  * @author Mateusz Dąbek
  * @created 11/11/2019
  */
 
-
 @Entity
 @Table(name = "users", schema = "users")
 @Getter @Setter @NoArgsConstructor
 @Slf4j
-public class User extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = 5389204544218772819L;
-
+public class User extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="users_sqe", sequenceName="users.users_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="users_sqe")
     private Long id;
 
     @Column(unique = true)

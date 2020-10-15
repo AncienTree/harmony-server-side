@@ -8,7 +8,6 @@ import pl.entpoint.harmony.entity.employee.Employee;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -19,11 +18,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "messages", schema = "messages")
 @Getter @Setter @NoArgsConstructor
-public class Messages extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = 6746795456528686061L;
-
+public class Messages extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="messages_sqe", sequenceName="messages.messages_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="messages_sqe")
     private Long id;
 
     @OneToOne

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -28,18 +28,12 @@ import pl.entpoint.harmony.util.ConvertData;
  */
 
 @Service
+@AllArgsConstructor
 public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
     final ScheduleRecordRepository scheduleRecordRepository;
     final ScheduleSummaryService scheduleSummaryService;
     final EmployeeService employeeService; 
-
-    @Autowired
-    public ScheduleRecordServiceImpl(ScheduleRecordRepository scheduleRecordRepository, ScheduleSummaryService scheduleSummaryService, EmployeeService employeeService) {
-        this.scheduleSummaryService = scheduleSummaryService;
-		this.employeeService = employeeService;
-		this.scheduleRecordRepository = scheduleRecordRepository;
-    }
 
     @Override
     public List<ScheduleRecord> getScheduleRecordByDateAndEmployee(LocalDate date, Employee employee) {

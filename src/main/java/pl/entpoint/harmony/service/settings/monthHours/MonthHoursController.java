@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.settings.monthHours;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +17,9 @@ import pl.entpoint.harmony.entity.settings.MonthHours;
 @RestController
 @RequestMapping("/api/setting/monthhours")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class MonthHoursController {
-    final MonthHoursService monthHoursService;
-
-    @Autowired
-    public MonthHoursController(MonthHoursService monthHoursService) {
-        this.monthHoursService = monthHoursService;
-    }
+    private final MonthHoursService monthHoursService;
 
     @GetMapping("/")
     public List<MonthHours> getYear() {

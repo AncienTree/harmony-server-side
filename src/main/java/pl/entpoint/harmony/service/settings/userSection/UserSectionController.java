@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.settings.userSection;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,15 +27,10 @@ import pl.entpoint.harmony.entity.settings.UserSection;
 @RestController
 @RequestMapping("/api/setting/usersection")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class UserSectionController {
-	
-	final UserSectionService userSectionService;
+	private final UserSectionService userSectionService;
 
-	@Autowired
-	public UserSectionController(UserSectionService userSectionService) {
-		this.userSectionService = userSectionService;
-	}
-	
 	@GetMapping("/")
 	public List<UserSection> getSections() {
 		return userSectionService.getAllActive();

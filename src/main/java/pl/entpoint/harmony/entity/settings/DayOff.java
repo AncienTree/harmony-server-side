@@ -1,14 +1,8 @@
 package pl.entpoint.harmony.entity.settings;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import lombok.Getter;
@@ -25,12 +19,10 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 @Entity
 @Table(name = "dayoff", schema = "settings")
 @Getter @Setter @NoArgsConstructor
-public class DayOff extends AuditEntity implements Serializable {
-
-	private static final long serialVersionUID = -5061684180186561809L;
-
+public class DayOff extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name="dayoff_sqe", sequenceName="settings.dayoff_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dayoff_sqe")
     private Long id;
 
     @Column(unique = true)
@@ -40,7 +32,7 @@ public class DayOff extends AuditEntity implements Serializable {
     private String info;
 
 	public DayOff(Long id, @NotNull LocalDate date, String info) {
-		if(id < 1 || id == null) {
+		if(id < 1) {
 			this.id = 0L;
 		} else {
 			this.id = id;

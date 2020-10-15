@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.user;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.user.User;
@@ -15,14 +15,9 @@ import pl.entpoint.harmony.entity.user.enums.Roles;
  */
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
-
-    final UserRepository userRepository;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     @Override
     public List<User> getUsers() {

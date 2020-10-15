@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,14 +23,10 @@ import pl.entpoint.harmony.entity.pojo.dbview.HrTable;
 @RestController
 @RequestMapping("/api/employee")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-
-    @Autowired
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
 
     @PostMapping("/")
     public ResponseEntity<String> createNewUser(@RequestBody Map<String, String> body) {

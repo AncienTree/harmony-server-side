@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.settings.userLine;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,15 +27,10 @@ import pl.entpoint.harmony.entity.settings.UserLine;
 @RestController
 @RequestMapping("/api/setting/userline")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class UserLineController {
+	private final UserLineService userLineService;
 
-	final UserLineService userLineService;
-
-	@Autowired
-	public UserLineController(UserLineService userLineService) {
-		this.userLineService = userLineService;
-	}
-	
 	@GetMapping("/{name}")
 	public UserLine getLine(@PathVariable String name) {
 		return userLineService.getByName(name);

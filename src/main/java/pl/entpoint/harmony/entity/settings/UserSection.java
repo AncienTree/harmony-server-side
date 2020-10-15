@@ -1,6 +1,5 @@
 package pl.entpoint.harmony.entity.settings;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
@@ -20,11 +19,10 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 @Entity
 @Table(name = "user_section", schema = "settings")
 @Getter @Setter @NoArgsConstructor
-public class UserSection extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = 3600600240967351713L;
-
+public class UserSection extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="user_section_sqe", sequenceName="settings.user_section_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="user_section_sqe")
     private Long id;
 
     @Column(unique = true)

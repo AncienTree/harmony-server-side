@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.user;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,14 +28,9 @@ import pl.entpoint.harmony.util.BCrypt;
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
+@AllArgsConstructor
 public class UserController {
-
     private final UserService userService;
-
-    @Autowired
-	public UserController(UserService userService) {
-		this.userService = userService;
-	}
 
 	@GetMapping("/users")
     public List<User> getListOfUsers() {

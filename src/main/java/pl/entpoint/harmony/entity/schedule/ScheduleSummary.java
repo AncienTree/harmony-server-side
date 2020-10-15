@@ -10,7 +10,6 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,11 +21,10 @@ import java.util.List;
 @Entity
 @Table(name = "schedule_summary", schema = "schedule")
 @Getter @Setter @NoArgsConstructor @ToString
-public class ScheduleSummary extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = -7850728271314700401L;
-
+public class ScheduleSummary extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="schedule_summary_sqe", sequenceName="schedule.schedule_summary_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="schedule_summary_sqe")
     private Long id;
 
     @OneToOne

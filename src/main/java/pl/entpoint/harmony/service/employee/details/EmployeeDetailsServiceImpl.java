@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.employee.details;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeDetails;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
@@ -15,14 +15,10 @@ import java.util.Optional;
  */
 
 @Service
+@AllArgsConstructor
 public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
 
     final EmployeeDetailsRepository employeeDetailsRepository;
-
-    @Autowired
-    public EmployeeDetailsServiceImpl(EmployeeDetailsRepository employeeDetailsRepository) {
-        this.employeeDetailsRepository = employeeDetailsRepository;
-    }
 
     @Override
     public EmployeeDetails getEmployeeDetails(Long id) {

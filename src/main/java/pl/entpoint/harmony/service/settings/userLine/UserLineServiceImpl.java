@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.settings.userLine;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.settings.UserLine;
@@ -15,14 +15,9 @@ import pl.entpoint.harmony.entity.settings.UserLine;
  */
 
 @Service
+@AllArgsConstructor
 public class UserLineServiceImpl implements UserLineService {
-	
-	final UserLineRepository userLineRepository;
-	
-	@Autowired
-	public UserLineServiceImpl(UserLineRepository userLineRepository) {
-		this.userLineRepository = userLineRepository;
-	}
+	private final UserLineRepository userLineRepository;
 
 	@Override
 	public List<UserLine> getAll() {

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,15 +28,10 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 @RestController
 @RequestMapping("/api/setting/dayoff")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class DayOffController {
-	
-	final DayOffService dayOffService;
+	private final DayOffService dayOffService;
 
-	@Autowired
-	public DayOffController(DayOffService dayOffService) {
-		this.dayOffService = dayOffService;
-	}
-	
 	@GetMapping("/{year}")
 	public List<DayOff> getDayOffByYear(@PathVariable String year){
 		return dayOffService.getDayOffByYear(year);

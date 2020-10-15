@@ -3,8 +3,7 @@ package pl.entpoint.harmony.service.employee;
 import java.time.LocalDate;
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
@@ -24,18 +23,11 @@ import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
 
 @Service
+@AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-
     private final EmployeeRepository employeeRepository;
     private final HrTableViewRepository hrTableViewRepository;
     private final UserService userService;
-
-    @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, HrTableViewRepository hrTableViewRepository, UserService userService) {
-        this.employeeRepository = employeeRepository;
-        this.hrTableViewRepository = hrTableViewRepository;
-        this.userService = userService;
-    }
 
     @Override
     public List<Employee> getEmployees() {

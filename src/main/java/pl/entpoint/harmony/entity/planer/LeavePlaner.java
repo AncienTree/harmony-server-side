@@ -7,7 +7,6 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -16,13 +15,12 @@ import java.time.LocalDate;
  */
 
 @Entity
-@Table(name = "Leave_planer", schema = "planer")
+@Table(name = "leave_planer", schema = "planer")
 @Getter @Setter @NoArgsConstructor
-public class LeavePlaner extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = -6919831420560838186L;
-
+public class LeavePlaner extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="leave_planer_sqe", sequenceName="planer.leave_planer_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="leave_planer_sqe")
     private Long id;
 
     @Column(name = "planer_date")

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.settings.DayOff;
@@ -16,14 +16,9 @@ import pl.entpoint.harmony.entity.settings.DayOff;
  */
 
 @Service
+@AllArgsConstructor
 public class DayOffServiceImpl implements DayOffService {
-
-	final DayOffRepository dayOffRepository;
-	
-	@Autowired
-	public DayOffServiceImpl(DayOffRepository dayOffRepository) {
-		this.dayOffRepository = dayOffRepository;
-	}
+	private final DayOffRepository dayOffRepository;
 
 	@Override
 	public List<DayOff> getDayOffByYear(String year) {

@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.statistics;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -21,22 +21,13 @@ import java.util.Optional;
  */
 
 @Service
+@AllArgsConstructor
 public class StatsServiceImpl implements StatsService {
-
 	private static final LocalDate DATE = LocalDate.now();
 	
 	private final UserService userService;
 	private final ScheduleRecordService recordService;
 	private final MonthHoursService mHoursService;
-	
-	
-	@Autowired
-	public StatsServiceImpl(UserService userService, ScheduleRecordService recordService,
-			MonthHoursService mHoursService) {
-		this.userService = userService;
-		this.recordService = recordService;
-		this.mHoursService = mHoursService;
-	}
 
 	@Override
 	public Stats getMyStats(Principal principal) {

@@ -7,7 +7,6 @@ import pl.entpoint.harmony.auditing.AuditEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -18,11 +17,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "availability", schema = "availability")
 @Getter @Setter @NoArgsConstructor
-public class Availability extends AuditEntity implements Serializable{
-	private static final long serialVersionUID = 1136414836525890890L;
-
+public class Availability extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="availability_sqe", sequenceName="availability.availability_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="availability_sqe")
     private Long id;
 
     @Column(name = "availability_date")

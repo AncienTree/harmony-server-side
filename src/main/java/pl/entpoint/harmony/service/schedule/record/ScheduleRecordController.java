@@ -3,7 +3,7 @@ package pl.entpoint.harmony.service.schedule.record;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,16 +22,11 @@ import pl.entpoint.harmony.service.employee.EmployeeService;
 @RestController
 @RequestMapping("/api/schedule/record")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
 public class ScheduleRecordController {
 
     private final ScheduleRecordService scheduleRecordService;
     private final EmployeeService employeeService;
-
-    @Autowired
-    public ScheduleRecordController(ScheduleRecordService scheduleRecordService, EmployeeService employeeService) {
-        this.scheduleRecordService = scheduleRecordService;
-        this.employeeService = employeeService;
-    }
 
     @GetMapping("{id}/{date}")
     public List<ScheduleRecord> getScheduleByDateAndEmployee(@PathVariable String id, @PathVariable String date) {

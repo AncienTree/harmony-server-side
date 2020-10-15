@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.monthHours;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.settings.MonthHours;
 
@@ -15,13 +15,9 @@ import java.util.Optional;
  */
 
 @Service
+@AllArgsConstructor
 public class MonthHoursServiceImpl implements MonthHoursService {
-    final MonthHoursRepository monthHoursRepository;
-
-    @Autowired
-    public MonthHoursServiceImpl(MonthHoursRepository monthHoursRepository) {
-        this.monthHoursRepository = monthHoursRepository;
-    }   
+    private final MonthHoursRepository monthHoursRepository;
 
     @Override
 	public List<MonthHours> getAll() {

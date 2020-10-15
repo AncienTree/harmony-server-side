@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.settings.contractType;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.settings.ContractType;
@@ -15,14 +15,10 @@ import java.util.Map;
  */
 
 @Service
+@AllArgsConstructor
 public class ContractTypeServiceImpl implements ContractTypeService{
 	
 	final ContractTypeRepository contractTypeRepository;
-	
-	@Autowired
-    public ContractTypeServiceImpl(ContractTypeRepository contractTypeRepository) {
-		this.contractTypeRepository = contractTypeRepository;
-	}
 
 	@Override
     public List<ContractType> getContractTypes() {
