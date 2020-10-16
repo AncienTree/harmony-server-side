@@ -9,7 +9,7 @@ import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.schedule.record.ScheduleRecordService;
 import pl.entpoint.harmony.service.settings.monthHours.MonthHoursService;
 import pl.entpoint.harmony.service.user.UserService;
-import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
+import pl.entpoint.harmony.util.exception.user.UserNotFoundException;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -31,28 +31,17 @@ public class StatsServiceImpl implements StatsService {
 
 	@Override
 	public Stats getMyStats(Principal principal) {
-		User user;
-		
-		Optional<User> optUser = Optional.ofNullable(userService.getUserByLogin(principal.getName()));
-		if(optUser.isPresent()) {
-			user = optUser.get();
-		} else {
-			throw new IllegalArgumentException("Nie znaleziono użytkownika pod takim loginem: " + principal.getName());
-		}		
-		
+		User user = Optional.ofNullable(userService.getUserByLogin(principal.getName()))
+				.orElseThrow(() -> new UserNotFoundException(principal.getName()));
+
 		return getStats(user.getEmployee());
 	}
 
 	@Override
 	public Stats getSomeoneStats(Long id) {
-		User user;
-		Optional<User> optUser = Optional.ofNullable(userService.getUser(id));
-		if(optUser.isPresent()) {
-			user = optUser.get();
-		} else {
-			throw new EmployeeNotFoundException(id);
-		}	
-		
+		User user = Optional.ofNullable(userService.getUser(id))
+				.orElseThrow(UserNotFoundException::new);
+
 		return getStats(user.getEmployee());
 	}
 	

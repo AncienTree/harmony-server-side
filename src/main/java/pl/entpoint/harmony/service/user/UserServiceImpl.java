@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.entity.user.enums.Roles;
+import pl.entpoint.harmony.util.exception.user.UserNotFoundException;
 
 /**
  * @author Mateusz Dąbek
@@ -20,14 +21,24 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<User> getUsers() {
+    public User getUser(Long theId) {
+        return userRepository.findById(theId)
+                .orElseThrow(UserNotFoundException::new);
+    }
 
+    @Override
+    public User getUserByLogin(String login) {
+        return Optional.ofNullable(userRepository.findByLogin(login))
+                .orElseThrow(() -> new UserNotFoundException(login));
+    }
+
+    @Override
+    public List<User> getUsers() {
         return userRepository.findAll();
     }
 
     @Override
     public List<User> getUsersByRoles(Roles role) {
-
         return userRepository.findByRole(role);
     }
 
@@ -37,43 +48,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(Long theId) {
-        Optional<User> result = userRepository.findById(theId);
-
-        User theUser;
-        if (result.isPresent()) {
-            theUser = result.get();
-        } else {
-            throw new IllegalArgumentException("Nie znaleziono użytkownika pod ID - " + theId);
-        }
-        return theUser;
-    }
-
-    @Override
     public void changeStatus(Long id, boolean status) {
-        Optional<User> result = userRepository.findById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
 
-        User theUser;
-        if (result.isPresent()) {
-            theUser = result.get();
-        } else {
-            throw new IllegalArgumentException("Nie znaleziono użytkownika pod ID - " + id);
-        }
-        theUser.setStatus(status);
-        userRepository.save(theUser);
-    }
-
-    @Override
-    public User getUserByLogin(String login) {
-        Optional<User> result = Optional.ofNullable(userRepository.findByLogin(login));
-
-        User theUser;
-        if (result.isPresent()) {
-            theUser = result.get();
-        } else {
-            throw new IllegalArgumentException("Nie znaleziono użytkownika pod loginem - " + login);
-        }
-        return theUser;
+        user.setStatus(status);
+        userRepository.save(user);
     }
 }
 	
