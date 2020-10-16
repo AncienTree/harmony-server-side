@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.settings.UserSection;
+import pl.entpoint.harmony.util.exception.setting.UserSectionNotFoundException;
 
 /**
  * @author Mateusz Dąbek
@@ -25,6 +26,13 @@ public class UserSectionServiceImpl implements UserSectionService {
 	}
 
 	@Override
+	public UserSection getAllActiveLider(String liderName) {
+		date = LocalDate.now();
+
+		return userSectionRepository.findByLiderAndExpiredGreaterThanEqual(liderName, date);
+	}
+
+	@Override
 	public List<UserSection> getAll() {
 		return userSectionRepository.findAll();
 	}
@@ -37,10 +45,12 @@ public class UserSectionServiceImpl implements UserSectionService {
 	}
 
 	@Override
-	public UserSection getAllActiveLider(String liderName) {
+	public boolean checkSection(UserSection section) {
 		date = LocalDate.now();
-		
-		return userSectionRepository.findByLiderAndExpiredGreaterThanEqual(liderName, date);
+		Optional<UserSection> userSection = Optional.ofNullable(userSectionRepository.findByLiderAndExpiredGreaterThanEqual(
+				section.getLider(), date));
+
+		return userSection.isPresent();
 	}
 
 	@Override
@@ -51,7 +61,7 @@ public class UserSectionServiceImpl implements UserSectionService {
 	@Override
 	public void change(Map<String, String> section) {
 		UserSection userSection = userSectionRepository.findById(Long.parseLong(section.get("id")))
-				.orElseThrow(() -> new RuntimeException("Nie znaleziono podanej sekcji."));
+				.orElseThrow(() -> new UserSectionNotFoundException(Long.parseLong(section.get("id"))));
 		
 		userSection.setName(section.get("name"));
 		userSection.setExpired(LocalDate.parse(section.get("expired")));
@@ -63,16 +73,7 @@ public class UserSectionServiceImpl implements UserSectionService {
 	@Override
 	public void delete(Long id) {
 		UserSection userSection = userSectionRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Nie znaleziono podanej sekcji."));
+				.orElseThrow(() -> new UserSectionNotFoundException(id));
 		userSectionRepository.delete(userSection);
-	}
-
-	@Override
-	public boolean checkSection(UserSection section) {
-		date = LocalDate.now();
-		Optional<UserSection> userSection = Optional.ofNullable(userSectionRepository.findByLiderAndExpiredGreaterThanEqual(
-				section.getLider(), date));
-
-		return userSection.isPresent();
 	}
 }

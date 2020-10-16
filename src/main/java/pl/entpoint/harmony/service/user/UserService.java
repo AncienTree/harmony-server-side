@@ -11,16 +11,10 @@ import pl.entpoint.harmony.entity.user.enums.Roles;
  */
 
 public interface UserService {
-
-    List<User> getUsers();
-
-    List<User> getUsersByRoles(Roles role);
-
-    void createUser(User user);
-
     User getUser(Long theId);
-
-    void changeStatus(Long id, boolean status);
-
     User getUserByLogin(String login);
+    List<User> getUsers();
+    List<User> getUsersByRoles(Roles role);
+    void changeStatus(Long id, boolean status);
+    void createUser(User user);
 }
