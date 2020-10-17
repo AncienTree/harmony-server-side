@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import pl.entpoint.harmony.entity.employee.Employee;
-import pl.entpoint.harmony.entity.pojo.AbsencePojo;
+import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 
 /**

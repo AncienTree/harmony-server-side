@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.entpoint.harmony.entity.pojo.UserPojo;
+import pl.entpoint.harmony.entity.pojo.controller.UserPojo;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.util.BCrypt;
 

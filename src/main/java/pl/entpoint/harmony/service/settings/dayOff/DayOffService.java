@@ -3,6 +3,7 @@ package pl.entpoint.harmony.service.settings.dayOff;
 import java.time.LocalDate;
 import java.util.List;
 
+import pl.entpoint.harmony.entity.pojo.controller.DayOffPojo;
 import pl.entpoint.harmony.entity.settings.DayOff;
 
 /**
@@ -12,11 +13,10 @@ import pl.entpoint.harmony.entity.settings.DayOff;
  */
 
 public interface DayOffService {
-
+	DayOff getDayOff(LocalDate date);
 	List<DayOff> getDayOffByYear(String year);
 	List<DayOff> getDayOffBetweenDats(LocalDate start, LocalDate end);
-	DayOff getDayOff(LocalDate date);
 	void create(DayOff dayOff);
-	void update(DayOff dayOff);
+	void update(DayOffPojo dayOff);
 	void delete(Long id);
 }

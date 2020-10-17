@@ -1,7 +1,6 @@
 package pl.entpoint.harmony.service.settings.userSection;
 
 import java.util.List;
-import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.entpoint.harmony.entity.pojo.controller.SectionsPojo;
 import pl.entpoint.harmony.entity.settings.UserSection;
 
 /**
@@ -57,22 +57,27 @@ public class UserSectionController {
 	@PostMapping("/")
 	@ApiOperation(value = "Create new section.", nickname = "Create new section.")
 	@ApiImplicitParam(name = "section", value = "Section body", required = true, dataType = "UserSection", paramType = "body")
-	public ResponseEntity<String> create(@RequestBody UserSection section) {
-		if (userSectionService.checkSection(section)) {
+	public ResponseEntity<String> create(@RequestBody SectionsPojo section) {
+		UserSection userSection = new UserSection(section);
+		if (userSectionService.checkSection(userSection)) {
 			return new ResponseEntity<>("Podany lider ma już aktywną sekcję.", HttpStatus.BAD_REQUEST);
 		}
 
-		userSectionService.save(section);
+		userSectionService.save(userSection);
         return new ResponseEntity<>("Dodano nową sekcję.", HttpStatus.CREATED);
 	}
 	
 	@PatchMapping("/")
-	public ResponseEntity<String> update(@RequestBody Map<String, String> section) {
+	@ApiOperation(value = "Update section.", nickname = "Update section.")
+	@ApiImplicitParam(name = "section", value = "Section body", required = true, dataType = "SectionsPojo", paramType = "body")
+	public ResponseEntity<String> update(@RequestBody SectionsPojo section) {
 		userSectionService.change(section);
         return new ResponseEntity<>("Zmieniono dane sekcjii.", HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Delete section.", nickname = "Delete section.")
+	@ApiImplicitParam(name = "id", value = "Section id", required = true, dataType = "long", paramType = "path")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		userSectionService.delete(id);
         return new ResponseEntity<>("Usunięto sekcję.", HttpStatus.OK);

@@ -3,11 +3,11 @@ package pl.entpoint.harmony.service.settings.contractType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import pl.entpoint.harmony.entity.pojo.controller.ContractPojo;
 import pl.entpoint.harmony.entity.settings.ContractType;
-import pl.entpoint.harmony.util.exception.ContractTypeNotFoundException;
+import pl.entpoint.harmony.util.exception.setting.ContractTypeNotFoundException;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Mateusz Dąbek
@@ -27,7 +27,8 @@ public class ContractTypeServiceImpl implements ContractTypeService{
 
     @Override
     public ContractType getContractType(Long id) {
-    	return contractTypeRepository.findById(id).orElseThrow(() -> new ContractTypeNotFoundException(id));
+    	return contractTypeRepository.findById(id)
+                .orElseThrow(() -> new ContractTypeNotFoundException(id));
     }
     
     @Override
@@ -36,18 +37,18 @@ public class ContractTypeServiceImpl implements ContractTypeService{
     }
 
     @Override
-    public void change(Map<String, String> contract) {
-        ContractType contractType = contractTypeRepository.findById(Long.parseLong(contract.get("id")))
-                .orElseThrow(() -> new RuntimeException("Nie znaleziono podanej umowy."));
+    public void change(ContractPojo contract) {
+        ContractType contractType = contractTypeRepository.findById(contract.getId())
+                .orElseThrow(() -> new ContractTypeNotFoundException(contract.getId()));
 
-        contractType.setName(contract.get("name"));
+        contractType.setName(contract.getName());
         contractTypeRepository.save(contractType);
     }
 
     @Override
     public void delete(Long id) {
         ContractType contractType = contractTypeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Nie znaleziono umowy pod tym id."));
+                .orElseThrow(() -> new ContractTypeNotFoundException(id));
         contractTypeRepository.delete(contractType);
     }
 }

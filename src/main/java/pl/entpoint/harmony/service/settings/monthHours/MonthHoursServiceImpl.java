@@ -2,7 +2,9 @@ package pl.entpoint.harmony.service.settings.monthHours;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.entpoint.harmony.entity.pojo.controller.MonthlyHoursPojo;
 import pl.entpoint.harmony.entity.settings.MonthHours;
+import pl.entpoint.harmony.util.exception.setting.MonthHoursNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,47 +25,47 @@ public class MonthHoursServiceImpl implements MonthHoursService {
 	public List<MonthHours> getAll() {
 		return monthHoursRepository.findAll();
 	}
-    
-	@Override
+
+    @Override
+    public int checkMonthHours(LocalDate date) {
+        String dateString = String.valueOf(date.getYear());
+        MonthHours monthHours = Optional.of(monthHoursRepository.findByYear(dateString))
+                .orElseThrow(MonthHoursNotFoundException::new);
+
+        return monthHours.getRbh(date.getMonthValue());
+    }
+
+    @Override
     public void create(MonthHours monthHours) {
         monthHoursRepository.save(monthHours);
     }
 
     @Override
-    public void delete(MonthHours monthHours) {
-        monthHoursRepository.delete(monthHours);
-    }
+    public void change(MonthlyHoursPojo monthHours) {
+        MonthHours hours = monthHoursRepository.findById(monthHours.getId())
+                .orElseThrow(MonthHoursNotFoundException::new);
 
-    @Override
-    public void change(Map<String, String> monthHours) {
-        Integer id = Integer.parseInt(monthHours.get("id"));
-        MonthHours hours = monthHoursRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Nie znaleziono podanego miesiąca."));
-        hours.setJanuary(Integer.parseInt(monthHours.get("january")));
-        hours.setFebruary(Integer.parseInt(monthHours.get("february")));
-        hours.setMarch(Integer.parseInt(monthHours.get("march")));
-        hours.setApril(Integer.parseInt(monthHours.get("april")));
-        hours.setMay(Integer.parseInt(monthHours.get("may")));
-        hours.setJune(Integer.parseInt(monthHours.get("june")));
-        hours.setJuly(Integer.parseInt(monthHours.get("july")));
-        hours.setAugust(Integer.parseInt(monthHours.get("august")));
-        hours.setSeptember(Integer.parseInt(monthHours.get("september")));
-        hours.setOctober(Integer.parseInt(monthHours.get("october")));
-        hours.setNovember(Integer.parseInt(monthHours.get("november")));
-        hours.setDecember(Integer.parseInt(monthHours.get("december")));        
+        hours.setJanuary(monthHours.getJanuary());
+        hours.setFebruary(monthHours.getFebruary());
+        hours.setMarch(monthHours.getMarch());
+        hours.setApril(monthHours.getApril());
+        hours.setMay(monthHours.getMay());
+        hours.setJune(monthHours.getJune());
+        hours.setJuly(monthHours.getJuly());
+        hours.setAugust(monthHours.getAugust());
+        hours.setSeptember(monthHours.getSeptember());
+        hours.setOctober(monthHours.getOctober());
+        hours.setNovember(monthHours.getNovember());
+        hours.setDecember(monthHours.getDecember());
 
         monthHoursRepository.save(hours);
     }
 
     @Override
-    public int checkMonthHours(LocalDate date) {
-        Optional<MonthHours> optionalMonthHours = Optional.ofNullable(monthHoursRepository.findByYear(String.valueOf(date.getYear())));
-        MonthHours monthHours;
-        if (optionalMonthHours.isPresent()){
-            monthHours = optionalMonthHours.get();
-        } else {
-            return 0;
-        }
-        return monthHours.getRbh(date.getMonthValue());
+    public void delete(int id) {
+        MonthHours hours = monthHoursRepository.findById(id)
+                .orElseThrow(MonthHoursNotFoundException::new);
+
+        monthHoursRepository.delete(hours);
     }
 }

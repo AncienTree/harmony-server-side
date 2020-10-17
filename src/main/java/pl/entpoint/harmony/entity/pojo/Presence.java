@@ -6,7 +6,6 @@ import lombok.Setter;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,9 +14,7 @@ import java.util.List;
  */
 
 @Getter @Setter @AllArgsConstructor
-public class Presence implements Serializable {
-    private static final long serialVersionUID = 3110577428665471954L;
-
+public class Presence {
     ScheduleType scheduleType;
     List<ScheduleRecord> recordList;
 

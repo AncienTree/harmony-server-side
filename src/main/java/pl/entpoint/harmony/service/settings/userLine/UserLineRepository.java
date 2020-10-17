@@ -13,6 +13,5 @@ import pl.entpoint.harmony.entity.settings.UserLine;
 
 @Repository
 public interface UserLineRepository extends JpaRepository<UserLine, Long>{
-	
 	UserLine findByName(String name);
 }

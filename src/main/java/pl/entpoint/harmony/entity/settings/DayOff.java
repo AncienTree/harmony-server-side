@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.pojo.controller.DayOffPojo;
 
 /**
  * @author Mateusz Dąbek
@@ -31,13 +32,8 @@ public class DayOff extends AuditEntity {
 
     private String info;
 
-	public DayOff(Long id, @NotNull LocalDate date, String info) {
-		if(id < 1) {
-			this.id = 0L;
-		} else {
-			this.id = id;
-		}		
-		this.date = date;
-		this.info = info;
-	}   
+	public DayOff(DayOffPojo dayOff) {
+		this.date = dayOff.getDate();
+		this.info = dayOff.getInfo();
+	}
 }

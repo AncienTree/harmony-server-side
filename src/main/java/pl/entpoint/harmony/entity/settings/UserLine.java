@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.pojo.controller.LinesPojo;
 
 /**
  * @author Mateusz Dąbek
@@ -27,4 +28,8 @@ public class UserLine extends AuditEntity {
     @NotNull
     @Size(max = 20)
     private String name;
+
+    public UserLine(LinesPojo line) {
+        this.name = line.getName();
+    }
 }

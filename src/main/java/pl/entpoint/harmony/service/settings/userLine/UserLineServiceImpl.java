@@ -1,12 +1,13 @@
 package pl.entpoint.harmony.service.settings.userLine;
 
 import java.util.List;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import pl.entpoint.harmony.entity.pojo.controller.LinesPojo;
 import pl.entpoint.harmony.entity.settings.UserLine;
+import pl.entpoint.harmony.util.exception.setting.UserLineNotFoundException;
 
 /**
  * @author Mateusz Dąbek
@@ -20,13 +21,19 @@ public class UserLineServiceImpl implements UserLineService {
 	private final UserLineRepository userLineRepository;
 
 	@Override
-	public List<UserLine> getAll() {
-		return userLineRepository.findAll();
+	public UserLine getByName(String name) {
+		return userLineRepository.findByName(name);
 	}
 
 	@Override
-	public UserLine getByName(String name) {
-		return userLineRepository.findByName(name);
+	public UserLine getById(Long id) {
+		return userLineRepository.findById(id)
+				.orElseThrow(() -> new UserLineNotFoundException(id));
+	}
+
+	@Override
+	public List<UserLine> getAll() {
+		return userLineRepository.findAll();
 	}
 
 	@Override
@@ -35,18 +42,19 @@ public class UserLineServiceImpl implements UserLineService {
 	}
 
 	@Override
-	public void delete(Long id) {
-		UserLine userLine = userLineRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Nie znaleziono podanej lini."));
-		userLineRepository.delete(userLine);		
+	public void change(LinesPojo line) {
+		UserLine userLine = userLineRepository.findById(line.getId())
+				.orElseThrow(() -> new UserLineNotFoundException(line.getId()));
+		
+		userLine.setName(line.getName());
+		userLineRepository.save(userLine);
 	}
 
 	@Override
-	public void change(Map<String, String> line) {
-		UserLine userLine = userLineRepository.findById(Long.parseLong(line.get("id")))
-				.orElseThrow(() -> new RuntimeException("Nie znaleziono podanej lini."));
-		
-		userLine.setName(line.get("name"));
-		userLineRepository.save(userLine);
-	}	
+	public void delete(Long id) {
+		UserLine userLine = userLineRepository.findById(id)
+				.orElseThrow(() -> new UserLineNotFoundException(id));
+		userLineRepository.delete(userLine);
+	}
+
 }

@@ -2,12 +2,13 @@ package pl.entpoint.harmony.service.settings.dayOff;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import pl.entpoint.harmony.entity.pojo.controller.DayOffPojo;
 import pl.entpoint.harmony.entity.settings.DayOff;
+import pl.entpoint.harmony.util.exception.setting.DayOffNotFoundException;
 
 /**
  * @author Mateusz Dąbek
@@ -19,6 +20,11 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 @AllArgsConstructor
 public class DayOffServiceImpl implements DayOffService {
 	private final DayOffRepository dayOffRepository;
+
+	@Override
+	public DayOff getDayOff(LocalDate date) {
+		return dayOffRepository.findByDate(date);
+	}
 
 	@Override
 	public List<DayOff> getDayOffByYear(String year) {
@@ -34,36 +40,25 @@ public class DayOffServiceImpl implements DayOffService {
 	}
 
 	@Override
-	public DayOff getDayOff(LocalDate date) {
-		return dayOffRepository.findByDate(date);
-	}
-
-	@Override
 	public void create(DayOff dayOff) {
 		dayOffRepository.save(dayOff);
 	}
 		
 	@Override
-	public void update(DayOff dayOff) {
-		Long id = dayOff.getId();
-		Optional<DayOff> optional = Optional.ofNullable(dayOffRepository.findById(id))
-					.orElseThrow(() -> new IllegalArgumentException("Nie znaleziono dnia wolnego o takim ID"));
-		DayOff tempDayOff = null;
+	public void update(DayOffPojo dayOff) {
+		DayOff day = dayOffRepository.findById(dayOff.getId())
+				.orElseThrow(DayOffNotFoundException::new);
+
+		day.setDate(dayOff.getDate());
+		day.setInfo(dayOff.getInfo());
 		
-		if(optional.isPresent()) {
-			tempDayOff = optional.get();
-		}
-		assert tempDayOff != null;
-		tempDayOff.setDate(dayOff.getDate());
-		tempDayOff.setInfo(dayOff.getInfo());		
-		
-		create(tempDayOff);
+		create(day);
 	}
 	
 	@Override
 	public void delete(Long id) {
 		DayOff day = dayOffRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Nie znaleziono dnia wolnego od pracy."));
+				.orElseThrow(DayOffNotFoundException::new);
 		dayOffRepository.delete(day);
 	}
 }

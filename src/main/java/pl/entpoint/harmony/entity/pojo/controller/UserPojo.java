@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.entity.pojo;
+package pl.entpoint.harmony.entity.pojo.controller;
 
 import lombok.Data;
 import pl.entpoint.harmony.entity.user.enums.Roles;

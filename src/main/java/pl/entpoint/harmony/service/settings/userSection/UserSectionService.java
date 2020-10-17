@@ -1,8 +1,8 @@
 package pl.entpoint.harmony.service.settings.userSection;
 
 import java.util.List;
-import java.util.Map;
 
+import pl.entpoint.harmony.entity.pojo.controller.SectionsPojo;
 import pl.entpoint.harmony.entity.settings.UserSection;
 
 /**
@@ -17,6 +17,6 @@ public interface UserSectionService {
 	List<UserSection> getAll();
 	boolean checkSection(UserSection section);
 	void save(UserSection section);
-	void change(Map<String, String> section);
+	void change(SectionsPojo section);
 	void delete(Long id);	
 }

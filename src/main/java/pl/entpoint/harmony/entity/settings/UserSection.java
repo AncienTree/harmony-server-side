@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.pojo.controller.SectionsPojo;
 
 /**
  * @author Mateusz Dąbek
@@ -36,4 +37,10 @@ public class UserSection extends AuditEntity {
     @Column(name = "lider")
     @NotNull
     private String lider;
+
+    public UserSection(SectionsPojo section) {
+        this.name = section.getName();
+        this.expired = section.getExpired();
+        this.lider = section.getLider();
+    }
 }

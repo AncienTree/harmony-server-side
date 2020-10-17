@@ -1,10 +1,10 @@
 package pl.entpoint.harmony.service.settings.monthHours;
 
+import pl.entpoint.harmony.entity.pojo.controller.MonthlyHoursPojo;
 import pl.entpoint.harmony.entity.settings.MonthHours;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Mateusz Dąbek
@@ -14,8 +14,8 @@ import java.util.Map;
 
 public interface MonthHoursService {
     List<MonthHours> getAll();
-    void create(MonthHours monthHours);
-    void delete(MonthHours monthHours);
-    void change(Map<String, String> monthHours);
     int checkMonthHours(LocalDate date);
+    void create(MonthHours monthHours);
+    void change(MonthlyHoursPojo monthHours);
+    void delete(int id);
 }

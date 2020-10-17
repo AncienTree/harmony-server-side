@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.pojo.controller.ContractPojo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,12 +29,7 @@ public class ContractType extends AuditEntity {
     @Size(max = 50)
     private String name;
 
-	public ContractType(Long id, String name) {
-		if(id < 1) {
-			this.id = 0L;
-		} else {
-			this.id = id;
-		}		
-		this.name = name;
+	public ContractType(ContractPojo contractPojo) {
+		this.name = contractPojo.getName();
 	}    
 }

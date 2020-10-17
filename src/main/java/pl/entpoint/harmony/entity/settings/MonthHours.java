@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.pojo.controller.MonthlyHoursPojo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -63,6 +64,22 @@ public class MonthHours extends AuditEntity {
     
     @NotNull
     private int december;
+
+    public MonthHours(MonthlyHoursPojo monthHours) {
+        this.year = monthHours.getYear();
+        this.january = monthHours.getJanuary();
+        this.february = monthHours.getFebruary();
+        this.march = monthHours.getMarch();
+        this.april = monthHours.getApril();
+        this.may = monthHours.getMay();
+        this.june = monthHours.getJune();
+        this.july = monthHours.getJuly();
+        this.august = monthHours.getAugust();
+        this.september = monthHours.getSeptember();
+        this.october = monthHours.getOctober();
+        this.november = monthHours.getNovember();
+        this.december = monthHours.getDecember();
+    }
 
     public int getRbh(int month){
         switch (month){
