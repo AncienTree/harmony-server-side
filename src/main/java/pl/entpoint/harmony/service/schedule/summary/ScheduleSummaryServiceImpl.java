@@ -13,6 +13,7 @@ import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.ScheduleService;
 import pl.entpoint.harmony.service.user.UserService;
+import pl.entpoint.harmony.util.exception.schedule.ScheduleExistException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,6 +40,15 @@ public class ScheduleSummaryServiceImpl implements ScheduleSummaryService {
     }
 
 	@Override
+	public ScheduleSummary getMySchedule(LocalDate localDate, String name) {
+		Employee employee = loginToEntity(name).getEmployee();
+
+		ScheduleSummary summary = getScheduleByDateAndEmployee(localDate, employee);
+		summary.setSimpleEmployee(new SimpleEmployee(employee));
+		return  summary;
+	}
+
+	@Override
     public List<ScheduleSummary> getScheduleByDate(LocalDate date) {
         return scheduleSummaryRepository.findByScheduleDate(date);
     }	
@@ -48,15 +58,13 @@ public class ScheduleSummaryServiceImpl implements ScheduleSummaryService {
     	return scheduleSummaryRepository.findByEmployee(loginToEntity(login).getEmployee());
 	}
 
-	
-
 	@Override
     public void create(LocalDate date, Employee employee) {
         Optional<ScheduleSummary> scheduleSummary = Optional.ofNullable(getScheduleByDateAndEmployee(date, employee));
         ScheduleSummary summary;
 
         if(scheduleSummary.isPresent()) {
-            throw new IllegalArgumentException("Dla danego użytkownika i daty istnieje już grafik.");
+            throw new ScheduleExistException();
         } else {
             summary = new ScheduleSummary(employee, date.toString());
             scheduleSummaryRepository.save(summary);
@@ -120,25 +128,8 @@ public class ScheduleSummaryServiceImpl implements ScheduleSummaryService {
 		}		
 	}
 
-	@Override
-	public ScheduleSummary getMySchedule(LocalDate localDate, String name) {
-		Employee tempEmpl = loginToEntity(name).getEmployee();
-		
-		ScheduleSummary summ = getScheduleByDateAndEmployee(localDate, tempEmpl);
-		summ.setSimpleEmployee(new SimpleEmployee(tempEmpl));
-		return  summ;
-	} 
-	
-	
 	private User loginToEntity(String login) {
-		User user;
-    	Optional<User> opt = Optional.of(userService.getUserByLogin(login));
-    	
-    	if(opt.isPresent()) {
-    		user = opt.get();
-    	} else {
-    		throw new UsernameNotFoundException("Nie znaleziono użytkownika o loginie " + login);
-    	}
-		return user;
-	}	
+		return Optional.of(userService.getUserByLogin(login))
+				.orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika o loginie " + login));
+	}
 }

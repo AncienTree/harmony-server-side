@@ -16,13 +16,9 @@ import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
  */
 
 public interface ScheduleRecordService {
-	
-	List<ScheduleRecord> getScheduleRecordByDateAndEmployee(LocalDate date, Employee employee);
 	ScheduleRecord getScheduleRecordByDateAndEmployeeAndTypes(LocalDate date, Employee employee, ScheduleType type);
+	List<ScheduleRecord> getScheduleRecordByDateAndEmployee(LocalDate date, Employee employee);
 	List<Presence> getScheduleRecordForPresence(LocalDate date);
-	void create (Record record);
-	void update (Record record);
-
 	/**
 	 *  Pobieranie ilości dni na danych statusach
 	 *
@@ -35,5 +31,7 @@ public interface ScheduleRecordService {
     int getNumbersOfDaysByStatus(Employee employee, String type, LocalDate start, LocalDate end);
     int getCurrentMonthStatus(Employee employee, String type, LocalDate date);
     int getCurrentYearStatus(Employee employee, String type, LocalDate date);
-	void accepteAbsence(AbsenceRecord recordAccepted);
+	void acceptAbsence(AbsenceRecord recordAccepted);
+	void create (Record record);
+	void update (Record record);
 }

@@ -40,12 +40,6 @@ public class Schedule extends AuditEntity implements Comparable<Schedule> {
     @Transient
     private int rbh;
 
-    public Schedule(LocalDate scheduleDate) {
-        this.scheduleDate = scheduleDate;
-        this.active = true;
-        this.visible = true;
-    }
-
     @Override
     public int compareTo(Schedule schedule) {
         return getScheduleDate().compareTo(schedule.getScheduleDate());

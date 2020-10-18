@@ -9,4 +9,8 @@ public class ScheduleNotFoundException extends RuntimeException{
     public ScheduleNotFoundException(Long id) {
         super("Nie znaleziono grafiku pod ID - " + id);
     }
+
+    public ScheduleNotFoundException() {
+        super("Grafik nie został znaleziony.");
+    }
 }

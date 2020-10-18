@@ -8,7 +8,7 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
 import pl.entpoint.harmony.service.settings.dayOff.DayOffService;
 import pl.entpoint.harmony.service.settings.monthHours.MonthHoursService;
-import pl.entpoint.harmony.util.exception.schedule.ScheduleExisteException;
+import pl.entpoint.harmony.util.exception.schedule.ScheduleExistException;
 import pl.entpoint.harmony.util.exception.schedule.ScheduleNotFoundException;
 
 import java.time.LocalDate;
@@ -58,49 +58,14 @@ public class ScheduleServiceImpl implements ScheduleService {
     	List<Schedule> returnSchedules = new ArrayList<>();
 
     	for (ScheduleSummary summ : schedulesSum) {    		
-    		returnSchedules.addAll(schedules.stream().filter(x -> summ.getScheduleDate().isEqual(x.getScheduleDate())).collect(Collectors.toList()));
+    		returnSchedules.addAll(schedules.stream()
+                    .filter(x -> summ.getScheduleDate().isEqual(x.getScheduleDate()))
+                    .collect(Collectors.toList()));
 		}
 
         Collections.sort(returnSchedules);
 
         return returnSchedules;
-    }
-
-    @Override
-    public List<Schedule> getSchedules() {
-        return scheduleRepository.findAll();
-    }
-    
-    @Override
-    public void changeStatus(Long id, boolean active, boolean visible) {
-        Optional<Schedule> result = scheduleRepository.findById(id);
-        
-        Schedule schedule;
-        if(result.isPresent()) {
-        	schedule = result.get();
-        } else {
-            throw new ScheduleNotFoundException(id);
-        }
-        schedule.setActive(active);
-        schedule.setVisible(visible);
-        
-    	scheduleRepository.save(schedule);
-    }
-
-    @Override
-    public void createSchedule(LocalDate date) {
-        Optional<Schedule> result = Optional.ofNullable(scheduleRepository.findByScheduleDate(date));
-        Schedule schedule;
-        if(!result.isPresent()) {
-            schedule = new Schedule(date);
-        } else {
-            throw new ScheduleExisteException(date);
-        }
-        scheduleRepository.save(schedule);
-    }
-
-    private int addMonthHours(Schedule schedule){
-        return monthHoursService.checkMonthHours(schedule.getScheduleDate());
     }
 
     private List<DayOff> addDayOff(Schedule schedule){
@@ -110,11 +75,38 @@ public class ScheduleServiceImpl implements ScheduleService {
         return dayOffService.getDayOffBetweenDats(start, end);
     }
 
-	@Override
-	public boolean isActive(LocalDate date) {
-		Schedule schedule = scheduleRepository.findByScheduleDate(date);
-		
-		return schedule.isActive();
-	}   
-    
+    @Override
+    public List<Schedule> getSchedules() {
+        return scheduleRepository.findAll();
+    }
+
+    private int addMonthHours(Schedule schedule){
+        return monthHoursService.checkMonthHours(schedule.getScheduleDate());
+    }
+
+    @Override
+    public boolean isActive(LocalDate date) {
+        Schedule schedule = scheduleRepository.findByScheduleDate(date);
+
+        return schedule.isActive();
+    }
+
+    @Override
+    public void changeStatus(Long id, boolean active, boolean visible) {
+        Schedule schedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new ScheduleNotFoundException(id));
+
+        schedule.setActive(active);
+        schedule.setVisible(visible);
+        
+    	scheduleRepository.save(schedule);
+    }
+
+    @Override
+    public void createSchedule(LocalDate date) {
+        Schedule schedule = Optional.ofNullable(scheduleRepository.findByScheduleDate(date))
+                .orElseThrow(() -> new ScheduleExistException(date));
+
+        scheduleRepository.save(schedule);
+    }
 }

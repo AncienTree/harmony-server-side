@@ -21,6 +21,7 @@ import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
 import pl.entpoint.harmony.util.ConvertData;
+import pl.entpoint.harmony.util.exception.schedule.RecordNotFoundException;
 
 /**
  * @author Mateusz Dąbek
@@ -86,11 +87,9 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
     @Override
     public void update(Record record) {
-    	System.out.println("Aktualizacja rekordu");
-    	System.out.println(record);
         Optional<ScheduleRecord> scheduleRecord;
-        scheduleRecord = Optional.ofNullable(scheduleRecordRepository.findById(record.getId()).orElseThrow(
-                () -> new IllegalArgumentException("Nieznaleziono rekordu o podanym ID: " + record.getId())));
+        scheduleRecord = Optional.ofNullable(scheduleRecordRepository.findById(record.getId())
+                .orElseThrow(() -> new RecordNotFoundException(record.getId())));
         ScheduleRecord updatedRecord = scheduleRecord.get();
 
         updatedRecord.setStatus(record.getStatus());
@@ -144,26 +143,23 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
     }
 	
     @Override
-	public void accepteAbsence(AbsenceRecord recordAccepted) {
+	public void acceptAbsence(AbsenceRecord recordAccepted) {
     	ScheduleRecord record = null;
     	Optional<ScheduleRecord> opt = Optional.ofNullable(scheduleRecordRepository
     			.findByWorkDateAndEmployeeAndTypes(recordAccepted.getWorkDate(), recordAccepted.getEmployee(), ScheduleType.OBECNOSC));
     	if(opt.isPresent()) {
     		record = opt.get();
-    		record.setStatus(ScheduleStatus.UW);
-    		record.setStartWork(LocalTime.of(0, 0, 0));
-    		record.setEndWork(LocalTime.of(0, 0, 0));
-    	} else {
+        } else {
     		record = new ScheduleRecord();
     		record.setEmployee(recordAccepted.getEmployee());
     		record.setWorkDate(recordAccepted.getWorkDate());
     		record.setTypes(ScheduleType.OBECNOSC);
-    		record.setStatus(ScheduleStatus.UW);
-    		record.setStartWork(LocalTime.of(0, 0, 0));
-    		record.setEndWork(LocalTime.of(0, 0, 0));
-    	}
-    	
-    	// Dodanie rekordu do tabeli mapującej
+        }
+        record.setStatus(ScheduleStatus.UW);
+        record.setStartWork(LocalTime.of(0, 0, 0));
+        record.setEndWork(LocalTime.of(0, 0, 0));
+
+        // Dodanie rekordu do tabeli mapującej
         ScheduleSummary scheduleSummary = scheduleSummaryService.getScheduleByDateAndEmployee(ConvertData.getFirstDayOfMonth(recordAccepted.getWorkDate().toString()),
         		recordAccepted.getEmployee());
         scheduleSummary.getScheduleRecords().add(record);
