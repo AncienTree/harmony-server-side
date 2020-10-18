@@ -2,6 +2,7 @@ package pl.entpoint.harmony.entity.pojo;
 
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleStatus;
@@ -13,7 +14,7 @@ import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
  * 
  */
 
-@Getter @Setter 
+@Getter @Setter  @NoArgsConstructor
 @ToString
 public class Record  {
 	private Long id;

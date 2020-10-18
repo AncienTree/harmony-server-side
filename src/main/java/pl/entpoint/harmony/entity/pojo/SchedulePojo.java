@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.entity.pojo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -9,7 +10,7 @@ import java.time.LocalDate;
  * @created 18.10.2020
  */
 
-@Data
+@Data @NoArgsConstructor
 public class SchedulePojo {
     private Long id;
     private LocalDate scheduleDate;

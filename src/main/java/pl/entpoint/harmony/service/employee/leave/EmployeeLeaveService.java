@@ -1,8 +1,7 @@
 package pl.entpoint.harmony.service.employee.leave;
 
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
-
-import java.util.Map;
+import pl.entpoint.harmony.entity.pojo.controller.LeavePojo;
 
 /**
  * @author Mateusz Dąbek
@@ -11,5 +10,5 @@ import java.util.Map;
 
 public interface EmployeeLeaveService {
     EmployeeLeave getEmployeeLeave(Long id);
-    void change(Map<String, String> employeeLeave);
+    void change(LeavePojo employeeLeave);
 }

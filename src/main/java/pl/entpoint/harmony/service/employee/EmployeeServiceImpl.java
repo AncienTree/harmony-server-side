@@ -6,6 +6,7 @@ import java.util.*;
 import lombok.AllArgsConstructor;import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
+import pl.entpoint.harmony.entity.pojo.controller.EmployeePojo;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
 import pl.entpoint.harmony.entity.pojo.dbview.HrTable;
@@ -15,6 +16,7 @@ import pl.entpoint.harmony.util.BCrypt;
 import pl.entpoint.harmony.util.EncryptionData;
 import pl.entpoint.harmony.util.LoginConverter;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
+import pl.entpoint.harmony.util.exception.employee.EmployeeNotWorkingException;
 
 /**
  * @author Mateusz Dąbek
@@ -30,6 +32,30 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final UserService userService;
 
     @Override
+    public Employee getEmployeeDecrypted(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+        try {
+            employee.setPesel(EncryptionData.decrypt(employee.getPesel()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return employee;
+    }
+
+    @Override
+    public Employee getEmployeeNotDecrypted(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+    }
+
+    @Override
+    public Employee getEmployeeByPesel(String pesel) {
+        return employeeRepository.findByPesel(EncryptionData.encrypt(pesel))
+                .orElseThrow(EmployeeNotFoundException::new);
+    }
+
+    @Override
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }
@@ -39,8 +65,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = employeeRepository.findByPositionAndWorkStatusNot(position, WorkStatus.NOT_WORK);
         List<SimpleEmployee> simpleEmployees = new ArrayList<>();
 
-        for (Employee empl: employees) {
-            simpleEmployees.add(new SimpleEmployee(empl));
+        for (Employee employee: employees) {
+            simpleEmployees.add(new SimpleEmployee(employee));
         }
         return simpleEmployees;
     }
@@ -66,72 +92,27 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeRepository.findByWorkStatusAndStartWorkDateLessThanEqual(status, date);
 	}
 
-	@Override
-    public Employee getEmployeeDecrypted(Long id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
-        try {
-            employee.setPesel(EncryptionData.decrypt(employee.getPesel()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return employee;
-    }
-
     @Override
-	public Employee getEmployeeNotDecrypted(Long id) {
-        return employeeRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
-	}
+    public void change(EmployeePojo employeePojo) {
+        Employee employee = employeeRepository.findById(employeePojo.getId())
+                .orElseThrow(() -> new EmployeeNotFoundException(employeePojo.getId()));
 
-	@Override
-    public Employee getEmployeeByPesel(String pesel) {
-        Optional<Employee> result = Optional.empty();
-		try {
-			result = employeeRepository.findByPesel(EncryptionData.encrypt(pesel));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-        Employee empl;
-        if (result.isPresent()) {
-            empl = result.get();
-        } else {
-            throw new EmployeeNotFoundException();
-        }
-        return empl;
-    }
-
-    @Override
-    public void change(Map<String, String> employee) {
-        Long id = Long.parseLong(employee.get("id"));
-        Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException(id)));
-        Employee empl = null;
-        if (optionalEmployee.isPresent()){
-            empl = optionalEmployee.get();
-        }
         // Zmiany
-        assert empl != null;
-
-        empl.setEmail(employee.get("email"));
-        empl.setEtat(Float.parseFloat(employee.get("etat")));
-        empl.setPosition(employee.get("position"));
-        empl.setContractPosition(employee.get("contractPosition"));
-        empl.setContractType(employee.get("contractType"));
-        empl.setBasicUnit(employee.get("basicUnit"));
-        empl.setUnit(employee.get("unit"));
-        employeeRepository.save(empl);
+        employee.setEmail(employeePojo.getEmail());
+        employee.setEtat(employeePojo.getEtat());
+        employee.setPosition(employeePojo.getPosition());
+        employee.setContractPosition(employeePojo.getContractPosition());
+        employee.setContractType(employeePojo.getContractType());
+        employee.setBasicUnit(employeePojo.getBasicUnit());
+        employee.setUnit(employeePojo.getUnit());
+        employeeRepository.save(employee);
     }
 
     @Override
     public boolean isPeselInDB(String pesel) {
-        Optional<Employee> result = Optional.empty();
-		try {
-			result = employeeRepository.findByPesel(EncryptionData.encrypt(pesel));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        Optional<Employee> employee = employeeRepository.findByPesel(EncryptionData.encrypt(pesel));
 
-        return result.isPresent();
+        return employee.isPresent();
     }
 
     @Override
@@ -154,45 +135,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     @Override
-    public void newEmployee(Map<String, String> body) {
-    	LocalDate birthday = LocalDate.parse(body.get("birthday").substring(0, 10));
-    	LocalDate start = LocalDate.parse(body.get("startWorkDate").substring(0, 10));
-    	
-        User theUser = new User(
-                LoginConverter.createLogin(body.get("firstName"), body.get("lastName")),
-                BCrypt.encrypt(body.get("pesel")));
-        theUser.setId(0L);
-        Employee theEmp = new Employee(
-                body.get("firstName"),
-                body.get("lastName"),
-                EncryptionData.encrypt(body.get("pesel")),
-                body.get("sex"),
-                birthday,
-                body.get("position"),
-                body.get("contractPosition"),
-                WorkStatus.WORK,
-                body.get("contractType"),
-                body.get("basicUnit"),
-                body.get("unit"),
-                start,
-                start);
-        theUser.setEmployee(theEmp);        
-        userService.createUser(theUser);    	
+    public void newEmployee(EmployeePojo body) {
+        User user = new User(
+                LoginConverter.createLogin(body.getFirstName(), body.getLastName()),
+                BCrypt.encrypt(body.getPesel()));
+        Employee employee = new Employee(body);
+        user.setEmployee(employee);
+
+        userService.createUser(user);
     }
 
     @Override
     public void fireEmployee(Long id) {
-    	Optional<Employee> optionalEmployee = Optional.ofNullable(employeeRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException(id)));
-        Employee employee;
-    	if (optionalEmployee.isPresent()){
-            employee = optionalEmployee.get();
-        } else {
-    	    throw new EmployeeNotFoundException(id);
-        }
+    	Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
 
     	if(employee.getWorkStatus() == WorkStatus.NOT_WORK){
-    	    throw new IllegalArgumentException("Użytkownik już nie pracuje.");
+    	    throw new EmployeeNotWorkingException();
         }
 
     	employee.fire();

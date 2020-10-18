@@ -1,8 +1,7 @@
 package pl.entpoint.harmony.service.employee.contact;
 
 import pl.entpoint.harmony.entity.employee.ContactDetails;
-
-import java.util.Map;
+import pl.entpoint.harmony.entity.pojo.controller.ContactPojo;
 
 /**
  * @author Mateusz Dąbek
@@ -11,5 +10,5 @@ import java.util.Map;
 
 public interface ContactDetailsService {
     ContactDetails getContactDetails(Long id);
-    void change(Map<String, String> contactDetails);
+    void change(ContactPojo contactDetails);
 }

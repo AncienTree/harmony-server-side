@@ -1,9 +1,10 @@
 package pl.entpoint.harmony.entity.pojo.controller;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import pl.entpoint.harmony.entity.user.enums.Roles;
 
-@Data
+@Data @NoArgsConstructor
 public class UserPojo {
     private Long id;
     private String login;

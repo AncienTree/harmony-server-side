@@ -1,11 +1,12 @@
 package pl.entpoint.harmony.service.employee.leave;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
+import pl.entpoint.harmony.entity.pojo.controller.LeavePojo;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -14,38 +15,27 @@ import java.util.Optional;
  */
 
 @Service
+@AllArgsConstructor
 public class EmployeeLeaveServiceImpl implements EmployeeLeaveService {
 
-    final EmployeeLeaveRepository employeeLeaveRepository;
-
-    @Autowired
-    public EmployeeLeaveServiceImpl(EmployeeLeaveRepository employeeLeaveRepository) {
-        this.employeeLeaveRepository = employeeLeaveRepository;
-    }
+    private final EmployeeLeaveRepository employeeLeaveRepository;
 
     @Override
     public EmployeeLeave getEmployeeLeave(Long id) {
-        return employeeLeaveRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
+        return employeeLeaveRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     @Override
-    public void change(Map<String, String> employeeLeave) {
-        Long id = Long.parseLong(employeeLeave.get("id"));
-        Optional<EmployeeLeave> leave = Optional.ofNullable(employeeLeaveRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException(id)));
-        EmployeeLeave emplLeave = null;
-        if (leave.isPresent()){
-            emplLeave = leave.get();
-        }
+    public void change(LeavePojo leave) {
+        EmployeeLeave employeeLeave = employeeLeaveRepository.findById(leave.getId())
+                .orElseThrow(() -> new EmployeeNotFoundException(leave.getId()));
 
-        // Zmiany
-        assert emplLeave != null;
+        employeeLeave.setNormal(leave.getNormal());
+        employeeLeave.setUz(leave.getUz());
+        employeeLeave.setAdditional(leave.getAdditional());
+        employeeLeave.setPastYears(leave.getPastYears());
 
-        emplLeave.setNormal(Integer.parseInt(employeeLeave.get("normal")));
-        emplLeave.setUz(Integer.parseInt(employeeLeave.get("uz")));
-        emplLeave.setAdditional(Integer.parseInt(employeeLeave.get("add")));
-        emplLeave.setPastYears(Integer.parseInt(employeeLeave.get("past")));
-
-        employeeLeaveRepository.save(emplLeave);
+        employeeLeaveRepository.save(employeeLeave);
     }
 }

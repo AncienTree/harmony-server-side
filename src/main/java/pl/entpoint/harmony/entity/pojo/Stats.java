@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.entity.pojo;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -8,7 +9,7 @@ import lombok.Setter;
  * @created 06.09.2020
  */
 
-@Getter @Setter
+@Getter @Setter @NoArgsConstructor
 public class Stats {
     private int currentMonthWorkedHours;
     private int currentMonthHours;
