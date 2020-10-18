@@ -1,4 +1,4 @@
-package pl.entpoint.harmony.util.exception;
+package pl.entpoint.harmony.util.exception.setting;
 
 /**
  * @author Mateusz Dąbek

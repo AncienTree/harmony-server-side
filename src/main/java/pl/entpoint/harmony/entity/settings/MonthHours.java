@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.pojo.controller.MonthlyHoursPojo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * @author Mateusz Dąbek
@@ -18,11 +18,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "month_hours", schema = "settings")
 @Getter @Setter @NoArgsConstructor
-public class MonthHours extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = -3553573220315149028L;
-
+public class MonthHours extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="month_hours_sqe", sequenceName="settings.month_hours_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="month_hours_sqe")
     private int id;
 
     @Column(unique = true)
@@ -65,6 +64,22 @@ public class MonthHours extends AuditEntity implements Serializable {
     
     @NotNull
     private int december;
+
+    public MonthHours(MonthlyHoursPojo monthHours) {
+        this.year = monthHours.getYear();
+        this.january = monthHours.getJanuary();
+        this.february = monthHours.getFebruary();
+        this.march = monthHours.getMarch();
+        this.april = monthHours.getApril();
+        this.may = monthHours.getMay();
+        this.june = monthHours.getJune();
+        this.july = monthHours.getJuly();
+        this.august = monthHours.getAugust();
+        this.september = monthHours.getSeptember();
+        this.october = monthHours.getOctober();
+        this.november = monthHours.getNovember();
+        this.december = monthHours.getDecember();
+    }
 
     public int getRbh(int month){
         switch (month){

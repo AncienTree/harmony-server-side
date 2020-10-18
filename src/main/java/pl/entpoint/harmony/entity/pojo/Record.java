@@ -1,8 +1,8 @@
 package pl.entpoint.harmony.entity.pojo;
 
-import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import pl.entpoint.harmony.entity.schedule.enums.ScheduleStatus;
@@ -14,11 +14,9 @@ import pl.entpoint.harmony.entity.schedule.enums.ScheduleType;
  * 
  */
 
-@Getter @Setter 
+@Getter @Setter  @NoArgsConstructor
 @ToString
-public class Record implements Serializable {
-	private static final long serialVersionUID = -2695706741763156959L;
-
+public class Record  {
 	private Long id;
 	@NotNull
     private Long employee;

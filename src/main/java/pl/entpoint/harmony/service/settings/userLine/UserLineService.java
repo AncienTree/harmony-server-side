@@ -1,8 +1,8 @@
 package pl.entpoint.harmony.service.settings.userLine;
 
 import java.util.List;
-import java.util.Map;
 
+import pl.entpoint.harmony.entity.pojo.controller.LinesPojo;
 import pl.entpoint.harmony.entity.settings.UserLine;
 
 /**
@@ -12,11 +12,11 @@ import pl.entpoint.harmony.entity.settings.UserLine;
  */
 
 public interface UserLineService {
-	
-	List<UserLine> getAll();
 	UserLine getByName(String name);
+	UserLine getById(Long id);
+	List<UserLine> getAll();
 	void save(UserLine line);
-	void change(Map<String, String> line);
+	void change(LinesPojo line);
 	void delete(Long id);
 
 }

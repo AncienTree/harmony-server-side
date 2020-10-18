@@ -17,7 +17,7 @@ import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 
 @Repository
 public interface AbsenceRecordRepository extends JpaRepository<AbsenceRecord, Long> {
+	AbsenceRecord findByEmployeeAndWorkDate(Employee employee, LocalDate date);
 	List<AbsenceRecord> findByEmployeeAndVisibleTrue(Employee employee);
 	List<AbsenceRecord> findByVisibleTrue();
-	AbsenceRecord findByEmployeeAndWorkDate(Employee employee, LocalDate date);
 }

@@ -1,6 +1,10 @@
 package pl.entpoint.harmony.service.schedule.summary;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +17,6 @@ import pl.entpoint.harmony.service.employee.EmployeeService;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 /**
  * @author Mateusz Dąbek
@@ -24,18 +26,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/schedule")
 @CrossOrigin(origins = "http://localhost:4200")
+@AllArgsConstructor
+@Api(tags = "Schedule Summary Controller")
 public class ScheduleSummaryController {
 
     private final EmployeeService employeeService;
     private final ScheduleSummaryService scheduleSummaryService;
 
-    @Autowired
-    public ScheduleSummaryController(EmployeeService employeeService, ScheduleSummaryService scheduleSummaryService) {
-        this.employeeService = employeeService;
-        this.scheduleSummaryService = scheduleSummaryService;
-    }   
-
     @GetMapping("/date/{date}")
+    @ApiOperation(value = "Get schedules summary by date.", nickname = "Get schedules summary by date.")
+    @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "path")
     public List<ScheduleSummary> getScheduleByDate(@PathVariable String date) {
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
@@ -47,6 +47,8 @@ public class ScheduleSummaryController {
     }
     
     @GetMapping("/date/{date}/my")
+    @ApiOperation(value = "Get my schedule summary by date.", nickname = "Get my schedule summary by date.")
+    @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "path")
     public ScheduleSummary getMySchedule(@PathVariable String date, Principal principal) {
     	LocalDate localDate = LocalDate.parse(date);
     	
@@ -54,7 +56,12 @@ public class ScheduleSummaryController {
     }
 
     @GetMapping("/{date}/{status}")
-    public List<ScheduleSummary> getScheduleByDate(@PathVariable String date, @PathVariable String status) {
+    @ApiOperation(value = "Get schedules summary by date and status.", nickname = "Get schedules summary by date and status.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "status", value = "Status in string", required = true, dataType = "ScheduleStatus", paramType = "path")
+    })
+    public List<ScheduleSummary> getScheduleByDateAndStatus(@PathVariable String date, @PathVariable String status) {
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
         // Filtorwanie rekordów po danym statusie
@@ -68,35 +75,29 @@ public class ScheduleSummaryController {
     }
             
     @GetMapping("/employee/{date}")
+    @ApiOperation(value = "Get list of employee without schedule by date.", nickname = "Get list of employee without schedule by date.")
+    @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "path")
     public List<Employee> getEmployeeWithoutSchedule(@PathVariable String date) {
     	LocalDate localDate = LocalDate.parse(date);
     	
         return scheduleSummaryService.getEmployeeWithoutSchedule(localDate);
     }
     
-    @GetMapping("/employeeList/{date}")
+    @GetMapping("/employee-list/{date}")
+    @ApiOperation(value = "Get schedules summary by date without records.", nickname = "Get schedules summary by date without records.")
+    @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "path")
     public EmployeeScheduleList getListOfEmployee(@PathVariable String date) {
     	LocalDate localDate = LocalDate.parse(date);
     	
         return scheduleSummaryService.getListOfEmployees(localDate);
     }
-    
-    @PostMapping("/add")
-    public ResponseEntity<String> createSummary(@RequestBody Map<String, String> body) {
-    	Employee employee = employeeService.getEmployeeDecrypted(Long.valueOf(body.get("id")));
-       Optional<ScheduleSummary> optSummary = Optional.ofNullable(scheduleSummaryService.getScheduleByDateAndEmployee(
-    		   LocalDate.parse(body.get("date")), employee));
-
-        if(optSummary.isPresent()) {
-            return new ResponseEntity<>("Dla danego użytkownika i daty istnieje już grafik.", HttpStatus.BAD_REQUEST);
-        } else {
-        	scheduleSummaryService.create(LocalDate.parse(body.get("date")), employee);
-            return new ResponseEntity<>("Utworzono grafik dla " + employee.getFirstName() + " " + employee.getLastName(),
-                    HttpStatus.OK);
-       }
-    }    
 
     @PostMapping("/employee/{date}")
+    @ApiOperation(value = "Create new schedule summary by list of employees id.", nickname = "Create new schedule summary by list of employees id.")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "List of employees id", required = true, dataType = "long", paramType = "body"),
+            @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "path")
+    })
     public ResponseEntity<String> addUsersToSchedule(@RequestBody Long[] id, @PathVariable String date){
     	LocalDate localDate = LocalDate.parse(date);
         for (Long ids : id) {

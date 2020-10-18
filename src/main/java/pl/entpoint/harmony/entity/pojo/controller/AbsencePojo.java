@@ -1,8 +1,9 @@
-package pl.entpoint.harmony.entity.pojo;
+package pl.entpoint.harmony.entity.pojo.controller;
 
 import java.time.LocalDate;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Mateusz Dąbek
@@ -10,7 +11,7 @@ import lombok.Data;
  * 
  */
 
-@Data
+@Data @NoArgsConstructor
 public class AbsencePojo {
 	private Long id;
     private Long employee;

@@ -10,12 +10,11 @@ import java.util.List;
  * @created 03/02/2020
  */
 public interface ScheduleService {
-
     Schedule getScheduleByDate(LocalDate date);
     List<Schedule> getActiveSchedules();
     List<Schedule> getSchedules();
+    List<Schedule> getMySchedules(String login);
+    boolean isActive(LocalDate date);
     void changeStatus(Long id, boolean active, boolean visible);
     void createSchedule(LocalDate date);
-    boolean isActive(LocalDate date);
-	List<Schedule> getMySchedules(String login);
 }

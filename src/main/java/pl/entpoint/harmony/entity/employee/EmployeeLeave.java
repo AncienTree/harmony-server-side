@@ -10,8 +10,6 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.entpoint.harmony.auditing.AuditEntity;
 
-import java.io.Serializable;
-
 /**
  * @author Mateusz Dąbek
  * @created 14/11/2019
@@ -22,11 +20,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "employee_leave", schema = "employee")
 @Getter @Setter @NoArgsConstructor @ToString
-public class EmployeeLeave extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = 3145073070391952073L;
-
+public class EmployeeLeave extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="employee_leave_sqe", sequenceName="employee.employee_leave_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employee_leave_sqe")
     private Long id;
 
     @Transient

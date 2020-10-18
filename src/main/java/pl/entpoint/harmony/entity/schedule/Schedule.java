@@ -8,7 +8,6 @@ import pl.entpoint.harmony.entity.settings.DayOff;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,11 +19,10 @@ import java.util.List;
 @Entity
 @Table(name = "schedule", schema = "schedule")
 @Getter @Setter @NoArgsConstructor
-public class Schedule extends AuditEntity implements Serializable, Comparable<Schedule> {
-	private static final long serialVersionUID = 1315074368792278981L;
-
+public class Schedule extends AuditEntity implements Comparable<Schedule> {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="schedule_sqe", sequenceName="schedule.schedule_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="schedule_sqe")
     private Long id;
 
     @Column(name = "schedule_date")
@@ -41,12 +39,6 @@ public class Schedule extends AuditEntity implements Serializable, Comparable<Sc
     
     @Transient
     private int rbh;
-
-    public Schedule(LocalDate scheduleDate) {
-        this.scheduleDate = scheduleDate;
-        this.active = true;
-        this.visible = true;
-    }
 
     @Override
     public int compareTo(Schedule schedule) {

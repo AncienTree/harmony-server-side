@@ -21,20 +21,17 @@ import java.util.Map;
 @Component
 @Slf4j
 public class CustomToken implements TokenEnhancer {
-	
-	@Autowired
+
+    @Autowired
     private EmployeeService employeeService;
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
-        String fullname = employeeService.getFullNameByLogin(oAuth2Authentication.getName());
+        String fullName = employeeService.getFullNameByLogin(oAuth2Authentication.getName());
 
-        log.info("Użytkownik " + fullname + " zalogował się do systemu.");
+        log.info("Użytkownik " + fullName + " zalogował się do systemu.");
         Map<String, Object> infoToken = new HashMap<>();
-
-        // Dodatkowe pola w payload JWT
-        infoToken.put("organization", "TODO jakaś nazwa");
-        infoToken.put("name", fullname);
+        infoToken.put("name", fullName);
 
         ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(infoToken);
         return oAuth2AccessToken;

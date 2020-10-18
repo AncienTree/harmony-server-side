@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import pl.entpoint.harmony.entity.employee.Employee;
-import pl.entpoint.harmony.entity.pojo.AbsencePojo;
+import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 
 /**
@@ -15,13 +15,12 @@ import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
  */
 
 public interface AbsenceRecordService {
-	
 	List<AbsenceRecord> getAll();
 	List<AbsenceRecord> getEmployeeRequests(Long id);
 	List<AbsenceRecord> getMyRequests(Principal principal);
-	void submiteRequest(List<AbsencePojo> recordd, String login);
-	void acceptRequest(Long id, Principal principal);
-	void declineRequest(Long id); 
 	boolean isAlreadyInDb(Employee employee, LocalDate date);
+	void submitRequest(List<AbsencePojo> record, String login);
+	void acceptRequest(Long id, Principal principal);
+	void declineRequest(Long id);
 
 }

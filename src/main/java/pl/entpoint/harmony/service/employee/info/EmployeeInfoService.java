@@ -1,8 +1,7 @@
 package pl.entpoint.harmony.service.employee.info;
 
 import pl.entpoint.harmony.entity.employee.EmployeeInfo;
-
-import java.util.Map;
+import pl.entpoint.harmony.entity.pojo.controller.InfoPojo;
 
 /**
  * @author Mateusz Dąbek
@@ -11,5 +10,5 @@ import java.util.Map;
 
 public interface EmployeeInfoService {
     EmployeeInfo getEmployeeInfo(Long id);
-    void change(Map<String, String> employeeInfo);
+    void change(InfoPojo employeeInfo);
 }

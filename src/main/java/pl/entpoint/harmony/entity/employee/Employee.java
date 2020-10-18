@@ -1,6 +1,5 @@
 package pl.entpoint.harmony.entity.employee;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.*;
@@ -16,7 +15,9 @@ import lombok.Setter;
 import lombok.ToString;
 import pl.entpoint.harmony.auditing.AuditEntity;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
+import pl.entpoint.harmony.entity.pojo.controller.EmployeePojo;
 import pl.entpoint.harmony.entity.user.User;
+import pl.entpoint.harmony.util.EncryptionData;
 
 /**
  * @author Mateusz Dąbek
@@ -27,11 +28,10 @@ import pl.entpoint.harmony.entity.user.User;
 @Table(name = "employees", schema = "employee")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Getter @Setter @NoArgsConstructor @ToString
-public class Employee extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = -7862141771762074429L;
-
+public class Employee extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="employees_sqe", sequenceName="employee.employees_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="employees_sqe")
     private Long id;
 
     @Column(name = "first_name")
@@ -145,7 +145,25 @@ public class Employee extends AuditEntity implements Serializable {
         this.created = false;
         this.activeAccount = true;
     }
-    
+
+    public Employee(EmployeePojo pojo) {
+        this(
+                pojo.getFirstName(),
+                pojo.getLastName(),
+                EncryptionData.encrypt(pojo.getPesel()),
+                pojo.getSex(),
+                pojo.getBirthday(),
+                pojo.getPosition(),
+                pojo.getContractPosition(),
+                pojo.getWorkStatus(),
+                pojo.getContractType(),
+                pojo.getBasicUnit(),
+                pojo.getUnit(),
+                pojo.getStartWorkDate(),
+                pojo.getStartContractDate()
+        );
+    }
+
     public void fire() {
     	this.birthday = null;
     	this.email = null;

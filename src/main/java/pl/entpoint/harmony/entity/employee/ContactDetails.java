@@ -1,11 +1,6 @@
 package pl.entpoint.harmony.entity.employee;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,8 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
-
-import java.io.Serializable;
 
 /**
  * @author Mateusz Dąbek
@@ -27,11 +20,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "contact_details", schema = "employee")
 @Getter @Setter @NoArgsConstructor
-public class ContactDetails extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = 7373634928251884422L;
-
+public class ContactDetails extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="contact_details_sqe", sequenceName="employee.contact_details_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="contact_details_sqe")
     private Long id;
 
     private String address;

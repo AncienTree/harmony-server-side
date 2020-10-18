@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.pojo.controller.ContractPojo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * @author Mateusz Dąbek
@@ -18,11 +18,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "contract_type", schema = "settings")
 @Getter @Setter @NoArgsConstructor
-public class ContractType extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = 118698729771543703L;
-
+public class ContractType extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name="contract_type_sqe", sequenceName="settings.contract_type_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="contract_type_sqe")
     private Long id;
 
     @Column(unique = true)
@@ -30,13 +29,7 @@ public class ContractType extends AuditEntity implements Serializable {
     @Size(max = 50)
     private String name;
 
-	public ContractType(Long id, String name) {
-		
-		if(id < 1 || id == null) {
-			this.id = 0L;
-		} else {
-			this.id = id;
-		}		
-		this.name = name;
+	public ContractType(ContractPojo contractPojo) {
+		this.name = contractPojo.getName();
 	}    
 }

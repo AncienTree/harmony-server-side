@@ -15,9 +15,7 @@ import java.util.List;
 
 @Repository
 public interface ScheduleSummaryRepository extends JpaRepository<ScheduleSummary, Long> {
-
     ScheduleSummary findByScheduleDateAndEmployee(LocalDate date, Employee employee);
-
     List<ScheduleSummary> findByScheduleDate(LocalDate date);
     List<ScheduleSummary> findByEmployee(Employee employee);
 }

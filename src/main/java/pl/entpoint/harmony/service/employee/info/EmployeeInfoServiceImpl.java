@@ -1,11 +1,11 @@
 package pl.entpoint.harmony.service.employee.info;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeInfo;
+import pl.entpoint.harmony.entity.pojo.controller.InfoPojo;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -14,48 +14,33 @@ import java.util.Optional;
  */
 
 @Service
+@AllArgsConstructor
 public class EmployeeInfoServiceImpl implements EmployeeInfoService{
 
     final EmployeeInfoRepository employeeInfoRepository;
 
-    @Autowired
-    public EmployeeInfoServiceImpl(EmployeeInfoRepository employeeInfoRepository) {
-        this.employeeInfoRepository = employeeInfoRepository;
-    }
-
     @Override
     public EmployeeInfo getEmployeeInfo(Long id) {
-        return employeeInfoRepository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
+        return employeeInfoRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     @Override
-    public void change(Map<String, String> employeeInfo) {
-        Long id = Long.parseLong(employeeInfo.get("id"));
-        Optional<EmployeeInfo> info = Optional.ofNullable(employeeInfoRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException(id)));
-        EmployeeInfo emplInfo = null;
-        if (info.isPresent()){
-            emplInfo = info.get();
-        }
+    public void change(InfoPojo info) {
+        EmployeeInfo employeeInfo = employeeInfoRepository.findById(info.getId())
+                        .orElseThrow(() -> new EmployeeNotFoundException(info.getId()));
 
-        // Zmiany
-        assert emplInfo != null;
+        employeeInfo.setAgreement(info.isAgreement());
+        employeeInfo.setPpk(info.isPpk());
+        employeeInfo.setHeadphones(info.isHeadphones());
+        employeeInfo.setLocker(info.getLocker());
+        employeeInfo.setIdCard(info.getIdCard());
+        employeeInfo.setParkingCard(info.getParkingCard());
+        employeeInfo.setInfo1(info.getInfo1());
+        employeeInfo.setInfo2(info.getInfo2());
+        employeeInfo.setInfo3(info.getInfo3());
+        employeeInfo.setInfo4(info.getInfo4());
 
-        boolean agreement = Boolean.parseBoolean(employeeInfo.get("agreement"));
-        boolean ppk = Boolean.parseBoolean(employeeInfo.get("ppk"));
-        boolean headphones = Boolean.parseBoolean(employeeInfo.get("headphones"));
-
-        emplInfo.setAgreement(agreement);
-        emplInfo.setPpk(ppk);
-        emplInfo.setHeadphones(headphones);
-        emplInfo.setLocker(employeeInfo.get("locker"));
-        emplInfo.setIdCard(employeeInfo.get("idCard"));
-        emplInfo.setParkingCard(employeeInfo.get("parkingCard"));
-        emplInfo.setInfo1(employeeInfo.get("info1"));
-        emplInfo.setInfo2(employeeInfo.get("info2"));
-        emplInfo.setInfo3(employeeInfo.get("info3"));
-        emplInfo.setInfo4(employeeInfo.get("info4"));
-
-        employeeInfoRepository.save(emplInfo);
+        employeeInfoRepository.save(employeeInfo);
     }
 }

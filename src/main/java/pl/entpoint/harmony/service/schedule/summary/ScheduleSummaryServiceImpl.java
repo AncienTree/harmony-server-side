@@ -1,6 +1,6 @@
 package pl.entpoint.harmony.service.schedule.summary;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,7 @@ import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.ScheduleService;
 import pl.entpoint.harmony.service.user.UserService;
+import pl.entpoint.harmony.util.exception.schedule.ScheduleExistException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,26 +26,27 @@ import java.util.Optional;
  */
 
 @Service
-public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
+@AllArgsConstructor
+public class ScheduleSummaryServiceImpl implements ScheduleSummaryService {
 
     final ScheduleSummaryRepository scheduleSummaryRepository;
     final ScheduleService scheduleService;
     final EmployeeService employeeService;
     final UserService userService;
 
-    @Autowired
-    public ScheduleSummaryServiceimpl(ScheduleSummaryRepository scheduleSummaryRepository,
-			EmployeeService employeeService, ScheduleService scheduleService, UserService userService) {
-		this.userService = userService;
-		this.scheduleSummaryRepository = scheduleSummaryRepository;
-		this.employeeService = employeeService;
-		this.scheduleService = scheduleService;
-	}
-
     @Override
     public ScheduleSummary getScheduleByDateAndEmployee(LocalDate date, Employee employee) {
         return scheduleSummaryRepository.findByScheduleDateAndEmployee(date, employee);
     }
+
+	@Override
+	public ScheduleSummary getMySchedule(LocalDate localDate, String name) {
+		Employee employee = loginToEntity(name).getEmployee();
+
+		ScheduleSummary summary = getScheduleByDateAndEmployee(localDate, employee);
+		summary.setSimpleEmployee(new SimpleEmployee(employee));
+		return  summary;
+	}
 
 	@Override
     public List<ScheduleSummary> getScheduleByDate(LocalDate date) {
@@ -56,15 +58,13 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
     	return scheduleSummaryRepository.findByEmployee(loginToEntity(login).getEmployee());
 	}
 
-	
-
 	@Override
     public void create(LocalDate date, Employee employee) {
         Optional<ScheduleSummary> scheduleSummary = Optional.ofNullable(getScheduleByDateAndEmployee(date, employee));
         ScheduleSummary summary;
 
         if(scheduleSummary.isPresent()) {
-            throw new IllegalArgumentException("Dla danego użytkownika i daty istnieje już grafik.");
+            throw new ScheduleExistException();
         } else {
             summary = new ScheduleSummary(employee, date.toString());
             scheduleSummaryRepository.save(summary);
@@ -128,25 +128,8 @@ public class ScheduleSummaryServiceimpl implements ScheduleSummaryService {
 		}		
 	}
 
-	@Override
-	public ScheduleSummary getMySchedule(LocalDate localDate, String name) {
-		Employee tempEmpl = loginToEntity(name).getEmployee();
-		
-		ScheduleSummary summ = getScheduleByDateAndEmployee(localDate, tempEmpl);
-		summ.setSimpleEmployee(new SimpleEmployee(tempEmpl));
-		return  summ;
-	} 
-	
-	
 	private User loginToEntity(String login) {
-		User user;
-    	Optional<User> opt = Optional.of(userService.getUserByLogin(login));
-    	
-    	if(opt.isPresent()) {
-    		user = opt.get();
-    	} else {
-    		throw new UsernameNotFoundException("Nie znaleziono użytkownika o loginie " + login);
-    	}
-		return user;
-	}	
+		return Optional.of(userService.getUserByLogin(login))
+				.orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika o loginie " + login));
+	}
 }

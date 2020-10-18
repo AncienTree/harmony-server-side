@@ -8,7 +8,6 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,11 +20,10 @@ import java.util.List;
 @Entity
 @Table(name = "availability_summary", schema = "availability")
 @Getter @Setter @NoArgsConstructor
-public class AvailabilitySummary extends AuditEntity implements Serializable {
-	private static final long serialVersionUID = -41960536005894529L;
-
+public class AvailabilitySummary extends AuditEntity {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name="availability_summary_sqe", sequenceName="availability.availability_summary_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="availability_summary_sqe")
     private Long id;
 
     @OneToOne

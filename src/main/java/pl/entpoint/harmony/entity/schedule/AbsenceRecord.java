@@ -1,6 +1,5 @@
 package pl.entpoint.harmony.entity.schedule;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -37,10 +36,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 @Entity
 @Table(name = "absence_record", schema = "schedule")
 @Getter @Setter @NoArgsConstructor
-public class AbsenceRecord extends AuditEntity implements Serializable {
-	
-	private static final long serialVersionUID = 3111132921570984L;
-
+public class AbsenceRecord extends AuditEntity {
 	@Id
 	@SequenceGenerator(name="absence_record_sqe", sequenceName="schedule.absence_record_seq", allocationSize=1)
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="absence_record_sqe")

@@ -1,11 +1,14 @@
 package pl.entpoint.harmony.service.employee.leave;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
+import pl.entpoint.harmony.entity.pojo.controller.LeavePojo;
 
 import java.util.Map;
 
@@ -17,22 +20,22 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/employee/leave")
 @CrossOrigin(origins = "http://localhost:4200")
-@Slf4j
+@AllArgsConstructor
+@Api(tags = "Employee Leave Controller")
 public class EmployeeLeaveController {
     final EmployeeLeaveService employeeLeaveService;
 
-    @Autowired
-    public EmployeeLeaveController(EmployeeLeaveService employeeLeaveService) {
-        this.employeeLeaveService = employeeLeaveService;
-    }
-
     @GetMapping("/{id}")
+
+    @ApiOperation(value = "Get employee leaves id.", nickname = "Get employee leaves by id.")
+    @ApiImplicitParam(name = "id", value = "Employee leaves id", required = true, dataType = "Long", paramType = "path")
     public EmployeeLeave getEmployeeInfo(@PathVariable Long id){
         return employeeLeaveService.getEmployeeLeave(id);
     }
 
     @PatchMapping("/")
-    public ResponseEntity<String> saveChange(@RequestBody Map<String, String> employeeLeave){
+    @ApiOperation(value = "Change employee leaves.", nickname = "Change employee leaves.")
+    public ResponseEntity<String> saveChange(@RequestBody LeavePojo employeeLeave){
         employeeLeaveService.change(employeeLeave);
         return new ResponseEntity<>("Dane urlopowe zostały zapisane.", HttpStatus.OK);
     }

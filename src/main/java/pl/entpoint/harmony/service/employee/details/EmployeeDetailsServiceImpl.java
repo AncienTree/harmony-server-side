@@ -1,12 +1,12 @@
 package pl.entpoint.harmony.service.employee.details;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeDetails;
+import pl.entpoint.harmony.entity.pojo.controller.DetailsPojo;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -15,14 +15,10 @@ import java.util.Optional;
  */
 
 @Service
+@AllArgsConstructor
 public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
 
     final EmployeeDetailsRepository employeeDetailsRepository;
-
-    @Autowired
-    public EmployeeDetailsServiceImpl(EmployeeDetailsRepository employeeDetailsRepository) {
-        this.employeeDetailsRepository = employeeDetailsRepository;
-    }
 
     @Override
     public EmployeeDetails getEmployeeDetails(Long id) {
@@ -30,34 +26,24 @@ public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
     }
 
     @Override
-    public void change(Map<String, String> employeeDetails) {
-        Long id = Long.parseLong(employeeDetails.get("id"));
-        Optional<EmployeeDetails> details = Optional.ofNullable(employeeDetailsRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException(id)));
-        EmployeeDetails emplDeta = null;
-        if (details.isPresent()){
-            emplDeta = details.get();
-        }
+    public void change(DetailsPojo data) {
+        EmployeeDetails employeeDetails = employeeDetailsRepository.findById(data.getId())
+                .orElseThrow(() -> new EmployeeNotFoundException(data.getId()));
 
-        // Zmiany
-        assert emplDeta != null;
+        employeeDetails.setLtId(data.getLtId());
+        employeeDetails.setLtLogin(data.getLtLogin());
+        employeeDetails.setCrmLogin(data.getCrmLogin());
+        employeeDetails.setCrmAccountExpirationDate(data.getCrmAccountExpirationDate());
+        employeeDetails.setUserLine(data.getUserLine());
+        employeeDetails.setUserSection(data.getUserSection());
+        employeeDetails.setFte(data.getFte());
+        employeeDetails.setFteStart(data.getFteStart());
+        employeeDetails.setGoal1(data.getGoal1());
+        employeeDetails.setGoal2(data.getGoal2());
+        employeeDetails.setGoal3(data.getGoal3());
+        employeeDetails.setGoal4(data.getGoal4());
+        employeeDetails.setGoal5(data.getGoal5());
 
-        LocalDate crmExp = LocalDate.parse(employeeDetails.get("crmExp"));
-
-        emplDeta.setLtId(employeeDetails.get("ltId"));
-        emplDeta.setLtLogin(employeeDetails.get("ltLogin"));
-        emplDeta.setCrmLogin(employeeDetails.get("crmLogin"));
-        emplDeta.setCrmAccountExpirationDate(crmExp);
-        emplDeta.setUserLine(employeeDetails.get("userLine"));
-        emplDeta.setUserSection(employeeDetails.get("userSection"));
-        emplDeta.setFte(employeeDetails.get("fte"));
-        emplDeta.setFteStart(employeeDetails.get("fteStart"));
-        emplDeta.setGoal1(employeeDetails.get("goal1"));
-        emplDeta.setGoal2(employeeDetails.get("goal2"));
-        emplDeta.setGoal3(employeeDetails.get("goal3"));
-        emplDeta.setGoal4(employeeDetails.get("goal4"));
-        emplDeta.setGoal5(employeeDetails.get("goal5"));
-
-        employeeDetailsRepository.save(emplDeta);
+        employeeDetailsRepository.save(employeeDetails);
     }
 }

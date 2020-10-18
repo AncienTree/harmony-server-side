@@ -1,6 +1,9 @@
 package pl.entpoint.harmony.service.schedule;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
+import pl.entpoint.harmony.entity.pojo.SchedulePojo;
 import pl.entpoint.harmony.entity.schedule.Schedule;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
@@ -15,7 +19,6 @@ import pl.entpoint.harmony.service.schedule.summary.ScheduleSummaryService;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Mateusz Dąbek
@@ -25,54 +28,51 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/schedule")
 @CrossOrigin(origins = "http://localhost:4200")
-@Slf4j
+@Slf4j @AllArgsConstructor
+@Api(tags = "Schedule Controller")
 public class ScheduleController {
 
 	final ScheduleService scheduleService;
 	final ScheduleSummaryService scheduleSummaryService;
 	final EmployeeService employeeService;
 
-	@Autowired
-	public ScheduleController(ScheduleService scheduleService, ScheduleSummaryService scheduleSummaryService,
-							  EmployeeService employeeService) {
-		this.scheduleService = scheduleService;
-		this.scheduleSummaryService = scheduleSummaryService;
-		this.employeeService = employeeService;
-	}
-
-	@GetMapping("listSchedule")
+	@GetMapping("/")
+	@ApiOperation(value = "Get all active schedules.", nickname = "Get all active schedules.")
 	public List<Schedule> activeScheduleList() {
 		return scheduleService.getActiveSchedules();
 	}
 	
-	@GetMapping("listMySchedule")
+	@GetMapping("/my")
+	@ApiOperation(value = "Get all my schedules.", nickname = "Get all my schedules.")
 	public List<Schedule> MyScheduleList(Principal principal) {
 		return scheduleService.getMySchedules(principal.getName());
 	}
 
-	@GetMapping("all")
+	@GetMapping("/all")
+	@ApiOperation(value = "Get all schedules.", nickname = "Get all schedules.")
 	public List<Schedule> ScheduleLists() {
 		return scheduleService.getSchedules();
 	}
 
-	@PatchMapping("changeStatus")
-	public ResponseEntity<String> changestatus(@RequestBody Map<String, String> body) {
+	@PatchMapping("/")
+	@ApiOperation(value = "Update schedule.", nickname = "Update schedule.")
+	@ApiImplicitParam(name = "schedule", value = "Schedule body", required = true, dataType = "SchedulePojo", paramType = "body")
+	public ResponseEntity<String> changestatus(@RequestBody SchedulePojo schedule) {
 		log.info("Zmiana statusu grafiku");
-		log.debug(body.toString());
-		boolean active = Boolean.parseBoolean(body.get("active"));
-		boolean visible = Boolean.parseBoolean(body.get("visible"));
-
-		if (active && !visible) {
+		log.debug(schedule.toString());
+		if (schedule.isActive() && !schedule.isVisible()) {
 			log.warn("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.");
 			return new ResponseEntity<>("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.", HttpStatus.BAD_REQUEST);
 		}
 
 		log.info("Wysłanie do serwisu zmiane grafiku");
-		scheduleService.changeStatus(Long.parseLong(body.get("id")), active, visible);
-		return new ResponseEntity<>("Zmieniono statusy dla grafiku o id " + body.get("id"), HttpStatus.OK);
+		scheduleService.changeStatus(schedule.getId(), schedule.isActive(), schedule.isVisible());
+		return new ResponseEntity<>("Zmiana grafiku została zapisana", HttpStatus.OK);
 	}
 
-	@PostMapping("create")
+	@PostMapping("/")
+	@ApiOperation(value = "Create new schedule.", nickname = "Create new schedule.")
+	@ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "body")
 	public ResponseEntity<String> createSchedule(@RequestBody String date) {
 		scheduleService.createSchedule(LocalDate.parse(date));
 		List<Employee> employees = employeeService.getEmployeesByStatus(WorkStatus.WORK);

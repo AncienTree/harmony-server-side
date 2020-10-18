@@ -15,7 +15,6 @@ import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor
 public class EmployeeScheduleList {
-
 	private LocalDate scheduleDate;
 	private List<SimpleEmployee> employees;
 }
