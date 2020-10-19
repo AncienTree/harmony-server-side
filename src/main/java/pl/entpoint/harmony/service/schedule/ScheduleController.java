@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
@@ -73,6 +74,7 @@ public class ScheduleController {
 	@PostMapping("/")
 	@ApiOperation(value = "Create new schedule.", nickname = "Create new schedule.")
 	@ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "body")
+	@Transactional
 	public ResponseEntity<String> createSchedule(@RequestBody String date) {
 		scheduleService.createSchedule(LocalDate.parse(date));
 		List<Employee> employees = employeeService.getEmployeesByStatus(WorkStatus.WORK);

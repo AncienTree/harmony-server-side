@@ -104,9 +104,15 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public void createSchedule(LocalDate date) {
-        Schedule schedule = Optional.ofNullable(scheduleRepository.findByScheduleDate(date))
-                .orElseThrow(() -> new ScheduleExistException(date));
+        Optional<Schedule> optionalSchedule = Optional.ofNullable(scheduleRepository.findByScheduleDate(date));
+        if (optionalSchedule.isEmpty()) {
+            Schedule schedule = new Schedule();
+            schedule.setScheduleDate(date);
 
-        scheduleRepository.save(schedule);
+            scheduleRepository.save(schedule);
+        } else {
+            throw new ScheduleExistException();
+        }
+
     }
 }

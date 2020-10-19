@@ -117,6 +117,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public String getFullNameByLogin(String login) {
+        if (login.equals("administrator") || login.equals("hr")) {
+            return "SYSTEM";
+        }
         User tempUser = userService.getUserByLogin(login);
         Employee tempEmployee = getEmployeeDecrypted(tempUser.getEmployee().getId());
 

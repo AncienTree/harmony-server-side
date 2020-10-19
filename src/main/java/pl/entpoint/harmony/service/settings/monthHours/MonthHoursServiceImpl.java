@@ -29,10 +29,16 @@ public class MonthHoursServiceImpl implements MonthHoursService {
     @Override
     public int checkMonthHours(LocalDate date) {
         String dateString = String.valueOf(date.getYear());
-        MonthHours monthHours = Optional.of(monthHoursRepository.findByYear(dateString))
-                .orElseThrow(MonthHoursNotFoundException::new);
+        Optional<MonthHours> monthHours = Optional.ofNullable(monthHoursRepository.findByYear(dateString));
+        MonthHours hours;
 
-        return monthHours.getRbh(date.getMonthValue());
+        if (monthHours.isPresent()) {
+            hours = monthHours.get();
+        } else {
+            return 0;
+        }
+
+        return hours.getRbh(date.getMonthValue());
     }
 
     @Override
