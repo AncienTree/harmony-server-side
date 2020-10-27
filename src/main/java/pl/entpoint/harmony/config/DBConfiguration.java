@@ -40,17 +40,6 @@ public class DBConfiguration {
         this.env = env;
     }
 
-    @PostConstruct
-    void started() {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-    }
-
-    /*
-     *
-     * Beans
-     *
-     */
-
     @Profile("dev")
     @Bean
     public String devDatabaseConnection() {

@@ -1,27 +1,25 @@
 package pl.entpoint.harmony.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import pl.entpoint.harmony.config.filter.JsonObjectAuthenticationFilter;
+import pl.entpoint.harmony.config.filter.JwtAuthorizationFilter;
+import pl.entpoint.harmony.config.login.RestAuthFailureHandler;
+import pl.entpoint.harmony.config.login.RestAuthSuccessHandler;
 import pl.entpoint.harmony.service.CustomDetailsService;
-import pl.entpoint.harmony.util.token.CustomAccessTokenConverter;
+
+import javax.sql.DataSource;
 
 /**
  * @author Mateusz Dąbek
@@ -30,73 +28,27 @@ import pl.entpoint.harmony.util.token.CustomAccessTokenConverter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Value("${security.signing-key}")
-    private String signingKey;
-    @Value("${security.security-realm}")
-    private String securityRealm;
 
-    private CustomDetailsService customDetailsService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private CustomAccessTokenConverter customAccessTokenConverter;
+    private final DataSource dataSource;
+    private final ObjectMapper objectMapper;
+    private final RestAuthSuccessHandler successHandler;
+    private final RestAuthFailureHandler failureHandler;
+    private final CustomDetailsService detailsService;
 
-    /*
-     *
-     * Setter-based dependency injection
-     * Constructor causes Circular dependencies
-     *
-     */
+    @Value("${jwt.secret}")
+    private String secret;
 
-    @Autowired
-    public void setCustomDetailsService(CustomDetailsService customDetailsService) {
-        this.customDetailsService = customDetailsService;
-    }
-
-    @Autowired
-    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    @Autowired
-    public void setCustomAccessTokenConverter(CustomAccessTokenConverter customAccessTokenConverter) {
-        this.customAccessTokenConverter = customAccessTokenConverter;
-    }
-
-    /*
-     *
-     * Beans
-     *
-     */
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setPasswordEncoder(bCryptPasswordEncoder() );
-        provider.setUserDetailsService(customDetailsService);
-        return provider;
-    }
-
-    @Bean
-    public TokenStore tokenStore(){
-        return new JwtTokenStore(defaultAccessTokenConverter());
-    }
-
-    @Bean
-    public JwtAccessTokenConverter defaultAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setAccessTokenConverter(customAccessTokenConverter);
-        converter.setSigningKey(signingKey);
-        return converter;
-    }
-
-    @Bean
-    @Primary
-    public DefaultTokenServices tokenServices() {
-        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
-        defaultTokenServices.setTokenStore(tokenStore());
-        defaultTokenServices.setSupportRefreshToken(true);
-        return defaultTokenServices;
+    public WebSecurityConfig(DataSource dataSource,
+                             ObjectMapper objectMapper,
+                             RestAuthSuccessHandler successHandler,
+                             RestAuthFailureHandler failureHandler,
+                             CustomDetailsService detailsService) {
+        this.dataSource = dataSource;
+        this.objectMapper = objectMapper;
+        this.successHandler = successHandler;
+        this.failureHandler = failureHandler;
+        this.detailsService = detailsService;
     }
 
     @Bean
@@ -104,62 +56,39 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-//    TODO whitelist IP
-//    @Bean
-//    public FilterRegistrationBean remoteAddressFilter() {
-//
-//        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
-//        RemoteAddrFilter filter = new RemoteAddrFilter();
-//
-//        //filter.setAllow("192.168.0.2");
-//        filter.setDenyStatus(403);
-//
-//        filterRegistrationBean.setFilter(filter);
-//        filterRegistrationBean.addUrlPatterns("/*");
-//
-//        return filterRegistrationBean;
-//
-//    }
-
-    /*
-     *
-     * Methods
-     *
-     */
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);
-    }
-
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**",
-                "/actuator/health");
+        auth.userDetailsService(detailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable();
         http
-        		.csrf().disable()
-                .cors()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                .and().httpBasic().realmName(securityRealm)
-                .and().authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/oauth/token").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "/**").authenticated()
-                .anyRequest().authenticated();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(authenticationFilter())
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), detailsService, secret))
+                .exceptionHandling()
+                .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .and()
+                .headers().frameOptions().disable();
+    }
+
+    private JsonObjectAuthenticationFilter authenticationFilter() throws Exception {
+        JsonObjectAuthenticationFilter authenticationFilter = new JsonObjectAuthenticationFilter(objectMapper);
+        authenticationFilter.setAuthenticationSuccessHandler(successHandler);
+        authenticationFilter.setAuthenticationFailureHandler(failureHandler);
+        authenticationFilter.setAuthenticationManager(super.authenticationManager());
+        return authenticationFilter;
     }
 }
