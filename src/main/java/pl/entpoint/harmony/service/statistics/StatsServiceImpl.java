@@ -34,6 +34,10 @@ public class StatsServiceImpl implements StatsService {
 		User user = Optional.ofNullable(userService.getUserByLogin(principal.getName()))
 				.orElseThrow(() -> new UserNotFoundException(principal.getName()));
 
+		if (user.getLogin().equals("administrator") || user.getLogin().equals("kadry")) {
+			return new Stats();
+		}
+
 		return getStats(user.getEmployee());
 	}
 
@@ -47,6 +51,7 @@ public class StatsServiceImpl implements StatsService {
 	
 	private Stats getStats(Employee employee) {
 		Stats stats = new Stats();
+
 		stats.setLeaves(employee.getEmployeeLeave().getTotal());
 		stats.setCurrentMonthHours(mHoursService.checkMonthHours(DATE));
 		stats.setCurrentMonthWorkedHours(recordService.getCurrentMonthStatus(employee, "work", DATE));
