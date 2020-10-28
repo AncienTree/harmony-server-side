@@ -33,7 +33,7 @@ public class AppConfig {
     @Bean
     public Docket get() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .select().paths(PathSelectors.ant("/api/**"))
+                .select().paths(PathSelectors.ant("/**"))
                 .apis(RequestHandlerSelectors.basePackage("pl.entpoint.harmony.service"))
                 .build()
                 .apiInfo(apiInfo())
