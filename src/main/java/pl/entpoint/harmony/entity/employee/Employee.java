@@ -122,7 +122,7 @@ public class Employee extends AuditEntity {
     private boolean activeAccount;
 
     public Employee(String firstName, String lastName, String pesel, String sex, LocalDate birthday, String position,
-                    String contractPosition, WorkStatus workStatus, String contractType, String basicUnit, String unit,
+                    String contractPosition, String contractType, String basicUnit, String unit,
                     LocalDate startWorkDate, LocalDate startContractDate) {
         this.employeeDetails = new EmployeeDetails();
         this.contactDetails = new ContactDetails();
@@ -136,7 +136,7 @@ public class Employee extends AuditEntity {
         this.birthday = birthday;
         this.position = position;
         this.contractPosition = contractPosition;
-        this.workStatus = workStatus;
+        this.workStatus = WorkStatus.WORK;
         this.contractType = contractType;
         this.basicUnit = basicUnit;
         this.unit = unit;
@@ -155,7 +155,6 @@ public class Employee extends AuditEntity {
                 pojo.getBirthday(),
                 pojo.getPosition(),
                 pojo.getContractPosition(),
-                pojo.getWorkStatus(),
                 pojo.getContractType(),
                 pojo.getBasicUnit(),
                 pojo.getUnit(),
