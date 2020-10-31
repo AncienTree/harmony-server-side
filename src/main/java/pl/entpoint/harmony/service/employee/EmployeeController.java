@@ -76,9 +76,8 @@ public class EmployeeController {
     @GetMapping("/hr/{pesel}")
     @ApiOperation(value = "Get employee by PESEL.", nickname = "Get employee by PESEL.")
     @ApiImplicitParam(name = "pesel", value = "PESEL", required = true, dataType = "String", paramType = "path")
-    public boolean getEmployeeByPesel(@PathVariable String pesel) {
-        Optional<Employee> employee = Optional.ofNullable(employeeService.getEmployeeByPesel(pesel));
-        return employee.isPresent();
+    public SimpleEmployee getEmployeeByPesel(@PathVariable String pesel) {
+        return new SimpleEmployee(employeeService.getEmployeeByPesel(pesel));
     }
 
     @PostMapping("/")
@@ -96,7 +95,16 @@ public class EmployeeController {
     public ResponseEntity<String> fire(@RequestBody Long id) {
         employeeService.fireEmployee(id);
         
-        return new ResponseEntity<>("Użytkownik został zwolniony: ", HttpStatus.OK);
+        return new ResponseEntity<>("Użytkownik został zwolniony", HttpStatus.OK);
+    }
+
+    @PostMapping("/restore")
+    @ApiOperation(value = "Restore employee.", nickname = "Restore employee.")
+    @ApiImplicitParam(name = "id", value = "Employee id", required = true, dataType = "Long", paramType = "body")
+    public ResponseEntity<String> restore(@RequestBody Long id) {
+        employeeService.restoreEmployee(id);
+
+        return new ResponseEntity<>("Użytkownik został przywrócony", HttpStatus.OK);
     }
 
     @PatchMapping("/")

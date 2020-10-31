@@ -31,4 +31,5 @@ public interface EmployeeService {
     void newEmployee(EmployeePojo body);
     void change(EmployeePojo employee);
     void fireEmployee(Long id);
+    void restoreEmployee(Long id);
 }

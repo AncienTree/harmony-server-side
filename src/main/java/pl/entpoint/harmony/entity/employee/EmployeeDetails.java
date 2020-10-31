@@ -77,4 +77,9 @@ public class EmployeeDetails extends AuditEntity {
     	this.goal4 = null;
     	this.goal5 = null;    	
     }
+
+    public void restore() {
+        this.userLine = null;
+        this.userSection = null;
+    }
 }

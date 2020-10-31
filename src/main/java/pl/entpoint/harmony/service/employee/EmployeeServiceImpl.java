@@ -17,6 +17,7 @@ import pl.entpoint.harmony.util.EncryptionData;
 import pl.entpoint.harmony.util.LoginConverter;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotWorkingException;
+import pl.entpoint.harmony.util.exception.employee.EmployeeWorkingException;
 
 /**
  * @author Mateusz Dąbek
@@ -164,5 +165,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     	employee.getContactDetails().fire();
     	
     	employeeRepository.save(employee);
+    }
+
+    @Override
+    public void restoreEmployee(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+
+        if(employee.getWorkStatus() != WorkStatus.NOT_WORK){
+            throw new EmployeeWorkingException();
+        }
+        employee.restore();
+        employee.getEmployeeDetails().restore();
+
+        employeeRepository.save(employee);
     }
 }

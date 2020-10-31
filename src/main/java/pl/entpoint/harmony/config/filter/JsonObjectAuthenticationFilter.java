@@ -1,7 +1,7 @@
 package pl.entpoint.harmony.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -43,6 +43,9 @@ public class JsonObjectAuthenticationFilter extends UsernamePasswordAuthenticati
             return this.getAuthenticationManager().authenticate(token);
         } catch (IOException e) {
             throw new IllegalArgumentException(e.getMessage());
+        } catch (InternalAuthenticationServiceException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
         }
     }
 }

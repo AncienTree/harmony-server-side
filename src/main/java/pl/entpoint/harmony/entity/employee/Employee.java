@@ -179,5 +179,13 @@ public class Employee extends AuditEntity {
     	this.workStatus = WorkStatus.NOT_WORK;
     	this.user.setStatus(false);
     }
+
+    public void restore() {
+        this.endWorkDate = null;
+        this.activeAccount = true;
+        this.startWorkDate = LocalDate.now();
+        this.workStatus = WorkStatus.WORK;
+        this.user.setStatus(true);
+    }
 }
 	
