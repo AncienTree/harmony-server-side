@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
 
 /**
  * @author Mateusz Dąbek
@@ -17,5 +18,6 @@ public class AbsencePojo {
     private Long employee;
     private LocalDate workDate;
     private String acceptedBy;
-    private boolean visible;
+    private String text;
+    private AbsenceStatus status;
 }

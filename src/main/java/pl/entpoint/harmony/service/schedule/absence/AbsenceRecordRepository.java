@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
+import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
 
 /**
  * @author Mateusz Dąbek
@@ -18,6 +19,7 @@ import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 @Repository
 public interface AbsenceRecordRepository extends JpaRepository<AbsenceRecord, Long> {
 	AbsenceRecord findByEmployeeAndWorkDate(Employee employee, LocalDate date);
-	List<AbsenceRecord> findByEmployeeAndVisibleTrue(Employee employee);
-	List<AbsenceRecord> findByVisibleTrue();
+	List<AbsenceRecord> findByStatusNot(AbsenceStatus status);
+	List<AbsenceRecord> findByStatus(AbsenceStatus status);
+	List<AbsenceRecord> findByEmployeeAndStatus(Employee employee, AbsenceStatus status);
 }

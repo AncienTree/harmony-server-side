@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
+import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.record.ScheduleRecordService;
 import pl.entpoint.harmony.service.user.UserService;
@@ -33,20 +34,20 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 
 	@Override
 	public List<AbsenceRecord> getAll() {
-		return absenceRepository.findByVisibleTrue();
+		return absenceRepository.findByStatus(AbsenceStatus.NOWY);
 	}
 
 	@Override
 	public List<AbsenceRecord> getEmployeeRequests(Long id) {
-		Employee temp = employeeService.getEmployeeNotDecrypted(id);
-		return absenceRepository.findByEmployeeAndVisibleTrue(temp);
+		Employee employee = employeeService.getEmployeeNotDecrypted(id);
+		return absenceRepository.findByEmployeeAndStatus(employee, AbsenceStatus.NOWY);
 	}
 
 	@Override
 	public List<AbsenceRecord> getMyRequests(Principal principal) {
-		Employee tmpEmployee = userService.getUserByLogin(principal.getName()).getEmployee();
+		Employee employee = userService.getUserByLogin(principal.getName()).getEmployee();
 
-		return absenceRepository.findByEmployeeAndVisibleTrue(tmpEmployee);
+		return absenceRepository.findByEmployeeAndStatus(employee, AbsenceStatus.NOWY);
 	}
 
 	@Override
@@ -65,6 +66,7 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 				AbsenceRecord rec = new AbsenceRecord();
 				rec.setEmployee(employee);
 				rec.setWorkDate(absencePojo.getWorkDate());
+				rec.setStatus(AbsenceStatus.NOWY);
 
 				absenceRepository.save(rec);
 			}
@@ -72,21 +74,31 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 	}
 
 	@Override
-	public void acceptRequest(Long id, Principal principal) {
+	public void acceptRequest(Long id) {
 		AbsenceRecord recordAccepted  = absenceRepository.findById(id)
 				.orElseThrow(() -> new AbsenceRequestNotFoundException(id));
 
-		recordAccepted.setAcceptedBy(principal.getName());
-		recordAccepted.setVisible(false);
-
+		recordAccepted.setStatus(AbsenceStatus.ZAAKCEPTOWANY);
 		// Stworzenie rekordu do grafiku z urlopem
 		scheduleRecordService.acceptAbsence(recordAccepted);
 
 		absenceRepository.save(recordAccepted);
 	}
 
+	//TODO zmienić principal na pole z klasy audyt
 	@Override
-	public void declineRequest(Long id) {
+	public void declineRequest(Long id, String description) {
+		AbsenceRecord recordAccepted  = absenceRepository.findById(id)
+				.orElseThrow(() -> new AbsenceRequestNotFoundException(id));
+
+		recordAccepted.setStatus(AbsenceStatus.ODRZUCONY);
+		recordAccepted.setText(description);
+
+		absenceRepository.save(recordAccepted);
+	}
+
+	@Override
+	public void deleteRequest(Long id) {
 		AbsenceRecord recordDeclined = absenceRepository.findById(id)
 				.orElseThrow(() -> new AbsenceRequestNotFoundException(id));
 

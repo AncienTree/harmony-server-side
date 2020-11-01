@@ -20,7 +20,8 @@ public interface AbsenceRecordService {
 	List<AbsenceRecord> getMyRequests(Principal principal);
 	boolean isAlreadyInDb(Employee employee, LocalDate date);
 	void submitRequest(List<AbsencePojo> record, String login);
-	void acceptRequest(Long id, Principal principal);
-	void declineRequest(Long id);
+	void acceptRequest(Long id);
+	void declineRequest(Long id, String description);
+	void deleteRequest(Long id);
 
 }

@@ -2,6 +2,7 @@ package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -67,19 +68,28 @@ public class AbsenceRecordController {
 	
 	@PostMapping("/accept")
 	@ApiOperation(value = "Accept absence request.", nickname = "Accept absence request.")
-	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "Long", paramType = "body")
-	public ResponseEntity<String> acceptRequest(@RequestBody Long id, Principal principal) {
-		absenceRecordService.acceptRequest(id, principal);
+	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "long", paramType = "body")
+	public ResponseEntity<String> acceptRequest(@RequestBody Long id) {
+		absenceRecordService.acceptRequest(id);
 		
 		return new ResponseEntity<>("Zaakceptowano wniosek urlopowy", HttpStatus.ACCEPTED);
 	}
 	
-	@DeleteMapping("/decline")
+	@PostMapping("/decline")
 	@ApiOperation(value = "Decline absence request.", nickname = "Decline absence request.")
-	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "Long", paramType = "body")
-	public ResponseEntity<String> declineRequest(@RequestBody Long id) {
-		absenceRecordService.declineRequest(id);
+	@ApiImplicitParam(name = "absence", value = "Absence body", dataType = "AbsencePojo" ,required = true, paramType = "body")
+	public ResponseEntity<String> declineRequest(@RequestBody AbsencePojo absence) {
+		absenceRecordService.declineRequest(absence.getId(), absence.getText());
 		
 		return new ResponseEntity<>("Odrzucono wniosek urlopowy", HttpStatus.OK);
+	}
+
+	@DeleteMapping("/")
+	@ApiOperation(value = "Decline absence request.", nickname = "Decline absence request.")
+	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "long", paramType = "body")
+	public ResponseEntity<String> deleteRequest(@RequestBody Long id) {
+		absenceRecordService.deleteRequest(id);
+
+		return new ResponseEntity<>("Usunięto wniosek urlopowy", HttpStatus.OK);
 	}
 }

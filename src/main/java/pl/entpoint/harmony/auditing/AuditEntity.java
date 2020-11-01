@@ -31,22 +31,18 @@ public abstract class AuditEntity {
 	
 	@CreatedDate
 	@Column(name = "created_date", nullable = false)
-    @JsonIgnore
     private Instant createdDate;
 	
     @LastModifiedDate
     @Column(name = "last_modified_date",nullable = false)
-    @JsonIgnore
     private Instant lastModifiedDate;
     
     @CreatedBy
     @Column(name = "created_by", nullable = false, updatable = false)
-    @JsonIgnore
     private String createdBy;
     
     @LastModifiedBy
     @Column(name = "last_modified_by", nullable = false)
-    @JsonIgnore
     private String lastModifiedBy;
 
 }
