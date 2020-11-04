@@ -19,8 +19,8 @@ import pl.entpoint.harmony.entity.employee.enums.WorkStatus;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Optional<Employee> findByPesel(String pesel);
     List<Employee> findByWorkStatus(WorkStatus status);
-    List<Employee> findByWorkStatusNot(WorkStatus status);
-    List<Employee> findByPositionAndWorkStatusNot(String position,WorkStatus status);
+    List<Employee> findByWorkStatusNotOrderByLastName(WorkStatus status);
+    List<Employee> findByPositionAndWorkStatusNotOrderByLastName(String position,WorkStatus status);
     List<Employee> findByWorkStatusAndStartWorkDateLessThanEqual(WorkStatus status, LocalDate date);
     Long countByWorkStatus(WorkStatus status);
 }

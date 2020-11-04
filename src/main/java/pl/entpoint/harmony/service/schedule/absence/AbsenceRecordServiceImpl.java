@@ -2,8 +2,8 @@ package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.time.Month;
+import java.util.*;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,10 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
+import pl.entpoint.harmony.entity.settings.UserSection;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.schedule.record.ScheduleRecordService;
+import pl.entpoint.harmony.service.settings.userSection.UserSectionService;
 import pl.entpoint.harmony.service.user.UserService;
 import pl.entpoint.harmony.util.exception.schedule.AbsenceRequestNotFoundException;
 
@@ -31,6 +33,7 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 	private final UserService userService;
 	private final EmployeeService employeeService;
 	private final ScheduleRecordService scheduleRecordService;
+	private final UserSectionService userSectionService;
 
 	@Override
 	public List<AbsenceRecord> getAll() {
@@ -44,10 +47,36 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 	}
 
 	@Override
-	public List<AbsenceRecord> getMyRequests(Principal principal) {
-		Employee employee = userService.getUserByLogin(principal.getName()).getEmployee();
+	public List<AbsenceRecord> getSectionRequests(Long id) {
+		UserSection section = userSectionService.getSectionById(id);
+		List<AbsenceRecord> records = getAll();
+		List<AbsenceRecord> filteredRecords = new ArrayList<>();
 
-		return absenceRepository.findByEmployeeAndStatus(employee, AbsenceStatus.NOWY);
+		for (AbsenceRecord record: records) {
+			if( record.getEmployee().getEmployeeDetails().getUserSection().equals(section.getName()) ) {
+				filteredRecords.add(record);
+			}
+		}
+		return filteredRecords;
+	}
+
+	@Override
+	public List<AbsenceRecord> getMyRequests(String year, String opt, Principal principal) {
+		Employee employee = userService.getUserByLogin(principal.getName()).getEmployee();
+		LocalDate start = LocalDate.of(Integer.parseInt(year), Month.JANUARY, 1);
+		LocalDate end = LocalDate.of(Integer.parseInt(year), Month.DECEMBER, 31);
+		switch (opt) {
+			case "all":
+				return absenceRepository.findByEmployeeAndWorkDateBetween(employee, start, end);
+			case "new":
+				return absenceRepository.findByEmployeeAndStatusAndWorkDateBetween(employee, AbsenceStatus.NOWY, start, end);
+			case "declined":
+				return absenceRepository.findByEmployeeAndStatusAndWorkDateBetween(employee, AbsenceStatus.ODRZUCONY, start, end);
+			case "accepted":
+				return absenceRepository.findByEmployeeAndStatusAndWorkDateBetween(employee, AbsenceStatus.ZAAKCEPTOWANY, start, end);
+			default:
+				throw new IllegalArgumentException("Błędny parametr opt");
+		}
 	}
 
 	@Override

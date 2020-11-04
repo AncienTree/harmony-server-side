@@ -33,6 +33,12 @@ public class UserSectionServiceImpl implements UserSectionService {
 	}
 
 	@Override
+	public UserSection getSectionById(Long id) {
+		return userSectionRepository.findById(id)
+				.orElseThrow(() -> new UserSectionNotFoundException(id));
+	}
+
+	@Override
 	public List<UserSection> getAll() {
 		return userSectionRepository.findAll();
 	}

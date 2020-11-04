@@ -17,7 +17,8 @@ import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
 public interface AbsenceRecordService {
 	List<AbsenceRecord> getAll();
 	List<AbsenceRecord> getEmployeeRequests(Long id);
-	List<AbsenceRecord> getMyRequests(Principal principal);
+	List<AbsenceRecord> getSectionRequests(Long id);
+	List<AbsenceRecord> getMyRequests(String year, String opt, Principal principal);
 	boolean isAlreadyInDb(Employee employee, LocalDate date);
 	void submitRequest(List<AbsencePojo> record, String login);
 	void acceptRequest(Long id);

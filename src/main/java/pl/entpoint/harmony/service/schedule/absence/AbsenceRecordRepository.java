@@ -19,7 +19,8 @@ import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
 @Repository
 public interface AbsenceRecordRepository extends JpaRepository<AbsenceRecord, Long> {
 	AbsenceRecord findByEmployeeAndWorkDate(Employee employee, LocalDate date);
-	List<AbsenceRecord> findByStatusNot(AbsenceStatus status);
 	List<AbsenceRecord> findByStatus(AbsenceStatus status);
 	List<AbsenceRecord> findByEmployeeAndStatus(Employee employee, AbsenceStatus status);
+	List<AbsenceRecord> findByEmployeeAndStatusAndWorkDateBetween(Employee employee, AbsenceStatus status, LocalDate start, LocalDate end);
+	List<AbsenceRecord> findByEmployeeAndWorkDateBetween(Employee employee, LocalDate start, LocalDate end);
 }

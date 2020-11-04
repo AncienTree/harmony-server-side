@@ -13,6 +13,7 @@ import pl.entpoint.harmony.entity.settings.UserSection;
 
 public interface UserSectionService {
 	UserSection getAllActiveLider(String liderName);
+	UserSection getSectionById(Long id);
 	List<UserSection> getAllActive();
 	List<UserSection> getAll();
 	boolean checkSection(UserSection section);

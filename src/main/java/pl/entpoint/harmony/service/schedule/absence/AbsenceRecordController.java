@@ -6,18 +6,12 @@ import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
@@ -39,22 +33,33 @@ public class AbsenceRecordController {
 	private final AbsenceRecordService absenceRecordService;
 
 	@GetMapping("/")
-	@ApiOperation(value = "Get all absence requests.", nickname = "Get all absence requests.")
+	@ApiOperation(value = "Get all new absence requests.", nickname = "Get all new absence requests.")
 	public List<AbsenceRecord> getAllRequests() {
 		return absenceRecordService.getAll();
 	}
 	
-	@GetMapping("/{id}")
-	@ApiOperation(value = "Get absence request by id.", nickname = "Get absence request by id.")
-	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "Long", paramType = "path")
+	@GetMapping("/employee/{id}")
+	@ApiOperation(value = "Get employee absence request by employee id.", nickname = "Get employee absence request by employee id.")
+	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "long", paramType = "path")
 	public List<AbsenceRecord> getEmployeeRequests(@PathVariable Long id) {
 		return absenceRecordService.getEmployeeRequests(id);
+	}
+
+	@GetMapping("/section/{id}")
+	@ApiOperation(value = "Get employees absence request by section id.", nickname = "Get employee absence request by section id.")
+	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "long", paramType = "path")
+	public List<AbsenceRecord> getSectionRequests(@PathVariable Long id) {
+		return absenceRecordService.getSectionRequests(id);
 	}
 	
 	@GetMapping("/my")
 	@ApiOperation(value = "Get all my absence requests.", nickname = "Get all my absence requests.")
-	public List<AbsenceRecord> getMyRequests(Principal principal) {
-		return absenceRecordService.getMyRequests(principal);
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "year", value = "Year in string", required = true, dataType = "string", paramType = "query"),
+			@ApiImplicitParam(name = "opt", value = "all, new, declined, accepted", required = true, dataType = "string", paramType = "query"),
+	})
+	public List<AbsenceRecord> getMyRequests(@RequestParam String year, @RequestParam String opt, Principal principal) {
+		return absenceRecordService.getMyRequests(year, opt, principal);
 	}
 	
 	@PostMapping("/")
@@ -84,10 +89,10 @@ public class AbsenceRecordController {
 		return new ResponseEntity<>("Odrzucono wniosek urlopowy", HttpStatus.OK);
 	}
 
-	@DeleteMapping("/")
-	@ApiOperation(value = "Decline absence request.", nickname = "Decline absence request.")
-	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "long", paramType = "body")
-	public ResponseEntity<String> deleteRequest(@RequestBody Long id) {
+	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Delete absence request.", nickname = "Delete absence request.")
+	@ApiImplicitParam(name = "id", value = "Request id", required = true, dataType = "long", paramType = "path")
+	public ResponseEntity<String> deleteRequest(@PathVariable Long id) {
 		absenceRecordService.deleteRequest(id);
 
 		return new ResponseEntity<>("Usunięto wniosek urlopowy", HttpStatus.OK);

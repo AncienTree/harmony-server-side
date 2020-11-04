@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<SimpleEmployee> getWorkingEmployeesByPosition(String position) {
-        List<Employee> employees = employeeRepository.findByPositionAndWorkStatusNot(position, WorkStatus.NOT_WORK);
+        List<Employee> employees = employeeRepository.findByPositionAndWorkStatusNotOrderByLastName(position, WorkStatus.NOT_WORK);
         List<SimpleEmployee> simpleEmployees = new ArrayList<>();
 
         for (Employee employee: employees) {
@@ -79,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getEmployeesByStatusIsNot(WorkStatus status) {
-        return employeeRepository.findByWorkStatusNot(status);
+        return employeeRepository.findByWorkStatusNotOrderByLastName(status);
     }
 
     @Override

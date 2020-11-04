@@ -60,7 +60,7 @@ class EmployeeServiceImplTest {
         employees.forEach(x -> x.setPosition("Lider"));
 
         //when
-        when(employeeRepository.findByPositionAndWorkStatusNot(anyString(), any(WorkStatus.class))).thenReturn(employees);
+        when(employeeRepository.findByPositionAndWorkStatusNotOrderByLastName(anyString(), any(WorkStatus.class))).thenReturn(employees);
 
         //then
         assertThat(employeeService.getWorkingEmployeesByPosition("Lider"), hasSize(6));
@@ -89,7 +89,7 @@ class EmployeeServiceImplTest {
         List<Employee> employees = generateListOfEmployee();
 
         //when
-        when(employeeRepository.findByWorkStatusNot(any(WorkStatus.class))).thenReturn(employees);
+        when(employeeRepository.findByWorkStatusNotOrderByLastName(any(WorkStatus.class))).thenReturn(employees);
 
         //then
         assertThat(employeeService.getEmployeesByStatusIsNot(WorkStatus.L4), hasSize(6));
@@ -154,17 +154,17 @@ class EmployeeServiceImplTest {
     private List<Employee> generateListOfEmployee() {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee("Testowy", "Pracownik 1", "12345678987", "m", LocalDate.of(1990,1,1), "Stanowisko 1",
-                "Opis", WorkStatus.WORK, "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
+                "Opis", "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
         employees.add(new Employee("Testowy", "Pracownik 2", "98765432123", "m", LocalDate.of(1991,1,11), "Stanowisko 2",
-                "Opis", WorkStatus.WORK, "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
+                "Opis", "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
         employees.add(new Employee("Testowy", "Pracownik 3", "14725836963", "k", LocalDate.of(1992,10,12), "Stanowisko 3",
-                "Opis", WorkStatus.WORK, "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
+                "Opis", "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
         employees.add(new Employee("Testowy", "Pracownik 4", "74185296369", "m", LocalDate.of(1993,2,15), "Stanowisko 4",
-                "Opis", WorkStatus.WORK, "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
+                "Opis", "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
         employees.add(new Employee("Testowy", "Pracownik 5", "36925814741", "k", LocalDate.of(1994,5,12), "Stanowisko 5",
-                "Opis", WorkStatus.WORK, "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
+                "Opis", "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
         employees.add(new Employee("Testowy", "Pracownik 6", "96385274147", "m", LocalDate.of(1995,9,11), "Stanowisko 6",
-                "Opis", WorkStatus.WORK, "Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
+                "Opis","Umowa", "Stawka", "25", LocalDate.now(), LocalDate.now()));
 
         return employees;
     }
