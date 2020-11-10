@@ -4,9 +4,11 @@ import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
+import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
 
 /**
  * @author Mateusz Dąbek
@@ -15,7 +17,7 @@ import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
  */
 
 public interface AbsenceRecordService {
-	List<AbsenceRecord> getAll();
+	List<AbsenceRecord> getAllByStatus(String year, String opt);
 	List<AbsenceRecord> getEmployeeRequests(Long id);
 	List<AbsenceRecord> getSectionRequests(Long id);
 	List<AbsenceRecord> getMyRequests(String year, String opt, Principal principal);

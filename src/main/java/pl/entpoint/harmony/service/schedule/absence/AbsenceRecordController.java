@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
+import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
 
 
 /**
@@ -33,9 +34,12 @@ public class AbsenceRecordController {
 	private final AbsenceRecordService absenceRecordService;
 
 	@GetMapping("/")
-	@ApiOperation(value = "Get all new absence requests.", nickname = "Get all new absence requests.")
-	public List<AbsenceRecord> getAllRequests() {
-		return absenceRecordService.getAll();
+	@ApiOperation(value = "Get all absence requests by status.", nickname = "Get all absence requests by status.")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "year", value = "Year in string", required = true, dataType = "string", paramType = "query"),
+			@ApiImplicitParam(name = "opt", value = "new, declined, accepted", required = true, dataType = "string", paramType = "query"),
+	})	public List<AbsenceRecord> getAllRequests(@RequestParam String year, @RequestParam String opt) {
+		return absenceRecordService.getAllByStatus(year, opt);
 	}
 	
 	@GetMapping("/employee/{id}")

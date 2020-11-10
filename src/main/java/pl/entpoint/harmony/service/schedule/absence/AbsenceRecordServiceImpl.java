@@ -6,6 +6,7 @@ import java.time.Month;
 import java.util.*;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
@@ -36,8 +37,23 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 	private final UserSectionService userSectionService;
 
 	@Override
-	public List<AbsenceRecord> getAll() {
-		return absenceRepository.findByStatus(AbsenceStatus.NOWY);
+	public List<AbsenceRecord> getAllByStatus(String year, String opt) {
+		LocalDate start = LocalDate.of(Integer.parseInt(year), Month.JANUARY, 1);
+		LocalDate end = LocalDate.of(Integer.parseInt(year), Month.DECEMBER, 31);
+		Sort sorting = Sort.by(
+				Sort.Order.desc("WorkDate"),
+				Sort.Order.asc("Employee"));
+
+		switch (opt) {
+			case "new":
+				return absenceRepository.findByStatusAndWorkDateBetween(AbsenceStatus.NOWY, start, end, sorting);
+			case "declined":
+				return absenceRepository.findByStatusAndWorkDateBetween(AbsenceStatus.ODRZUCONY, start, end, sorting);
+			case "accepted":
+				return absenceRepository.findByStatusAndWorkDateBetween(AbsenceStatus.ZAAKCEPTOWANY, start, end, sorting);
+			default:
+				throw new IllegalArgumentException("Błędny parametr opt: " + opt);
+		}
 	}
 
 	@Override
@@ -49,7 +65,7 @@ public class AbsenceRecordServiceImpl implements AbsenceRecordService {
 	@Override
 	public List<AbsenceRecord> getSectionRequests(Long id) {
 		UserSection section = userSectionService.getSectionById(id);
-		List<AbsenceRecord> records = getAll();
+		List<AbsenceRecord> records = absenceRepository.findByStatus(AbsenceStatus.NOWY);
 		List<AbsenceRecord> filteredRecords = new ArrayList<>();
 
 		for (AbsenceRecord record: records) {
