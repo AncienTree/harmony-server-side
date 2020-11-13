@@ -3,7 +3,12 @@ package pl.entpoint.harmony.service.employee;
 import java.time.LocalDate;
 import java.util.*;
 
-import lombok.AllArgsConstructor;import org.springframework.stereotype.Service;
+import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
+import org.springframework.stereotype.Service;
 
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.controller.EmployeePojo;
@@ -77,6 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findByWorkStatus(status);
     }
 
+    @Cacheable(value = "listOfEmployee")
     @Override
     public List<Employee> getEmployeesByStatusIsNot(WorkStatus status) {
         return employeeRepository.findByWorkStatusNotOrderByLastName(status);
@@ -94,6 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
     @Override
+    @CacheEvict(value = "listOfEmployee", allEntries = true)
     public void change(EmployeePojo employeePojo) {
         Employee employee = employeeRepository.findById(employeePojo.getId())
                 .orElseThrow(() -> new EmployeeNotFoundException(employeePojo.getId()));
@@ -128,6 +135,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Cacheable(value = "employeesCounter")
     public Map<String, Long> countByWorkStatus() {
         Map<String, Long> counter = new HashMap<>();
         counter.put("working", employeeRepository.countByWorkStatus(WorkStatus.WORK));
@@ -139,6 +147,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "listOfEmployee", allEntries = true),
+            @CacheEvict(value = "employeesCounter", allEntries = true),
+    })
     public void newEmployee(EmployeePojo body) {
         User user = new User(
                 LoginConverter.createLogin(body.getFirstName(), body.getLastName()),
@@ -150,6 +162,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "listOfEmployee", allEntries = true),
+            @CacheEvict(value = "employeesCounter", allEntries = true),
+    })
     public void fireEmployee(Long id) {
     	Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
@@ -168,6 +184,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = "listOfEmployee", allEntries = true),
+            @CacheEvict(value = "employeesCounter", allEntries = true),
+    })
     public void restoreEmployee(Long id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException(id));
