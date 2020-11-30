@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.EmployeeScheduleList;
 import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
+import pl.entpoint.harmony.entity.pojo.SimpleSchedule;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
+import pl.entpoint.harmony.util.ScheduleSummaryConventer;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -44,6 +46,19 @@ public class ScheduleSummaryController {
             scheduleSummary.setSimpleEmployee(new SimpleEmployee(scheduleSummary.getEmployee()));
         }
         return summary;
+    }
+
+    @GetMapping("/date/v2/{date}")
+    @ApiOperation(value = "Get schedules summary by date.", nickname = "Get schedules summary by date.")
+    @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "path")
+    public List<SimpleSchedule> getScheduleByDateV2(@PathVariable String date) {
+        List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
+
+        // Przypisanie SimpleEmployee do każdego grafiku z listy
+        for (ScheduleSummary scheduleSummary: summary) {
+            scheduleSummary.setSimpleEmployee(new SimpleEmployee(scheduleSummary.getEmployee()));
+        }
+        return ScheduleSummaryConventer.convert(summary);
     }
     
     @GetMapping("/date/{date}/my")

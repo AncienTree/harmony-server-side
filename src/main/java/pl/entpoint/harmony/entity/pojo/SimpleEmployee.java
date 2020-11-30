@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 @Getter @Setter
 public class SimpleEmployee implements Serializable {
+    // TODO usunąć FTE
 	private static final long serialVersionUID = 3650577428665471954L;
 	private Long id;
     private String fullName;

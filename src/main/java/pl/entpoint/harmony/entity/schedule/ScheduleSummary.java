@@ -31,10 +31,12 @@ public class ScheduleSummary extends AuditEntity {
     @JoinColumn(name = "employee_id")
     @JsonIgnore
     @ToString.Exclude
+
     private Employee employee;
 
     @Transient
     @ToString.Exclude
+    @OrderBy("fullName asc")
     private SimpleEmployee simpleEmployee;
 
     @OneToMany
@@ -44,6 +46,7 @@ public class ScheduleSummary extends AuditEntity {
             joinColumns = {@JoinColumn(name = "schedule_summary_id")},
             inverseJoinColumns = {@JoinColumn(name = "schedule_record_id")}
             )
+    @OrderBy("workDate asc, types asc")
     private List<ScheduleRecord> scheduleRecords;
 
     private LocalDate scheduleDate;
