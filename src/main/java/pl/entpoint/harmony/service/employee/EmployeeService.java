@@ -28,6 +28,7 @@ public interface EmployeeService {
     Map<String, Long> countByWorkStatus();
     boolean isPeselInDB(String pesel);
     String getFullNameByLogin(String login);
+    Long numberOfEmployee();
     void newEmployee(EmployeePojo body);
     void change(EmployeePojo employee);
     void fireEmployee(Long id);
