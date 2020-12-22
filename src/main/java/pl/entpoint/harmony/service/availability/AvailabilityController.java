@@ -11,6 +11,7 @@ import pl.entpoint.harmony.entity.availability.Availability;
 import pl.entpoint.harmony.entity.pojo.AvailabilityHelper;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Mateusz Dąbek
@@ -38,6 +39,12 @@ public class AvailabilityController {
     @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "body")
     public AvailabilityHelper check(@RequestBody String date) {
         return availabilityService.checkAvailability(LocalDate.parse(date));
+    }
+
+    @GetMapping("/")
+    @ApiOperation(value = "Get all active availability.", nickname = "Get all active availability.")
+    public List<Availability> getAllActiveAvailability() {
+        return availabilityService.getAllActive();
     }
 
     @PostMapping("/create")

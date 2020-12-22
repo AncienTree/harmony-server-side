@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.entpoint.harmony.entity.availability.Availability;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * @author Mateusz Dąbek
@@ -14,4 +15,5 @@ import java.time.LocalDate;
 @Repository
 public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
     Availability findByAvailabilityDate(LocalDate date);
+    List<Availability> findByActive(boolean active);
 }

@@ -15,6 +15,7 @@ import java.util.List;
 public interface AvailabilityService {
     Availability getAvailability(LocalDate date);
     AvailabilityHelper checkAvailability(LocalDate date);
+    List<Availability> getAllActive();
     void create(LocalDate date);
     void closeAvailability(LocalDate date);
 }

@@ -54,6 +54,11 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     }
 
     @Override
+    public List<Availability> getAllActive() {
+        return availabilityRepository.findByActive(true);
+    }
+
+    @Override
     @Transactional
     public void create(LocalDate date) {
         Optional<Availability> optional = Optional.ofNullable(availabilityRepository
