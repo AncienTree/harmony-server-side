@@ -61,6 +61,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public SimpleEmployee getMeAsSimpleEmployee(String login) {
+        User tempUser = userService.getUserByLogin(login);
+
+        return new SimpleEmployee(tempUser.getEmployee());
+    }
+
+    @Override
     public List<Employee> getEmployees() {
         return employeeRepository.findAll();
     }

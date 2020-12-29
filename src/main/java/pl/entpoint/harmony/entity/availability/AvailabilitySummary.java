@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.entpoint.harmony.auditing.AuditEntity;
+import pl.entpoint.harmony.entity.availability.enums.AvailabilityStatus;
 import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.schedule.ScheduleRecord;
 
@@ -40,9 +41,9 @@ public class AvailabilitySummary extends AuditEntity {
     @Column(name = "availability_date", nullable = false)
     private LocalDate availabilityDate;
 
-    @Column(name = "accepted_by", nullable = false)
+    @Column(name = "accepted_by")
     private String acceptedBy;
 
-    @Column(name = "accepted_date", nullable = false)
-    private Instant acceptedDate;
+    @Enumerated(EnumType.STRING)
+    private AvailabilityStatus status;
 }

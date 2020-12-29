@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.employee;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -37,6 +38,12 @@ public class EmployeeController {
     @ApiOperation(value = "Get all working employees.", nickname = "Get all working employees.")
     public List<Employee> getListOfEmployees() {
         return employeeService.getEmployeesByStatusIsNot(WorkStatus.NOT_WORK);
+    }
+
+    @GetMapping("/me")
+    @ApiOperation(value = "Get me as Simple Employee.", nickname = "Get me as Simple Employee.")
+    public SimpleEmployee getMe(Principal principal) {
+        return employeeService.getMeAsSimpleEmployee(principal.getName());
     }
 
     @GetMapping("/personal")

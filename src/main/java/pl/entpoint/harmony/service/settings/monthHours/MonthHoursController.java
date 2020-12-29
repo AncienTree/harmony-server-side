@@ -31,6 +31,13 @@ public class MonthHoursController {
         return monthHoursService.getAll();
     }
 
+    @GetMapping("/{year}")
+    @ApiOperation(value = "Get monthly hours by year.", nickname = "Get monthly hours by year.")
+    @ApiImplicitParam(name = "year", value = "Year in string", required = true, dataType = "String", paramType = "path")
+    public MonthHours getByYear(@PathVariable String year) {
+        return monthHoursService.getByYear(year);
+    }
+
     @PostMapping("/")
     @ApiOperation(value = "Create new monthly hours.", nickname = "Create new monthly hours.")
     @ApiImplicitParam(name = "monthHours", value = "Month Hours body", required = true, dataType = "MonthlyHoursPojo", paramType = "body")

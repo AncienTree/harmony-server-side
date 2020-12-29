@@ -19,6 +19,7 @@ public interface EmployeeService {
     Employee getEmployeeDecrypted(Long id);
     Employee getEmployeeNotDecrypted(Long id);
     Employee getEmployeeByPesel(String pesel);
+    SimpleEmployee getMeAsSimpleEmployee(String login);
     List<Employee> getEmployees();
     List<Employee> getEmployeesByStatus(WorkStatus status);
     List<Employee> getEmployeesByStatusIsNot(WorkStatus status);
