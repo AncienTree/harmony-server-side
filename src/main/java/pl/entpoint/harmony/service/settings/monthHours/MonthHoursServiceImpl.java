@@ -27,6 +27,12 @@ public class MonthHoursServiceImpl implements MonthHoursService {
 	}
 
     @Override
+    public MonthHours getByYear(String year) {
+        return Optional.ofNullable(monthHoursRepository.findByYear(year))
+                .orElseThrow(MonthHoursNotFoundException::new);
+    }
+
+    @Override
     public int checkMonthHours(LocalDate date) {
         String dateString = String.valueOf(date.getYear());
         Optional<MonthHours> monthHours = Optional.ofNullable(monthHoursRepository.findByYear(dateString));

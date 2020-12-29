@@ -15,6 +15,7 @@ import java.util.List;
 
 public interface MonthHoursService {
     List<MonthHours> getAll();
+    MonthHours getByYear(String year);
     int checkMonthHours(LocalDate date);
     void create(MonthHours monthHours);
     void change(MonthlyHoursPojo monthHours);
