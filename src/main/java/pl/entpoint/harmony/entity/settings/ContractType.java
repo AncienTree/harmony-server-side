@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.entity.settings;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "contract_type", schema = "settings")
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class ContractType extends AuditEntity {
 	@Id
 	@SequenceGenerator(name="contract_type_sqe", sequenceName="settings.contract_type_seq", allocationSize=1)

@@ -1,6 +1,7 @@
 package pl.entpoint.harmony.service.availability;
 
 import pl.entpoint.harmony.entity.availability.Availability;
+import pl.entpoint.harmony.entity.pojo.AvailabilityData;
 import pl.entpoint.harmony.entity.pojo.AvailabilityHelper;
 import pl.entpoint.harmony.entity.pojo.controller.DayOffPojo;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public interface AvailabilityService {
     Availability getAvailability(LocalDate date);
     AvailabilityHelper checkAvailability(LocalDate date);
+    AvailabilityData getDataForAvailability(String date);
     List<Availability> getAllActive();
     void create(LocalDate date);
     void closeAvailability(LocalDate date);

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.availability.Availability;
+import pl.entpoint.harmony.entity.pojo.AvailabilityData;
 import pl.entpoint.harmony.entity.pojo.AvailabilityHelper;
 
 import java.time.LocalDate;
@@ -39,6 +40,13 @@ public class AvailabilityController {
     @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "body")
     public AvailabilityHelper check(@RequestBody String date) {
         return availabilityService.checkAvailability(LocalDate.parse(date));
+    }
+
+    @PostMapping("/data")
+    @ApiOperation(value = "Get data for availability.", nickname = "Get data for availability.")
+    @ApiImplicitParam(name = "date", value = "Date in string", required = true, dataType = "String", paramType = "body")
+    public AvailabilityData getData(@RequestBody String date) {
+        return availabilityService.getDataForAvailability(date);
     }
 
     @GetMapping("/")

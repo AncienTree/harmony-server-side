@@ -3,9 +3,11 @@ package pl.entpoint.harmony.service.availability;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.availability.Availability;
+import pl.entpoint.harmony.entity.pojo.AvailabilityData;
 import pl.entpoint.harmony.entity.pojo.AvailabilityHelper;
 import pl.entpoint.harmony.entity.pojo.controller.DayOffPojo;
 import pl.entpoint.harmony.entity.settings.DayOff;
+import pl.entpoint.harmony.entity.settings.MonthHours;
 import pl.entpoint.harmony.service.employee.EmployeeService;
 import pl.entpoint.harmony.service.settings.dayOff.DayOffService;
 import pl.entpoint.harmony.service.settings.monthHours.MonthHoursService;
@@ -51,6 +53,17 @@ public class AvailabilityServiceImpl implements AvailabilityService {
             helper.setNumbersOfEmployees(employeeService.numberOfEmployee());
         }
         return helper;
+    }
+
+    @Override
+    public AvailabilityData getDataForAvailability(String date) {
+        LocalDate localDate = LocalDate.parse(date);
+
+        List<DayOff> dayOffs = dayOffService.getDayOffBetweenDats(localDate,
+                LocalDate.of(localDate.getYear(), localDate.getMonthValue(), localDate.lengthOfMonth()));
+        int hours = hoursService.checkMonthHours(localDate);
+
+        return new AvailabilityData(dayOffs, hours);
     }
 
     @Override
