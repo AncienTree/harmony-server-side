@@ -12,7 +12,6 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.user.User;
 import pl.entpoint.harmony.service.user.UserRepository;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -42,8 +41,9 @@ public class RestAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandle
     @Transactional
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
+                                        Authentication authentication) throws IOException {
         UserDetails principal = (UserDetails) authentication.getPrincipal();
+        // dla innych projektów
         if (principal.getUsername().equals("administrator") || principal.getUsername().equals("kadry")) {
             User authUser = userRepository.findByLogin(principal.getUsername());
             String token = JWT.create()

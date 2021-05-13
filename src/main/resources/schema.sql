@@ -56,27 +56,30 @@ CREATE TABLE availability.availability_summary (
     employee_id bigint
 );
 
-
-CREATE SEQUENCE employee.contact_details_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+--
+--CREATE SEQUENCE employee.contact_details_seq
+--    START WITH 1
+--    INCREMENT BY 1
+--    NO MINVALUE
+--    NO MAXVALUE
+--    CACHE 1;
 
 
 CREATE TABLE employee.contact_details (
-    id bigint NOT NULL,
+--    id bigint NOT NULL,
+    address character varying(255),
+    city character varying(255),
+    zip_code character varying(6)
+    phone_number character varying(255),
+    contact_name character varying(255),
+    contact_phone_number character varying(255),
+
+
+
     created_by character varying(255) NOT NULL,
     created_date timestamp without time zone NOT NULL,
     last_modified_by character varying(255) NOT NULL,
     last_modified_date timestamp without time zone NOT NULL,
-    address character varying(255),
-    city character varying(255),
-    contact_name character varying(255),
-    contact_phone_number character varying(255),
-    phone_number character varying(255),
-    zip_code character varying(6)
 );
 
 
