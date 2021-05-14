@@ -59,6 +59,7 @@ public class Employee extends AuditEntity {
     
     private Float etat;
 
+    @Column(name="current_position")
     private String position;
 
     @Column(name = "contract_position")

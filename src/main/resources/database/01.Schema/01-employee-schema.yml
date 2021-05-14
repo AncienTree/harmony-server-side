@@ -1,21 +1,25 @@
 databaseChangeLog:
   -  preConditions:
-  -  runningAs:
-       username:  testapi
+       runningAs:
+         username:  testapi
 
+# Contact Details
   -  changeSet:
        id:  1
        author:  mdabek
        changes:
+         - sql:
+               sql: CREATE SCHEMA employee
          - createSequence:
                cacheSize: 1
                cycle: null
-               dataType: bigint
                incrementBy: 1
                ordered: true
                schemaName: employee
                sequenceName: contact_details_seq
                startValue: 1
+               minValue: 1
+               maxValue: 9223372036854775807
          -  createTable:
               tableName:  contact_details
               schemaName: employee
@@ -28,35 +32,453 @@ databaseChangeLog:
                        primaryKey:  true
                        nullable:  false
                 -  column:
-                     name:  firstname
+                     name:  address
+                     type:  varchar(120)
+                -  column:
+                     name:  city
                      type:  varchar(50)
                 -  column:
-                     name:  lastname
+                     name:  zip_code
+                     type:  varchar(6)
+                -  column:
+                     name:  phone_number
+                     type:  varchar(15)
+                -  column:
+                     name:  contact_name
                      type:  varchar(50)
-                     constraints:
-                       nullable:  false
                 -  column:
-                     name:  state
-                     type:  char(2)
-
-  -  changeSet:
-       id:  2
-       author:  nvoxland
-       changes:
-         -  addColumn:
-              tableName:  person
-              columns:
+                     name:  contact_phone_number
+                     type:  varchar(15)
                 -  column:
-                     name:  username
-                     type:  varchar(8)
+                     name:  created_by
+                     type:  varchar(35)
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(35)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
 
+# Employee Details
   -  changeSet:
-       id:  3
-       author:  nvoxland
+      id: 2
+      author: mdabek
+      changes:
+        - createSequence:
+            cacheSize: 1
+            cycle: null
+            minValue: 1
+            maxValue: 9223372036854775807
+            incrementBy: 1
+            ordered: true
+            schemaName: employee
+            sequenceName: employee_details_seq
+            startValue: 1
+        - createTable:
+            tableName: employee_details
+            schemaName: employee
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: lt_login
+                  type: varchar(40)
+              - column:
+                  name: lt_id
+                  type: varchar(8)
+              - column:
+                  name: crm_login
+                  type: varchar(60)
+              - column:
+                  name: crm_expiration_date
+                  type: date
+              - column:
+                  name: user_section
+                  type: varchar(50)
+              - column:
+                  name: user_line
+                  type: varchar(25)
+              - column:
+                  name: fte
+                  type: varchar(5)
+              - column:
+                  name: fte_start
+                  type: varchar(5)
+              - column:
+                  name: goal1
+                  type: varchar(5)
+              - column:
+                  name: goal2
+                  type: varchar(5)
+              - column:
+                  name: goal3
+                  type: varchar(5)
+              - column:
+                  name: goal4
+                  type: varchar(5)
+              - column:
+                  name: goal5
+                  type: varchar(5)
+              - column:
+                  name: created_by
+                  type: varchar(35)
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+              - column:
+                  name: last_modified_by
+                  type: varchar(35)
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP
+
+# Employee info
+  -  changeSet:
+      id: 3
+      author: mdabek
+      changes:
+        - createSequence:
+            cacheSize: 1
+            cycle: null
+            minValue: 1
+            maxValue: 9223372036854775807
+            incrementBy: 1
+            ordered: true
+            schemaName: employee
+            sequenceName: employee_info_seq
+            startValue: 1
+        - createTable:
+            tableName: employee_info
+            schemaName: employee
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: agreement
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ppk
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: headphones
+                  type: boolean
+                  constraints:
+                    nullable: false
+              - column:
+                  name: locker
+                  type: varchar(15)
+              - column:
+                  name: id_card
+                  type: varchar(15)
+              - column:
+                  name: parking_card
+                  type: varchar(15)
+              - column:
+                  name: info1
+                  type: varchar(255)
+              - column:
+                  name: info2
+                  type: varchar(255)
+              - column:
+                  name: info3
+                  type: varchar(255)
+              - column:
+                  name: info4
+                  type: varchar(255)
+              - column:
+                  name: created_by
+                  type: varchar(35)
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+              - column:
+                  name: last_modified_by
+                  type: varchar(35)
+              - column:
+                  name: last_modified_date
+                  type: TIMESTAMP
+
+# Employee Leave
+  -  changeSet:
+       id: 4
+       author: mdabek
        changes:
-         -  addLookupTable:
-              existingTableName:  person
-              existingColumnName:  state
-              newTableName:  state
-              newColumnName:  id
-              newColumnDataType:  char(2)
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             minValue: 1
+             maxValue: 9223372036854775807
+             incrementBy: 1
+             ordered: true
+             schemaName: employee
+             sequenceName: employee_leave_seq
+             startValue: 1
+         - createTable:
+             tableName: employee_leave
+             schemaName: employee
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     nullable: false
+               - column:
+                   name: normal
+                   type: integer
+               - column:
+                   name: uz
+                   type: integer
+               - column:
+                   name: additional
+                   type: integer
+               - column:
+                   name: past_years
+                   type: integer
+               - column:
+                   name: created_by
+                   type: varchar(35)
+               - column:
+                   name: created_date
+                   type: TIMESTAMP
+               - column:
+                   name: last_modified_by
+                   type: varchar(35)
+               - column:
+                   name: last_modified_date
+                   type: TIMESTAMP
+
+# Employee
+  -  changeSet:
+       id: 5
+       author: mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             minValue: 1
+             maxValue: 9223372036854775807
+             incrementBy: 1
+             ordered: true
+             schemaName: employee
+             sequenceName: employees_seq
+             startValue: 1
+         - createTable:
+             tableName: employees
+             schemaName: employee
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     nullable: false
+               - column:
+                   name: first_name
+                   type: varchar(30)
+               - column:
+                   name: last_name
+                   type: varchar(50)
+               - column:
+                   name: pesel
+                   type: varchar(11)
+               - column:
+                   name: sex
+                   type: varchar(1)
+               - column:
+                   name: birthday
+                   type: date
+               - column:
+                   name: email
+                   type: varchar(100)
+               - column:
+                   name: etat
+                   type: varchar(10)
+               - column:
+                   name: current_position
+                   type: varchar(50)
+               - column:
+                   name: contract_position
+                   type: varchar(50)
+               - column:
+                   name: work_status
+                   type: varchar(25)
+               - column:
+                   name: contract_type
+                   type: varchar(50)
+               - column:
+                   name: basic_unit
+                   type: varchar(30)
+               - column:
+                   name: unit
+                   type: varchar(20)
+               - column:
+                   name: start_work_date
+                   type: date
+               - column:
+                   name: end_work_date
+                   type: date
+               - column:
+                   name: start_contract_date
+                   type: date
+               - column:
+                   name: end_contract_date
+                   type: date
+               - column:
+                   name: employee_details_id
+                   type: bigint
+               - column:
+                   name: contact_details_id
+                   type: bigint
+               - column:
+                   name: employee_info_id
+                   type: bigint
+               - column:
+                   name: employee_leave_id
+                   type: bigint
+               - column:
+                   name: created
+                   type: boolean
+               - column:
+                   name: active_account
+                   type: boolean
+               - column:
+                   name: created_by
+                   type: varchar(35)
+               - column:
+                   name: created_date
+                   type: TIMESTAMP
+               - column:
+                   name: last_modified_by
+                   type: varchar(35)
+               - column:
+                   name: last_modified_date
+                   type: TIMESTAMP
+
+# [View] Personal Data
+  -  changeSet:
+       id: 6
+       author: mdabek
+       changes:
+         createView:
+           catalogName: cat
+           encoding: UTF-8
+           fullDefinition: true
+           relativeToChangelogFile: true
+           replaceIfExists: true
+           schemaName: employee
+           selectQuery: CREATE VIEW employee.personal_data_v AS
+                         SELECT empl.id AS employee_id,
+                         empl.basic_unit,
+                         empl.birthday,
+                         empl.contract_position,
+                         empl.contract_type,
+                         empl.created,
+                         empl.email,
+                         empl.etat,
+                         empl.end_contract_date,
+                         empl.end_work_date,
+                         empl.first_name,
+                         empl.last_name,
+                         empl.pesel,
+                         empl.current_position,
+                         empl.sex,
+                         empl.start_contract_date,
+                         empl.start_work_date,
+                         empl.unit,
+                         empl.work_status,
+                         empl.contact_details_id,
+                         empl.employee_details_id,
+                         empl.employee_info_id,
+                         empl.employee_leave_id,
+                         details.crm_expiration_date,
+                         details.crm_login,
+                         details.fte,
+                         details.fte_start,
+                         details.goal1,
+                         details.goal2,
+                         details.goal3,
+                         details.goal4,
+                         details.goal5,
+                         details.lt_id,
+                         details.lt_login,
+                         details.user_line,
+                         details.user_section,
+                         info.agreement,
+                         info.headphones,
+                         info.id_card,
+                         info.info1,
+                         info.info2,
+                         info.info3,
+                         info.info4,
+                         info.locker,
+                         info.parking_card,
+                         info.ppk,
+                         leave.additional,
+                         leave.normal,
+                         leave.past_years,
+                         leave.uz,
+                         contact.address,
+                         contact.city,
+                         contact.contact_name,
+                         contact.contact_phone_number,
+                         contact.phone_number,
+                         contact.zip_code
+                         FROM ((((employee.employees empl
+                         JOIN employee.employee_details details USING (id))
+                         JOIN employee.employee_info info USING (id))
+                         JOIN employee.employee_leave leave USING (id))
+                         JOIN employee.contact_details contact USING (id));
+           viewName: personal_data_v
+
+# [View] HR Table
+  -  changeSet:
+       id: 7
+       author: mdabek
+       changes:
+         createView:
+           catalogName: cat
+           encoding: UTF-8
+           fullDefinition: true
+           relativeToChangelogFile: true
+           replaceIfExists: true
+           schemaName: employee
+           selectQuery: CREATE VIEW employee.hr_table_v AS
+                          SELECT personal_data_v.employee_id AS id,
+                          concat(personal_data_v.last_name, ' ', personal_data_v.first_name) AS full_name,
+                          personal_data_v.current_position,
+                          personal_data_v.etat,
+                          personal_data_v.lt_login,
+                          personal_data_v.end_work_date,
+                          personal_data_v.start_work_date,
+                          personal_data_v.user_section,
+                          personal_data_v.user_line,
+                          personal_data_v.work_status,
+                          personal_data_v.contract_type,
+                          personal_data_v.start_contract_date,
+                          personal_data_v.end_contract_date,
+                          personal_data_v.crm_expiration_date,
+                          personal_data_v.email,
+                          ((personal_data_v.normal + personal_data_v.past_years) + personal_data_v.additional) AS leave
+                          FROM employee.personal_data_v
+                          WHERE ((personal_data_v.work_status)::text <> 'NOT_WORK'::text);
+           viewName: hr_table_v
