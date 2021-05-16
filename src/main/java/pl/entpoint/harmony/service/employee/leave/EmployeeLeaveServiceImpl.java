@@ -1,13 +1,11 @@
 package pl.entpoint.harmony.service.employee.leave;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
 import pl.entpoint.harmony.entity.pojo.controller.LeavePojo;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
-import java.util.Optional;
 
 /**
  * @author Mateusz Dąbek

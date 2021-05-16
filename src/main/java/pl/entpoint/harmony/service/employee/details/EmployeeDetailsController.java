@@ -31,7 +31,7 @@ public class EmployeeDetailsController {
         return employeeDetailsService.getEmployeeDetails(id);
     }
 
-    @PatchMapping("/")
+    @PutMapping("/")
     @ApiOperation(value = "Change employee details information.", nickname = "Change employee details information.")
     public ResponseEntity<String> saveChange(@RequestBody DetailsPojo employeeDetails){
         employeeDetailsService.change(employeeDetails);

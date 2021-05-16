@@ -31,11 +31,11 @@ public class ContactDetailsController {
         return contactDetailsService.getContactDetails(id);
     }
 
-    @PatchMapping("/")
+    @PutMapping("/")
     @ApiOperation(value = "Change employee contact information.", nickname = "Change employee contact information.")
     public ResponseEntity<String> saveChange(@RequestBody ContactPojo contactDetails){
 
         contactDetailsService.change(contactDetails);
-        return new ResponseEntity<>("Dane kontakotwe zostały zapisane.", HttpStatus.OK);
+        return new ResponseEntity<>("Dane kontaktowe zostały zapisane.", HttpStatus.OK);
     }
 }

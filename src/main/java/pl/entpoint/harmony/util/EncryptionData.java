@@ -51,7 +51,7 @@ public class EncryptionData {
 	}    
     
 	public static String decrypt(String encryptedString) {
-		log.info("Rozpoczęcie deszyforwania.");
+		log.info("Rozpoczęcie deszyfrowania.");
 		try {
 			byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	        IvParameterSpec ivSpec = new IvParameterSpec(iv);
@@ -66,7 +66,7 @@ public class EncryptionData {
 	        return new String(cipher.doFinal(Base64.getDecoder().decode(encryptedString)));
 
 		} catch (Exception e) {
-			log.error("Błąd w trakcie deszyforwania. " + e.getMessage());
+			log.error("Błąd w trakcie deszyfrowania. " + e.getMessage());
 			e.printStackTrace();			
 		}
 		return null;

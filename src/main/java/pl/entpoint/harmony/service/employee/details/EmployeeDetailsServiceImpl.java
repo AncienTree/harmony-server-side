@@ -6,9 +6,6 @@ import pl.entpoint.harmony.entity.employee.EmployeeDetails;
 import pl.entpoint.harmony.entity.pojo.controller.DetailsPojo;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
-import java.time.LocalDate;
-import java.util.Optional;
-
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020

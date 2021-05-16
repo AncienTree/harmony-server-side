@@ -47,10 +47,10 @@ public class ContractTypeController {
 
 		contractTypeService.createContractType(contractType);
 		
-		return new ResponseEntity<>("Umowa " + contract.getName() + " została zapisana", HttpStatus.CREATED);
+		return new ResponseEntity<>(String.format("Umowa %s została zapisana", contract.getName()), HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/")
+	@PutMapping("/")
 	@ApiOperation(value = "Update contract.", nickname = "Update contract.")
 	@ApiImplicitParam(name = "contract", value = "Contract body", required = true, dataType = "ContractPojo", paramType = "body")
 	public ResponseEntity<String> update(@RequestBody ContractPojo contract) {

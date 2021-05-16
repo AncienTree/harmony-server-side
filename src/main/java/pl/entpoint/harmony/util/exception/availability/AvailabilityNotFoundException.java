@@ -1,5 +1,8 @@
 package pl.entpoint.harmony.util.exception.availability;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import java.time.LocalDate;
 
 /**
@@ -7,9 +10,10 @@ import java.time.LocalDate;
  * @created 12/05/2020
  */
 
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Availability Not Found.")
 public class AvailabilityNotFoundException extends RuntimeException{
 
     public AvailabilityNotFoundException(LocalDate date) {
-        super("Nie znaleziono dyspozycyjności o dacie " + date + " w bazie danych.");
+        super(String.format("Nie znaleziono dyspozycyjności o dacie %s w bazie danych.", date));
     }
 }

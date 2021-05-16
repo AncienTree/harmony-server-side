@@ -36,7 +36,7 @@ public class CustomDetailsService implements UserDetailsService {
                         .orElseThrow(() -> new UsernameNotFoundException("Nie znaleziono użytkownika"));
 
         if (!user.isStatus()){
-            log.debug(username + " - jest nieaktywny w bazie danych.");
+            log.debug(String.format("%s - jest nieaktywny w bazie danych.", username));
             throw new UserNotActivatedException();
         }
         GrantedAuthority auth = new SimpleGrantedAuthority(user.getRole().getAuthority());

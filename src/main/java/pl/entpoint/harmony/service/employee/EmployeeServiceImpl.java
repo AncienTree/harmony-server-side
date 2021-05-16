@@ -113,7 +113,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // Zmiany
         employee.setEmail(employeePojo.getEmail());
-        employee.setEtat(employeePojo.getEtat());
+        employee.setFullTime(employeePojo.getEtat());
         employee.setPosition(employeePojo.getPosition());
         employee.setContractPosition(employeePojo.getContractPosition());
         employee.setContractType(employeePojo.getContractType());

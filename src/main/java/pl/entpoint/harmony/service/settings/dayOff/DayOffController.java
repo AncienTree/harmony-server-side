@@ -60,7 +60,7 @@ public class DayOffController {
         return new ResponseEntity<>("Dodano nowy dzień wolny.", HttpStatus.CREATED);
     }
 	
-	@PatchMapping("/")
+	@PutMapping("/")
 	@ApiOperation(value = "Update day off.", nickname = "Update day off.")
 	@ApiImplicitParam(name = "day", value = "Day off body", required = true, dataType = "DayOffPojo", paramType = "body")
     public ResponseEntity<String> update(@RequestBody DayOffPojo day){

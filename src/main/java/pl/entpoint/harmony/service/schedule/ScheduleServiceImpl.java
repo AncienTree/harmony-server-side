@@ -32,7 +32,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     private MonthHoursService monthHoursService;
 
-     @Override
+    @Override
     public Schedule getScheduleByDate(LocalDate date) {
         Schedule schedule = scheduleRepository.findByScheduleDate(date);
         schedule.setRbh(addMonthHours(schedule));

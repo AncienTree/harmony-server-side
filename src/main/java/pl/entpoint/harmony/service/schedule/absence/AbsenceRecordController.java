@@ -2,7 +2,6 @@ package pl.entpoint.harmony.service.schedule.absence;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import pl.entpoint.harmony.entity.pojo.controller.AbsencePojo;
 import pl.entpoint.harmony.entity.schedule.AbsenceRecord;
-import pl.entpoint.harmony.entity.schedule.enums.AbsenceStatus;
 
 
 /**

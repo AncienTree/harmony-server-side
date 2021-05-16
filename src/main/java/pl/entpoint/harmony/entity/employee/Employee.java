@@ -56,8 +56,9 @@ public class Employee extends AuditEntity {
 
     @Email
     private String email;
-    
-    private Float etat;
+
+    @Column(name = "full_time")
+    private Float fullTime;
 
     @Column(name="current_position")
     private String position;
@@ -133,7 +134,7 @@ public class Employee extends AuditEntity {
         this.lastName = lastName;
         this.pesel = pesel;
         this.sex = sex;
-        this.etat = 1.0F;
+        this.fullTime = 1.0F;
         this.birthday = birthday;
         this.position = position;
         this.contractPosition = contractPosition;
@@ -169,7 +170,7 @@ public class Employee extends AuditEntity {
     	this.email = null;
     	this.position = null;
     	this.contractPosition = null;
-    	this.etat = null;
+    	this.fullTime = null;
     	this.basicUnit = null;
     	this.unit = null;
     	this.endWorkDate = LocalDate.now();

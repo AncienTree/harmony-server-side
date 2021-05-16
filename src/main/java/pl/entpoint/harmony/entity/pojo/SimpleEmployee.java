@@ -39,10 +39,10 @@ public class SimpleEmployee implements Serializable {
         fte = employee.getEmployeeDetails().getFte();
         fteStart = employee.getEmployeeDetails().getFteStart();
         
-        if (employee.getEtat() == null) {
+        if (employee.getFullTime() == null) {
         	etat = -1;
         } else {
-        	etat = employee.getEtat();
+        	etat = employee.getFullTime();
         }
         
     }

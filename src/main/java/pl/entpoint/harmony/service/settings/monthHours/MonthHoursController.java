@@ -48,7 +48,7 @@ public class MonthHoursController {
         return new ResponseEntity<>("Utworzono nowe roboczogodziny miesiąca", HttpStatus.CREATED);
     }
     
-    @PatchMapping("/")
+    @PutMapping("/")
     @ApiOperation(value = "Update monthly hours.", nickname = "Update monthly hours.")
     @ApiImplicitParam(name = "monthHours", value = "Month Hours body", required = true, dataType = "MonthlyHoursPojo", paramType = "body")
     public ResponseEntity<String> update(@RequestBody MonthlyHoursPojo monthHours) {
