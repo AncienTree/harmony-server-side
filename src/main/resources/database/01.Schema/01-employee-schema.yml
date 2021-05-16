@@ -5,7 +5,7 @@ databaseChangeLog:
 
 # Contact Details
   -  changeSet:
-       id:  1
+       id:  1-empl-1
        author:  mdabek
        changes:
          - sql:
@@ -51,20 +51,24 @@ databaseChangeLog:
                      type:  varchar(15)
                 -  column:
                      name:  created_by
-                     type:  varchar(35)
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
                 -  column:
                      name:  created_date
                      type:  TIMESTAMP
+                     constraints:
+                       nullable: false
                 -  column:
                      name:  last_modified_by
-                     type:  varchar(35)
+                     type:  varchar(50)
                 -  column:
                      name:  last_modified_date
                      type:  TIMESTAMP
 
 # Employee Details
   -  changeSet:
-      id: 2
+      id: 1-empl-2
       author: mdabek
       changes:
         - createSequence:
@@ -129,20 +133,24 @@ databaseChangeLog:
                   type: varchar(5)
               - column:
                   name: created_by
-                  type: varchar(35)
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
               - column:
                   name: created_date
                   type: TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
                   name: last_modified_by
-                  type: varchar(35)
+                  type: varchar(50)
               - column:
                   name: last_modified_date
                   type: TIMESTAMP
 
 # Employee info
   -  changeSet:
-      id: 3
+      id: 1-empl-3
       author: mdabek
       changes:
         - createSequence:
@@ -204,20 +212,24 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: created_by
-                  type: varchar(35)
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
               - column:
                   name: created_date
                   type: TIMESTAMP
+                  constraints:
+                    nullable: false
               - column:
                   name: last_modified_by
-                  type: varchar(35)
+                  type: varchar(50)
               - column:
                   name: last_modified_date
                   type: TIMESTAMP
 
 # Employee Leave
   -  changeSet:
-       id: 4
+       id: 1-empl-4
        author: mdabek
        changes:
          - createSequence:
@@ -255,20 +267,24 @@ databaseChangeLog:
                    type: integer
                - column:
                    name: created_by
-                   type: varchar(35)
+                   type: varchar(50)
+                   constraints:
+                     nullable: false
                - column:
                    name: created_date
                    type: TIMESTAMP
+                   constraints:
+                     nullable: false
                - column:
                    name: last_modified_by
-                   type: varchar(35)
+                   type: varchar(50)
                - column:
                    name: last_modified_date
                    type: TIMESTAMP
 
 # Employee
   -  changeSet:
-       id: 5
+       id: 1-empl-5
        author: mdabek
        changes:
          - createSequence:
@@ -363,20 +379,24 @@ databaseChangeLog:
                    type: boolean
                - column:
                    name: created_by
-                   type: varchar(35)
+                   type: varchar(50)
+                   constraints:
+                     nullable: false
                - column:
                    name: created_date
                    type: TIMESTAMP
+                   constraints:
+                     nullable: false
                - column:
                    name: last_modified_by
-                   type: varchar(35)
+                   type: varchar(50)
                - column:
                    name: last_modified_date
                    type: TIMESTAMP
 
 # [View] Personal Data
   -  changeSet:
-       id: 6
+       id: 1-empl-6
        author: mdabek
        changes:
          createView:
@@ -452,7 +472,7 @@ databaseChangeLog:
 
 # [View] HR Table
   -  changeSet:
-       id: 7
+       id: 1-empl-7
        author: mdabek
        changes:
          createView:

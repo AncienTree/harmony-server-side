@@ -38,6 +38,7 @@ public class LeavePlanerSummary extends AuditEntity {
     private List<ScheduleRecord> scheduleRecords;
 
     @NotNull
+    @Column(name= "planer_year")
     private LocalDate year;
 
     @Column(name = "accepted_by")

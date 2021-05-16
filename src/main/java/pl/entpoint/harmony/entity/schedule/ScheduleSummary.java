@@ -10,6 +10,7 @@ import pl.entpoint.harmony.entity.employee.Employee;
 import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class ScheduleSummary extends AuditEntity {
     @OrderBy("workDate asc, types asc")
     private List<ScheduleRecord> scheduleRecords;
 
+    @NotNull
     private LocalDate scheduleDate;
 
 	public ScheduleSummary(Employee employee, String scheduleDate) {

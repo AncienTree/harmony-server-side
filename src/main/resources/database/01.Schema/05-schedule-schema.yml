@@ -1,0 +1,271 @@
+databaseChangeLog:
+  -  preConditions:
+       runningAs:
+         username:  testapi
+
+# Absence record
+  -  changeSet:
+       id:  5-sched-1
+       author:  mdabek
+       changes:
+         - sql:
+               sql: CREATE SCHEMA schedule
+         - createSequence:
+               cacheSize: 1
+               cycle: null
+               incrementBy: 1
+               ordered: true
+               schemaName: schedule
+               sequenceName: absence_record_seq
+               startValue: 1
+               minValue: 1
+               maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  absence_record
+              schemaName: schedule
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  employee_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  work_date
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  status
+                     type:  varchar(40)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  text
+                     type:  varchar(255)
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # Schedule
+  -  changeSet:
+       id:  5-sched-2
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: schedule
+             sequenceName: schedule_id_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  schedule
+              schemaName: schedule
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  schedule_date
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  active
+                     type:  boolean
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  visible
+                     type:  boolean
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # Schedule mapping
+  -  changeSet:
+       id:  5-sched-3
+       author:  mdabek
+       changes:
+         -  createTable:
+              tableName:  schedule_mapping
+              schemaName: schedule
+              columns:
+                -  column:
+                     name:  schedule_summary_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  schedule_record_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+
+  # Schedule record
+  -  changeSet:
+       id:  5-sched-4
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: schedule
+             sequenceName: schedule_record_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  schedule_record
+              schemaName: schedule
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  employee_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  work_date
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  start_work
+                     type:  time
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  end_work
+                     type:  time
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  status
+                     type:  varchar(10)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  types
+                     type:  varchar(30)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # Schedule summary record
+  -  changeSet:
+       id:  5-sched-5
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: schedule
+             sequenceName: schedule_summary_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  schedule_summary
+              schemaName: schedule
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  employee_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  schedule_date
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP

@@ -26,7 +26,7 @@ public class DayOff extends AuditEntity {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="dayoff_sqe")
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "date_off")
     @NotNull
     private LocalDate date;
 

@@ -1,0 +1,59 @@
+databaseChangeLog:
+  -  preConditions:
+       runningAs:
+         username:  testapi
+
+# Messages
+  -  changeSet:
+       id:  3-mesg-1
+       author:  mdabek
+       changes:
+         - sql:
+               sql: CREATE SCHEMA messages
+         - createSequence:
+               cacheSize: 1
+               cycle: null
+               incrementBy: 1
+               ordered: true
+               schemaName: messages
+               sequenceName: messages_seq
+               startValue: 1
+               minValue: 1
+               maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  messages
+              schemaName: messages
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  text
+                     type:  varchar(255)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  expired
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP

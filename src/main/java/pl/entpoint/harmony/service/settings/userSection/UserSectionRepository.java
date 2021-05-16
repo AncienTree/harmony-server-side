@@ -16,6 +16,6 @@ import pl.entpoint.harmony.entity.settings.UserSection;
 
 @Repository
 public interface UserSectionRepository extends JpaRepository<UserSection, Long>{
-	UserSection findByLiderAndExpiredGreaterThanEqual(String name, LocalDate date);
+	UserSection findByLeaderAndExpiredGreaterThanEqual(String name, LocalDate date);
 	List<UserSection> findByExpiredGreaterThanEqual(LocalDate date);
 }

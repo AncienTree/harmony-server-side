@@ -1,0 +1,140 @@
+databaseChangeLog:
+  -  preConditions:
+       runningAs:
+         username:  testapi
+
+# Availability
+  -  changeSet:
+       id:  2-ava-1
+       author:  mdabek
+       changes:
+         - sql:
+               sql: CREATE SCHEMA availability
+         - createSequence:
+               cacheSize: 1
+               cycle: null
+               incrementBy: 1
+               ordered: true
+               schemaName: availability
+               sequenceName: availability_seq
+               startValue: 1
+               minValue: 1
+               maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  availability
+              schemaName: availability
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  availability_date
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  active
+                     type:  boolean
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # Availability Mapping
+  -  changeSet:
+       id:  2-ava-2
+       author:  mdabek
+       changes:
+         -  createTable:
+              tableName:  availability_mapping
+              schemaName: availability
+              columns:
+                -  column:
+                     name:  availability_summary_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  schedule_record_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+
+  # Availability summary
+  -  changeSet:
+       id:  2-ava-3
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: availability
+             sequenceName: availability_summary_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  availability_summary
+              schemaName: availability
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  employee_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  availability_date
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  accepted_by
+                     type:  varchar(50)
+                -  column:
+                     name:  status
+                     type:  varchar(35)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP

@@ -1,0 +1,321 @@
+databaseChangeLog:
+  -  preConditions:
+       runningAs:
+         username:  testapi
+
+# Contract type
+  -  changeSet:
+       id:  6-sett-1
+       author:  mdabek
+       changes:
+         - sql:
+               sql: CREATE SCHEMA settings
+         - createSequence:
+               cacheSize: 1
+               cycle: null
+               incrementBy: 1
+               ordered: true
+               schemaName: settings
+               sequenceName: contract_type_seq
+               startValue: 1
+               minValue: 1
+               maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  contract_type
+              schemaName: settings
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  name
+                     type:  varchar(100)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+ # Day off
+  -  changeSet:
+       id:  6-sett-2
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: settings
+             sequenceName: dayoff_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  dayoff
+              schemaName: settings
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  date_off
+                     type:  date
+                     constraints:
+                       nullable: false
+                       unique: true
+                -  column:
+                     name:  info
+                     type:  varchar(255)
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # Month hours
+  -  changeSet:
+       id:  6-sett-3
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: settings
+             sequenceName: month_hours_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  month_hours
+              schemaName: settings
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  years
+                     type:  varchar(4)
+                     constraints:
+                       nullable: false
+                       unique: true
+                -  column:
+                     name:  january
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  february
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  march
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  april
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  may
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  june
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  july
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  august
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  september
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  october
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  november
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  december
+                     type:  int
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # User line
+  -  changeSet:
+       id:  6-sett-4
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: settings
+             sequenceName: user_line_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  user_line
+              schemaName: settings
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  name
+                     type:  varchar(40)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # User section
+  -  changeSet:
+       id:  6-sett-5
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: settings
+             sequenceName: user_section_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  user_section
+              schemaName: settings
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  name
+                     type:  varchar(40)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  expired
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  leader
+                     type:  varchar(40)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP

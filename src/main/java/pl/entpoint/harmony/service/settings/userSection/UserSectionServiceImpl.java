@@ -26,10 +26,10 @@ public class UserSectionServiceImpl implements UserSectionService {
 	}
 
 	@Override
-	public UserSection getAllActiveLider(String liderName) {
+	public UserSection getAllActiveLeader(String leaderName) {
 		date = LocalDate.now();
 
-		return userSectionRepository.findByLiderAndExpiredGreaterThanEqual(liderName, date);
+		return userSectionRepository.findByLeaderAndExpiredGreaterThanEqual(leaderName, date);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class UserSectionServiceImpl implements UserSectionService {
 	@Override
 	public boolean checkSection(UserSection section) {
 		date = LocalDate.now();
-		Optional<UserSection> userSection = Optional.ofNullable(userSectionRepository.findByLiderAndExpiredGreaterThanEqual(
-				section.getLider(), date));
+		Optional<UserSection> userSection = Optional.ofNullable(userSectionRepository.findByLeaderAndExpiredGreaterThanEqual(
+				section.getLeader(), date));
 
 		return userSection.isPresent();
 	}
@@ -71,7 +71,7 @@ public class UserSectionServiceImpl implements UserSectionService {
 		
 		userSection.setName(section.getName());
 		userSection.setExpired(section.getExpired());
-		userSection.setLider(section.getLider());
+		userSection.setLeader(section.getLider());
 		
 		userSectionRepository.save(userSection);
 	}

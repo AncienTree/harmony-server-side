@@ -1,0 +1,72 @@
+databaseChangeLog:
+  -  preConditions:
+       runningAs:
+         username:  testapi
+
+# Contract type
+  -  changeSet:
+       id:  6-sett-1
+       author:  mdabek
+       changes:
+         - sql:
+               sql: CREATE SCHEMA users
+         - createSequence:
+               cacheSize: 1
+               cycle: null
+               incrementBy: 1
+               ordered: true
+               schemaName: users
+               sequenceName: users_seq
+               startValue: 1
+               minValue: 1
+               maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  users
+              schemaName: users
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  login
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  password
+                     type:  varchar(68)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  status
+                     type:  boolean
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  role
+                     type:  varchar(60)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  employee_id
+                     type:  bigint
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP

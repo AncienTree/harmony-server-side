@@ -34,7 +34,7 @@ public abstract class AuditEntity {
     private Instant createdDate;
 	
     @LastModifiedDate
-    @Column(name = "last_modified_date",nullable = false)
+    @Column(name = "last_modified_date")
     private Instant lastModifiedDate;
     
     @CreatedBy
@@ -42,7 +42,7 @@ public abstract class AuditEntity {
     private String createdBy;
     
     @LastModifiedBy
-    @Column(name = "last_modified_by", nullable = false)
+    @Column(name = "last_modified_by")
     private String lastModifiedBy;
 
 }

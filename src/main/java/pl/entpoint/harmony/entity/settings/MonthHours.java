@@ -24,7 +24,7 @@ public class MonthHours extends AuditEntity {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="month_hours_sqe")
     private int id;
 
-    @Column(unique = true)
+    @Column(unique = true, name = "years")
     @NotNull
     @Size(max = 4)
     private String year;

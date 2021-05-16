@@ -51,7 +51,7 @@ public class UserSectionController {
 	@ApiOperation(value = "Get section by name.", nickname = "Get section by name.")
 	@ApiImplicitParam(name = "name", value = "Section name", required = true, dataType = "String", paramType = "path")
 	public UserSection getSections(@PathVariable String name) {
-		return userSectionService.getAllActiveLider(name);
+		return userSectionService.getAllActiveLeader(name);
 	}
 	
 	@PostMapping("/")

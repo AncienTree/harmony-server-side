@@ -1,0 +1,135 @@
+databaseChangeLog:
+  -  preConditions:
+       runningAs:
+         username:  testapi
+
+# Leave planer
+  -  changeSet:
+       id:  4-plan-1
+       author:  mdabek
+       changes:
+         - sql:
+               sql: CREATE SCHEMA planer
+         - createSequence:
+               cacheSize: 1
+               cycle: null
+               incrementBy: 1
+               ordered: true
+               schemaName: planer
+               sequenceName: leave_planer_seq
+               startValue: 1
+               minValue: 1
+               maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  leave_planer
+              schemaName: planer
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  planer_date
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  active
+                     type:  boolean
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP
+
+  # Leave planer mapping
+  -  changeSet:
+       id:  4-plan-2
+       author:  mdabek
+       changes:
+         -  createTable:
+              tableName:  leave_planer_mapping
+              schemaName: planer
+              columns:
+                -  column:
+                     name:  leave_planer_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  schedule_record_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+
+  # Leave planer summary
+  -  changeSet:
+       id:  4-plan-3
+       author:  mdabek
+       changes:
+         - createSequence:
+             cacheSize: 1
+             cycle: null
+             incrementBy: 1
+             ordered: true
+             schemaName: planer
+             sequenceName: leave_planer_summary_seq
+             startValue: 1
+             minValue: 1
+             maxValue: 9223372036854775807
+         -  createTable:
+              tableName:  leave_planer_summary
+              schemaName: planer
+              columns:
+                -  column:
+                     name:  id
+                     type:  bigint
+                     autoIncrement:  true
+                     constraints:
+                       primaryKey:  true
+                       nullable:  false
+                -  column:
+                     name:  employee_id
+                     type:  bigint
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  planer_year
+                     type:  date
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  accepted_by
+                     type:  varchar(50)
+                -  column:
+                     name:  created_by
+                     type:  varchar(50)
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  created_date
+                     type:  TIMESTAMP
+                     constraints:
+                       nullable: false
+                -  column:
+                     name:  last_modified_by
+                     type:  varchar(50)
+                -  column:
+                     name:  last_modified_date
+                     type:  TIMESTAMP

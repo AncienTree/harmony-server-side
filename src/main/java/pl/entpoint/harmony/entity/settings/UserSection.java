@@ -34,13 +34,12 @@ public class UserSection extends AuditEntity {
     @NotNull
     private LocalDate expired;
 
-    @Column(name = "lider")
     @NotNull
-    private String lider;
+    private String leader;
 
     public UserSection(SectionsPojo section) {
         this.name = section.getName();
         this.expired = section.getExpired();
-        this.lider = section.getLider();
+        this.leader = section.getLider();
     }
 }
