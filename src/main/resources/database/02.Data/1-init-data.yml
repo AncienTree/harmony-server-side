@@ -1,0 +1,100 @@
+databaseChangeLog:
+  -  preConditions:
+       runningAs:
+         username:  testapi
+
+# Insert admin
+  -  changeSet:
+       id:  99-data-user
+       author:  mdabek
+       changes:
+         - insert:
+             catalogName: user
+             columns:
+               - column:
+                     name: id
+                     value: 1
+               - column:
+                   name: login
+                   value: administrator
+               - column:
+                   name: password
+                   value: $2a$10$ZOQ28kObvMWTnkEiRIDL/uDi53G767uoohFckTP9OY0Tr/0sD29pi
+               - column:
+                   name: status
+                   value: true
+               - column:
+                   name: role
+                   value: ROLE_ADMIN
+               - column:
+                   name: employee_id
+                   value: null
+               - column:
+                   name: created_by
+                   value: system
+               - column:
+                   name: created_date
+                   value: now()
+             dbms: 'h2'
+             schemaName: users
+             tableName: users
+
+  # Month hours
+  -  changeSet:
+       id:  99-data-mh
+       author:  mdabek
+       changes:
+         - insert:
+             catalogName: setting
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: years
+                   value: 2021
+               - column:
+                   name: january
+                   value: 152
+               - column:
+                   name: february
+                   value: 160
+               - column:
+                   name: march
+                   value: 184
+               - column:
+                   name: april
+                   value: 168
+               - column:
+                   name: may
+                   value: 152
+               - column:
+                   name: june
+                   value: 168
+               - column:
+                   name: july
+                   value: 176
+               - column:
+                   name: august
+                   value: 176
+               - column:
+                   name: september
+                   value: 176
+               - column:
+                   name: october
+                   value: 168
+               - column:
+                   name: november
+                   value: 160
+               - column:
+                   name: december
+                   value: 176
+               - column:
+                   name: created_by
+                   value: system
+               - column:
+                   name: created_date
+                   value: now()
+             dbms: 'h2'
+             schemaName: settings
+             tableName: month_hours
