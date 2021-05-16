@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.EmployeeLeave;
 import pl.entpoint.harmony.entity.pojo.controller.LeavePojo;
 
-import java.util.Map;
-
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020
@@ -33,7 +31,7 @@ public class EmployeeLeaveController {
         return employeeLeaveService.getEmployeeLeave(id);
     }
 
-    @PatchMapping("/")
+    @PutMapping("/")
     @ApiOperation(value = "Change employee leaves.", nickname = "Change employee leaves.")
     public ResponseEntity<String> saveChange(@RequestBody LeavePojo employeeLeave){
         employeeLeaveService.change(employeeLeave);

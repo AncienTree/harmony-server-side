@@ -6,8 +6,6 @@ import pl.entpoint.harmony.entity.employee.EmployeeInfo;
 import pl.entpoint.harmony.entity.pojo.controller.InfoPojo;
 import pl.entpoint.harmony.util.exception.employee.EmployeeNotFoundException;
 
-import java.util.Optional;
-
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020

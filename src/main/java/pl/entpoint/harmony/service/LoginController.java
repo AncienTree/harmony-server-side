@@ -20,7 +20,7 @@ public class LoginController {
 
     @PostMapping("/login")
     @ApiOperation(value = "Log in to the system.", nickname = "Log in to the system.")
-    @ApiImplicitParam(name = "credentials", value = "Log in credentials", required = true, dataType = "LoginCredentials", paramType = "body")
+    @ApiImplicitParam(name = "credentials", value = "Login credentials", required = true, dataType = "LoginCredentials", paramType = "body")
     public void login(@RequestBody LoginCredentials credentials) {
     }
 }

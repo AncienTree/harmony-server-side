@@ -1,13 +1,17 @@
 package pl.entpoint.harmony.util.exception.schedule;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
  * @author Mateusz Dąbek
  * @created 12/05/2020
  */
-public class ScheduleNotFoundException extends RuntimeException{
 
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Schedule Not Found.")
+public class ScheduleNotFoundException extends RuntimeException{
     public ScheduleNotFoundException(Long id) {
-        super("Nie znaleziono grafiku pod ID - " + id);
+        super(String.format("Nie znaleziono grafiku pod ID - %d", id));
     }
 
     public ScheduleNotFoundException() {

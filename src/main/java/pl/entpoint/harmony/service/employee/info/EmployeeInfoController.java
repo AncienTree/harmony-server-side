@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.entpoint.harmony.entity.employee.EmployeeInfo;
 import pl.entpoint.harmony.entity.pojo.controller.InfoPojo;
 
-import java.util.Map;
-
 /**
  * @author Mateusz Dąbek
  * @created 14/05/2020
@@ -33,7 +31,7 @@ public class EmployeeInfoController {
         return employeeInfoService.getEmployeeInfo(id);
     }
 
-    @PatchMapping("/")
+    @PutMapping("/")
     @ApiOperation(value = "Change employee information.", nickname = "Change employee information.")
     public ResponseEntity<String> saveChange(@RequestBody InfoPojo employeeInfo){
         employeeInfoService.change(employeeInfo);

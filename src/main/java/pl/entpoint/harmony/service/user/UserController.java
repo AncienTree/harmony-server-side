@@ -1,5 +1,6 @@
 package pl.entpoint.harmony.service.user;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import io.swagger.annotations.Api;
@@ -9,13 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.entpoint.harmony.entity.pojo.controller.UserPojo;
@@ -53,7 +48,7 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @PatchMapping("/users/{id}/status")
+    @PostMapping("/users/{id}/status")
     @ApiOperation(value = "Update user status by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "User id", required = true, dataType = "long", paramType = "path", defaultValue = "1"),
@@ -62,10 +57,10 @@ public class UserController {
     public ResponseEntity<String> updateStatus(@RequestBody boolean status, @PathVariable Long id) {
         userService.changeStatus(id, status);
         log.info("Zmiana statusu dla id: " + id + " na status: " + status);
-        return new ResponseEntity<>("Zmiana statusu dla id: \" + id + \" na status: \" + status", HttpStatus.OK);
+        return new ResponseEntity<>(String.format("Zmiana statusu dla id: %d na status: %s", id, status), HttpStatus.OK);
     }
 
-    @PatchMapping("/users/change")
+    @PutMapping("/users/change")
     @ApiOperation(value = "Change user settings")
     @ApiImplicitParam(name = "user", value = "User", required = true, dataType = "UserPojo", paramType = "body")
     public ResponseEntity<String> update(@RequestBody UserPojo user) {
@@ -77,8 +72,8 @@ public class UserController {
         theUser.setRole(user.getRole());
 
         userService.createUser(theUser);
-        log.info("Zmiana statusu loginu: " + theUser.getLogin() + " na status: " + theUser.isStatus());
+        log.info(String.format("Zmiana statusu loginu: %s na status: %s", theUser.getLogin(), theUser.isStatus()));
 
-        return new ResponseEntity<>("Zmiana statusu loginu: " + theUser.getLogin() + " na status: " + theUser.isStatus(), HttpStatus.OK);
+        return new ResponseEntity<>(MessageFormat.format("Zmiana statusu loginu: {0} na status: {1}", theUser.getLogin(), theUser.isStatus()), HttpStatus.OK);
     }
 }

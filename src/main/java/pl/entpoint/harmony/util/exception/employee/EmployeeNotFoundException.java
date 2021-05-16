@@ -1,13 +1,18 @@
 package pl.entpoint.harmony.util.exception.employee;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
  * @author Mateusz Dąbek
  * @created 12/05/2020
  */
+
+@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Employee Not Found.")
 public class EmployeeNotFoundException extends RuntimeException {
 
     public EmployeeNotFoundException(Long id) {
-        super("Nie znaleziono użytkownika pod takim id: " + id);
+        super(String.format("Nie znaleziono użytkownika pod takim id: %d", id));
     }
 
     public EmployeeNotFoundException() {
@@ -15,6 +20,6 @@ public class EmployeeNotFoundException extends RuntimeException {
     }
     
     public EmployeeNotFoundException(String login) {
-        super("Nie znaleziono użytkownika pod takim loginem: " + login);
+        super(String.format("Nie znaleziono użytkownika pod takim loginem: %s", login));
     }
 }

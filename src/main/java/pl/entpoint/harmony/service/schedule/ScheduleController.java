@@ -55,10 +55,10 @@ public class ScheduleController {
 		return scheduleService.getSchedules();
 	}
 
-	@PatchMapping("/")
+	@PutMapping("/")
 	@ApiOperation(value = "Update schedule.", nickname = "Update schedule.")
 	@ApiImplicitParam(name = "schedule", value = "Schedule body", required = true, dataType = "SchedulePojo", paramType = "body")
-	public ResponseEntity<String> changestatus(@RequestBody SchedulePojo schedule) {
+	public ResponseEntity<String> changeStatus(@RequestBody SchedulePojo schedule) {
 		log.info("Zmiana statusu grafiku");
 		log.debug(schedule.toString());
 		if (schedule.isActive() && !schedule.isVisible()) {
@@ -66,7 +66,7 @@ public class ScheduleController {
 			return new ResponseEntity<>("Grafik nie może być ustawiony jako niewidoczny i jednocześnie aktywny.", HttpStatus.BAD_REQUEST);
 		}
 
-		log.info("Wysłanie do serwisu zmiane grafiku");
+		log.info("Wysłanie do serwisu zmianę grafiku");
 		scheduleService.changeStatus(schedule.getId(), schedule.isActive(), schedule.isVisible());
 		return new ResponseEntity<>("Zmiana grafiku została zapisana", HttpStatus.OK);
 	}
@@ -81,6 +81,6 @@ public class ScheduleController {
 
 		scheduleSummaryService.massCreate(LocalDate.parse(date), employees);
 
-		return new ResponseEntity<>("Utworzono nowy harmonogram dla daty " + date, HttpStatus.CREATED);
+		return new ResponseEntity<>(String.format("Utworzono nowy harmonogram dla daty %s", date), HttpStatus.CREATED);
 	}
 }

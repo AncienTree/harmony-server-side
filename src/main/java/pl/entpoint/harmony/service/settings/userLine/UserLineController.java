@@ -8,15 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import pl.entpoint.harmony.entity.pojo.controller.LinesPojo;
 import pl.entpoint.harmony.entity.settings.UserLine;
@@ -57,12 +49,12 @@ public class UserLineController {
         return new ResponseEntity<>("Dodano nową linię.", HttpStatus.CREATED);
 	}
 	
-	@PatchMapping("/")
+	@PutMapping("/")
 	@ApiOperation(value = "Update line.", nickname = "Update line.")
 	@ApiImplicitParam(name = "line", value = "Line body", required = true, dataType = "LinesPojo", paramType = "body")
 	public ResponseEntity<String> update(@RequestBody LinesPojo line) {
 		userLineService.change(line);
-        return new ResponseEntity<>("Zmieniono nazwę lini", HttpStatus.OK);
+        return new ResponseEntity<>("Zmieniono nazwę linii", HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")

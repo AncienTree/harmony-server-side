@@ -3,7 +3,6 @@ package pl.entpoint.harmony.service.employee;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -114,7 +113,7 @@ public class EmployeeController {
         return new ResponseEntity<>("Użytkownik został przywrócony", HttpStatus.OK);
     }
 
-    @PatchMapping("/")
+    @PutMapping("/")
     @ApiOperation(value = "Change employee.", nickname = "Change employee.")
     @ApiImplicitParam(name = "employee", value = "Employee body", required = true, dataType = "EmployeePojo", paramType = "body")
     public ResponseEntity<String> saveChange(@RequestBody EmployeePojo employee){

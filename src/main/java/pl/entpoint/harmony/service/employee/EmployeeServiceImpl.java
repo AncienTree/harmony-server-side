@@ -77,9 +77,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employees = employeeRepository.findByPositionAndWorkStatusNotOrderByLastName(position, WorkStatus.NOT_WORK);
         List<SimpleEmployee> simpleEmployees = new ArrayList<>();
 
-        for (Employee employee: employees) {
-            simpleEmployees.add(new SimpleEmployee(employee));
-        }
+        employees.forEach(
+                e -> simpleEmployees.add(new SimpleEmployee(e)));
         return simpleEmployees;
     }
 
@@ -113,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // Zmiany
         employee.setEmail(employeePojo.getEmail());
-        employee.setEtat(employeePojo.getEtat());
+        employee.setFullTime(employeePojo.getEtat());
         employee.setPosition(employeePojo.getPosition());
         employee.setContractPosition(employeePojo.getContractPosition());
         employee.setContractType(employeePojo.getContractType());

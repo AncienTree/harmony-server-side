@@ -32,7 +32,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     private MonthHoursService monthHoursService;
 
-     @Override
+    @Override
     public Schedule getScheduleByDate(LocalDate date) {
         Schedule schedule = scheduleRepository.findByScheduleDate(date);
         schedule.setRbh(addMonthHours(schedule));
@@ -44,10 +44,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<Schedule> getActiveSchedules() {
         List<Schedule> schedules = scheduleRepository.findAllActive();
 
-        for (Schedule schedule: schedules) {
-            schedule.setRbh(addMonthHours(schedule));
-            schedule.setDayOffs(addDayOff(schedule));
-        }
+        schedules.forEach(s -> {
+            s.setRbh(addMonthHours(s));
+            s.setDayOffs(addDayOff(s));
+        });
         return schedules;
     }
     
@@ -64,7 +64,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 		}
 
         Collections.sort(returnSchedules);
-
         return returnSchedules;
     }
 

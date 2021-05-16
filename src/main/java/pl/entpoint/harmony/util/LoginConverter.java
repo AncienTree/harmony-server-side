@@ -14,7 +14,7 @@ public class LoginConverter {
         String ls = replacePolishChar(lastName).toLowerCase().trim();
         ls = twoPartLastNameCheck(ls);
 
-        return ls + "_" + fn.substring(0, 1);
+        return ls + "_" + fn.charAt(0);
     }
 
     private static String replacePolishChar(String text) {

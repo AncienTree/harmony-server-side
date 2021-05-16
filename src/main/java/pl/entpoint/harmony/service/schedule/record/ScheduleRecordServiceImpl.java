@@ -98,8 +98,6 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 
         scheduleRecordRepository.save(updatedRecord);
     }
-    
-    
 
     @Override
 	public int getCurrentMonthStatus(Employee employee, String type, LocalDate date) {
@@ -144,7 +142,7 @@ public class ScheduleRecordServiceImpl implements ScheduleRecordService {
 	
     @Override
 	public void acceptAbsence(AbsenceRecord recordAccepted) {
-    	ScheduleRecord record = null;
+    	ScheduleRecord record;
     	Optional<ScheduleRecord> opt = Optional.ofNullable(scheduleRecordRepository
     			.findByWorkDateAndEmployeeAndTypes(recordAccepted.getWorkDate(), recordAccepted.getEmployee(), ScheduleType.OBECNOSC));
     	if(opt.isPresent()) {

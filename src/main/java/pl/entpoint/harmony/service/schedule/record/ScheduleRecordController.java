@@ -61,7 +61,7 @@ public class ScheduleRecordController {
         return new ResponseEntity<>("Utworzono rekord", HttpStatus.CREATED);
     }
 
-    @PatchMapping("/")
+    @PutMapping("/")
     @ApiOperation(value = "Update schedule record.", nickname = "Update schedule record.")
     @ApiImplicitParam(name = "scheduleRecord", value = "Record body", required = true, dataType = "Record", paramType = "path")
     public ResponseEntity<String> updateRecord(@RequestBody Record scheduleRecord) {

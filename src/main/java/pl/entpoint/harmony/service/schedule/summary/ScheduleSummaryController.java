@@ -14,7 +14,7 @@ import pl.entpoint.harmony.entity.pojo.SimpleEmployee;
 import pl.entpoint.harmony.entity.pojo.SimpleSchedule;
 import pl.entpoint.harmony.entity.schedule.ScheduleSummary;
 import pl.entpoint.harmony.service.employee.EmployeeService;
-import pl.entpoint.harmony.util.ScheduleSummaryConventer;
+import pl.entpoint.harmony.util.ScheduleSummaryConverter;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -58,7 +58,7 @@ public class ScheduleSummaryController {
         for (ScheduleSummary scheduleSummary: summary) {
             scheduleSummary.setSimpleEmployee(new SimpleEmployee(scheduleSummary.getEmployee()));
         }
-        return ScheduleSummaryConventer.convert(summary);
+        return ScheduleSummaryConverter.convert(summary);
     }
     
     @GetMapping("/date/{date}/my")
@@ -79,7 +79,7 @@ public class ScheduleSummaryController {
     public List<ScheduleSummary> getScheduleByDateAndStatus(@PathVariable String date, @PathVariable String status) {
         List<ScheduleSummary> summary = scheduleSummaryService.getScheduleByDate(LocalDate.parse(date));
 
-        // Filtorwanie rekordów po danym statusie
+        // Filtrowanie rekordów po danym statusie
         summary.forEach(p -> p.getScheduleRecords().removeIf(g -> g.getTypes().checkValue(status)));
 
         // Przypisanie SimpleEmployee do każdego grafiku z listy
@@ -119,7 +119,7 @@ public class ScheduleSummaryController {
             Employee employee = employeeService.getEmployeeNotDecrypted(ids);
             scheduleSummaryService.create(localDate, employee);
         }
-        return new ResponseEntity<>("Utworzono grafik dla " + id.length + " pracowników",
+        return new ResponseEntity<>(String.format("Utworzono grafik dla %d pracowników", id.length),
                 HttpStatus.CREATED);
     }
 }

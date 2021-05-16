@@ -27,12 +27,13 @@ public class HrTable {
     @Column(name = "full_name")
     private String fullName;
 
+    @Column(name = "current_position")
     private String position;
     
     @Column(name = "lt_login")
     private String ltLogin;
     
-    private String etat;
+    private String full_time;
 
     @Column(name = "user_section")
     private String userSection;

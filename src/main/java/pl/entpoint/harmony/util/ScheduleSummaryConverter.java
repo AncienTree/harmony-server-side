@@ -13,9 +13,9 @@ import java.util.stream.Collectors;
  * @author Mateusz Dąbek
  * @created 30.11.2020
  */
-public class ScheduleSummaryConventer {
+public class ScheduleSummaryConverter {
 
-    private ScheduleSummaryConventer() {
+    private ScheduleSummaryConverter() {
     }
 
     public static List<SimpleSchedule> convert(List<ScheduleSummary> summaryList) {
@@ -25,8 +25,8 @@ public class ScheduleSummaryConventer {
         }
 
         // Sortowanie po nazwisku
-        summaryList.sort(new Comparator<ScheduleSummary>() {
-            private Collator c = Collator.getInstance(new Locale("pl", "PL"));
+        summaryList.sort(new Comparator<>() {
+            private final Collator c = Collator.getInstance(new Locale("pl", "PL"));
 
             @Override
             public int compare(ScheduleSummary o1, ScheduleSummary o2) {
@@ -43,7 +43,7 @@ public class ScheduleSummaryConventer {
                     extractRecordsByType(ScheduleType.DZWONIENIE, summary.getScheduleRecords())));
             simpleSchedules.add(new SimpleSchedule(summary.getSimpleEmployee(), ScheduleType.GRAFIK,
                     extractRecordsByType(ScheduleType.GRAFIK, summary.getScheduleRecords())));
-            // TODO dodać w ustawieniach opcje wyłaczenia dla innych projektów statusu Jitsi
+            // TODO dodać w ustawieniach opcje wyłączenia dla innych projektów statusu Jitsi
             simpleSchedules.add(new SimpleSchedule(summary.getSimpleEmployee(), ScheduleType.JITSI,
                     extractRecordsByType(ScheduleType.JITSI, summary.getScheduleRecords())));
             simpleSchedules.add(new SimpleSchedule(summary.getSimpleEmployee(), ScheduleType.OBECNOSC,
