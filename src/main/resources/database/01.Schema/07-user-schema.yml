@@ -3,7 +3,7 @@ databaseChangeLog:
        runningAs:
          username:  testapi
 
-# Contract type
+# User
   -  changeSet:
        id:  6-sett-1
        author:  mdabek
@@ -17,7 +17,7 @@ databaseChangeLog:
                ordered: true
                schemaName: users
                sequenceName: users_seq
-               startValue: 1
+               startValue: 3
                minValue: 1
                maxValue: 9223372036854775807
          -  createTable:

@@ -316,7 +316,7 @@ databaseChangeLog:
                    type: varchar(50)
                - column:
                    name: pesel
-                   type: varchar(11)
+                   type: varchar(35)
                - column:
                    name: sex
                    type: varchar(1)
